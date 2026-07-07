@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Chito-Ryu International — Wireframes (Low-Fi)</title>
+    <style>
+      :root {
+        --line: #8a8a8a;
+        --line-dark: #333;
+        --bg: #fafafa;
+        --panel: #fff;
+        --muted: #bdbdbd;
+        --muted-text: #777;
+        --accent: #333;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: var(--bg);
+        color: #222;
+      }
+      header.top {
+        padding: 20px 24px;
+        border-bottom: 2px solid var(--line-dark);
+        background: #fff;
+      }
+      header.top h1 {
+        margin: 0 0 4px;
+        font-size: 18px;
+      }
+      header.top p {
+        margin: 0;
+        font-size: 12px;
+        color: var(--muted-text);
+      }
+      nav.tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0;
+        border-bottom: 1px solid var(--line);
+        background: #fff;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+      nav.tabs button {
+        padding: 10px 14px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font-size: 12px;
+        border-right: 1px solid #eee;
+        color: #444;
+      }
+      nav.tabs button.active {
+        background: var(--line-dark);
+        color: #fff;
+      }
+      main {
+        padding: 24px;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      .frame {
+        display: none;
+      }
+      .frame.active {
+        display: block;
+      }
+      .device {
+        border: 2px solid var(--line-dark);
+        background: var(--panel);
+        padding: 0;
+        margin-bottom: 16px;
+      }
+      .label {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted-text);
+        margin: 0 0 6px;
+      }
+      .box {
+        border: 1.5px dashed var(--line);
+        padding: 10px;
+        margin-bottom: 8px;
+        font-size: 12px;
+        color: #555;
+      }
+      .box.solid {
+        border-style: solid;
+      }
+      .row {
+        display: flex;
+        gap: 8px;
+      }
+      .col {
+        flex: 1;
+      }
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1.5px solid var(--line-dark);
+        padding: 12px 16px;
+        font-size: 12px;
+      }
+      .navbar .links {
+        display: flex;
+        gap: 14px;
+        color: #555;
+      }
+      .navbar .logo {
+        font-weight: bold;
+        border: 1.5px solid var(--line-dark);
+        padding: 2px 8px;
+      }
+      .footer {
+        border-top: 1.5px solid var(--line-dark);
+        padding: 14px 16px;
+        font-size: 11px;
+        color: var(--muted-text);
+        display: flex;
+        justify-content: space-between;
+      }
+      .hero {
+        padding: 40px 16px;
+        text-align: center;
+        border-bottom: 1.5px dashed var(--line);
+      }
+      .hero .headline {
+        height: 22px;
+        width: 60%;
+        background: var(--muted);
+        margin: 0 auto 10px;
+      }
+      .hero .sub {
+        height: 12px;
+        width: 40%;
+        background: #e2e2e2;
+        margin: 0 auto 18px;
+      }
+      .btn {
+        display: inline-block;
+        border: 1.5px solid var(--line-dark);
+        padding: 8px 18px;
+        font-size: 12px;
+      }
+      .card {
+        border: 1.5px solid var(--line);
+        padding: 10px;
+        font-size: 11px;
+      }
+      .imgx {
+        border: 1.5px solid var(--line);
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--muted);
+        font-size: 20px;
+        margin-bottom: 6px;
+        background: repeating-linear-gradient(45deg, #f2f2f2, #f2f2f2 8px, #fff 8px, #fff 16px);
+      }
+      .grid3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 10px;
+        padding: 16px;
+      }
+      .grid2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        padding: 16px;
+      }
+      .section-title {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--muted-text);
+        padding: 14px 16px 0;
+      }
+      .badge {
+        font-size: 9px;
+        border: 1px solid var(--line-dark);
+        padding: 1px 6px;
+      }
+      .sidebar {
+        width: 130px;
+        border-right: 1.5px solid var(--line-dark);
+        padding: 12px;
+        font-size: 11px;
+      }
+      .admin-shell {
+        display: flex;
+      }
+      .admin-main {
+        flex: 1;
+        padding: 14px;
+      }
+      table.wf {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 11px;
+      }
+      table.wf th,
+      table.wf td {
+        border: 1px solid var(--line);
+        padding: 6px 8px;
+        text-align: left;
+      }
+      table.wf th {
+        background: #f0f0f0;
+      }
+      .status {
+        font-size: 9px;
+        border: 1px solid;
+        padding: 1px 6px;
+        display: inline-block;
+      }
+      .status.pending {
+        border-color: #999;
+      }
+      .status.approved {
+        border-color: #333;
+      }
+      .status.rejected {
+        border-color: #999;
+        text-decoration: line-through;
+      }
+      .center-card {
+        max-width: 340px;
+        margin: 40px auto;
+        border: 1.5px solid var(--line-dark);
+        padding: 24px;
+      }
+      .field {
+        height: 26px;
+        border: 1px solid var(--line);
+        margin-bottom: 10px;
+      }
+      .note {
+        font-size: 11px;
+        color: var(--muted-text);
+        margin-top: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <h1>Chito-Ryu International — Wireframes (Low-Fidelity)</h1>
+      <p>
+        chitoryukaratedo.com · For UI/UX review by Gil · Content and copy are placeholders, layout
+        intent only
+      </p>
+    </header>
+
+    <nav class="tabs" id="tabs"></nav>
+
+    <main id="frames"></main>
+
+    <script>
+      const pages = [
+        { id: "home", label: "Home", build: renderHome },
+        { id: "directory", label: "Dojo Directory", build: renderDirectory },
+        { id: "country", label: "Country Page", build: renderCountry },
+        { id: "dojo", label: "Dojo Detail", build: renderDojoDetail },
+        { id: "teachers", label: "Teacher Registry", build: renderTeachers },
+        { id: "teacherDetail", label: "Teacher Detail", build: renderTeacherDetail },
+        { id: "news", label: "News / Events", build: renderNews },
+        { id: "login", label: "Login", build: renderLogin },
+        { id: "admin", label: "Admin Dashboard", build: renderAdmin },
+        { id: "approvals", label: "Approval Queue", build: renderApprovals },
+      ];
+
+      const tabsEl = document.getElementById("tabs");
+      const framesEl = document.getElementById("frames");
+
+      pages.forEach((p, i) => {
+        const btn = document.createElement("button");
+        btn.textContent = p.label;
+        btn.dataset.target = p.id;
+        if (i === 0) btn.classList.add("active");
+        btn.onclick = () => switchTab(p.id);
+        tabsEl.appendChild(btn);
+
+        const frame = document.createElement("div");
+        frame.className = "frame" + (i === 0 ? " active" : "");
+        frame.id = "frame-" + p.id;
+        frame.innerHTML = p.build();
+        framesEl.appendChild(frame);
+      });
+
+      function switchTab(id) {
+        document
+          .querySelectorAll("nav.tabs button")
+          .forEach((b) => b.classList.toggle("active", b.dataset.target === id));
+        document
+          .querySelectorAll(".frame")
+          .forEach((f) => f.classList.toggle("active", f.id === "frame-" + id));
+      }
+
+      function navbar(active) {
+        const links = [
+          "About",
+          "History",
+          "Leadership",
+          "Dojo Directory",
+          "Teachers",
+          "News",
+          "Events",
+          "Resources",
+          "Contact",
+        ];
+        return `<div class="navbar">
+    <div class="logo">CHITO-RYU</div>
+    <div class="links">${links.map((l) => `<span>${l}</span>`).join("")}</div>
+  </div>`;
+      }
+      function footer() {
+        return `<div class="footer"><span>© Chito-Ryu International — Privacy / Terms</span><span>Admin login →</span></div>`;
+      }
+
+      function renderHome() {
+        return `<p class="label">Route: /  ·  Source: Sanity</p>
+  <div class="device">
+    ${navbar()}
+    <div class="hero">
+      <div class="headline"></div>
+      <div class="sub"></div>
+      <span class="btn">Find a Dojo</span>
+    </div>
+    <p class="section-title">Leadership teaser</p>
+    <div class="row" style="padding:16px;">
+      <div class="col imgx">Photo</div>
+      <div class="col box">Soke lineage summary text block. Link to /leadership.</div>
+    </div>
+    <p class="section-title">Latest news &amp; events</p>
+    <div class="grid3">
+      <div class="card"><div class="imgx" style="height:50px;">img</div>News headline</div>
+      <div class="card"><div class="imgx" style="height:50px;">img</div>News headline</div>
+      <div class="card"><div class="imgx" style="height:50px;">img</div>Upcoming event</div>
+    </div>
+    <p class="section-title">Find a dojo — country quick links</p>
+    <div class="box" style="margin:0 16px 16px;">Country chips / quick search box</div>
+    ${footer()}
+  </div>`;
+      }
+
+      function renderDirectory() {
+        return `<p class="label">Route: /dojo-directory · Source: Supabase (approved only)</p>
+  <div class="device">
+    ${navbar()}
+    <div class="row" style="padding:16px; gap:16px;">
+      <div class="box" style="flex:2;">Search box (dojo name / city)</div>
+      <div class="box" style="flex:1;">Country filter dropdown</div>
+      <div class="box" style="flex:1;">Map / List toggle</div>
+    </div>
+    <p class="section-title">Approved dojos</p>
+    <div class="grid3">
+      ${[1, 2, 3, 4, 5, 6]
+        .map(
+          () => `<div class="card">
+        <div class="imgx" style="height:50px;">img</div>
+        Dojo name <span class="badge">Approved</span><br>City, Country<br>Head instructor
+      </div>`,
+        )
+        .join("")}
+    </div>
+    <div class="box" style="margin:0 16px;">Pagination</div>
+    <p class="note" style="margin:8px 16px 0;">Note for Gil: countries with their own standing federation site (e.g. Canada, USA) route to a federation card + outbound link instead of individual dojo cards — see the "Country Page" tab for both modes.</p>
+    ${footer()}
+  </div>`;
+      }
+
+      function renderCountry() {
+        return `<p class="label">Route: /dojo-directory/[country] · Two render modes based on has_own_federation_site flag</p>
+  <div class="row" style="gap:8px; margin-bottom:8px;">
+    <button onclick="switchCountryMode('linked')" id="cm-linked" class="btn" style="cursor:pointer;">Mode A: Linked federation (Canada, USA)</button>
+    <button onclick="switchCountryMode('hosted')" id="cm-hosted" class="btn" style="cursor:pointer;">Mode B: Hosted directory (no national site)</button>
+  </div>
+
+  <div class="device" id="country-linked">
+    ${navbar()}
+    <div class="box" style="margin:16px;">Breadcrumb: Dojo Directory / [Country Name]</div>
+    <p class="section-title">Official federation for [Country]</p>
+    <div class="row" style="padding:16px; gap:16px;">
+      <div class="col imgx" style="height:100px; max-width:100px;">flag</div>
+      <div class="col">
+        <div class="box solid">[Country] Chito-Ryu Federation Name <span class="badge">ICKF Affiliated</span></div>
+        <div class="box">Country representative / president name, rank</div>
+        <div class="box">Short description — one paragraph, Sanity-editable</div>
+        <span class="btn">Visit official [Country] site →</span>
+      </div>
+    </div>
+    <p class="note" style="padding:0 16px 16px;">No dojo grid hosted here — this country maintains its own member directory. We link out rather than duplicate it.</p>
+    ${footer()}
+  </div>
+
+  <div class="device" id="country-hosted" style="display:none;">
+    ${navbar()}
+    <div class="box" style="margin:16px;">Breadcrumb: Dojo Directory / [Country Name]</div>
+    <p class="section-title">Approved dojos in [Country]</p>
+    <div class="grid2">
+      ${[1, 2, 3, 4]
+        .map(
+          () => `<div class="card">
+        <div class="imgx" style="height:50px;">img</div>
+        Dojo name <span class="badge">Approved</span><br>City · Head instructor · Contact
+      </div>`,
+        )
+        .join("")}
+    </div>
+    ${footer()}
+  </div>`;
+      }
+
+      function switchCountryMode(mode) {
+        document.getElementById("country-linked").style.display =
+          mode === "linked" ? "block" : "none";
+        document.getElementById("country-hosted").style.display =
+          mode === "hosted" ? "block" : "none";
+      }
+
+      function renderDojoDetail() {
+        return `<p class="label">Route: /dojo/[slug] · Source: Supabase · No private/rank-evidence data shown</p>
+  <div class="device">
+    ${navbar()}
+    <div class="row" style="padding:16px; gap:16px;">
+      <div class="col imgx" style="height:160px;">Dojo photo</div>
+      <div class="col">
+        <div class="box solid">Dojo name <span class="badge">Approved</span></div>
+        <div class="box">Address / city / country</div>
+        <div class="box">Head instructor</div>
+        <div class="box">Contact email · website · social links (optional)</div>
+      </div>
+    </div>
+    <p class="section-title">Affiliated teachers</p>
+    <div class="grid3">
+      ${[1, 2].map(() => `<div class="card"><div class="imgx" style="height:44px;">img</div>Teacher name<br>Rank</div>`).join("")}
+    </div>
+    ${footer()}
+  </div>`;
+      }
+
+      function renderTeachers() {
+        return `<p class="label">Route: /teachers · Source: Supabase (approved + rank verified only)</p>
+  <div class="device">
+    ${navbar()}
+    <div class="row" style="padding:16px; gap:16px;">
+      <div class="box" style="flex:2;">Search box (name / romaji)</div>
+      <div class="box" style="flex:1;">Country / dojo filter</div>
+    </div>
+    <div class="grid3">
+      ${[1, 2, 3, 4, 5, 6]
+        .map(
+          () => `<div class="card">
+        <div class="imgx" style="height:50px;">photo</div>
+        Name (native) / Romaji<br>Rank · Dojo · Country
+      </div>`,
+        )
+        .join("")}
+    </div>
+    ${footer()}
+  </div>`;
+      }
+
+      function renderTeacherDetail() {
+        return `<p class="label">Route: /teachers/[slug] · Source: Supabase · Rank/license verified only</p>
+  <div class="device">
+    ${navbar()}
+    <div class="row" style="padding:16px; gap:16px;">
+      <div class="col imgx" style="height:160px;">Photo (if approved)</div>
+      <div class="col">
+        <div class="box solid">名前 (native) / Romaji name <span class="badge">Verified</span></div>
+        <div class="box">Rank / license</div>
+        <div class="box">Dojo · Country</div>
+      </div>
+    </div>
+    ${footer()}
+  </div>`;
+      }
+
+      function renderNews() {
+        return `<p class="label">Route: /news and /events · Source: Sanity</p>
+  <div class="device">
+    ${navbar()}
+    <p class="section-title">News</p>
+    <div class="grid3">
+      ${[1, 2, 3].map(() => `<div class="card"><div class="imgx" style="height:50px;">img</div>Headline<br><span style="color:#999;">date</span></div>`).join("")}
+    </div>
+    <p class="section-title">Events</p>
+    <div class="grid3">
+      ${[1, 2, 3].map(() => `<div class="card"><div class="imgx" style="height:50px;">img</div>Event title<br><span style="color:#999;">date · location</span></div>`).join("")}
+    </div>
+    ${footer()}
+  </div>`;
+      }
+
+      function renderLogin() {
+        return `<p class="label">Route: /login · Not in main nav — footer / direct link only, per approval doc</p>
+  <div class="device">
+    <div class="center-card">
+      <div class="box solid" style="text-align:center;">CHITO-RYU ADMIN</div>
+      <div class="field"></div>
+      <div class="field"></div>
+      <div class="box" style="text-align:center;">MFA prompt (Sohonbu / Country Admin)</div>
+      <span class="btn" style="display:block; text-align:center;">Log in</span>
+      <p class="note">Invite-only. No open signup — matches non-negotiable in build spec.</p>
+    </div>
+  </div>`;
+      }
+
+      function renderAdmin() {
+        return `<p class="label">Route: /admin · Role-aware dashboard</p>
+  <div class="device admin-shell">
+    <div class="sidebar">
+      Dashboard<br>Dojos<br>Teachers<br><b>Approvals</b><br>News<br>Events<br>Resources<br>Users<br>Settings
+    </div>
+    <div class="admin-main">
+      <p class="section-title" style="padding-left:0;">Overview</p>
+      <div class="grid3" style="padding:0 0 10px;">
+        <div class="card">Pending approvals<br><b>—</b></div>
+        <div class="card">Approved this week<br><b>—</b></div>
+        <div class="card">Active admins<br><b>—</b></div>
+      </div>
+      <p class="section-title" style="padding-left:0;">Recent activity (audit log excerpt)</p>
+      <div class="box">Read-only log rows: user · action · record · timestamp</div>
+    </div>
+  </div>`;
+      }
+
+      function renderApprovals() {
+        return `<p class="label">Route: /admin/approvals · Sohonbu Admin approves; Country/Dojo Admin submit only</p>
+  <div class="device admin-shell">
+    <div class="sidebar">Dashboard<br>Dojos<br>Teachers<br><b>Approvals</b><br>News<br>Events<br>Resources<br>Users<br>Settings</div>
+    <div class="admin-main">
+      <table class="wf">
+        <tr><th>Type</th><th>Record</th><th>Submitted by</th><th>Status</th><th>Action</th></tr>
+        <tr><td>Dojo</td><td>—</td><td>Country Admin</td><td><span class="status pending">Pending</span></td><td>Approve / Reject</td></tr>
+        <tr><td>Teacher rank</td><td>—</td><td>Dojo Admin</td><td><span class="status approved">Approved</span></td><td>View log</td></tr>
+        <tr><td>Country</td><td>—</td><td>Sohonbu</td><td><span class="status rejected">Rejected</span></td><td>View log</td></tr>
+      </table>
+      <p class="note">Every row here must produce an audit log entry on decision — append-only, non-editable.</p>
+    </div>
+  </div>`;
+      }
+    </script>
+  </body>
+</html>

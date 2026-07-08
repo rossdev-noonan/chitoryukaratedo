@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 
 import { InviteAdminForm } from "@/components/admin/InviteAdminForm";
+import { UserRow } from "@/components/admin/UserRow";
 import { getAllDojosForAdmin, getAllTeachersForAdmin } from "@/lib/admin-records";
+import { getCurrentUser } from "@/lib/auth";
 import { getCountries } from "@/lib/directory";
 import { getAllUsers } from "@/lib/users";
 
@@ -11,7 +13,8 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminUsersPage() {
-  const [users, countries, dojos, teachers] = await Promise.all([
+  const [currentUser, users, countries, dojos, teachers] = await Promise.all([
+    getCurrentUser(),
     getAllUsers(),
     getCountries(),
     getAllDojosForAdmin(),
@@ -32,15 +35,19 @@ export default async function AdminUsersPage() {
             <th className="py-2">Name</th>
             <th className="py-2">Email</th>
             <th className="py-2">Role</th>
+            <th className="py-2">Actions</th>
           </tr>
         </thead>
         <tbody>
           {users.map((user) => (
-            <tr key={user.id} className="border-border border-b">
-              <td className="py-2">{user.fullName ?? "—"}</td>
-              <td className="py-2">{user.email}</td>
-              <td className="py-2 capitalize">{user.role.replace("_", " ")}</td>
-            </tr>
+            <UserRow
+              key={user.id}
+              user={user}
+              isSelf={user.id === currentUser?.id}
+              countries={countries}
+              dojos={dojos}
+              teachers={teachers}
+            />
           ))}
         </tbody>
       </table>

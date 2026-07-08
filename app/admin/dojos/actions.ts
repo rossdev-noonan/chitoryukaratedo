@@ -54,6 +54,10 @@ export async function submitDojoAction(
     return { error: "Teachers cannot submit dojo records.", success: false };
   }
 
+  if (currentUser.role === "dojo_admin") {
+    return { error: "Dojo Admins cannot submit new dojo records.", success: false };
+  }
+
   const supabase = await createSupabaseServerClient();
   const { error } = await supabase.from("approvals").insert({
     entity_type: "dojo",

@@ -13,6 +13,8 @@ const submitTeacherSchema = z.object({
     .max(100)
     .regex(/^[a-z0-9-]+$/, "Lowercase letters, numbers, and hyphens only."),
   nameNative: z.string().max(200).optional(),
+  nameKana: z.string().max(200).optional(),
+  nameRomajiAuto: z.string().max(200).optional(),
   nameRomajiFinal: z.string().min(1).max(200),
   rank: z.string().max(100).optional(),
   dojoId: z.string().uuid(),
@@ -36,6 +38,8 @@ export async function submitTeacherAction(
   const parsed = submitTeacherSchema.safeParse({
     slug: formData.get("slug"),
     nameNative: formData.get("nameNative") || undefined,
+    nameKana: formData.get("nameKana") || undefined,
+    nameRomajiAuto: formData.get("nameRomajiAuto") || undefined,
     nameRomajiFinal: formData.get("nameRomajiFinal"),
     rank: formData.get("rank") || undefined,
     dojoId: formData.get("dojoId"),
@@ -65,6 +69,8 @@ export async function submitTeacherAction(
     payload: {
       slug: parsed.data.slug,
       name_native: parsed.data.nameNative ?? null,
+      name_kana: parsed.data.nameKana ?? null,
+      name_romaji_auto: parsed.data.nameRomajiAuto ?? null,
       name_romaji_final: parsed.data.nameRomajiFinal,
       rank: parsed.data.rank ?? null,
       dojo_id: parsed.data.dojoId,

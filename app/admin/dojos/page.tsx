@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 
 import { StatusBadge } from "@/components/admin/StatusBadge";
+import { SubmitDojoForm } from "@/components/admin/SubmitDojoForm";
 import { getAllDojosForAdmin } from "@/lib/admin-records";
+import { getCountries } from "@/lib/directory";
 
 export const metadata: Metadata = {
   title: "Admin — Dojos",
@@ -9,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminDojosPage() {
-  const dojos = await getAllDojosForAdmin();
+  const [dojos, countries] = await Promise.all([getAllDojosForAdmin(), getCountries()]);
 
   return (
     <>
@@ -44,10 +46,14 @@ export default async function AdminDojosPage() {
           </tbody>
         </table>
       )}
-      <p className="text-muted-foreground mt-3 text-xs">
-        New dojos and edits go through the approval queue, not direct edits here — country/dojo
-        admin submission forms land in a later pass.
+
+      <h2 className="text-muted-foreground mt-8 text-sm font-medium tracking-wide uppercase">
+        Submit a new dojo
+      </h2>
+      <p className="text-muted-foreground mt-1 text-xs">
+        Goes to the approval queue — it won&apos;t appear publicly until Sohonbu Admin approves it.
       </p>
+      <SubmitDojoForm countries={countries} />
     </>
   );
 }

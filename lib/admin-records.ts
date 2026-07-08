@@ -5,6 +5,7 @@ export interface AdminDojoRow {
   id: string;
   slug: string;
   name: string;
+  countryId: string;
   city: string | null;
   headInstructor: string | null;
   status: ApprovalStatus;
@@ -22,7 +23,7 @@ export async function getAllDojosForAdmin(): Promise<AdminDojoRow[]> {
   const supabase = await createSupabaseServerClient();
   const { data } = await supabase
     .from("dojos")
-    .select("id, slug, name, city, head_instructor, status")
+    .select("id, slug, name, country_id, city, head_instructor, status")
     .is("deleted_at", null)
     .order("name");
 
@@ -30,6 +31,7 @@ export async function getAllDojosForAdmin(): Promise<AdminDojoRow[]> {
     id: row.id,
     slug: row.slug,
     name: row.name,
+    countryId: row.country_id,
     city: row.city,
     headInstructor: row.head_instructor,
     status: row.status,

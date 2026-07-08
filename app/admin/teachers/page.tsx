@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 
 import { StatusBadge } from "@/components/admin/StatusBadge";
-import { getAllTeachersForAdmin } from "@/lib/admin-records";
+import { SubmitTeacherForm } from "@/components/admin/SubmitTeacherForm";
+import { getAllDojosForAdmin, getAllTeachersForAdmin } from "@/lib/admin-records";
 
 export const metadata: Metadata = {
   title: "Admin — Teachers",
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminTeachersPage() {
-  const teachers = await getAllTeachersForAdmin();
+  const [teachers, dojos] = await Promise.all([getAllTeachersForAdmin(), getAllDojosForAdmin()]);
 
   return (
     <>
@@ -42,9 +43,15 @@ export default async function AdminTeachersPage() {
           </tbody>
         </table>
       )}
-      <p className="text-muted-foreground mt-3 text-xs">
-        Rank evidence upload and the Japanese/Romaji approval workflow land in a later pass.
+
+      <h2 className="text-muted-foreground mt-8 text-sm font-medium tracking-wide uppercase">
+        Submit a new teacher
+      </h2>
+      <p className="text-muted-foreground mt-1 text-xs">
+        Goes to the approval queue — it won&apos;t appear publicly until Sohonbu Admin approves it.
+        Rank evidence upload is a separate, later piece.
       </p>
+      <SubmitTeacherForm dojos={dojos} />
     </>
   );
 }

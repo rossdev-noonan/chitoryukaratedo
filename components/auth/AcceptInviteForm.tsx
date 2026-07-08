@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
@@ -20,16 +20,27 @@ function hasValidInviteToken(hash: string): boolean {
   return params.has("access_token") && !params.has("error");
 }
 
+function subscribeNoop() {
+  return () => {};
+}
+
 export function AcceptInviteForm() {
   const router = useRouter();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [hasToken] = useState(() =>
-    typeof window !== "undefined" ? hasValidInviteToken(window.location.hash) : false,
-  );
-  const [error, setError] = useState<string | null>(() => (hasToken ? null : EXPIRED_LINK_MESSAGE));
   const [pending, setPending] = useState(false);
   const [ready, setReady] = useState(false);
+  const [sessionError, setSessionError] = useState<string | null>(null);
+
+  // The URL hash is never sent to the server, so SSR has no way to know it.
+  // useSyncExternalStore renders the server snapshot (false) during hydration
+  // and swaps to the real client value right after — the correct, mismatch-
+  // free way to read browser-only state on first render.
+  const hasToken = useSyncExternalStore(
+    subscribeNoop,
+    () => hasValidInviteToken(window.location.hash),
+    () => false,
+  );
 
   useEffect(() => {
     if (!hasToken) return;
@@ -38,21 +49,23 @@ export function AcceptInviteForm() {
     supabase.auth.getSession().then(({ data }) => {
       setReady(!!data.session);
       if (!data.session) {
-        setError(EXPIRED_LINK_MESSAGE);
+        setSessionError(EXPIRED_LINK_MESSAGE);
       }
     });
   }, [hasToken]);
 
+  const error = sessionError ?? (!hasToken ? EXPIRED_LINK_MESSAGE : null);
+
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    setError(null);
+    setSessionError(null);
 
     if (password.length < 8) {
-      setError("Password must be at least 8 characters.");
+      setSessionError("Password must be at least 8 characters.");
       return;
     }
     if (password !== confirmPassword) {
-      setError("Passwords do not match.");
+      setSessionError("Passwords do not match.");
       return;
     }
 
@@ -62,7 +75,7 @@ export function AcceptInviteForm() {
     setPending(false);
 
     if (updateError) {
-      setError(updateError.message);
+      setSessionError(updateError.message);
       return;
     }
 

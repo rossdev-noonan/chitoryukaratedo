@@ -1,9 +1,9 @@
 import Link from "next/link";
 
-import type { MockTeacher } from "@/lib/mock-data";
+import type { Teacher } from "@/lib/directory";
 
 interface TeacherCardProps {
-  teacher: MockTeacher;
+  teacher: Teacher;
 }
 
 export function TeacherCard({ teacher }: TeacherCardProps) {

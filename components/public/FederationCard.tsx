@@ -1,7 +1,7 @@
-import type { MockCountry } from "@/lib/mock-data";
+import type { Country } from "@/lib/directory";
 
 interface FederationCardProps {
-  country: MockCountry;
+  country: Country;
 }
 
 export function FederationCard({ country }: FederationCardProps) {

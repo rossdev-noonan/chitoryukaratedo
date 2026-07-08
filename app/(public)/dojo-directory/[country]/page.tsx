@@ -5,7 +5,7 @@ import { DojoCard } from "@/components/public/DojoCard";
 import { FederationCard } from "@/components/public/FederationCard";
 import { PageHeader } from "@/components/public/PageHeader";
 import { PlaceholderNotice } from "@/components/public/PlaceholderNotice";
-import { mockCountries, mockDojos } from "@/lib/mock-data";
+import { getCountryBySlug, getDojosByCountryId } from "@/lib/directory";
 
 interface CountryPageProps {
   params: Promise<{ country: string }>;
@@ -13,17 +13,17 @@ interface CountryPageProps {
 
 export async function generateMetadata({ params }: CountryPageProps): Promise<Metadata> {
   const { country } = await params;
-  const match = mockCountries.find((c) => c.slug === country);
+  const match = await getCountryBySlug(country);
   return { title: match?.name ?? "Country" };
 }
 
 export default async function CountryPage({ params }: CountryPageProps) {
   const { country } = await params;
-  const match = mockCountries.find((c) => c.slug === country);
+  const match = await getCountryBySlug(country);
 
   if (!match) notFound();
 
-  const dojos = mockDojos.filter((dojo) => dojo.countrySlug === match.slug);
+  const dojos = match.hasOwnFederationSite ? [] : await getDojosByCountryId(match.id);
 
   return (
     <>

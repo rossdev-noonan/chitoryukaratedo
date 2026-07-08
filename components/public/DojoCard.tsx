@@ -1,9 +1,9 @@
 import Link from "next/link";
 
-import type { MockDojo } from "@/lib/mock-data";
+import type { Dojo } from "@/lib/directory";
 
 interface DojoCardProps {
-  dojo: MockDojo;
+  dojo: Dojo;
 }
 
 export function DojoCard({ dojo }: DojoCardProps) {

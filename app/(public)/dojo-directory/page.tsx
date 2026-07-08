@@ -3,22 +3,24 @@ import Link from "next/link";
 
 import { PageHeader } from "@/components/public/PageHeader";
 import { PlaceholderNotice } from "@/components/public/PlaceholderNotice";
-import { mockCountries } from "@/lib/mock-data";
+import { getCountries } from "@/lib/directory";
 
 export const metadata: Metadata = {
   title: "World Dojo Directory",
   description: "Approved Chito-Ryu dojos and federations worldwide.",
 };
 
-export default function DojoDirectoryPage() {
+export default async function DojoDirectoryPage() {
+  const countries = await getCountries();
+
   return (
     <>
       <PageHeader
         title="World Dojo Directory"
-        description="Search and filter are not wired up yet — country list below is mock data."
+        description="Search and filter are not wired up yet — country list below is live but unstyled."
       />
       <ul className="mx-auto mt-8 max-w-6xl px-4 sm:px-6">
-        {mockCountries.map((country) => (
+        {countries.map((country) => (
           <li key={country.slug} className="border-border border-b py-3">
             <Link
               href={`/dojo-directory/${country.slug}`}

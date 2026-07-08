@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 
 import { PageHeader } from "@/components/public/PageHeader";
 import { PlaceholderNotice } from "@/components/public/PlaceholderNotice";
-import { mockDojos, mockTeachers } from "@/lib/mock-data";
+import { getDojoBySlug, getTeachersByDojoId } from "@/lib/directory";
 
 interface DojoDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -11,17 +11,17 @@ interface DojoDetailPageProps {
 
 export async function generateMetadata({ params }: DojoDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const match = mockDojos.find((d) => d.slug === slug);
+  const match = await getDojoBySlug(slug);
   return { title: match?.name ?? "Dojo" };
 }
 
 export default async function DojoDetailPage({ params }: DojoDetailPageProps) {
   const { slug } = await params;
-  const dojo = mockDojos.find((d) => d.slug === slug);
+  const dojo = await getDojoBySlug(slug);
 
   if (!dojo) notFound();
 
-  const affiliatedTeachers = mockTeachers.filter((teacher) => teacher.dojoSlug === dojo.slug);
+  const affiliatedTeachers = await getTeachersByDojoId(dojo.id);
 
   return (
     <>

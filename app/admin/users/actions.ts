@@ -56,6 +56,7 @@ export async function inviteAdminAction(
   const admin = createSupabaseAdminClient();
   const { data: invited, error: inviteError } = await admin.auth.admin.inviteUserByEmail(
     parsed.data.email,
+    { redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/accept-invite` },
   );
 
   if (inviteError || !invited.user) {

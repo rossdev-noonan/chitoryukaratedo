@@ -5,25 +5,43 @@ import { useEffect, useState } from "react";
 
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
+const EXPIRED_LINK_MESSAGE =
+  "This invite link is invalid or has expired. Ask your Sohonbu Admin to send a new invite.";
+
+// Supabase invite links carry an access_token in the URL hash. Without this
+// check, a browser tab that already had an unrelated user signed in (e.g. an
+// admin testing invites) would show that ambient session as "ready" even
+// when the link itself was dead — silently letting the form change the
+// WRONG account's password. This must be checked before anything else,
+// independent of whatever session happens to already exist.
+function hasValidInviteToken(hash: string): boolean {
+  if (!hash) return false;
+  const params = new URLSearchParams(hash.replace(/^#/, ""));
+  return params.has("access_token") && !params.has("error");
+}
+
 export function AcceptInviteForm() {
   const router = useRouter();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [hasToken] = useState(() =>
+    typeof window !== "undefined" ? hasValidInviteToken(window.location.hash) : false,
+  );
+  const [error, setError] = useState<string | null>(() => (hasToken ? null : EXPIRED_LINK_MESSAGE));
   const [pending, setPending] = useState(false);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
+    if (!hasToken) return;
+
     const supabase = createSupabaseBrowserClient();
     supabase.auth.getSession().then(({ data }) => {
       setReady(!!data.session);
       if (!data.session) {
-        setError(
-          "This invite link is invalid or has expired. Ask your Sohonbu Admin to send a new invite.",
-        );
+        setError(EXPIRED_LINK_MESSAGE);
       }
     });
-  }, []);
+  }, [hasToken]);
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();

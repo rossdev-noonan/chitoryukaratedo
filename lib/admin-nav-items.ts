@@ -8,6 +8,7 @@ export const adminNavItems: AdminNavItem[] = [
   { href: "/admin/dojos", label: "Dojos" },
   { href: "/admin/teachers", label: "Teachers" },
   { href: "/admin/approvals", label: "Approvals" },
+  { href: "/admin/rank-evidence", label: "Rank Evidence" },
   { href: "/admin/news", label: "News" },
   { href: "/admin/events", label: "Events" },
   { href: "/admin/resources", label: "Resources" },

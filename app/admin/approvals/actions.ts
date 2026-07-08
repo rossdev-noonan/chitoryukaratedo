@@ -37,10 +37,13 @@ export async function reviewApprovalAction(
     const payload = approval.payload as Record<string, unknown>;
 
     if (approval.action === "create") {
-      const { error } = await supabase.from(table).insert(payload);
+      const { error } = await supabase.from(table).insert({ ...payload, status: "approved" });
       if (error) return { error: `Failed to create record: ${error.message}` };
     } else if (approval.action === "update" && approval.entity_id) {
-      const { error } = await supabase.from(table).update(payload).eq("id", approval.entity_id);
+      const { error } = await supabase
+        .from(table)
+        .update({ ...payload, status: "approved" })
+        .eq("id", approval.entity_id);
       if (error) return { error: `Failed to update record: ${error.message}` };
     } else if (approval.action === "delete" && approval.entity_id) {
       const { error } = await supabase

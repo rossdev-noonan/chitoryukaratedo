@@ -11,6 +11,9 @@ const inviteSchema = z.object({
   email: z.string().email(),
   fullName: z.string().min(1).max(200),
   role: z.enum(["sohonbu_admin", "country_admin", "dojo_admin", "teacher"]),
+  countryId: z.string().uuid().optional().or(z.literal("")),
+  dojoId: z.string().uuid().optional().or(z.literal("")),
+  teacherId: z.string().uuid().optional().or(z.literal("")),
 });
 
 export interface InviteActionState {
@@ -31,10 +34,23 @@ export async function inviteAdminAction(
     email: formData.get("email"),
     fullName: formData.get("fullName"),
     role: formData.get("role"),
+    countryId: formData.get("countryId") || undefined,
+    dojoId: formData.get("dojoId") || undefined,
+    teacherId: formData.get("teacherId") || undefined,
   });
 
   if (!parsed.success) {
     return { error: "Enter a valid email, name, and role.", success: false };
+  }
+
+  if (parsed.data.role === "country_admin" && !parsed.data.countryId) {
+    return { error: "Select a country for a Country Admin.", success: false };
+  }
+  if (parsed.data.role === "dojo_admin" && !parsed.data.dojoId) {
+    return { error: "Select a dojo for a Dojo Admin.", success: false };
+  }
+  if (parsed.data.role === "teacher" && !parsed.data.teacherId) {
+    return { error: "Select a teacher record to link this account to.", success: false };
   }
 
   const admin = createSupabaseAdminClient();
@@ -52,6 +68,9 @@ export async function inviteAdminAction(
     email: parsed.data.email,
     full_name: parsed.data.fullName,
     role: parsed.data.role,
+    country_id: parsed.data.role === "country_admin" ? parsed.data.countryId : null,
+    dojo_id: parsed.data.role === "dojo_admin" ? parsed.data.dojoId : null,
+    teacher_id: parsed.data.role === "teacher" ? parsed.data.teacherId : null,
   });
 
   if (insertError) {

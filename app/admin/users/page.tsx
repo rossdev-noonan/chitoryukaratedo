@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 
 import { InviteAdminForm } from "@/components/admin/InviteAdminForm";
+import { getAllDojosForAdmin, getAllTeachersForAdmin } from "@/lib/admin-records";
+import { getCountries } from "@/lib/directory";
 import { getAllUsers } from "@/lib/users";
 
 export const metadata: Metadata = {
@@ -9,7 +11,12 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminUsersPage() {
-  const users = await getAllUsers();
+  const [users, countries, dojos, teachers] = await Promise.all([
+    getAllUsers(),
+    getCountries(),
+    getAllDojosForAdmin(),
+    getAllTeachersForAdmin(),
+  ]);
 
   return (
     <>
@@ -41,7 +48,7 @@ export default async function AdminUsersPage() {
       <h2 className="text-muted-foreground mt-8 text-sm font-medium tracking-wide uppercase">
         Invite a new admin
       </h2>
-      <InviteAdminForm />
+      <InviteAdminForm countries={countries} dojos={dojos} teachers={teachers} />
     </>
   );
 }

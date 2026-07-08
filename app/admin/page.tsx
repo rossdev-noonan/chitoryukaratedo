@@ -1,17 +1,21 @@
 import type { Metadata } from "next";
 
+import { getDashboardOverview, getRecentAuditLog } from "@/lib/admin";
+
 export const metadata: Metadata = {
   title: "Admin Dashboard",
   robots: { index: false, follow: false },
 };
 
-const overviewCards = [
-  { label: "Pending approvals", value: "—" },
-  { label: "Approved this week", value: "—" },
-  { label: "Active admins", value: "—" },
-];
+export default async function AdminDashboardPage() {
+  const [overview, auditLog] = await Promise.all([getDashboardOverview(), getRecentAuditLog()]);
 
-export default function AdminDashboardPage() {
+  const overviewCards = [
+    { label: "Pending approvals", value: overview.pendingApprovals },
+    { label: "Approved this week", value: overview.approvedThisWeek },
+    { label: "Active admins", value: overview.activeAdmins },
+  ];
+
   return (
     <>
       <h1 className="text-muted-foreground text-sm font-medium tracking-wide uppercase">
@@ -28,9 +32,26 @@ export default function AdminDashboardPage() {
       <h2 className="text-muted-foreground mt-8 text-sm font-medium tracking-wide uppercase">
         Recent activity (audit log excerpt)
       </h2>
-      <p className="border-border text-muted-foreground mt-3 border p-4 text-sm">
-        Read-only log rows pending Supabase audit log integration (Phase 4).
-      </p>
+      {auditLog.length > 0 ? (
+        <ul className="mt-3">
+          {auditLog.map((entry) => (
+            <li key={entry.id} className="border-border border-b py-2 text-sm">
+              <span className="font-medium">{entry.action}</span> on{" "}
+              <span className="text-muted-foreground">{entry.tableName}</span>
+              {entry.recordId && (
+                <span className="text-muted-foreground"> · {entry.recordId}</span>
+              )}
+              <span className="text-muted-foreground float-right text-xs">
+                {new Date(entry.createdAt).toLocaleString()}
+              </span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="border-border text-muted-foreground mt-3 border p-4 text-sm">
+          No activity logged yet.
+        </p>
+      )}
     </>
   );
 }

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 
 import { PageHeader } from "@/components/public/PageHeader";
 import { PlaceholderNotice } from "@/components/public/PlaceholderNotice";
-import { mockNewsPosts } from "@/lib/mock-data";
+import { getNewsPostBySlug } from "@/lib/sanity/content";
 
 interface NewsDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -11,19 +11,19 @@ interface NewsDetailPageProps {
 
 export async function generateMetadata({ params }: NewsDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const match = mockNewsPosts.find((p) => p.slug === slug);
+  const match = await getNewsPostBySlug(slug);
   return { title: match?.title ?? "News" };
 }
 
 export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
   const { slug } = await params;
-  const post = mockNewsPosts.find((p) => p.slug === slug);
+  const post = await getNewsPostBySlug(slug);
 
   if (!post) notFound();
 
   return (
     <>
-      <PageHeader title={post.title} description={post.date} />
+      <PageHeader title={post.title} description={post.publishedAt} />
       <PlaceholderNotice source="Sanity" />
     </>
   );

@@ -8,14 +8,27 @@ import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 const EXPIRED_LINK_MESSAGE = "This reset link is invalid or has expired. Request a new one below.";
 
 // Same protection as AcceptInviteForm: only trust a session that came from a
-// genuine, error-free recovery token in the URL hash. Never trust "a session
+// genuine, error-free recovery token in the URL. Never trust "a session
 // happens to exist" on its own — a browser tab already signed in as someone
 // else must never be able to have its password silently changed by a dead
 // or missing link.
-function hasValidRecoveryToken(hash: string): boolean {
-  if (!hash) return false;
-  const params = new URLSearchParams(hash.replace(/^#/, ""));
-  return params.has("access_token") && !params.has("error");
+//
+// Supabase can deliver the token two ways depending on the project's auth
+// flow: the older implicit flow puts it in the URL hash (#access_token=...),
+// while @supabase/ssr defaults to PKCE, which puts a one-time code in the
+// query string (?code=...) instead. The client auto-exchanges that code for
+// a session on load (detectSessionInUrl), but only if we don't block it here
+// by only recognizing the hash format.
+function hasValidRecoveryToken(hash: string, search: string): boolean {
+  if (hash) {
+    const hashParams = new URLSearchParams(hash.replace(/^#/, ""));
+    if (hashParams.has("access_token") && !hashParams.has("error")) return true;
+  }
+  if (search) {
+    const searchParams = new URLSearchParams(search);
+    if (searchParams.has("code")) return true;
+  }
+  return false;
 }
 
 function subscribeNoop() {
@@ -31,7 +44,7 @@ export function ResetPasswordForm() {
   // free way to read browser-only state on first render.
   const hasToken = useSyncExternalStore(
     subscribeNoop,
-    () => hasValidRecoveryToken(window.location.hash),
+    () => hasValidRecoveryToken(window.location.hash, window.location.search),
     () => false,
   );
 

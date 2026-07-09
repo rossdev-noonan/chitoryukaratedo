@@ -46,7 +46,9 @@ export function TurnstileWidget({ siteKey, onToken }: TurnstileWidgetProps) {
         strategy="afterInteractive"
         onLoad={() => setScriptLoaded(true)}
       />
-      <div ref={containerRef} />
+      {/* Reserves the default Turnstile widget's footprint (300x65) before
+          it renders, so it doesn't cause a layout shift popping in. */}
+      <div ref={containerRef} className="min-h-[65px] w-[300px] max-w-full" />
     </>
   );
 }

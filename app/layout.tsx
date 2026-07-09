@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+import { AuthRedirectGuard } from "@/components/AuthRedirectGuard";
 import { JsonLd } from "@/components/public/JsonLd";
 
 const geistSans = Geist({
@@ -42,6 +43,7 @@ export default function RootLayout({
             url: siteUrl,
           }}
         />
+        <AuthRedirectGuard />
         {children}
       </body>
     </html>

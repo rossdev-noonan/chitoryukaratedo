@@ -42,4 +42,22 @@ test.describe("Admin authentication", () => {
     ).toBeVisible();
     await expect(page.getByRole("button", { name: "Set password" })).toBeDisabled();
   });
+
+  test("a stray auth token landing on the homepage is forwarded to /reset-password", async ({
+    page,
+  }) => {
+    // Links sent directly from the Supabase Dashboard (rather than through
+    // our own app flows) fall back to the project's bare Site URL with no
+    // path, dropping the token on the homepage. AuthRedirectGuard exists to
+    // catch that and forward it to the page that actually knows what to do
+    // with it.
+    await page.goto("/?code=fake-stray-code");
+    await expect(page).toHaveURL(/\/reset-password\?code=fake-stray-code$/);
+    await expect(page.getByRole("button", { name: "Set password" })).toBeVisible();
+  });
+
+  test("normal homepage visits with no token are not redirected", async ({ page }) => {
+    await page.goto("/");
+    await expect(page).toHaveURL(/\/$/);
+  });
 });

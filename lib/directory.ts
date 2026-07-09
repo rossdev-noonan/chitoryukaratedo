@@ -159,6 +159,31 @@ export async function getTeachers(): Promise<Teacher[]> {
   return (data ?? []).map(toTeacher);
 }
 
+// PostgREST's .or() filter syntax uses "," to separate conditions and "()"
+// for grouping/negation — strip those from user input so a search term
+// containing them can't break the filter string. This is a syntax safety
+// measure, not a security boundary: PostgREST still parameterizes the
+// actual ILIKE value, so this cannot enable SQL injection either way.
+function sanitizeSearchTerm(raw: string): string {
+  return raw.trim().replace(/[,()]/g, "");
+}
+
+export async function searchTeachers(query: string): Promise<Teacher[]> {
+  const term = sanitizeSearchTerm(query);
+  if (!term) return getTeachers();
+
+  const supabase = await createSupabaseServerClient();
+  const pattern = `%${term}%`;
+  const { data } = await supabase
+    .from("teachers")
+    .select(TEACHER_COLUMNS)
+    .or(
+      `name_romaji_final.ilike.${pattern},name_kana.ilike.${pattern},name_native.ilike.${pattern}`,
+    )
+    .order("name_romaji_final");
+  return (data ?? []).map(toTeacher);
+}
+
 export async function getTeacherBySlug(slug: string): Promise<Teacher | null> {
   const supabase = await createSupabaseServerClient();
   const { data } = await supabase
@@ -177,4 +202,18 @@ export async function getTeachersByDojoId(dojoId: string): Promise<Teacher[]> {
     .eq("dojo_id", dojoId)
     .order("name_romaji_final");
   return (data ?? []).map(toTeacher);
+}
+
+export async function searchDojosByCountryId(countryId: string, query: string): Promise<Dojo[]> {
+  const term = sanitizeSearchTerm(query);
+  if (!term) return getDojosByCountryId(countryId);
+
+  const supabase = await createSupabaseServerClient();
+  const { data } = await supabase
+    .from("dojos")
+    .select(DOJO_COLUMNS)
+    .eq("country_id", countryId)
+    .ilike("name", `%${term}%`)
+    .order("name");
+  return (data ?? []).map(toDojo);
 }

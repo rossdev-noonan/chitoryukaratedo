@@ -2,27 +2,38 @@ import type { Metadata } from "next";
 
 import { PageHeader } from "@/components/public/PageHeader";
 import { PlaceholderNotice } from "@/components/public/PlaceholderNotice";
+import { SearchBox } from "@/components/public/SearchBox";
 import { TeacherCard } from "@/components/public/TeacherCard";
-import { getTeachers } from "@/lib/directory";
+import { getTeachers, searchTeachers } from "@/lib/directory";
 
 export const metadata: Metadata = {
   title: "Teacher Registry",
   description: "Approved and rank-verified Chito-Ryu teachers worldwide.",
 };
 
-export default async function TeachersPage() {
-  const teachers = await getTeachers();
+interface TeachersPageProps {
+  searchParams: Promise<{ q?: string }>;
+}
+
+export default async function TeachersPage({ searchParams }: TeachersPageProps) {
+  const { q } = await searchParams;
+  const teachers = q ? await searchTeachers(q) : await getTeachers();
 
   return (
     <>
       <PageHeader
         title="Teacher Registry"
-        description="Search and filter are not wired up yet — list below is live but unstyled."
+        description="Search by Romaji, kana, or native name."
       />
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <SearchBox placeholder="Search teachers…" initialQuery={q ?? ""} />
+      </div>
       <div className="mx-auto mt-8 grid max-w-6xl grid-cols-1 gap-4 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-3">
-        {teachers.map((teacher) => (
-          <TeacherCard key={teacher.slug} teacher={teacher} />
-        ))}
+        {teachers.length === 0 ? (
+          <p className="text-muted-foreground col-span-full text-sm">No teachers found.</p>
+        ) : (
+          teachers.map((teacher) => <TeacherCard key={teacher.slug} teacher={teacher} />)
+        )}
       </div>
       <PlaceholderNotice source="Supabase (approved and rank-verified only)" />
     </>

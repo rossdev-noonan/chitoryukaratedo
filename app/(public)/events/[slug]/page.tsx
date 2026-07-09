@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { JsonLd } from "@/components/public/JsonLd";
 import { PageHeader } from "@/components/public/PageHeader";
 import { PlaceholderNotice } from "@/components/public/PlaceholderNotice";
 import { getEventBySlug } from "@/lib/sanity/content";
@@ -12,7 +13,15 @@ interface EventDetailPageProps {
 export async function generateMetadata({ params }: EventDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
   const match = await getEventBySlug(slug);
-  return { title: match?.title ?? "Event" };
+  if (!match) return { title: "Event" };
+
+  return {
+    title: match.title,
+    description: match.location
+      ? `${match.title} — ${match.location}, ${match.startDate}.`
+      : `${match.title} — ${match.startDate}.`,
+    alternates: { canonical: `/events/${match.slug}` },
+  };
 }
 
 export default async function EventDetailPage({ params }: EventDetailPageProps) {
@@ -21,10 +30,25 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 
   if (!event) notFound();
 
+  const subtitle = [event.startDate, event.location].filter(Boolean).join(" · ");
+
   return (
     <>
-      <PageHeader title={event.title} description={`${event.startDate} · ${event.location}`} />
+      <PageHeader title={event.title} description={subtitle || undefined} />
       <PlaceholderNotice source="Sanity" />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Event",
+          name: event.title,
+          startDate: event.startDate,
+          eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+          eventStatus: "https://schema.org/EventScheduled",
+          location: event.location
+            ? { "@type": "Place", name: event.location }
+            : { "@type": "VirtualLocation", url: process.env.NEXT_PUBLIC_SITE_URL },
+        }}
+      />
     </>
   );
 }

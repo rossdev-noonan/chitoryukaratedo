@@ -16,7 +16,16 @@ interface CountryPageProps {
 export async function generateMetadata({ params }: CountryPageProps): Promise<Metadata> {
   const { country } = await params;
   const match = await getCountryBySlug(country);
-  return { title: match?.name ?? "Country" };
+  if (!match) return { title: "Country" };
+
+  return {
+    title: match.name,
+    description: `Approved Chito-Ryu dojos in ${match.name}.`,
+    // Canonical always points at the unfiltered list — search-query
+    // variations (?q=...) are the same underlying page, not distinct
+    // content to index.
+    alternates: { canonical: `/dojo-directory/${match.slug}` },
+  };
 }
 
 export default async function CountryPage({ params, searchParams }: CountryPageProps) {

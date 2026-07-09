@@ -9,6 +9,9 @@ import { getTeachers, searchTeachers } from "@/lib/directory";
 export const metadata: Metadata = {
   title: "Teacher Registry",
   description: "Approved and rank-verified Chito-Ryu teachers worldwide.",
+  // Canonical always points at the unfiltered list — search-query variations
+  // (?q=...) are the same underlying page, not distinct content to index.
+  alternates: { canonical: "/teachers" },
 };
 
 interface TeachersPageProps {

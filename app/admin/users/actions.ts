@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 import { getCurrentUser } from "@/lib/auth";
+import { checkInviteRateLimit } from "@/lib/rate-limit";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
@@ -28,6 +29,11 @@ export async function inviteAdminAction(
   const currentUser = await getCurrentUser();
   if (!currentUser || currentUser.role !== "sohonbu_admin") {
     return { error: "Only Sohonbu Admin can invite users.", success: false };
+  }
+
+  const withinLimit = await checkInviteRateLimit(currentUser.id);
+  if (!withinLimit) {
+    return { error: "Too many invites sent — please try again in a minute.", success: false };
   }
 
   const parsed = inviteSchema.safeParse({

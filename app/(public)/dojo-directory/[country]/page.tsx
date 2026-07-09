@@ -6,7 +6,13 @@ import { FederationCard } from "@/components/public/FederationCard";
 import { PageHeader } from "@/components/public/PageHeader";
 import { PlaceholderNotice } from "@/components/public/PlaceholderNotice";
 import { SearchBox } from "@/components/public/SearchBox";
-import { getCountryBySlug, getDojosByCountryId, searchDojosByCountryId } from "@/lib/directory";
+import {
+  getCountryBySlug,
+  getDojosByCountryId,
+  searchDojosByCountryId,
+  type Dojo,
+} from "@/lib/directory";
+import { checkSearchRateLimit } from "@/lib/rate-limit";
 
 interface CountryPageProps {
   params: Promise<{ country: string }>;
@@ -35,11 +41,21 @@ export default async function CountryPage({ params, searchParams }: CountryPageP
 
   if (!match) notFound();
 
-  const dojos = match.hasOwnFederationSite
-    ? []
-    : q
-      ? await searchDojosByCountryId(match.id, q)
-      : await getDojosByCountryId(match.id);
+  let dojos: Dojo[];
+  let rateLimited = false;
+  if (match.hasOwnFederationSite) {
+    dojos = [];
+  } else if (q) {
+    const withinLimit = await checkSearchRateLimit();
+    if (withinLimit) {
+      dojos = await searchDojosByCountryId(match.id, q);
+    } else {
+      rateLimited = true;
+      dojos = await getDojosByCountryId(match.id);
+    }
+  } else {
+    dojos = await getDojosByCountryId(match.id);
+  }
 
   return (
     <>
@@ -50,6 +66,11 @@ export default async function CountryPage({ params, searchParams }: CountryPageP
         ) : (
           <>
             <SearchBox placeholder="Search dojos…" initialQuery={q ?? ""} />
+            {rateLimited && (
+              <p className="mt-2 text-sm text-red-600">
+                Too many searches — showing the full list. Try again in a minute.
+              </p>
+            )}
             <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
               {dojos.length === 0 ? (
                 <p className="text-muted-foreground col-span-full text-sm">No dojos found.</p>

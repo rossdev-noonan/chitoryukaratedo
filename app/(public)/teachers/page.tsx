@@ -5,6 +5,7 @@ import { PlaceholderNotice } from "@/components/public/PlaceholderNotice";
 import { SearchBox } from "@/components/public/SearchBox";
 import { TeacherCard } from "@/components/public/TeacherCard";
 import { getTeachers, searchTeachers } from "@/lib/directory";
+import { checkSearchRateLimit } from "@/lib/rate-limit";
 
 export const metadata: Metadata = {
   title: "Teacher Registry",
@@ -20,7 +21,20 @@ interface TeachersPageProps {
 
 export default async function TeachersPage({ searchParams }: TeachersPageProps) {
   const { q } = await searchParams;
-  const teachers = q ? await searchTeachers(q) : await getTeachers();
+
+  let teachers;
+  let rateLimited = false;
+  if (q) {
+    const withinLimit = await checkSearchRateLimit();
+    if (withinLimit) {
+      teachers = await searchTeachers(q);
+    } else {
+      rateLimited = true;
+      teachers = await getTeachers();
+    }
+  } else {
+    teachers = await getTeachers();
+  }
 
   return (
     <>
@@ -30,6 +44,11 @@ export default async function TeachersPage({ searchParams }: TeachersPageProps) 
       />
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SearchBox placeholder="Search teachers…" initialQuery={q ?? ""} />
+        {rateLimited && (
+          <p className="mt-2 text-sm text-red-600">
+            Too many searches — showing the full list. Try again in a minute.
+          </p>
+        )}
       </div>
       <div className="mx-auto mt-8 grid max-w-6xl grid-cols-1 gap-4 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-3">
         {teachers.length === 0 ? (

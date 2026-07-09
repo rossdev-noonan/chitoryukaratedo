@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
+import { checkLoginRateLimit } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 const loginSchema = z.object({
@@ -25,6 +26,11 @@ export async function loginAction(
 
   if (!parsed.success) {
     return { error: "Enter a valid email and password." };
+  }
+
+  const withinLimit = await checkLoginRateLimit(parsed.data.email);
+  if (!withinLimit) {
+    return { error: "Too many attempts — please try again in a minute." };
   }
 
   const supabase = await createSupabaseServerClient();

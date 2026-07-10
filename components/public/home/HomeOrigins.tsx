@@ -6,7 +6,7 @@ export function HomeOrigins() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-10">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
-        <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden">
+        <div className="relative mx-auto aspect-[4/3] w-full max-w-md overflow-hidden lg:aspect-[4/5]">
           <Image
             src="/images/homepage/founder-portrait.jpeg"
             alt="Portrait of O-Sensei Tsuyoshi Chitose, founder of Chito-Ryu Karate-Do"

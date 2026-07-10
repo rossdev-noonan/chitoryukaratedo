@@ -53,7 +53,7 @@ export function NavBar() {
         <div className="flex items-center gap-4">
           <Link
             href="/login"
-            className="bg-primary text-primary-foreground hidden px-6 py-2.5 text-sm font-bold transition-opacity hover:opacity-90 lg:inline-block"
+            className="bg-primary text-primary-foreground px-4 py-2 text-sm font-bold transition-opacity hover:opacity-90 sm:px-6 sm:py-2.5"
           >
             Join Us
           </Link>
@@ -87,13 +87,6 @@ export function NavBar() {
               {item.label}
             </Link>
           ))}
-          <Link
-            href="/login"
-            className="bg-primary text-primary-foreground mt-2 px-6 py-2.5 text-center text-sm font-bold"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            Join Us
-          </Link>
         </nav>
       )}
     </header>

@@ -28,6 +28,7 @@ export interface Teacher {
   rank: string | null;
   dojoId: string;
   countryId: string;
+  photoPath: string | null;
 }
 
 interface CountryRow {
@@ -58,6 +59,7 @@ interface TeacherRow {
   rank: string | null;
   dojo_id: string;
   country_id: string;
+  photo_path: string | null;
 }
 
 function toCountry(row: CountryRow): Country {
@@ -93,13 +95,15 @@ function toTeacher(row: TeacherRow): Teacher {
     rank: row.rank,
     dojoId: row.dojo_id,
     countryId: row.country_id,
+    photoPath: row.photo_path,
   };
 }
 
 const COUNTRY_COLUMNS =
   "id, slug, name, has_own_federation_site, federation_site_url, federation_name, representative";
 const DOJO_COLUMNS = "id, slug, name, country_id, city, head_instructor, contact_email";
-const TEACHER_COLUMNS = "id, slug, name_native, name_romaji_final, rank, dojo_id, country_id";
+const TEACHER_COLUMNS =
+  "id, slug, name_native, name_romaji_final, rank, dojo_id, country_id, photo_path";
 
 export async function getCountries(): Promise<Country[]> {
   const supabase = await createSupabaseServerClient();

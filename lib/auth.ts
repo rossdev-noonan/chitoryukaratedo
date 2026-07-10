@@ -10,6 +10,7 @@ interface UserRow {
   country_id: string | null;
   dojo_id: string | null;
   teacher_id: string | null;
+  deactivated_at: string | null;
 }
 
 export interface CurrentUser {
@@ -32,11 +33,11 @@ export async function getCurrentUser(): Promise<CurrentUser | null> {
 
   const { data } = await supabase
     .from("users")
-    .select("id, email, full_name, role, country_id, dojo_id, teacher_id")
+    .select("id, email, full_name, role, country_id, dojo_id, teacher_id, deactivated_at")
     .eq("id", authUser.id)
     .maybeSingle<UserRow>();
 
-  if (!data) return null;
+  if (!data || data.deactivated_at) return null;
 
   return {
     id: data.id,

@@ -108,6 +108,7 @@ async function countOtherSohonbuAdmins(excludingUserId: string): Promise<number>
     .from("users")
     .select("id", { count: "exact", head: true })
     .eq("role", "sohonbu_admin")
+    .is("deactivated_at", null)
     .neq("id", excludingUserId);
   return count ?? 0;
 }
@@ -175,14 +176,20 @@ export async function updateUserAction(
   return { error: null, success: true };
 }
 
-export async function deleteUserAction(userId: string): Promise<{ error: string | null }> {
+// Deactivate rather than hard-delete: approvals.submitted_by,
+// rank_evidence.submitted_by/reviewed_by, and audit_logs.user_id all
+// reference users(id) with no ON DELETE rule, so a hard delete fails with a
+// foreign key violation for any admin who has ever submitted a request or
+// taken a logged action — i.e. any real admin. Deactivating instead keeps
+// every historical record's user reference intact.
+export async function deactivateUserAction(userId: string): Promise<{ error: string | null }> {
   const currentUser = await getCurrentUser();
   if (!currentUser || currentUser.role !== "sohonbu_admin") {
-    return { error: "Only Sohonbu Admin can remove users." };
+    return { error: "Only Sohonbu Admin can deactivate users." };
   }
 
   if (userId === currentUser.id) {
-    return { error: "You cannot remove your own account." };
+    return { error: "You cannot deactivate your own account." };
   }
 
   const supabase = await createSupabaseServerClient();
@@ -193,14 +200,44 @@ export async function deleteUserAction(userId: string): Promise<{ error: string 
     .maybeSingle();
 
   if (target?.role === "sohonbu_admin" && (await countOtherSohonbuAdmins(userId)) === 0) {
-    return { error: "Cannot remove the last remaining Sohonbu Admin." };
+    return { error: "Cannot deactivate the last remaining Sohonbu Admin." };
   }
 
-  const admin = createSupabaseAdminClient();
-  const { error } = await admin.auth.admin.deleteUser(userId);
+  const { error } = await supabase
+    .from("users")
+    .update({ deactivated_at: new Date().toISOString() })
+    .eq("id", userId);
   if (error) {
     return { error: error.message };
   }
+
+  // Immediately invalidate any session they're already holding, so
+  // deactivation takes effect right away rather than waiting for their
+  // current access token to expire on its own.
+  const admin = createSupabaseAdminClient();
+  await admin.auth.admin.updateUserById(userId, { ban_duration: "876000h" });
+
+  revalidatePath("/admin/users");
+  return { error: null };
+}
+
+export async function reactivateUserAction(userId: string): Promise<{ error: string | null }> {
+  const currentUser = await getCurrentUser();
+  if (!currentUser || currentUser.role !== "sohonbu_admin") {
+    return { error: "Only Sohonbu Admin can reactivate users." };
+  }
+
+  const supabase = await createSupabaseServerClient();
+  const { error } = await supabase
+    .from("users")
+    .update({ deactivated_at: null })
+    .eq("id", userId);
+  if (error) {
+    return { error: error.message };
+  }
+
+  const admin = createSupabaseAdminClient();
+  await admin.auth.admin.updateUserById(userId, { ban_duration: "none" });
 
   revalidatePath("/admin/users");
   return { error: null };

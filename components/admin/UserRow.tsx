@@ -3,7 +3,8 @@
 import { useActionState, useState, useTransition } from "react";
 
 import {
-  deleteUserAction,
+  deactivateUserAction,
+  reactivateUserAction,
   updateUserAction,
   type UpdateUserActionState,
 } from "@/app/admin/users/actions";
@@ -32,8 +33,9 @@ export function UserRow({ user, isSelf, countries, dojos, teachers }: UserRowPro
   const [isEditing, setIsEditing] = useState(false);
   const [role, setRole] = useState(user.role);
   const [state, formAction, pending] = useActionState(updateUserAction, initialState);
-  const [isDeleting, startDeleteTransition] = useTransition();
-  const [deleteError, setDeleteError] = useState<string | null>(null);
+  const [isTogglingActive, startToggleActiveTransition] = useTransition();
+  const [toggleActiveError, setToggleActiveError] = useState<string | null>(null);
+  const isDeactivated = Boolean(user.deactivatedAt);
 
   if (isEditing) {
     return (
@@ -151,7 +153,12 @@ export function UserRow({ user, isSelf, countries, dojos, teachers }: UserRowPro
     <tr className="border-border border-b">
       <td className="py-2">{user.fullName ?? "—"}</td>
       <td className="py-2">{user.email}</td>
-      <td className="py-2 capitalize">{user.role.replace("_", " ")}</td>
+      <td className="py-2 capitalize">
+        {user.role.replace("_", " ")}
+        {isDeactivated && (
+          <span className="text-muted-foreground ml-2 text-xs normal-case">(deactivated)</span>
+        )}
+      </td>
       <td className="py-2">
         <div className="flex gap-2">
           <button
@@ -161,24 +168,42 @@ export function UserRow({ user, isSelf, countries, dojos, teachers }: UserRowPro
           >
             Edit
           </button>
-          <button
-            type="button"
-            disabled={isSelf || isDeleting}
-            onClick={() => {
-              if (!window.confirm(`Remove ${user.email}? This cannot be undone.`)) return;
-              setDeleteError(null);
-              startDeleteTransition(async () => {
-                const result = await deleteUserAction(user.id);
-                if (result.error) setDeleteError(result.error);
-              });
-            }}
-            title={isSelf ? "You cannot remove your own account" : undefined}
-            className="border-border border px-2 py-1 text-xs disabled:opacity-50"
-          >
-            {isDeleting ? "Removing…" : "Remove"}
-          </button>
+          {isDeactivated ? (
+            <button
+              type="button"
+              disabled={isTogglingActive}
+              onClick={() => {
+                setToggleActiveError(null);
+                startToggleActiveTransition(async () => {
+                  const result = await reactivateUserAction(user.id);
+                  if (result.error) setToggleActiveError(result.error);
+                });
+              }}
+              className="border-border border px-2 py-1 text-xs disabled:opacity-50"
+            >
+              {isTogglingActive ? "Reactivating…" : "Reactivate"}
+            </button>
+          ) : (
+            <button
+              type="button"
+              disabled={isSelf || isTogglingActive}
+              onClick={() => {
+                if (!window.confirm(`Deactivate ${user.email}? They will lose access immediately.`))
+                  return;
+                setToggleActiveError(null);
+                startToggleActiveTransition(async () => {
+                  const result = await deactivateUserAction(user.id);
+                  if (result.error) setToggleActiveError(result.error);
+                });
+              }}
+              title={isSelf ? "You cannot deactivate your own account" : undefined}
+              className="border-border border px-2 py-1 text-xs disabled:opacity-50"
+            >
+              {isTogglingActive ? "Deactivating…" : "Deactivate"}
+            </button>
+          )}
         </div>
-        {deleteError && <p className="mt-1 text-xs text-red-600">{deleteError}</p>}
+        {toggleActiveError && <p className="mt-1 text-xs text-red-600">{toggleActiveError}</p>}
       </td>
     </tr>
   );

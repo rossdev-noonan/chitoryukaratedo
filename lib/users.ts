@@ -10,6 +10,7 @@ export interface AdminUserRow {
   dojoId: string | null;
   teacherId: string | null;
   createdAt: string;
+  deactivatedAt: string | null;
 }
 
 interface RawUserRow {
@@ -21,13 +22,14 @@ interface RawUserRow {
   dojo_id: string | null;
   teacher_id: string | null;
   created_at: string;
+  deactivated_at: string | null;
 }
 
 export async function getAllUsers(): Promise<AdminUserRow[]> {
   const supabase = await createSupabaseServerClient();
   const { data } = await supabase
     .from("users")
-    .select("id, email, full_name, role, country_id, dojo_id, teacher_id, created_at")
+    .select("id, email, full_name, role, country_id, dojo_id, teacher_id, created_at, deactivated_at")
     .order("created_at", { ascending: false });
 
   return ((data ?? []) as RawUserRow[]).map((row) => ({
@@ -39,5 +41,6 @@ export async function getAllUsers(): Promise<AdminUserRow[]> {
     dojoId: row.dojo_id,
     teacherId: row.teacher_id,
     createdAt: row.created_at,
+    deactivatedAt: row.deactivated_at,
   }));
 }

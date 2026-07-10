@@ -4,15 +4,40 @@ import { useActionState, useState } from "react";
 import { toRomaji, isJapanese } from "wanakana";
 
 import { submitTeacherAction, type SubmitTeacherActionState } from "@/app/admin/teachers/actions";
-import type { AdminDojoRow } from "@/lib/admin-records";
+import type { AdminDojoRow, AdminTeacherRow } from "@/lib/admin-records";
 
 const initialState: SubmitTeacherActionState = { error: null, success: false };
 
-interface SubmitTeacherFormProps {
-  dojos: AdminDojoRow[];
+function normalizeName(name: string): string {
+  return name.trim().toLowerCase().replace(/\s+/g, " ");
 }
 
-export function SubmitTeacherForm({ dojos }: SubmitTeacherFormProps) {
+function findLikelyDuplicate(
+  candidate: string,
+  teachers: AdminTeacherRow[],
+): AdminTeacherRow | null {
+  const normalizedCandidate = normalizeName(candidate);
+  if (!normalizedCandidate) return null;
+
+  return (
+    teachers.find((teacher) => {
+      if (!teacher.nameRomaji) return false;
+      const normalizedExisting = normalizeName(teacher.nameRomaji);
+      return (
+        normalizedExisting === normalizedCandidate ||
+        normalizedExisting.includes(normalizedCandidate) ||
+        normalizedCandidate.includes(normalizedExisting)
+      );
+    }) ?? null
+  );
+}
+
+interface SubmitTeacherFormProps {
+  dojos: AdminDojoRow[];
+  teachers: AdminTeacherRow[];
+}
+
+export function SubmitTeacherForm({ dojos, teachers }: SubmitTeacherFormProps) {
   const [state, formAction, pending] = useActionState(submitTeacherAction, initialState);
   const [selectedDojoId, setSelectedDojoId] = useState("");
   const selectedDojo = dojos.find((dojo) => dojo.id === selectedDojoId);
@@ -20,6 +45,7 @@ export function SubmitTeacherForm({ dojos }: SubmitTeacherFormProps) {
   const [nameRomajiAuto, setNameRomajiAuto] = useState("");
   const [nameRomajiFinal, setNameRomajiFinal] = useState("");
   const [romajiTouchedByUser, setRomajiTouchedByUser] = useState(false);
+  const likelyDuplicate = findLikelyDuplicate(nameRomajiFinal, teachers);
 
   function handleKanaChange(value: string) {
     setNameKana(value);
@@ -91,6 +117,13 @@ export function SubmitTeacherForm({ dojos }: SubmitTeacherFormProps) {
           }}
           className="border-border border px-3 py-2"
         />
+        {likelyDuplicate && (
+          <span className="text-xs text-amber-600">
+            This looks similar to an existing teacher: &quot;{likelyDuplicate.nameRomaji}&quot;
+            ({likelyDuplicate.status}). Double-check this isn&apos;t a duplicate before
+            submitting.
+          </span>
+        )}
       </label>
       <label className="flex flex-col gap-1 text-sm">
         Rank

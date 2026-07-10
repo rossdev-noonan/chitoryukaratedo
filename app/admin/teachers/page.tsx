@@ -51,7 +51,7 @@ export default async function AdminTeachersPage() {
         Goes to the approval queue — it won&apos;t appear publicly until Sohonbu Admin approves it.
         Rank evidence upload is a separate, later piece.
       </p>
-      <SubmitTeacherForm dojos={dojos} />
+      <SubmitTeacherForm dojos={dojos} teachers={teachers} />
     </>
   );
 }

@@ -7,6 +7,26 @@ This is a brief, not a spec — the sitemap and wireframe files tell you _what_ 
 
 ---
 
+## 0. Status — 10 July 2026: Home is built, here's what we learned
+
+Your Figma file ("Chito Ryu Intl Website") landed and the **Home page is now built and live in the codebase** — desktop, tablet, and mobile frames, all pulled directly from your file via the Figma Dev Mode MCP (exact colors, fonts, spacing, not eyeballed). This section is feedback from actually building it — read it before starting the next page, it'll save rework.
+
+**What matched cleanly and is now real:**
+- Palette: primary red `#C1121F`, darker red `#9B0D18` for the CTA band, bronze/gold accent `#A1824A`, warm off-white background `#FAF9F7`.
+- Type: `Noto Serif JP` for headings/display (handles the kanji cleanly), `Inter` for body/UI — both loaded and working.
+- Sharp corners throughout, no border-radius anywhere — confirmed as an explicit direction, not a default.
+- The mobile frame's hero is structurally different from desktop (image on top, content below on a plain background, not an overlay) — that's genuinely built now, not just scaled down. Good instinct, kept the mobile version from feeling like a squeezed desktop layout.
+
+**Gaps worth resolving before the next pages go into comps:**
+
+1. **The three-generation lineage timeline isn't in the Home design.** Section 4 of this brief (below, unchanged from the original ask) specifically called out "Home: lineage-first, O-Sensei → 2nd Soke → 3rd Soke before anything else" as the anchor of the whole site's credibility positioning, citing USA-ICKF's homepage as precedent. What's in the Figma file is a single "起源 / Origins" section about the founder and the meaning of Chi/To/Ryu — real and good content, but it's not the 3-generation dated timeline the brief asked for. Worth a deliberate call: was this cut intentionally, or is it still coming for Leadership/History instead of Home? Either is fine — just needs to be a decision, not a gap.
+2. **The crest/concentric-circle signature element isn't used.** The delivered direction uses a kanji character (力必達) over a red enso brush-circle photo instead. That's a legitimate, good creative pivot — flagging only so it's a known departure from Section 3's seed, not an oversight.
+3. **The header has a globe icon with no defined behavior.** Is this a stub for a future language switcher? If so it should probably be inert/hidden until locale routing is real (see the country/language research in Section 8 below) rather than a dead click target now.
+4. **The dojo listing cards in your file show data we don't have**: phone numbers, a longer description per dojo, and a "Browse All 240 Locations" link. Our real `dojos` table has no phone field, and 240 is a placeholder number, not real. Two options: (a) add a `phone` column to the schema and drop the fabricated location count, or (b) simplify the card design to only the fields that are real (name, city, head instructor, contact email). Flagging now rather than after more pages are comped around the richer card.
+5. **Only Home has been designed so far** (Figma pages panel shows "Home Page" and "Branding" — no comps yet for About, History, Leadership, Dojo Directory, Country page, Dojo/Teacher detail, News, Events, Resources, Contact). All of Section 4 below is still open.
+
+---
+
 ## 1. The one-line brief
 
 One official, worldwide home for Chito-Ryu — that reads as **quietly authoritative**, not like a martial-arts-gym marketing site. The audience includes senior instructors and federation officials in multiple countries, so credibility and restraint matter more than excitement.
@@ -87,6 +107,44 @@ Do your own brainstorm/critique pass on this before building — the above is a 
 
 ## 8. Open items still pending Mike's confirmation (don't design final content around these yet)
 
-- Full list of countries with their own standing ICKF-affiliated federation site (confirmed so far: Canada, USA)
-- Map vs list-only for the World Directory (precedent sites use list-only — recommend not designing a map view yet)
-- Locale routing (`/en`, `/ja`, `/de`, `/fr`) — likely deferred past v1
+- **Updated 10 July 2026** — Ross has researched confirmed/referenced ICKF ties and primary languages per country. This is research input, not yet Mike-confirmed as the final "has its own federation site" list — that confirmation is still the actual blocker before the World Directory data model is locked:
+
+  | Country | Primary language(s) |
+  | --- | --- |
+  | Australia | English |
+  | Canada | English (French in Quebec) |
+  | Hong Kong | Cantonese, English |
+  | Ireland | English (Irish also official) |
+  | Jamaica | English |
+  | Japan (Sohonbu) | Japanese |
+  | Norway | Norwegian |
+  | Scotland | English |
+  | Singapore | English, Mandarin, Malay, Tamil |
+  | United States | English |
+  | UK | English |
+  | Finland | Finnish, Swedish |
+  | Bangladesh | Bengali |
+
+  Sources: ICKF Canada (About, Members), USA-ICKF (national + NJ/FL/KY chapters), ICKFA Sunshine Coast Branch, ICKFA Beginner Manual, Chitō-ryū Wikipedia, ICRF legacy site.
+
+  **What this means for design, right now:** still recommend deferring full locale routing (`/en`, `/ja`, etc.) past v1, per the original call — 11 of 13 countries are English-primary or English-fluent for federation purposes, so English-only content is a reasonable v1. But two technical notes worth carrying forward even without building locale routing yet: (1) `Noto Serif JP` only covers Latin + Japanese glyphs — it does **not** render Chinese (Cantonese/Mandarin), Tamil, or Bengali script, so if any of those ever need native-script display (e.g. a Hong Kong or Singapore dojo's name, matching how Japanese teacher names already get native + Romaji), the type system needs a broader CJK/Indic-capable fallback font chosen deliberately, not discovered as a bug later. (2) This list is also the input Mike needs to confirm which countries get a **federation card** (own site, outbound link) vs a **hosted dojo grid** — right now only Canada and USA are confirmed as having their own standing site; the other 11 are unconfirmed either way.
+
+- Map vs list-only for the World Directory (precedent sites use list-only — recommend not designing a map view yet; Home's "Find a Dojo" section currently ships with a static illustrative world-map image, not an interactive map — see Section 0)
+- Locale routing (`/en`, `/ja`, `/de`, `/fr`) — likely deferred past v1, see language table above
+
+---
+
+## 9. Data fields actually available (design to these, not to imagined ones)
+
+Real schema, as built. If a comp needs a field not listed here, flag it — adding a column is easy now, expensive after a page is fully comped around data that doesn't exist (see Section 0, point 4, for a real example of this happening already).
+
+| Entity | Fields available | Notably absent |
+| --- | --- | --- |
+| **Country** | name, slug, has_own_federation_site, federation_site_url, federation_name, representative | — |
+| **Dojo** | name, slug, city, head_instructor, contact_email, country | phone number, street address, description, photo |
+| **Teacher** | name (native + kana + romaji), rank, dojo, country, photo (**storage bucket exists, no upload UI built yet** — safe to design a photo treatment for teacher cards/detail now, the backend is ready) | bio/description text, certifications list beyond rank |
+| **News/Events** | Not yet real — Sanity (the CMS) hasn't actually been provisioned yet (empty project, not just unconfigured). Home's News & Events cards currently use hardcoded placeholder content matching your file. Design these as normal Sanity-driven content; they'll get wired to live data once Sanity is set up. |
+
+**Icon library:** `lucide-react` — a large, consistent icon set, but it does **not** include brand icons (Facebook/Instagram/YouTube aren't in it). Those got hand-built as inline SVGs for the footer. If your comps use other brand/social icons, flag them — same treatment needed.
+
+**Fonts already locked in:** `Noto Serif JP` (display/headings) + `Inter` (body/UI), loaded via `next/font/google`. If a future page's comp wants a different pairing, raise it early — changing the font-loading setup is a small technical change but a real visual-identity decision, better made deliberately than by drift across pages.

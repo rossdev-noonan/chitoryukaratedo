@@ -289,7 +289,27 @@ Takeaways folded into this doc: (1) real federation sites use simple flat groupe
 
 ## 9. Open items to confirm with Mike / Gil / Adrian before wireframe lock
 
-- Which countries already have their own standing ICKF-affiliated federation site (confirmed so far: Canada, USA) — **must come from Mike, not web research**, since unaffiliated same-name organizations exist in both countries
-- Locale routing (`/en`, `/ja`, `/de`, `/fr`) — build now or defer? (Recommend: defer)
-- Map view vs list-only for Dojo Directory (approval doc says "map/list option if practical") — real precedent sites use list-only
-- Whether admin login link sits in footer or is a fully hidden direct URL only
+- Which countries already have their own standing ICKF-affiliated federation site (confirmed so far: Canada, USA) — **must come from Mike, not web research**, since unaffiliated same-name organizations exist in both countries. Ross has since researched a fuller list of countries with confirmed/referenced ICKF ties and their primary language(s) — this is a starting point for Mike to confirm against, not itself the confirmation:
+
+  | Country | Primary language(s) |
+  | --- | --- |
+  | Australia | English |
+  | Canada | English (French in Quebec) |
+  | Hong Kong | Cantonese, English |
+  | Ireland | English (Irish also official) |
+  | Jamaica | English |
+  | Japan (Sohonbu) | Japanese |
+  | Norway | Norwegian |
+  | Scotland | English |
+  | Singapore | English, Mandarin, Malay, Tamil |
+  | United States | English |
+  | UK | English |
+  | Finland | Finnish, Swedish |
+  | Bangladesh | Bengali |
+
+  Sources: ICKF Canada (About, Members), USA-ICKF (national + NJ/FL/KY chapters), ICKFA Sunshine Coast Branch, ICKFA Beginner Manual, Chitō-ryū Wikipedia, ICRF legacy site.
+
+- Locale routing (`/en`, `/ja`, `/de`, `/fr`) — build now or defer? (Recommend: defer — 11 of the 13 countries above are English-primary or English-fluent for federation purposes, so English-only is a reasonable v1). If/when locale routing is built, note the current type system (`Noto Serif JP` + `Inter`, set 2026-07-10 for the homepage) only covers Latin + Japanese script — Cantonese/Mandarin, Tamil, and Bengali would need a separately-chosen CJK/Indic-capable font, not an assumption that the existing pairing already handles it.
+- Map view vs list-only for Dojo Directory (approval doc says "map/list option if practical") — real precedent sites use list-only. The homepage's "Find a Dojo" section (built 2026-07-10) currently ships a static illustrative world-map image, not an interactive map — matches this recommendation for now.
+- Whether admin login link sits in footer or is a fully hidden direct URL only — **resolved in the built homepage/footer**: it sits in the footer bottom bar, not in the main nav.
+- **New, found while building the homepage:** the Figma dojo-listing card design includes a phone number, a longer per-dojo description, and a "Browse All N Locations" count — none of which exist in the current `dojos` schema (name, slug, city, head_instructor, contact_email, country only). Needs a decision: add these columns, or simplify the card design to match real data. See `handover-to-gil.md` Section 0 for the full note.

@@ -15,7 +15,7 @@ export function HomeCTA() {
         </div>
         <Link
           href="/dojo-directory"
-          className="text-primary-dark inline-flex shrink-0 items-center gap-2 rounded-md bg-white px-6 py-3 text-sm font-bold transition-opacity hover:opacity-90"
+          className="text-primary-dark inline-flex shrink-0 items-center gap-2 bg-white px-6 py-3 text-sm font-bold transition-opacity hover:opacity-90"
         >
           Find a Dojo
           <ArrowRight className="h-4 w-4" />

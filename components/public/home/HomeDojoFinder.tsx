@@ -17,7 +17,7 @@ export async function HomeDojoFinder() {
 
       <Link
         href="/dojo-directory"
-        className="border-border bg-background mx-auto mt-8 flex max-w-3xl flex-col gap-3 rounded-md border p-3 transition-colors hover:bg-black/[0.02] sm:flex-row sm:items-center"
+        className="border-border bg-background mx-auto mt-8 flex max-w-3xl flex-col gap-3 border p-3 transition-colors hover:bg-black/[0.02] sm:flex-row sm:items-center"
       >
         <span className="border-border text-muted-foreground flex flex-1 items-center gap-2 border-b px-2 py-2 text-sm sm:border-r sm:border-b-0">
           <Search className="h-4 w-4 shrink-0" />
@@ -31,7 +31,7 @@ export async function HomeDojoFinder() {
           All Countries
           <ChevronDown className="h-3.5 w-3.5" />
         </span>
-        <span className="bg-primary text-primary-foreground rounded-md px-6 py-2.5 text-center text-sm font-bold">
+        <span className="bg-primary text-primary-foreground px-6 py-2.5 text-center text-sm font-bold">
           Search
         </span>
       </Link>
@@ -52,10 +52,10 @@ export async function HomeDojoFinder() {
             <Link
               key={dojo.slug}
               href={`/dojo/${dojo.slug}`}
-              className="border-border bg-background flex items-center justify-between gap-4 rounded-md border p-4 transition-colors hover:bg-black/[0.02]"
+              className="border-border bg-background flex items-center justify-between gap-4 border p-4 transition-colors hover:bg-black/[0.02]"
             >
               <div className="flex items-center gap-4">
-                <span className="bg-primary/10 text-primary flex h-12 w-12 shrink-0 items-center justify-center rounded-full">
+                <span className="bg-primary/10 text-primary flex h-12 w-12 shrink-0 items-center justify-center">
                   <MapPin className="h-5 w-5" />
                 </span>
                 <div>

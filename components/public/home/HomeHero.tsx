@@ -37,14 +37,14 @@ export function HomeHero() {
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
               href="/about"
-              className="bg-primary text-primary-foreground inline-flex items-center gap-2 rounded-md px-6 py-3 text-sm font-bold transition-opacity hover:opacity-90"
+              className="bg-primary text-primary-foreground inline-flex items-center gap-2 px-6 py-3 text-sm font-bold transition-opacity hover:opacity-90"
             >
               About Chito Ryu
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               href="/dojo-directory"
-              className="border-border bg-background/90 text-foreground inline-flex items-center gap-2 rounded-md border px-6 py-3 text-sm font-bold transition-colors hover:bg-white"
+              className="border-border bg-background/90 text-foreground inline-flex items-center gap-2 border px-6 py-3 text-sm font-bold transition-colors hover:bg-white"
             >
               Find a Dojo
               <MapPin className="h-4 w-4" />

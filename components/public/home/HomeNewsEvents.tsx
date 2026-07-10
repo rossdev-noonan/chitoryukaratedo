@@ -23,7 +23,7 @@ export function HomeNewsEvents() {
       <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {homeNewsCards.map((card) => (
           <Link key={card.title} href={card.href} className="group block">
-            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md">
+            <div className="relative aspect-[16/10] w-full overflow-hidden">
               <Image
                 src={card.imageSrc}
                 alt=""

@@ -1,35 +1,32 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test } from "@playwright/test";
+import { test } from "@playwright/test";
 
 // Scans structural/semantic accessibility (labels, landmarks, alt text, ARIA,
 // keyboard reachability) on the pages that exist today. Visual/contrast
-// checks are included too, but the current styling is a structural
-// placeholder pending Gil's design — contrast findings against placeholder
-// colors aren't durable, so re-run this after the real design lands and
-// treat any contrast findings from today as informational, not blocking.
+// checks are included too. Only the homepage has real design applied so
+// far (2026-07-10) — other pages are still structural placeholders pending
+// Gil's comps, so contrast findings on those aren't durable yet.
 
 const pagesToScan = [
-  "/",
-  "/about",
-  "/history",
-  "/leadership",
-  "/dojo-directory",
-  "/teachers",
-  "/news",
-  "/events",
-  "/resources",
-  "/sohonbu-experience",
-  "/contact",
-  "/login",
+  "/en",
+  "/en/about",
+  "/en/history",
+  "/en/leadership",
+  "/en/dojo-directory",
+  "/en/teachers",
+  "/en/news",
+  "/en/events",
+  "/en/resources",
+  "/en/sohonbu-experience",
+  "/en/contact",
+  "/en/login",
 ];
 
 test.describe("Accessibility (axe-core)", () => {
   for (const path of pagesToScan) {
     test(`${path} has no serious or critical violations`, async ({ page }) => {
       await page.goto(path);
-      const results = await new AxeBuilder({ page })
-        .withTags(["wcag2a", "wcag2aa"])
-        .analyze();
+      const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
 
       const seriousOrCritical = results.violations.filter(
         (violation) => violation.impact === "serious" || violation.impact === "critical",

@@ -29,7 +29,9 @@ export async function getAllUsers(): Promise<AdminUserRow[]> {
   const supabase = await createSupabaseServerClient();
   const { data } = await supabase
     .from("users")
-    .select("id, email, full_name, role, country_id, dojo_id, teacher_id, created_at, deactivated_at")
+    .select(
+      "id, email, full_name, role, country_id, dojo_id, teacher_id, created_at, deactivated_at",
+    )
     .order("created_at", { ascending: false });
 
   return ((data ?? []) as RawUserRow[]).map((row) => ({

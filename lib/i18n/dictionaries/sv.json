@@ -1,0 +1,85 @@
+{
+  "nav": {
+    "about": "Om oss",
+    "history": "Historia",
+    "leadership": "Ledarskap",
+    "dojoDirectory": "Dojo-katalog",
+    "teachers": "Instruktörer",
+    "news": "Nyheter",
+    "events": "Evenemang",
+    "resources": "Resurser",
+    "contact": "Kontakt",
+    "joinUs": "Bli medlem",
+    "openMenu": "Öppna meny",
+    "closeMenu": "Stäng meny",
+    "language": "Språk"
+  },
+  "footer": {
+    "tagline": "Internationella Chito-Ryu Karate-Do-federationen främjar och bevarar Chito-Ryu Karate-Do runt om i världen.",
+    "quickLinks": "Snabblänkar",
+    "resourcesHeading": "Resurser",
+    "downloads": "Nedladdningar",
+    "examinations": "Graderingar",
+    "technicalDocuments": "Tekniska dokument",
+    "rulesAndGuidelines": "Regler och riktlinjer",
+    "connect": "Kontakta oss",
+    "copyright": "© {year} International Chito-Ryu Karate-Do Federation. Alla rättigheter förbehållna.",
+    "privacy": "Integritetspolicy",
+    "terms": "Villkor",
+    "admin": "Admin"
+  },
+  "home": {
+    "heroTitleLine1": "Bevarar tradition.",
+    "heroTitleHighlight": "Inspirerar",
+    "heroTitleLine2": "världen.",
+    "heroDescription": "Chito Ryu Karate-Do är en av de äldsta karatestilarna, grundad på Okinawa och spridd till världen genom hängivenhet, disciplin och respekt.",
+    "aboutChitoRyu": "Om Chito Ryu",
+    "findADojo": "Hitta en dojo",
+    "originsLabel": "Ledarskap",
+    "originsHeading": "起源 / Origins",
+    "originsDescription": "O-Sensei fick veta av Arigaki Sensei att karate-do uppstod för ungefär tusen år sedan i Kina. Baserat på detta namngav O-Sensei sin stil \"Chito Ryu\", efter karate-doens ursprung.",
+    "accordion": [
+      {
+        "title": "Betydelsen av CHI, TO, RYU",
+        "body": "\"Chi\" syftar på Tang-dynastin i Kina, \"To\" syftar också på Kina (det gamla namnet \"To\"/唐), och \"Ryu\" betyder stil eller skola — tillsammans hedrar de konstens kinesiska ursprung inom en japansk stil."
+      },
+      {
+        "title": "Från Tang-dynastin till Okinawa",
+        "body": "Karate-doens rötter går tillbaka ungefär tusen år till kinesiska kampkonsttraditioner från Tang-dynastin, som spreds till och vidareutvecklades på Okinawa under århundraden innan de nådde det japanska fastlandet."
+      },
+      {
+        "title": "Chitose Sensei och den moderna eran",
+        "body": "O-Sensei Tsuyoshi Chitose sammanförde dessa läror till en sammanhållen stil 1946, med betoning på säkerhet, anatomisk studie och bevarande av de praktiska stridsteknikerna som ofta går förlorade i sportinriktad karate."
+      }
+    ],
+    "newsEventsLabel": "Nyheter och evenemang",
+    "latestUpdates": "Senaste nytt",
+    "viewAllNews": "Se alla nyheter",
+    "newsCards": [
+      {
+        "category": "Evenemang",
+        "title": "15:e Chito-Ryu Karate Soke Cup",
+        "detail": "13–15 augusti 2026 · Gold Coast, Australien"
+      },
+      {
+        "category": "Nyhet",
+        "title": "Budskap från Soke",
+        "detail": "Läs det senaste budskapet från vår Soke."
+      },
+      {
+        "category": "Nyhet",
+        "title": "Ny dojo i Brasilien",
+        "detail": "Chito Ryu fortsätter att växa i Sydamerika."
+      }
+    ],
+    "ctaHeading": "Bli en del av vår globala gemenskap",
+    "ctaDescription": "Hitta en certifierad dojo nära dig och påbörja din resa.",
+    "dojoFinderLabel": "Hitta en dojo",
+    "dojoFinderHeading": "Dojo-katalog",
+    "dojoFinderDescription": "Hitta en officiell Chito Ryu-dojo nära dig.",
+    "searchPlaceholder": "Sök efter land eller stad",
+    "allRegions": "Alla regioner",
+    "allCountries": "Alla länder",
+    "search": "Sök"
+  }
+}

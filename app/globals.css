@@ -132,3 +132,18 @@
     @apply font-sans;
   }
 }
+
+/* Script-specific font overrides for locales the base Noto Serif JP +
+   Inter pairing doesn't cover — see app/[lang]/layout.tsx. */
+.font-locale-yue {
+  font-family: var(--font-noto-sans-hk), var(--font-inter), sans-serif;
+}
+.font-locale-zh {
+  font-family: var(--font-noto-sans-sc), var(--font-inter), sans-serif;
+}
+.font-locale-ta {
+  font-family: var(--font-noto-sans-ta), var(--font-inter), sans-serif;
+}
+.font-locale-bn {
+  font-family: var(--font-noto-sans-bn), var(--font-inter), sans-serif;
+}

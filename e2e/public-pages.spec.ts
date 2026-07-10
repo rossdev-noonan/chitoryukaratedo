@@ -1,19 +1,19 @@
 import { expect, test } from "@playwright/test";
 
 const publicRoutes = [
-  "/",
-  "/about",
-  "/history",
-  "/leadership",
-  "/dojo-directory",
-  "/teachers",
-  "/news",
-  "/events",
-  "/resources",
-  "/sohonbu-experience",
-  "/contact",
-  "/privacy",
-  "/terms",
+  "/en",
+  "/en/about",
+  "/en/history",
+  "/en/leadership",
+  "/en/dojo-directory",
+  "/en/teachers",
+  "/en/news",
+  "/en/events",
+  "/en/resources",
+  "/en/sohonbu-experience",
+  "/en/contact",
+  "/en/privacy",
+  "/en/terms",
 ];
 
 test.describe("Public pages load without errors", () => {
@@ -27,15 +27,16 @@ test.describe("Public pages load without errors", () => {
 });
 
 test("navigating from the homepage to the dojo directory works", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/en");
   await page
     .getByRole("navigation", { name: "Primary" })
     .getByRole("link", { name: "Dojo Directory" })
     .click();
-  await expect(page).toHaveURL(/\/dojo-directory$/);
+  await expect(page).toHaveURL(/\/en\/dojo-directory$/);
 });
 
-test("visiting an unknown route shows a 404", async ({ page }) => {
+test("visiting an unmatched route redirects to a locale prefix, then 404s", async ({ page }) => {
   const response = await page.goto("/this-page-does-not-exist");
   expect(response?.status()).toBe(404);
+  await expect(page).toHaveURL(/\/en\/this-page-does-not-exist$/);
 });

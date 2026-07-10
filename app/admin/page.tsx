@@ -38,9 +38,7 @@ export default async function AdminDashboardPage() {
             <li key={entry.id} className="border-border border-b py-2 text-sm">
               <span className="font-medium">{entry.action}</span> on{" "}
               <span className="text-muted-foreground">{entry.tableName}</span>
-              {entry.recordId && (
-                <span className="text-muted-foreground"> · {entry.recordId}</span>
-              )}
+              {entry.recordId && <span className="text-muted-foreground"> · {entry.recordId}</span>}
               <span className="text-muted-foreground float-right text-xs">
                 {new Date(entry.createdAt).toLocaleString()}
               </span>

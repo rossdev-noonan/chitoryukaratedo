@@ -40,10 +40,7 @@ export async function getApprovals(): Promise<ApprovalRow[]> {
 
   const emailById = new Map<string, string>();
   if (submitterIds.length > 0) {
-    const { data: users } = await supabase
-      .from("users")
-      .select("id, email")
-      .in("id", submitterIds);
+    const { data: users } = await supabase.from("users").select("id, email").in("id", submitterIds);
     for (const user of users ?? []) {
       emailById.set(user.id, user.email);
     }

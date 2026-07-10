@@ -1,0 +1,85 @@
+{
+  "nav": {
+    "about": "概要",
+    "history": "沿革",
+    "leadership": "指導部",
+    "dojoDirectory": "道場一覧",
+    "teachers": "指導者",
+    "news": "ニュース",
+    "events": "イベント",
+    "resources": "資料",
+    "contact": "お問い合わせ",
+    "joinUs": "参加する",
+    "openMenu": "メニューを開く",
+    "closeMenu": "メニューを閉じる",
+    "language": "言語"
+  },
+  "footer": {
+    "tagline": "国際千唐流空手道連盟は、世界中で千唐流空手道を推進し、保存しています。",
+    "quickLinks": "クイックリンク",
+    "resourcesHeading": "資料",
+    "downloads": "ダウンロード",
+    "examinations": "昇級審査",
+    "technicalDocuments": "技術資料",
+    "rulesAndGuidelines": "規則とガイドライン",
+    "connect": "つながる",
+    "copyright": "© {year} 国際千唐流空手道連盟。全著作権所有。",
+    "privacy": "プライバシーポリシー",
+    "terms": "利用規約",
+    "admin": "管理者"
+  },
+  "home": {
+    "heroTitleLine1": "伝統を守り、",
+    "heroTitleHighlight": "世界を",
+    "heroTitleLine2": "鼓舞する。",
+    "heroDescription": "千唐流空手道は、沖縄で創始され、献身と規律、そして敬意を通じて世界中に広まった、最も歴史ある空手の流派の一つです。",
+    "aboutChitoRyu": "千唐流について",
+    "findADojo": "道場を探す",
+    "originsLabel": "指導部",
+    "originsHeading": "起源 / Origins",
+    "originsDescription": "有岡先生によれば、空手道は約千年前に中国で起源を持つとされる。これに基づき、千歳翁は空手道の起源にちなみ、自身の流派を「千唐流」と名付けた。",
+    "accordion": [
+      {
+        "title": "「千」「唐」「流」の意味",
+        "body": "「千」は中国の唐王朝を指し、「唐」も同じく中国(古称「唐」)を意味し、「流」は流派・型を意味する。これらが合わさり、日本の様式の中に息づく空手の中国起源に敬意を表している。"
+      },
+      {
+        "title": "唐王朝から沖縄へ",
+        "body": "空手道のルーツは約千年前、唐王朝時代の中国武術に遡る。それは幾世紀もの時をかけて沖縄へ伝わり、洗練された後、日本本土へと渡った。"
+      },
+      {
+        "title": "千歳先生と近代",
+        "body": "千歳強直翁は1946年、これらの教えを一つの首尾一貫した流派へとまとめ上げ、安全性と解剖学的研究、そして競技化された空手でしばしば失われがちな実戦的技術の継承を重視した。"
+      }
+    ],
+    "newsEventsLabel": "ニュース&イベント",
+    "latestUpdates": "最新情報",
+    "viewAllNews": "すべてのニュースを見る",
+    "newsCards": [
+      {
+        "category": "イベント",
+        "title": "第15回千唐流空手道 宗家杯",
+        "detail": "2026年8月13日〜15日・オーストラリア ゴールドコースト"
+      },
+      {
+        "category": "ニュース",
+        "title": "宗家からのメッセージ",
+        "detail": "宗家からの最新メッセージをご覧ください。"
+      },
+      {
+        "category": "ニュース",
+        "title": "ブラジルに新道場誕生",
+        "detail": "千唐流は南米で発展を続けています。"
+      }
+    ],
+    "ctaHeading": "世界のコミュニティに参加しよう",
+    "ctaDescription": "近くの認定道場を見つけて、あなたの道を歩み始めましょう。",
+    "dojoFinderLabel": "道場を探す",
+    "dojoFinderHeading": "道場一覧",
+    "dojoFinderDescription": "お近くの正式な千唐流道場を見つけましょう。",
+    "searchPlaceholder": "国または都市で検索",
+    "allRegions": "すべての地域",
+    "allCountries": "すべての国",
+    "search": "検索"
+  }
+}

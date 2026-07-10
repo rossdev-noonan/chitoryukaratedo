@@ -3,23 +3,32 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { FacebookIcon, InstagramIcon, YoutubeIcon } from "@/components/public/SocialIcons";
-import { footerLegalItems } from "@/lib/nav-items";
+import type { Locale } from "@/lib/i18n/locales";
+import type { Dictionary } from "@/lib/i18n/types";
+import { getFooterLegalItems } from "@/lib/nav-items";
 
-const quickLinks = [
-  { href: "/about", label: "About" },
-  { href: "/history", label: "History" },
-  { href: "/dojo-directory", label: "Dojo Directory" },
-  { href: "/events", label: "Events" },
-];
+interface FooterProps {
+  lang: Locale;
+  dictionary: Dictionary;
+}
 
-const resourceLinks = [
-  { href: "/resources/downloads", label: "Downloads" },
-  { href: "/resources", label: "Examinations" },
-  { href: "/resources", label: "Technical Documents" },
-  { href: "/resources", label: "Rules & Guidelines" },
-];
+export function Footer({ lang, dictionary }: FooterProps) {
+  const legalItems = getFooterLegalItems(dictionary);
 
-export function Footer() {
+  const quickLinks = [
+    { href: "/about", label: dictionary.nav.about },
+    { href: "/history", label: dictionary.nav.history },
+    { href: "/dojo-directory", label: dictionary.nav.dojoDirectory },
+    { href: "/events", label: dictionary.nav.events },
+  ];
+
+  const resourceLinks = [
+    { href: "/resources/downloads", label: dictionary.footer.downloads },
+    { href: "/resources", label: dictionary.footer.examinations },
+    { href: "/resources", label: dictionary.footer.technicalDocuments },
+    { href: "/resources", label: dictionary.footer.rulesAndGuidelines },
+  ];
+
   return (
     <footer className="bg-foreground text-background">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-10">
@@ -38,18 +47,18 @@ export function Footer() {
                 <span className="block text-sm font-semibold">Chito Ryu International</span>
               </span>
             </div>
-            <p className="mt-4 text-sm opacity-70">
-              The International Chito-Ryu Karate-Do Federation promotes and preserves Chito-Ryu
-              Karate-Do around the world.
-            </p>
+            <p className="mt-4 text-sm opacity-70">{dictionary.footer.tagline}</p>
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold">Quick Links</h3>
+            <h3 className="text-sm font-semibold">{dictionary.footer.quickLinks}</h3>
             <ul className="mt-4 flex flex-col gap-3">
               {quickLinks.map((item) => (
                 <li key={item.label}>
-                  <Link href={item.href} className="text-sm opacity-70 hover:opacity-100">
+                  <Link
+                    href={`/${lang}${item.href}`}
+                    className="text-sm opacity-70 hover:opacity-100"
+                  >
                     {item.label}
                   </Link>
                 </li>
@@ -58,11 +67,14 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold">Resources</h3>
+            <h3 className="text-sm font-semibold">{dictionary.footer.resourcesHeading}</h3>
             <ul className="mt-4 flex flex-col gap-3">
               {resourceLinks.map((item) => (
                 <li key={item.label}>
-                  <Link href={item.href} className="text-sm opacity-70 hover:opacity-100">
+                  <Link
+                    href={`/${lang}${item.href}`}
+                    className="text-sm opacity-70 hover:opacity-100"
+                  >
                     {item.label}
                   </Link>
                 </li>
@@ -71,7 +83,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold">Connect</h3>
+            <h3 className="text-sm font-semibold">{dictionary.footer.connect}</h3>
             <div className="mt-4 flex flex-col gap-4">
               <a
                 href="mailto:info@chitoryu.org"
@@ -114,18 +126,15 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs opacity-70 sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            &copy; {new Date().getFullYear()} International Chito-Ryu Karate-Do Federation. All
-            rights reserved.
-          </p>
+          <p>{dictionary.footer.copyright.replace("{year}", String(new Date().getFullYear()))}</p>
           <nav aria-label="Legal and administrative" className="flex items-center gap-4">
-            {footerLegalItems.map((item) => (
-              <Link key={item.href} href={item.href} className="hover:opacity-100">
+            {legalItems.map((item) => (
+              <Link key={item.href} href={`/${lang}${item.href}`} className="hover:opacity-100">
                 {item.label}
               </Link>
             ))}
-            <Link href="/login" className="hover:opacity-100">
-              Admin
+            <Link href={`/${lang}/login`} className="hover:opacity-100">
+              {dictionary.footer.admin}
             </Link>
           </nav>
         </div>

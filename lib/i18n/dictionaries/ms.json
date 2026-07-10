@@ -1,0 +1,85 @@
+{
+  "nav": {
+    "about": "Tentang Kami",
+    "history": "Sejarah",
+    "leadership": "Kepimpinan",
+    "dojoDirectory": "Direktori Dojo",
+    "teachers": "Jurulatih",
+    "news": "Berita",
+    "events": "Acara",
+    "resources": "Sumber",
+    "contact": "Hubungi",
+    "joinUs": "Sertai Kami",
+    "openMenu": "Buka menu",
+    "closeMenu": "Tutup menu",
+    "language": "Bahasa"
+  },
+  "footer": {
+    "tagline": "Persekutuan Antarabangsa Chito-Ryu Karate-Do mempromosi dan memelihara Chito-Ryu Karate-Do di seluruh dunia.",
+    "quickLinks": "Pautan Pantas",
+    "resourcesHeading": "Sumber",
+    "downloads": "Muat Turun",
+    "examinations": "Peperiksaan Gred",
+    "technicalDocuments": "Dokumen Teknikal",
+    "rulesAndGuidelines": "Peraturan & Garis Panduan",
+    "connect": "Hubungi Kami",
+    "copyright": "© {year} International Chito-Ryu Karate-Do Federation. Hak cipta terpelihara.",
+    "privacy": "Dasar Privasi",
+    "terms": "Terma",
+    "admin": "Pentadbir"
+  },
+  "home": {
+    "heroTitleLine1": "Memelihara Tradisi.",
+    "heroTitleHighlight": "Memberi Inspirasi",
+    "heroTitleLine2": "kepada Dunia.",
+    "heroDescription": "Chito Ryu Karate-Do adalah salah satu gaya karate tertua, diasaskan di Okinawa dan dibawa ke seluruh dunia melalui dedikasi, disiplin dan rasa hormat.",
+    "aboutChitoRyu": "Tentang Chito Ryu",
+    "findADojo": "Cari Dojo",
+    "originsLabel": "Kepimpinan",
+    "originsHeading": "起源 / Origins",
+    "originsDescription": "O-Sensei diberitahu oleh Arigaki Sensei bahawa karate-do berasal kira-kira seribu tahun lalu di China. Berdasarkan ini, O-Sensei menamakan gayanya 'Chito Ryu', bersempena asal-usul karate-do.",
+    "accordion": [
+      {
+        "title": "Maksud CHI, TO, RYU",
+        "body": "\"Chi\" merujuk kepada Dinasti Tang China, \"To\" turut merujuk kepada China (nama lama \"To\"/唐), dan \"Ryu\" bermaksud gaya atau aliran — bersama-sama menghormati asal-usul Cina seni ini dalam gaya Jepun."
+      },
+      {
+        "title": "Dari Dinasti Tang ke Okinawa",
+        "body": "Akar karate-do bermula kira-kira seribu tahun lalu daripada tradisi seni mempertahankan diri China zaman Dinasti Tang, yang berkembang di Okinawa selama berabad-abad sebelum sampai ke tanah besar Jepun."
+      },
+      {
+        "title": "Chitose Sensei dan Era Moden",
+        "body": "O-Sensei Tsuyoshi Chitose menyatukan ajaran-ajaran ini menjadi satu gaya yang koheren pada tahun 1946, menekankan keselamatan, kajian anatomi, dan pemeliharaan teknik pertempuran praktikal yang sering hilang dalam karate bersifat sukan."
+      }
+    ],
+    "newsEventsLabel": "Berita & Acara",
+    "latestUpdates": "Kemas Kini Terkini",
+    "viewAllNews": "Lihat semua berita",
+    "newsCards": [
+      {
+        "category": "Acara",
+        "title": "Piala Soke Karate Chito-Ryu ke-15",
+        "detail": "13 - 15 Ogos 2026 · Gold Coast, Australia"
+      },
+      {
+        "category": "Berita",
+        "title": "Mesej daripada Soke",
+        "detail": "Baca mesej terkini daripada Soke kami."
+      },
+      {
+        "category": "Berita",
+        "title": "Dojo Baharu di Brazil",
+        "detail": "Chito Ryu terus berkembang di Amerika Selatan."
+      }
+    ],
+    "ctaHeading": "Sertai Komuniti Global Kami",
+    "ctaDescription": "Cari dojo bertauliah berhampiran anda dan mulakan perjalanan anda.",
+    "dojoFinderLabel": "Cari Dojo",
+    "dojoFinderHeading": "Direktori Dojo",
+    "dojoFinderDescription": "Cari dojo Chito Ryu rasmi berhampiran anda.",
+    "searchPlaceholder": "Cari mengikut negara atau bandar",
+    "allRegions": "Semua Wilayah",
+    "allCountries": "Semua Negara",
+    "search": "Cari"
+  }
+}

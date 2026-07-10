@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import { getCountries, getDojosByCountryId, getTeachers } from "@/lib/directory";
+import { locales } from "@/lib/i18n/locales";
 import { getEvents, getNewsPosts } from "@/lib/sanity/content";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://chitoryukaratedo.com";
@@ -24,11 +25,21 @@ const staticRoutes = [
   "/terms",
 ];
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((path) => ({
-    url: `${siteUrl}${path}`,
-    lastModified: new Date(),
+function withLocaleAlternates(path: string, lastModified: Date): MetadataRoute.Sitemap[number][] {
+  const languages = Object.fromEntries(
+    locales.map((locale) => [locale, `${siteUrl}/${locale}${path}`]),
+  );
+
+  return locales.map((locale) => ({
+    url: `${siteUrl}/${locale}${path}`,
+    lastModified,
+    alternates: { languages },
   }));
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const now = new Date();
+  const staticEntries = staticRoutes.flatMap((path) => withLocaleAlternates(path, now));
 
   const [countries, teachers, newsPosts, events] = await Promise.all([
     getCountries(),
@@ -44,30 +55,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   );
   const dojos = dojoLists.flat();
 
-  const countryEntries: MetadataRoute.Sitemap = countries.map((country) => ({
-    url: `${siteUrl}/dojo-directory/${country.slug}`,
-    lastModified: new Date(),
-  }));
+  const countryEntries = countries.flatMap((country) =>
+    withLocaleAlternates(`/dojo-directory/${country.slug}`, now),
+  );
 
-  const dojoEntries: MetadataRoute.Sitemap = dojos.map((dojo) => ({
-    url: `${siteUrl}/dojo/${dojo.slug}`,
-    lastModified: new Date(),
-  }));
+  const dojoEntries = dojos.flatMap((dojo) => withLocaleAlternates(`/dojo/${dojo.slug}`, now));
 
-  const teacherEntries: MetadataRoute.Sitemap = teachers.map((teacher) => ({
-    url: `${siteUrl}/teachers/${teacher.slug}`,
-    lastModified: new Date(),
-  }));
+  const teacherEntries = teachers.flatMap((teacher) =>
+    withLocaleAlternates(`/teachers/${teacher.slug}`, now),
+  );
 
-  const newsEntries: MetadataRoute.Sitemap = newsPosts.map((post) => ({
-    url: `${siteUrl}/news/${post.slug}`,
-    lastModified: new Date(post.publishedAt),
-  }));
+  const newsEntries = newsPosts.flatMap((post) =>
+    withLocaleAlternates(`/news/${post.slug}`, new Date(post.publishedAt)),
+  );
 
-  const eventEntries: MetadataRoute.Sitemap = events.map((event) => ({
-    url: `${siteUrl}/events/${event.slug}`,
-    lastModified: new Date(event.startDate),
-  }));
+  const eventEntries = events.flatMap((event) =>
+    withLocaleAlternates(`/events/${event.slug}`, new Date(event.startDate)),
+  );
 
   return [
     ...staticEntries,

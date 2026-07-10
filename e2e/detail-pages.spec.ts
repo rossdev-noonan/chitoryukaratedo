@@ -6,19 +6,19 @@ import { expect, test } from "@playwright/test";
 
 test.describe("Dynamic detail pages load without errors", () => {
   test("dojo detail page renders", async ({ page }) => {
-    const response = await page.goto("/dojo/example-dojo-1");
+    const response = await page.goto("/en/dojo/example-dojo-1");
     expect(response?.status()).toBe(200);
     await expect(page.getByRole("heading", { name: "Example Dojo" })).toBeVisible();
   });
 
   test("teacher detail page renders", async ({ page }) => {
-    const response = await page.goto("/teachers/example-teacher-1");
+    const response = await page.goto("/en/teachers/example-teacher-1");
     expect(response?.status()).toBe(200);
     await expect(page.getByRole("navigation", { name: "Primary" })).toBeVisible();
   });
 
   test("country page in dojo-grid mode renders the seeded dojo", async ({ page }) => {
-    const response = await page.goto("/dojo-directory/australia");
+    const response = await page.goto("/en/dojo-directory/australia");
     expect(response?.status()).toBe(200);
     await expect(page.getByText("Example Dojo")).toBeVisible();
   });
@@ -26,7 +26,7 @@ test.describe("Dynamic detail pages load without errors", () => {
   test("country page with its own federation site shows the outbound link, not a dojo grid", async ({
     page,
   }) => {
-    const response = await page.goto("/dojo-directory/canada");
+    const response = await page.goto("/en/dojo-directory/canada");
     expect(response?.status()).toBe(200);
     await expect(page.getByRole("link", { name: /Visit official Canada site/i })).toBeVisible();
   });
@@ -38,21 +38,17 @@ test.describe("Dynamic detail pages load without errors", () => {
   // automatically, not the status code. Asserting on status 404 here would
   // be asserting on the wrong thing for this Next.js version.
   test("unknown dojo slug shows the not-found UI, noindexed, not a crash", async ({ page }) => {
-    await page.goto("/dojo/this-slug-does-not-exist");
+    await page.goto("/en/dojo/this-slug-does-not-exist");
     await expect(page.locator('meta[name="robots"][content="noindex"]').first()).toBeAttached();
   });
 
-  test("unknown teacher slug shows the not-found UI, noindexed, not a crash", async ({
-    page,
-  }) => {
-    await page.goto("/teachers/this-slug-does-not-exist");
+  test("unknown teacher slug shows the not-found UI, noindexed, not a crash", async ({ page }) => {
+    await page.goto("/en/teachers/this-slug-does-not-exist");
     await expect(page.locator('meta[name="robots"][content="noindex"]').first()).toBeAttached();
   });
 
-  test("unknown country slug shows the not-found UI, noindexed, not a crash", async ({
-    page,
-  }) => {
-    await page.goto("/dojo-directory/this-country-does-not-exist");
+  test("unknown country slug shows the not-found UI, noindexed, not a crash", async ({ page }) => {
+    await page.goto("/en/dojo-directory/this-country-does-not-exist");
     await expect(page.locator('meta[name="robots"][content="noindex"]').first()).toBeAttached();
   });
 });

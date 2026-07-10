@@ -3,36 +3,47 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { getApprovedDojos } from "@/lib/directory";
+import type { Locale } from "@/lib/i18n/locales";
+import type { Dictionary } from "@/lib/i18n/types";
 
-export async function HomeDojoFinder() {
+interface HomeDojoFinderProps {
+  lang: Locale;
+  dictionary: Dictionary;
+}
+
+export async function HomeDojoFinder({ lang, dictionary }: HomeDojoFinderProps) {
   const dojos = await getApprovedDojos(4);
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-10">
       <div className="text-center">
-        <p className="text-primary text-sm font-semibold tracking-widest uppercase">Find a Dojo</p>
-        <h2 className="font-heading mt-2 text-3xl font-bold sm:text-4xl">Dojo Directory</h2>
-        <p className="text-muted-foreground mt-2">Find an official Chito Ryu dojo near you.</p>
+        <p className="text-primary text-sm font-semibold tracking-widest uppercase">
+          {dictionary.home.dojoFinderLabel}
+        </p>
+        <h2 className="font-heading mt-2 text-3xl font-bold sm:text-4xl">
+          {dictionary.home.dojoFinderHeading}
+        </h2>
+        <p className="text-muted-foreground mt-2">{dictionary.home.dojoFinderDescription}</p>
       </div>
 
       <Link
-        href="/dojo-directory"
+        href={`/${lang}/dojo-directory`}
         className="border-border bg-background mx-auto mt-8 flex max-w-3xl flex-col gap-3 border p-3 transition-colors hover:bg-black/[0.02] sm:flex-row sm:items-center"
       >
         <span className="border-border text-muted-foreground flex flex-1 items-center gap-2 border-b px-2 py-2 text-sm sm:border-r sm:border-b-0">
           <Search className="h-4 w-4 shrink-0" />
-          Search by country or city
+          {dictionary.home.searchPlaceholder}
         </span>
         <span className="text-muted-foreground flex items-center gap-1.5 px-2 py-2 text-sm">
-          All Regions
+          {dictionary.home.allRegions}
           <ChevronDown className="h-3.5 w-3.5" />
         </span>
         <span className="text-muted-foreground flex items-center gap-1.5 px-2 py-2 text-sm">
-          All Countries
+          {dictionary.home.allCountries}
           <ChevronDown className="h-3.5 w-3.5" />
         </span>
         <span className="bg-primary text-primary-foreground px-6 py-2.5 text-center text-sm font-bold">
-          Search
+          {dictionary.home.search}
         </span>
       </Link>
 
@@ -51,7 +62,7 @@ export async function HomeDojoFinder() {
           {dojos.map((dojo) => (
             <Link
               key={dojo.slug}
-              href={`/dojo/${dojo.slug}`}
+              href={`/${lang}/dojo/${dojo.slug}`}
               className="border-border bg-background flex items-center justify-between gap-4 border p-4 transition-colors hover:bg-black/[0.02]"
             >
               <div className="flex items-center gap-4">

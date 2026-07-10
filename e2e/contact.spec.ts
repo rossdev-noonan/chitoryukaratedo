@@ -12,19 +12,19 @@ import { expect, test } from "@playwright/test";
 
 test.describe("Contact form", () => {
   test("send is disabled by default, before the form is even filled in", async ({ page }) => {
-    await page.goto("/contact");
+    await page.goto("/en/contact");
     await expect(page.getByRole("button", { name: "Send" })).toBeDisabled();
   });
 
   test("the Turnstile widget is invoked on the page", async ({ page }) => {
-    await page.goto("/contact");
+    await page.goto("/en/contact");
     await expect(page.locator('input[name="cf-turnstile-response"]')).toBeAttached({
       timeout: 15_000,
     });
   });
 
   test("send button stays disabled until Turnstile verification completes", async ({ page }) => {
-    await page.goto("/contact");
+    await page.goto("/en/contact");
     await page.getByLabel("Name").fill("Test User");
     await page.getByLabel("Email").fill("test@example.com");
     await page.getByLabel("Message").fill("Test message");

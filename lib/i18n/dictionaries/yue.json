@@ -1,0 +1,85 @@
+{
+  "nav": {
+    "about": "關於我們",
+    "history": "歷史",
+    "leadership": "領導層",
+    "dojoDirectory": "道場名錄",
+    "teachers": "教練",
+    "news": "新聞",
+    "events": "活動",
+    "resources": "資源",
+    "contact": "聯絡我們",
+    "joinUs": "加入我們",
+    "openMenu": "開啟選單",
+    "closeMenu": "關閉選單",
+    "language": "語言"
+  },
+  "footer": {
+    "tagline": "國際千唐流空手道聯盟致力於推廣及保存千唐流空手道，遍及全球。",
+    "quickLinks": "快速連結",
+    "resourcesHeading": "資源",
+    "downloads": "下載",
+    "examinations": "段位考試",
+    "technicalDocuments": "技術文件",
+    "rulesAndGuidelines": "規則與指引",
+    "connect": "聯繫",
+    "copyright": "© {year} 國際千唐流空手道聯盟。版權所有。",
+    "privacy": "私隱政策",
+    "terms": "使用條款",
+    "admin": "管理員"
+  },
+  "home": {
+    "heroTitleLine1": "傳承傳統，",
+    "heroTitleHighlight": "啟迪",
+    "heroTitleLine2": "世界。",
+    "heroDescription": "千唐流空手道是歷史最悠久的空手道流派之一，發源於沖繩，憑藉專注、紀律與尊重傳揚至世界各地。",
+    "aboutChitoRyu": "關於千唐流",
+    "findADojo": "尋找道場",
+    "originsLabel": "領導層",
+    "originsHeading": "起源 / Origins",
+    "originsDescription": "有岡先生曾告訴千歲翁，空手道大約於一千年前起源於中國。基於此，千歲翁根據空手道的起源，將自己的流派命名為「千唐流」。",
+    "accordion": [
+      {
+        "title": "「千」「唐」「流」的意思",
+        "body": "「千」指中國唐朝，「唐」同樣指涉中國(古稱「唐」)，「流」則意指流派或體系——三者結合，向這門源自中國、蘊藏於日本武術風格之中的技藝之起源致敬。"
+      },
+      {
+        "title": "從唐朝到沖繩",
+        "body": "空手道的根源可追溯至約一千年前唐朝時期的中國武術，其後傳入沖繩，經過數百年的錘鍊與發展，才傳至日本本土。"
+      },
+      {
+        "title": "千歲先生與現代",
+        "body": "千歲強直翁於1946年將這些教誨整合為單一而完整的流派，強調安全、解剖學研究，並保留了現代競技化空手道中常被忽略的實戰技術。"
+      }
+    ],
+    "newsEventsLabel": "新聞與活動",
+    "latestUpdates": "最新消息",
+    "viewAllNews": "查看所有新聞",
+    "newsCards": [
+      {
+        "category": "活動",
+        "title": "第15屆千唐流空手道宗家杯",
+        "detail": "2026年8月13日至15日‧澳洲黃金海岸"
+      },
+      {
+        "category": "新聞",
+        "title": "宗家的訊息",
+        "detail": "閱讀宗家的最新訊息。"
+      },
+      {
+        "category": "新聞",
+        "title": "巴西新道場成立",
+        "detail": "千唐流在南美洲持續發展。"
+      }
+    ],
+    "ctaHeading": "加入我們的全球社群",
+    "ctaDescription": "尋找您附近的認可道場，展開您的修行之路。",
+    "dojoFinderLabel": "尋找道場",
+    "dojoFinderHeading": "道場名錄",
+    "dojoFinderDescription": "尋找您附近的正式千唐流道場。",
+    "searchPlaceholder": "按國家或城市搜尋",
+    "allRegions": "所有地區",
+    "allCountries": "所有國家",
+    "search": "搜尋"
+  }
+}

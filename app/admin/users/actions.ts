@@ -81,7 +81,10 @@ export async function inviteAdminAction(
   });
 
   if (insertError) {
-    return { error: `Invite sent, but profile setup failed: ${insertError.message}`, success: false };
+    return {
+      error: `Invite sent, but profile setup failed: ${insertError.message}`,
+      success: false,
+    };
   }
 
   revalidatePath("/admin/users");
@@ -228,10 +231,7 @@ export async function reactivateUserAction(userId: string): Promise<{ error: str
   }
 
   const supabase = await createSupabaseServerClient();
-  const { error } = await supabase
-    .from("users")
-    .update({ deactivated_at: null })
-    .eq("id", userId);
+  const { error } = await supabase.from("users").update({ deactivated_at: null }).eq("id", userId);
   if (error) {
     return { error: error.message };
   }

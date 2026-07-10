@@ -61,7 +61,10 @@ export function SubmitTeacherForm({ dojos, teachers }: SubmitTeacherFormProps) {
   }
 
   return (
-    <form action={formAction} className="border-border mt-3 flex max-w-md flex-col gap-3 border p-4">
+    <form
+      action={formAction}
+      className="border-border mt-3 flex max-w-md flex-col gap-3 border p-4"
+    >
       <label className="flex flex-col gap-1 text-sm">
         Dojo
         <select
@@ -84,7 +87,12 @@ export function SubmitTeacherForm({ dojos, teachers }: SubmitTeacherFormProps) {
       <input type="hidden" name="countryId" value={selectedDojo?.countryId ?? ""} />
       <label className="flex flex-col gap-1 text-sm">
         Slug
-        <input name="slug" required placeholder="e.g. jane-smith" className="border-border border px-3 py-2" />
+        <input
+          name="slug"
+          required
+          placeholder="e.g. jane-smith"
+          className="border-border border px-3 py-2"
+        />
       </label>
       <label className="flex flex-col gap-1 text-sm">
         Name (native script — kanji)
@@ -119,9 +127,8 @@ export function SubmitTeacherForm({ dojos, teachers }: SubmitTeacherFormProps) {
         />
         {likelyDuplicate && (
           <span className="text-xs text-amber-600">
-            This looks similar to an existing teacher: &quot;{likelyDuplicate.nameRomaji}&quot;
-            ({likelyDuplicate.status}). Double-check this isn&apos;t a duplicate before
-            submitting.
+            This looks similar to an existing teacher: &quot;{likelyDuplicate.nameRomaji}&quot; (
+            {likelyDuplicate.status}). Double-check this isn&apos;t a duplicate before submitting.
           </span>
         )}
       </label>

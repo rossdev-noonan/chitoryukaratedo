@@ -26,7 +26,10 @@ export function InviteAdminForm({ countries, dojos, teachers }: InviteAdminFormP
   const [role, setRole] = useState("");
 
   return (
-    <form action={formAction} className="border-border mt-3 flex max-w-md flex-col gap-3 border p-4">
+    <form
+      action={formAction}
+      className="border-border mt-3 flex max-w-md flex-col gap-3 border p-4"
+    >
       <label className="flex flex-col gap-1 text-sm">
         Full name
         <input name="fullName" required className="border-border border px-3 py-2" />
@@ -57,7 +60,12 @@ export function InviteAdminForm({ countries, dojos, teachers }: InviteAdminFormP
       {role === "country_admin" && (
         <label className="flex flex-col gap-1 text-sm">
           Country
-          <select name="countryId" required defaultValue="" className="border-border border px-3 py-2">
+          <select
+            name="countryId"
+            required
+            defaultValue=""
+            className="border-border border px-3 py-2"
+          >
             <option value="" disabled>
               Select a country
             </option>
@@ -87,7 +95,12 @@ export function InviteAdminForm({ countries, dojos, teachers }: InviteAdminFormP
       {role === "teacher" && (
         <label className="flex flex-col gap-1 text-sm">
           Linked teacher record
-          <select name="teacherId" required defaultValue="" className="border-border border px-3 py-2">
+          <select
+            name="teacherId"
+            required
+            defaultValue=""
+            className="border-border border px-3 py-2"
+          >
             <option value="" disabled>
               Select a teacher record
             </option>

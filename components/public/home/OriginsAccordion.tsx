@@ -3,14 +3,18 @@
 import { Minus, Plus } from "lucide-react";
 import { useState } from "react";
 
-import { originsAccordionItems } from "@/lib/homepage-content";
+import type { Dictionary } from "@/lib/i18n/types";
 
-export function OriginsAccordion() {
+interface OriginsAccordionProps {
+  dictionary: Dictionary;
+}
+
+export function OriginsAccordion({ dictionary }: OriginsAccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
     <div className="border-border mt-8 flex flex-col divide-y border-t">
-      {originsAccordionItems.map((item, index) => {
+      {dictionary.home.accordion.map((item, index) => {
         const isOpen = openIndex === index;
         return (
           <div key={item.title} className="border-border border-b">

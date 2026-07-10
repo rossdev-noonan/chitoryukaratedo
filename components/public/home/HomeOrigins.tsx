@@ -1,8 +1,13 @@
 import Image from "next/image";
 
 import { OriginsAccordion } from "@/components/public/home/OriginsAccordion";
+import type { Dictionary } from "@/lib/i18n/types";
 
-export function HomeOrigins() {
+interface HomeOriginsProps {
+  dictionary: Dictionary;
+}
+
+export function HomeOrigins({ dictionary }: HomeOriginsProps) {
   return (
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-10">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
@@ -20,14 +25,14 @@ export function HomeOrigins() {
         </div>
 
         <div>
-          <p className="text-primary text-sm font-semibold tracking-widest uppercase">Leadership</p>
-          <h2 className="font-heading mt-2 text-3xl font-bold sm:text-4xl">起源 / Origins</h2>
-          <p className="text-muted-foreground mt-4">
-            O-Sensei was told by Arigaki Sensei that Karate-do originated approximately one thousand
-            years ago in China. Based on this, O-Sensei named his style &lsquo;Chito Ryu&rsquo;,
-            according to the origins of Karate-do.
+          <p className="text-primary text-sm font-semibold tracking-widest uppercase">
+            {dictionary.home.originsLabel}
           </p>
-          <OriginsAccordion />
+          <h2 className="font-heading mt-2 text-3xl font-bold sm:text-4xl">
+            {dictionary.home.originsHeading}
+          </h2>
+          <p className="text-muted-foreground mt-4">{dictionary.home.originsDescription}</p>
+          <OriginsAccordion dictionary={dictionary} />
         </div>
       </div>
     </section>

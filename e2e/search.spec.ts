@@ -8,7 +8,7 @@ import { expect, test } from "@playwright/test";
 
 test.describe("Teacher search", () => {
   test("searching updates the URL and a nonsense query shows no results", async ({ page }) => {
-    await page.goto("/teachers");
+    await page.goto("/en/teachers");
     await page.getByPlaceholder("Search teachers…").fill("zzznonexistentnamezzz");
     await page.getByRole("button", { name: "Search" }).click();
     await expect(page).toHaveURL(/\?q=zzznonexistentnamezzz/);
@@ -16,15 +16,15 @@ test.describe("Teacher search", () => {
   });
 
   test("clearing the search restores the unfiltered list", async ({ page }) => {
-    await page.goto("/teachers?q=zzznonexistentnamezzz");
+    await page.goto("/en/teachers?q=zzznonexistentnamezzz");
     await expect(page.getByText("No teachers found.")).toBeVisible();
     await page.getByPlaceholder("Search teachers…").fill("");
     await page.getByRole("button", { name: "Search" }).click();
-    await expect(page).toHaveURL(/\/teachers$/);
+    await expect(page).toHaveURL(/\/en\/teachers$/);
   });
 
   test("a query with special characters does not crash the page", async ({ page }) => {
-    await page.goto("/teachers");
+    await page.goto("/en/teachers");
     await page.getByPlaceholder("Search teachers…").fill("test(name,here)");
     await page.getByRole("button", { name: "Search" }).click();
     // No unhandled server error — either a match or the clean "not found" state.
@@ -34,7 +34,7 @@ test.describe("Teacher search", () => {
 
 test.describe("Dojo search", () => {
   test("searching within a non-federation country updates the URL", async ({ page }) => {
-    await page.goto("/dojo-directory/australia");
+    await page.goto("/en/dojo-directory/australia");
     await page.getByPlaceholder("Search dojos…").fill("zzznonexistentdojozzz");
     await page.getByRole("button", { name: "Search" }).click();
     await expect(page).toHaveURL(/\?q=zzznonexistentdojozzz/);
@@ -42,7 +42,7 @@ test.describe("Dojo search", () => {
   });
 
   test("a federation-linked country shows no search box", async ({ page }) => {
-    await page.goto("/dojo-directory/canada");
+    await page.goto("/en/dojo-directory/canada");
     await expect(page.getByPlaceholder("Search dojos…")).not.toBeVisible();
     await expect(page.getByRole("link", { name: /visit official/i })).toBeVisible();
   });

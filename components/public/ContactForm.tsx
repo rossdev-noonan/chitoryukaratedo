@@ -2,7 +2,10 @@
 
 import { useActionState, useState } from "react";
 
-import { submitContactAction, type ContactActionState } from "@/app/(public)/contact/actions";
+import {
+  submitContactAction,
+  type ContactActionState,
+} from "@/app/[lang]/(public)/contact/actions";
 import { TurnstileWidget } from "@/components/public/TurnstileWidget";
 
 const initialState: ContactActionState = { error: null, success: false };
@@ -27,12 +30,7 @@ export function ContactForm({ turnstileSiteKey }: ContactFormProps) {
       </label>
       <label className="flex flex-col gap-1 text-sm">
         Message
-        <textarea
-          name="message"
-          rows={4}
-          required
-          className="border-border border px-3 py-2"
-        />
+        <textarea name="message" rows={4} required className="border-border border px-3 py-2" />
       </label>
       {turnstileSiteKey && (
         <TurnstileWidget siteKey={turnstileSiteKey} onToken={setTurnstileToken} />

@@ -107,10 +107,7 @@ const TEACHER_COLUMNS =
 
 export async function getCountries(): Promise<Country[]> {
   const supabase = await createSupabaseServerClient();
-  const { data } = await supabase
-    .from("countries")
-    .select(COUNTRY_COLUMNS)
-    .order("name");
+  const { data } = await supabase.from("countries").select(COUNTRY_COLUMNS).order("name");
   return (data ?? []).map(toCountry);
 }
 
@@ -134,23 +131,23 @@ export async function getDojosByCountryId(countryId: string): Promise<Dojo[]> {
   return (data ?? []).map(toDojo);
 }
 
+export async function getApprovedDojos(limit?: number): Promise<Dojo[]> {
+  const supabase = await createSupabaseServerClient();
+  let query = supabase.from("dojos").select(DOJO_COLUMNS).order("name");
+  if (limit) query = query.limit(limit);
+  const { data } = await query;
+  return (data ?? []).map(toDojo);
+}
+
 export async function getDojoBySlug(slug: string): Promise<Dojo | null> {
   const supabase = await createSupabaseServerClient();
-  const { data } = await supabase
-    .from("dojos")
-    .select(DOJO_COLUMNS)
-    .eq("slug", slug)
-    .maybeSingle();
+  const { data } = await supabase.from("dojos").select(DOJO_COLUMNS).eq("slug", slug).maybeSingle();
   return data ? toDojo(data) : null;
 }
 
 export async function getDojoById(id: string): Promise<Dojo | null> {
   const supabase = await createSupabaseServerClient();
-  const { data } = await supabase
-    .from("dojos")
-    .select(DOJO_COLUMNS)
-    .eq("id", id)
-    .maybeSingle();
+  const { data } = await supabase.from("dojos").select(DOJO_COLUMNS).eq("id", id).maybeSingle();
   return data ? toDojo(data) : null;
 }
 

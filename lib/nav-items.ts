@@ -12,7 +12,6 @@ export const primaryNavItems: NavItem[] = [
   { href: "/news", label: "News" },
   { href: "/events", label: "Events" },
   { href: "/resources", label: "Resources" },
-  { href: "/sohonbu-experience", label: "Sohonbu Experience" },
   { href: "/contact", label: "Contact" },
 ];
 

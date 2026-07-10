@@ -28,7 +28,10 @@ test.describe("Public pages load without errors", () => {
 
 test("navigating from the homepage to the dojo directory works", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("link", { name: "Dojo Directory" }).click();
+  await page
+    .getByRole("navigation", { name: "Primary" })
+    .getByRole("link", { name: "Dojo Directory" })
+    .click();
   await expect(page).toHaveURL(/\/dojo-directory$/);
 });
 

@@ -25,21 +25,20 @@ export default async function DojoDirectoryPage({ params }: DojoDirectoryPagePro
         title="World Dojo Directory"
         description="Search and filter are not wired up yet — country list below is live but unstyled."
       />
-      <ul className="mx-auto mt-8 max-w-6xl px-4 sm:px-6">
+      <div className="mx-auto mt-8 grid max-w-6xl grid-cols-1 gap-4 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-3">
         {countries.map((country) => (
-          <li key={country.slug} className="border-border border-b py-3">
-            <Link
-              href={`/${lang}/dojo-directory/${country.slug}`}
-              className="text-sm underline underline-offset-4"
-            >
-              {country.name}
-            </Link>
+          <Link
+            key={country.slug}
+            href={`/${lang}/dojo-directory/${country.slug}`}
+            className="border-border bg-background flex items-center justify-between gap-2 border p-4 text-sm transition-colors hover:bg-black/[0.02]"
+          >
+            <span className="font-medium">{country.name}</span>
             {country.hasOwnFederationSite && (
-              <span className="text-muted-foreground ml-2 text-xs">(own federation site)</span>
+              <span className="text-muted-foreground shrink-0 text-xs">Own federation site</span>
             )}
-          </li>
+          </Link>
         ))}
-      </ul>
+      </div>
       <PlaceholderNotice source="Supabase (approved records only)" />
     </>
   );

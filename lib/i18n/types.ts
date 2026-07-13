@@ -65,5 +65,14 @@ export interface Dictionary {
       australia: string;
     };
     dojoCountLabel: string;
+    featureBar: { title: string; description: string }[];
+    philosophyLabel: string;
+    philosophyHeadingLine1: string;
+    philosophyHeadingLine2: string;
+    philosophyDescription: string;
+    philosophyCta: string;
+    eventsLabel: string;
+    upcomingEventsHeading: string;
+    viewAllEvents: string;
   };
 }

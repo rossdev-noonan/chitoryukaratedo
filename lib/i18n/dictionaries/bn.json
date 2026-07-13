@@ -89,6 +89,20 @@
       "asia": "এশিয়া",
       "australia": "অস্ট্রেলিয়া"
     },
-    "dojoCountLabel": "{count}টি ডোজো"
+    "dojoCountLabel": "{count}টি ডোজো",
+    "featureBar": [
+      { "title": "ঐতিহ্যবাহী উৎস", "description": "১০০০ বছরের ইতিহাসে প্রোথিত।" },
+      { "title": "বৈশ্বিক সম্প্রদায়", "description": "বিশ্বজুড়ে ৫০+ দেশে ডোজো।" },
+      { "title": "প্রকৃত শিক্ষাদান", "description": "ও-সেনসেই চিতোসে থেকে সরাসরি ধারাবাহিকতা।" },
+      { "title": "আজীবন বিকাশ", "description": "সকল বয়স, স্তর এবং পটভূমির জন্য।" }
+    ],
+    "philosophyLabel": "চিতো-রিউ-এর পথ",
+    "philosophyHeadingLine1": "কারাতের চেয়েও বেশি কিছু।",
+    "philosophyHeadingLine2": "একটি জীবনধারা।",
+    "philosophyDescription": "চিতো-রিউ আত্ম-শৃঙ্খলা, শারীরিক সুস্থতা, মানসিক শক্তি এবং অন্যদের প্রতি শ্রদ্ধাকে গুরুত্ব দেয়। এর প্রশিক্ষণ বয়স, লিঙ্গ বা সক্ষমতা নির্বিশেষে সবার জন্য।",
+    "philosophyCta": "আমাদের দর্শন সম্পর্কে আরও জানুন",
+    "eventsLabel": "ইভেন্ট",
+    "upcomingEventsHeading": "আসন্ন ইভেন্ট",
+    "viewAllEvents": "সব ইভেন্ট দেখুন"
   }
 }

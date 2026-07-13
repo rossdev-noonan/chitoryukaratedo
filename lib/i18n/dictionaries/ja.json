@@ -89,6 +89,20 @@
       "asia": "アジア",
       "australia": "オーストラリア"
     },
-    "dojoCountLabel": "道場 {count} 件"
+    "dojoCountLabel": "道場 {count} 件",
+    "featureBar": [
+      { "title": "伝統的な起源", "description": "千年の歴史に根ざす。" },
+      { "title": "世界的なコミュニティ", "description": "世界50カ国以上に道場。" },
+      { "title": "本格的な指導", "description": "千歳翁先生からの直系継承。" },
+      { "title": "生涯にわたる成長", "description": "年齢、レベル、背景を問わず。" }
+    ],
+    "philosophyLabel": "千唐流の道",
+    "philosophyHeadingLine1": "空手を超えて。",
+    "philosophyHeadingLine2": "生き方として。",
+    "philosophyDescription": "千唐流は自己鍛錬、体力、精神力、そして他者への敬意を重視します。稽古は年齢、性別、能力を問わず、すべての人のためのものです。",
+    "philosophyCta": "私たちの理念について詳しく見る",
+    "eventsLabel": "イベント",
+    "upcomingEventsHeading": "開催予定のイベント",
+    "viewAllEvents": "すべてのイベントを見る"
   }
 }

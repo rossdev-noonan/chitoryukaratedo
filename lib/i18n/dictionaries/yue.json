@@ -89,6 +89,20 @@
       "asia": "亞洲",
       "australia": "澳洲"
     },
-    "dojoCountLabel": "{count} 個道場"
+    "dojoCountLabel": "{count} 個道場",
+    "featureBar": [
+      { "title": "傳統起源", "description": "植根於千年歷史。" },
+      { "title": "全球社群", "description": "遍佈全球50多個國家嘅道場。" },
+      { "title": "正宗教學", "description": "直接傳承自千歲翁先生。" },
+      { "title": "終身發展", "description": "適合任何年齡、程度同背景。" }
+    ],
+    "philosophyLabel": "千唐流之道",
+    "philosophyHeadingLine1": "不只係空手道。",
+    "philosophyHeadingLine2": "更係一種生活方式。",
+    "philosophyDescription": "千唐流強調自律、體能、意志力同埋尊重他人，訓練適合所有人，不分年齡、性別或能力。",
+    "philosophyCta": "深入了解我哋嘅理念",
+    "eventsLabel": "活動",
+    "upcomingEventsHeading": "即將舉行嘅活動",
+    "viewAllEvents": "查看所有活動"
   }
 }

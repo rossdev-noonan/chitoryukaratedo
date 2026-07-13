@@ -89,6 +89,20 @@
       "asia": "Asia",
       "australia": "Australia"
     },
-    "dojoCountLabel": "{count} dojos"
+    "dojoCountLabel": "{count} dojos",
+    "featureBar": [
+      { "title": "Traditional Origins", "description": "Rooted in 1000 years of history." },
+      { "title": "Global Community", "description": "Dojo in 50+ countries worldwide." },
+      { "title": "Authentic Teaching", "description": "Direct lineage from O-Sensei Chitose." },
+      { "title": "Lifetime Development", "description": "For all ages, all levels, all backgrounds." }
+    ],
+    "philosophyLabel": "The Way of Chito-Ryu",
+    "philosophyHeadingLine1": "More than Karate.",
+    "philosophyHeadingLine2": "A Way of Life.",
+    "philosophyDescription": "Chito-Ryu emphasizes self-discipline, physical fitness, mental strength, and respect for others. Its training is for everyone—regardless of age, gender, or ability.",
+    "philosophyCta": "Learn More About Our Philosophy",
+    "eventsLabel": "events",
+    "upcomingEventsHeading": "Upcoming Events",
+    "viewAllEvents": "View All Events"
   }
 }

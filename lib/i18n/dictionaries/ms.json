@@ -89,6 +89,20 @@
       "asia": "Asia",
       "australia": "Australia"
     },
-    "dojoCountLabel": "{count} dojo"
+    "dojoCountLabel": "{count} dojo",
+    "featureBar": [
+      { "title": "Asal Usul Tradisional", "description": "Berakar umbi dalam sejarah 1000 tahun." },
+      { "title": "Komuniti Global", "description": "Dojo di lebih 50 buah negara di seluruh dunia." },
+      { "title": "Pengajaran Tulen", "description": "Warisan langsung daripada O-Sensei Chitose." },
+      { "title": "Perkembangan Sepanjang Hayat", "description": "Untuk semua peringkat umur, tahap dan latar belakang." }
+    ],
+    "philosophyLabel": "Jalan Chito-Ryu",
+    "philosophyHeadingLine1": "Lebih daripada Karate.",
+    "philosophyHeadingLine2": "Satu Cara Hidup.",
+    "philosophyDescription": "Chito-Ryu menekankan disiplin diri, kecergasan fizikal, kekuatan mental dan hormat terhadap orang lain. Latihannya untuk semua orang—tanpa mengira umur, jantina, atau keupayaan.",
+    "philosophyCta": "Ketahui Lebih Lanjut Tentang Falsafah Kami",
+    "eventsLabel": "acara",
+    "upcomingEventsHeading": "Acara Akan Datang",
+    "viewAllEvents": "Lihat Semua Acara"
   }
 }

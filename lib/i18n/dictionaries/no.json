@@ -89,6 +89,20 @@
       "asia": "Asia",
       "australia": "Australia"
     },
-    "dojoCountLabel": "{count} dojoer"
+    "dojoCountLabel": "{count} dojoer",
+    "featureBar": [
+      { "title": "Tradisjonelle røtter", "description": "Forankret i 1000 års historie." },
+      { "title": "Globalt fellesskap", "description": "Dojoer i over 50 land verden over." },
+      { "title": "Autentisk undervisning", "description": "Direkte arvelinje fra O-Sensei Chitose." },
+      { "title": "Livslang utvikling", "description": "For alle aldre, nivåer og bakgrunner." }
+    ],
+    "philosophyLabel": "Chito-Ryus vei",
+    "philosophyHeadingLine1": "Mer enn karate.",
+    "philosophyHeadingLine2": "En livsstil.",
+    "philosophyDescription": "Chito-Ryu vektlegger selvdisiplin, fysisk form, mental styrke og respekt for andre. Treningen er for alle — uansett alder, kjønn eller evner.",
+    "philosophyCta": "Les mer om vår filosofi",
+    "eventsLabel": "arrangementer",
+    "upcomingEventsHeading": "Kommende arrangementer",
+    "viewAllEvents": "Se alle arrangementer"
   }
 }

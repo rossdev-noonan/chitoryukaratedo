@@ -2,9 +2,12 @@ import type { Metadata } from "next";
 
 import { HomeCTA } from "@/components/public/home/HomeCTA";
 import { HomeDojoFinder } from "@/components/public/home/HomeDojoFinder";
+import { HomeFeatureBar } from "@/components/public/home/HomeFeatureBar";
 import { HomeHero } from "@/components/public/home/HomeHero";
 import { HomeNewsEvents } from "@/components/public/home/HomeNewsEvents";
 import { HomeOrigins } from "@/components/public/home/HomeOrigins";
+import { HomePhilosophy } from "@/components/public/home/HomePhilosophy";
+import { HomeUpcomingEvents } from "@/components/public/home/HomeUpcomingEvents";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import type { Locale } from "@/lib/i18n/locales";
 
@@ -25,6 +28,9 @@ export default async function HomePage({ params }: HomePageProps) {
   return (
     <>
       <HomeHero lang={lang} dictionary={dictionary} />
+      <HomeFeatureBar dictionary={dictionary} />
+      <HomePhilosophy lang={lang} dictionary={dictionary} />
+      <HomeUpcomingEvents lang={lang} dictionary={dictionary} />
       <HomeOrigins dictionary={dictionary} />
       <HomeNewsEvents lang={lang} dictionary={dictionary} />
       <HomeCTA lang={lang} dictionary={dictionary} />

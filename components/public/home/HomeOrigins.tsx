@@ -11,19 +11,6 @@ export function HomeOrigins({ dictionary }: HomeOriginsProps) {
   return (
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-10">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
-        <div className="relative mx-auto aspect-[4/3] w-full max-w-md overflow-hidden lg:aspect-[4/5]">
-          <Image
-            src="/images/homepage/founder-portrait.jpeg"
-            alt="Portrait of O-Sensei Tsuyoshi Chitose, founder of Chito-Ryu Karate-Do"
-            fill
-            sizes="(min-width: 1024px) 448px, 100vw"
-            className="object-cover"
-          />
-          <span className="font-heading absolute bottom-4 left-4 text-lg font-bold text-white drop-shadow">
-            千歳 强直
-          </span>
-        </div>
-
         <div>
           <p className="text-primary text-sm font-semibold tracking-widest uppercase">
             {dictionary.home.originsLabel}
@@ -33,6 +20,16 @@ export function HomeOrigins({ dictionary }: HomeOriginsProps) {
           </h2>
           <p className="text-muted-foreground mt-4">{dictionary.home.originsDescription}</p>
           <OriginsAccordion dictionary={dictionary} />
+        </div>
+
+        <div className="relative aspect-[3/2] w-full overflow-hidden">
+          <Image
+            src="/images/homepage/origins-portrait.png"
+            alt="O-Sensei Tsuyoshi Chitose and Tsunetomo Soke, founders and lineage of Chito-Ryu Karate-Do"
+            fill
+            sizes="(min-width: 1024px) 600px, 100vw"
+            className="object-cover"
+          />
         </div>
       </div>
     </section>

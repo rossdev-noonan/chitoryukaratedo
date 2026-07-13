@@ -27,6 +27,33 @@ Your Figma file ("Chito Ryu Intl Website") landed and the **Home page is now bui
 
 ---
 
+## 0a. Status — 13 July 2026: Nav grouping proposal (your feedback: 9 items is too many)
+
+You flagged the header nav is too crowded — currently 9 flat top-level items (About, History, Leadership, Dojo Directory, Teachers, News, Events, Resources, Contact), plus the language picker and "Join Us" CTA on top of that. Agreed — that's past the usual 5–7 top-level guideline for primary nav, and it'll only get more cramped once real translated labels (Cantonese, Tamil, etc. tend to run longer than English) are in there.
+
+**Proposed grouping — 9 destinations down to 5 top-level slots, nothing removed, just organized:**
+
+| Top-level label | Dropdown contains | Why grouped |
+|---|---|---|
+| **About** | About, History, Leadership | All three are "who we are" — federation identity/story content. Natural single cluster, matches how most federation/institutional sites group this. |
+| **Community** | Dojo Directory, Teachers | Both are "find a person or place in the federation" — directory-style lookup pages, same user intent. |
+| **News & Events** | News, Events | Already paired everywhere else on the site — the homepage section is literally titled "News & Events." This just formalizes that existing pairing in the nav. |
+| **Resources** | Downloads, Examinations, Technical Documents, Rules & Guidelines | Resources already has these 4 real subpages (see footer). Today the nav links to a single hub page requiring an extra click; making it a direct dropdown saves a step for returning visitors and matches the footer's existing structure. |
+| **Contact** | *(no dropdown, standalone)* | Single high-intent action — burying it in a dropdown adds friction for the one link most likely to convert. Keep it a flat, always-visible link. |
+
+**Interaction pattern — reuse what's already built, don't invent a new one:**
+- Same open/close behavior as the language picker: opens on click (and hover on desktop pointer devices), closes on Escape / outside click / selection. Consistent interaction language across the header.
+- The parent label itself should stay a real link (e.g. "About" still navigates to `/about` on click) — the chevron/dropdown is an additional affordance for the sub-items, not a replacement for the parent page. Nobody should have to open a dropdown just to reach the page the label already names.
+
+**Mobile:** the existing mobile drawer already lists nav items vertically — recommend each group becomes a collapsible accordion section (tap the group header to expand/collapse its sub-items), reusing the exact interaction already built for the homepage's "Meaning of CHI, TO, RYU" accordion rather than introducing a second accordion pattern.
+
+**Open for you to confirm or push back on:**
+1. Group labels — "Community" is my best guess for the Dojo Directory + Teachers pairing; open to a better name if you have one (e.g. "Directory," "Find Us").
+2. Whether "Resources" should keep its own hub page at all once it's a direct dropdown, or whether the hub page becomes redundant — that's a content decision, not just a nav one, so flagging rather than deciding it here.
+3. This is an information-architecture proposal, not a visual one — happy to adjust the grouping itself if you see a cleaner split once you're looking at it in context with real spacing/type.
+
+---
+
 ## 1. The one-line brief
 
 One official, worldwide home for Chito-Ryu — that reads as **quietly authoritative**, not like a martial-arts-gym marketing site. The audience includes senior instructors and federation officials in multiple countries, so credibility and restraint matter more than excitement.

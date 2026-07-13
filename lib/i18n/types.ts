@@ -56,5 +56,14 @@ export interface Dictionary {
     allRegions: string;
     allCountries: string;
     search: string;
+    continents: {
+      northAmerica: string;
+      southAmerica: string;
+      europe: string;
+      africa: string;
+      asia: string;
+      australia: string;
+    };
+    dojoCountLabel: string;
   };
 }

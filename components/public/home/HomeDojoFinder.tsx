@@ -2,7 +2,8 @@ import { ArrowRight, ChevronDown, MapPin, Search } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { getApprovedDojos } from "@/lib/directory";
+import { getApprovedDojos, getDojoCountsByContinent } from "@/lib/directory";
+import type { Continent } from "@/lib/continents";
 import type { Locale } from "@/lib/i18n/locales";
 import type { Dictionary } from "@/lib/i18n/types";
 
@@ -11,8 +12,22 @@ interface HomeDojoFinderProps {
   dictionary: Dictionary;
 }
 
+// Pin position as a percentage of the 1100x480 map image, and the dictionary
+// key for each continent's label — matches Gil's updated Figma map layout.
+const MAP_PINS: { continent: Continent; xPct: number; yPct: number }[] = [
+  { continent: "northAmerica", xPct: 38.9, yPct: 39.1 },
+  { continent: "southAmerica", xPct: 48.4, yPct: 64.1 },
+  { continent: "europe", xPct: 61.8, yPct: 31.6 },
+  { continent: "asia", xPct: 89.3, yPct: 39.1 },
+  { continent: "australia", xPct: 90.4, yPct: 71.6 },
+  { continent: "africa", xPct: 65.1, yPct: 73.2 },
+];
+
 export async function HomeDojoFinder({ lang, dictionary }: HomeDojoFinderProps) {
-  const dojos = await getApprovedDojos(4);
+  const [dojos, continentCounts] = await Promise.all([
+    getApprovedDojos(4),
+    getDojoCountsByContinent(),
+  ]);
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-10">
@@ -47,14 +62,34 @@ export async function HomeDojoFinder({ lang, dictionary }: HomeDojoFinderProps) 
         </span>
       </Link>
 
-      <div className="relative mx-auto mt-10 aspect-[1100/480] w-full max-w-5xl">
+      <div className="relative mx-auto mt-10 aspect-[1100/480] w-full max-w-5xl overflow-hidden rounded-xl">
         <Image
           src="/images/homepage/world-map.png"
-          alt="World map showing Chito-Ryu dojo locations"
+          alt="World map showing Chito-Ryu dojo regions"
           fill
           sizes="(min-width: 1024px) 1024px, 100vw"
-          className="object-contain"
+          className="object-cover"
         />
+        {MAP_PINS.map(({ continent, xPct, yPct }) => (
+          <div
+            key={continent}
+            className="group absolute -translate-x-1/2 -translate-y-full"
+            style={{ left: `${xPct}%`, top: `${yPct}%` }}
+          >
+            <div className="border-border bg-background flex flex-col gap-1 border px-3 py-1.5 text-xs shadow-md transition-transform group-hover:scale-105">
+              <span className="text-foreground font-semibold whitespace-nowrap">
+                {dictionary.home.continents[continent]}
+              </span>
+              <span className="text-muted-foreground whitespace-nowrap">
+                {dictionary.home.dojoCountLabel.replace(
+                  "{count}",
+                  String(continentCounts[continent]),
+                )}
+              </span>
+            </div>
+            <MapPin className="text-primary mx-auto -mt-px h-5 w-5 fill-current" />
+          </div>
+        ))}
       </div>
 
       {dojos.length > 0 && (
@@ -63,15 +98,15 @@ export async function HomeDojoFinder({ lang, dictionary }: HomeDojoFinderProps) 
             <Link
               key={dojo.slug}
               href={`/${lang}/dojo/${dojo.slug}`}
-              className="border-border bg-background flex items-center justify-between gap-4 border p-4 transition-colors hover:bg-black/[0.02]"
+              className="border-border bg-background flex items-center justify-between gap-4 border px-6 py-5 shadow-sm transition-colors hover:bg-black/[0.02]"
             >
-              <div className="flex items-center gap-4">
-                <span className="bg-primary/10 text-primary flex h-12 w-12 shrink-0 items-center justify-center">
+              <div className="flex items-center gap-6">
+                <span className="bg-primary/10 text-primary flex h-12 w-12 shrink-0 items-center justify-center rounded-full">
                   <MapPin className="h-5 w-5" />
                 </span>
                 <div>
-                  <p className="font-heading font-bold">{dojo.name}</p>
-                  {dojo.city && <p className="text-muted-foreground text-sm">{dojo.city}</p>}
+                  <p className="font-heading font-semibold">{dojo.name}</p>
+                  {dojo.city && <p className="text-muted-foreground mt-1 text-sm">{dojo.city}</p>}
                 </div>
               </div>
               <div className="hidden items-center gap-6 sm:flex">

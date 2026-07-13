@@ -80,6 +80,15 @@
     "searchPlaceholder": "நாடு அல்லது நகரத்தால் தேடவும்",
     "allRegions": "அனைத்து பிராந்தியங்கள்",
     "allCountries": "அனைத்து நாடுகள்",
-    "search": "தேடு"
+    "search": "தேடு",
+    "continents": {
+      "northAmerica": "வட அமெரிக்கா",
+      "southAmerica": "தென் அமெரிக்கா",
+      "europe": "ஐரோப்பா",
+      "africa": "ஆப்பிரிக்கா",
+      "asia": "ஆசியா",
+      "australia": "ஆஸ்திரேலியா"
+    },
+    "dojoCountLabel": "{count} டோஜோக்கள்"
   }
 }

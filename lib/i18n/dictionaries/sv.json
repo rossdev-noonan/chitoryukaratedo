@@ -80,6 +80,15 @@
     "searchPlaceholder": "Sök efter land eller stad",
     "allRegions": "Alla regioner",
     "allCountries": "Alla länder",
-    "search": "Sök"
+    "search": "Sök",
+    "continents": {
+      "northAmerica": "Nordamerika",
+      "southAmerica": "Sydamerika",
+      "europe": "Europa",
+      "africa": "Afrika",
+      "asia": "Asien",
+      "australia": "Australien"
+    },
+    "dojoCountLabel": "{count} dojon"
   }
 }

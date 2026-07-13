@@ -80,6 +80,15 @@
     "searchPlaceholder": "国または都市で検索",
     "allRegions": "すべての地域",
     "allCountries": "すべての国",
-    "search": "検索"
+    "search": "検索",
+    "continents": {
+      "northAmerica": "北米",
+      "southAmerica": "南米",
+      "europe": "ヨーロッパ",
+      "africa": "アフリカ",
+      "asia": "アジア",
+      "australia": "オーストラリア"
+    },
+    "dojoCountLabel": "道場 {count} 件"
   }
 }

@@ -80,6 +80,15 @@
     "searchPlaceholder": "按国家或城市搜索",
     "allRegions": "所有地区",
     "allCountries": "所有国家",
-    "search": "搜索"
+    "search": "搜索",
+    "continents": {
+      "northAmerica": "北美洲",
+      "southAmerica": "南美洲",
+      "europe": "欧洲",
+      "africa": "非洲",
+      "asia": "亚洲",
+      "australia": "澳大利亚"
+    },
+    "dojoCountLabel": "{count} 个道场"
   }
 }

@@ -80,6 +80,15 @@
     "searchPlaceholder": "Search by country or city",
     "allRegions": "All Regions",
     "allCountries": "All Countries",
-    "search": "Search"
+    "search": "Search",
+    "continents": {
+      "northAmerica": "North America",
+      "southAmerica": "South America",
+      "europe": "Europe",
+      "africa": "Africa",
+      "asia": "Asia",
+      "australia": "Australia"
+    },
+    "dojoCountLabel": "{count} dojos"
   }
 }

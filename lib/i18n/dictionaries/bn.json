@@ -80,6 +80,15 @@
     "searchPlaceholder": "দেশ বা শহর দিয়ে অনুসন্ধান করুন",
     "allRegions": "সব অঞ্চল",
     "allCountries": "সব দেশ",
-    "search": "অনুসন্ধান"
+    "search": "অনুসন্ধান",
+    "continents": {
+      "northAmerica": "উত্তর আমেরিকা",
+      "southAmerica": "দক্ষিণ আমেরিকা",
+      "europe": "ইউরোপ",
+      "africa": "আফ্রিকা",
+      "asia": "এশিয়া",
+      "australia": "অস্ট্রেলিয়া"
+    },
+    "dojoCountLabel": "{count}টি ডোজো"
   }
 }

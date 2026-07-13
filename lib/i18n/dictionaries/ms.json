@@ -80,6 +80,15 @@
     "searchPlaceholder": "Cari mengikut negara atau bandar",
     "allRegions": "Semua Wilayah",
     "allCountries": "Semua Negara",
-    "search": "Cari"
+    "search": "Cari",
+    "continents": {
+      "northAmerica": "Amerika Utara",
+      "southAmerica": "Amerika Selatan",
+      "europe": "Eropah",
+      "africa": "Afrika",
+      "asia": "Asia",
+      "australia": "Australia"
+    },
+    "dojoCountLabel": "{count} dojo"
   }
 }

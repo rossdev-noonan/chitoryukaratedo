@@ -1,3 +1,4 @@
+import { continentForCountrySlug, type Continent } from "@/lib/continents";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 export interface Country {
@@ -129,6 +130,37 @@ export async function getDojosByCountryId(countryId: string): Promise<Dojo[]> {
     .eq("country_id", countryId)
     .order("name");
   return (data ?? []).map(toDojo);
+}
+
+// Real dojo counts per continent for the homepage map, derived from live
+// Supabase data (never fabricated) — countries not in continentForCountrySlug
+// are excluded rather than guessed at.
+export async function getDojoCountsByContinent(): Promise<Record<Continent, number>> {
+  const supabase = await createSupabaseServerClient();
+  const [{ data: countries }, { data: dojos }] = await Promise.all([
+    supabase.from("countries").select("id, slug"),
+    supabase.from("dojos").select("country_id"),
+  ]);
+
+  const continentByCountryId = new Map(
+    (countries ?? []).map((c) => [c.id, continentForCountrySlug(c.slug)]),
+  );
+
+  const counts: Record<Continent, number> = {
+    northAmerica: 0,
+    southAmerica: 0,
+    europe: 0,
+    africa: 0,
+    asia: 0,
+    australia: 0,
+  };
+
+  for (const dojo of dojos ?? []) {
+    const continent = continentByCountryId.get(dojo.country_id);
+    if (continent) counts[continent] += 1;
+  }
+
+  return counts;
 }
 
 export async function getApprovedDojos(limit?: number): Promise<Dojo[]> {

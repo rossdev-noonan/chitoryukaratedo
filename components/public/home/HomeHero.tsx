@@ -16,19 +16,12 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
       <div className="relative h-[280px] w-full sm:h-[360px] md:absolute md:inset-0 md:h-full">
         <Image
           src="/images/homepage/hero-practitioner.png"
-          alt="A Chito-Ryu Karate-Do practitioner in a fighting stance"
+          alt="Three Chito-Ryu Karate-Do practitioners in fighting stances"
           fill
           priority
           sizes="100vw"
           className="object-cover object-[70%_center] md:object-right"
         />
-        <span
-          aria-hidden="true"
-          className="text-background/70 font-heading absolute top-4 right-4 text-2xl font-bold tracking-widest sm:top-6 sm:right-6 sm:text-4xl md:top-16 md:right-8 md:text-6xl"
-          style={{ writingMode: "vertical-rl" }}
-        >
-          力必達
-        </span>
       </div>
 
       <div className="bg-background relative px-4 py-8 sm:px-6 md:absolute md:inset-0 md:flex md:items-center md:bg-transparent md:px-6 lg:px-10">

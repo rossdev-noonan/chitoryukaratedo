@@ -32,18 +32,21 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
 
   return (
     <header className="border-border bg-background sticky top-0 z-40 border-b">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-10">
+      <div className="mx-auto flex h-[70px] max-w-7xl items-center justify-between px-2.5 sm:px-6 lg:h-20 lg:px-10">
         <Link href={`/${lang}`} className="flex items-center gap-3">
           <Image
             src="/brand/chito-ryu-logo.svg"
             alt="Chito-Ryu International"
-            width={40}
-            height={40}
-            className="h-10 w-10"
+            width={48}
+            height={48}
+            className="h-12 w-12 lg:h-10 lg:w-10"
           />
           <span className="font-heading leading-tight">
-            <span className="text-muted-foreground block text-xs">千唐流国際</span>
-            <span className="text-foreground block text-sm font-semibold">
+            <span className="text-muted-foreground block text-sm lg:text-xs">千唐流国際</span>
+            <span className="text-primary block text-[10px] font-bold tracking-wide uppercase sm:hidden">
+              Chito Ryu
+            </span>
+            <span className="text-foreground hidden text-sm font-semibold sm:block">
               Chito Ryu International
             </span>
           </span>
@@ -65,12 +68,12 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
           )}
         </nav>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 lg:gap-4">
           <LanguagePicker lang={lang} dictionary={dictionary} />
 
           <Link
             href={`/${lang}/login`}
-            className="bg-primary text-primary-foreground px-4 py-2 text-sm font-bold transition-opacity hover:opacity-90 sm:px-6 sm:py-2.5"
+            className="bg-primary text-primary-foreground px-5 py-3 text-sm font-bold whitespace-nowrap transition-opacity hover:opacity-90 sm:px-6 sm:py-2.5"
           >
             {dictionary.nav.joinUs}
           </Link>

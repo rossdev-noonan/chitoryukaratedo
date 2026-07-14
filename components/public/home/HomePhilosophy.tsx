@@ -15,7 +15,7 @@ export function HomePhilosophy({ lang, dictionary }: HomePhilosophyProps) {
     <section className="bg-secondary/40">
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-10">
         <div>
-          <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase">
+          <p className="text-sm font-semibold tracking-widest text-[#806735] uppercase">
             {dictionary.home.philosophyLabel}
           </p>
           <div className="bg-primary mt-2 h-0.5 w-[86px]" />

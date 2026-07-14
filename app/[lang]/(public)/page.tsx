@@ -31,10 +31,20 @@ export default async function HomePage({ params }: HomePageProps) {
       <HomeFeatureBar dictionary={dictionary} />
       <HomePhilosophy lang={lang} dictionary={dictionary} />
       <HomeUpcomingEvents lang={lang} dictionary={dictionary} />
-      <HomeOrigins dictionary={dictionary} />
-      <HomeNewsEvents lang={lang} dictionary={dictionary} />
-      <HomeCTA lang={lang} dictionary={dictionary} />
-      <HomeDojoFinder lang={lang} dictionary={dictionary} />
+      <div className="flex flex-col">
+        <div className="order-1 md:hidden lg:order-1 lg:block">
+          <HomeOrigins dictionary={dictionary} />
+        </div>
+        <div className="order-2 md:order-1 lg:order-3">
+          <HomeCTA lang={lang} dictionary={dictionary} />
+        </div>
+        <div className="order-3 md:order-2 lg:order-2">
+          <HomeNewsEvents lang={lang} dictionary={dictionary} />
+        </div>
+        <div className="order-4 md:order-3 lg:order-4">
+          <HomeDojoFinder lang={lang} dictionary={dictionary} />
+        </div>
+      </div>
     </>
   );
 }

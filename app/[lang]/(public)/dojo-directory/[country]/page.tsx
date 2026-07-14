@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { DojoCard } from "@/components/public/DojoCard";
 import { FederationCard } from "@/components/public/FederationCard";
-import { PageHeader } from "@/components/public/PageHeader";
-import { PlaceholderNotice } from "@/components/public/PlaceholderNotice";
+import { GlobalCommunityCTA } from "@/components/public/GlobalCommunityCTA";
 import { SearchBox } from "@/components/public/SearchBox";
 import {
   getCountryBySlug,
@@ -29,9 +29,6 @@ export async function generateMetadata({ params }: CountryPageProps): Promise<Me
   return {
     title: match.name,
     description: `Approved Chito-Ryu dojos in ${match.name}.`,
-    // Canonical always points at the unfiltered list — search-query
-    // variations (?q=...) are the same underlying page, not distinct
-    // content to index.
     alternates: localeAlternates(lang, `/dojo-directory/${match.slug}`),
   };
 }
@@ -61,29 +58,48 @@ export default async function CountryPage({ params, searchParams }: CountryPageP
 
   return (
     <>
-      <PageHeader title={match.name} />
-      <div className="mx-auto mt-8 max-w-6xl px-4 sm:px-6">
-        {match.hasOwnFederationSite ? (
-          <FederationCard country={match} />
-        ) : (
-          <>
-            <SearchBox placeholder="Search dojos…" initialQuery={q ?? ""} />
-            {rateLimited && (
-              <p className="mt-2 text-sm text-red-600">
-                Too many searches — showing the full list. Try again in a minute.
-              </p>
-            )}
-            <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {dojos.length === 0 ? (
-                <p className="text-muted-foreground col-span-full text-sm">No dojos found.</p>
-              ) : (
-                dojos.map((dojo) => <DojoCard key={dojo.slug} dojo={dojo} lang={lang} />)
+      <main className="mx-auto min-h-[650px] max-w-7xl px-5 py-16 sm:px-6 lg:px-10 lg:py-20">
+        <div className="text-brand-accent flex items-center gap-3 text-xs font-semibold tracking-[0.16em] uppercase">
+          <Link href={`/${lang}/dojo-directory`} className="hover:text-primary transition-colors">
+            Dojo Directory
+          </Link>
+          <span aria-hidden="true">/</span>
+          <span>{match.name}</span>
+        </div>
+        <div className="bg-primary mt-3 h-0.5 w-[86px]" />
+
+        <h1 className="font-heading text-foreground mt-8 max-w-3xl text-4xl font-medium tracking-tight sm:text-5xl">
+          {match.hasOwnFederationSite
+            ? `Official Federation for ${match.name}`
+            : `Approved Dojos in ${match.name}`}
+        </h1>
+
+        <div className="mt-10">
+          {match.hasOwnFederationSite ? (
+            <FederationCard country={match} />
+          ) : (
+            <>
+              <div className="max-w-2xl">
+                <SearchBox placeholder="Search dojos…" initialQuery={q ?? ""} />
+              </div>
+              {rateLimited && (
+                <p className="mt-3 text-sm text-red-600">
+                  Too many searches — showing the full list. Try again in a minute.
+                </p>
               )}
-            </div>
-          </>
-        )}
-      </div>
-      <PlaceholderNotice source="Supabase (approved records only)" />
+              <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
+                {dojos.length === 0 ? (
+                  <p className="text-muted-foreground col-span-full text-sm">No dojos found.</p>
+                ) : (
+                  dojos.map((dojo) => <DojoCard key={dojo.slug} dojo={dojo} lang={lang} />)
+                )}
+              </div>
+            </>
+          )}
+        </div>
+      </main>
+      <GlobalCommunityCTA lang={lang} />
+      <div className="h-20" />
     </>
   );
 }

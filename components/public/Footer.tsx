@@ -32,8 +32,8 @@ export function Footer({ lang, dictionary }: FooterProps) {
   return (
     <footer className="bg-foreground text-background">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-10">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="lg:col-span-1">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 lg:grid-cols-4">
+          <div className="col-span-2 lg:col-span-1">
             <div className="flex items-center gap-3">
               <Image
                 src="/brand/chito-ryu-logo.svg"
@@ -82,7 +82,7 @@ export function Footer({ lang, dictionary }: FooterProps) {
             </ul>
           </div>
 
-          <div>
+          <div className="col-span-2 lg:col-span-1">
             <h3 className="text-sm font-semibold">{dictionary.footer.connect}</h3>
             <div className="mt-4 flex flex-col gap-4">
               <a

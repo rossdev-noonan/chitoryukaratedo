@@ -29,7 +29,7 @@ export function HomeUpcomingEvents({ lang, dictionary }: HomeUpcomingEventsProps
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-10">
       <div className="flex items-end justify-between">
         <div>
-          <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase">
+          <p className="text-sm font-semibold tracking-widest text-[#806735] uppercase">
             {dictionary.home.eventsLabel}
           </p>
           <div className="bg-primary mt-2 h-0.5 w-[86px]" />
@@ -45,9 +45,9 @@ export function HomeUpcomingEvents({ lang, dictionary }: HomeUpcomingEventsProps
         {dictionary.home.upcomingEventsHeading}
       </h2>
 
-      <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3">
+      <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {homeUpcomingEvents.map((event, index) => {
-          const text = dictionary.home.upcomingEvents[index];
+          const text = dictionary.home.upcomingEvents[index] ?? dictionary.home.upcomingEvents[0];
           const date = new Date(event.startDate);
           const month = new Intl.DateTimeFormat(BCP47[lang], { month: "short" })
             .format(date)
@@ -57,7 +57,9 @@ export function HomeUpcomingEvents({ lang, dictionary }: HomeUpcomingEventsProps
             <Link
               key={event.href + text.title}
               href={`/${lang}${event.href}`}
-              className="border-border bg-background group flex gap-5 border p-6 shadow-sm transition-colors hover:bg-black/[0.02]"
+              className={`border-border bg-background group gap-5 border p-6 shadow-sm transition-colors hover:bg-black/[0.02] ${
+                index === 3 ? "hidden md:flex lg:hidden" : "flex"
+              }`}
             >
               <div className="border-primary text-primary flex h-[72px] w-16 shrink-0 flex-col items-center justify-center rounded-lg border">
                 <span className="text-xs font-bold uppercase">{month}</span>

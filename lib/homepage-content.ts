@@ -40,7 +40,10 @@ export interface HomeUpcomingEvent {
   href: string;
 }
 
-export const homeUpcomingEvents: HomeUpcomingEvent[] = [{ startDate: "2026-08-13", href: "/events" }];
+export const homeUpcomingEvents: HomeUpcomingEvent[] = Array.from({ length: 4 }, () => ({
+  startDate: "2026-08-13",
+  href: "/events",
+}));
 
 export interface OriginsAccordionItem {
   title: string;

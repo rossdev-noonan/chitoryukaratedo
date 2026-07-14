@@ -133,6 +133,34 @@
   }
 }
 
+/* Hero entrance animation — approximates Gil's Figma prototype reference
+   video (13.07.2026_11.32.10_REC.mp4): image scales/fades in, headline and
+   CTAs reveal with a stagger. The plugin's exact keyframes/easing aren't
+   readable via the Figma API (get_motion_context only reads native Smart
+   Animate prototype reactions, not third-party timeline plugin data), so
+   this is a faithful re-creation from the reference video, not an exact
+   1:1 export — adjust timing/easing if Gil flags it as off. */
+@keyframes hero-image-in {
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes hero-content-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Script-specific font overrides for locales the base Noto Serif JP +
    Inter pairing doesn't cover — see app/[lang]/layout.tsx. */
 .font-locale-yue {

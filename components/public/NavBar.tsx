@@ -118,7 +118,7 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
                   <div className="flex flex-col gap-1 pb-2 pl-4">
                     {entry.children.map((item) => (
                       <Link
-                        key={item.href}
+                        key={item.label}
                         href={`/${lang}${item.href}`}
                         className="text-foreground/70 hover:text-primary py-1.5 text-sm"
                         onClick={() => setIsMenuOpen(false)}

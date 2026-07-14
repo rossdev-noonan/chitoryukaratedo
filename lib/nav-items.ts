@@ -12,8 +12,9 @@ export interface NavGroup {
 
 export type NavEntry = { type: "link"; href: string; label: string } | ({ type: "group" } & NavGroup);
 
-// Grouped into 6 top-level entries per Gil's 2026-07-14 Figma header —
-// accepting the grouping proposal sent 2026-07-13 (see handover-to-gil.md).
+// Grouped per Gil's 2026-07-14 Figma dropdown mockups (About/Community/News &
+// Events/Resources dropdowns spelled out explicitly above the header frame) —
+// supersedes the earlier guess at what "Community" and "Resources" contained.
 export function getPrimaryNavGroups(dictionary: Dictionary): NavEntry[] {
   return [
     {
@@ -25,8 +26,14 @@ export function getPrimaryNavGroups(dictionary: Dictionary): NavEntry[] {
         { href: "/leadership", label: dictionary.nav.leadership },
       ],
     },
-    { type: "link", href: "/teachers", label: dictionary.nav.community },
-    { type: "link", href: "/dojo-directory", label: dictionary.nav.dojoDirectory },
+    {
+      type: "group",
+      label: dictionary.nav.community,
+      children: [
+        { href: "/dojo-directory", label: dictionary.nav.dojoDirectory },
+        { href: "/teachers", label: dictionary.nav.teachers },
+      ],
+    },
     {
       type: "group",
       label: dictionary.nav.newsEventsGroup,
@@ -35,7 +42,16 @@ export function getPrimaryNavGroups(dictionary: Dictionary): NavEntry[] {
         { href: "/events", label: dictionary.nav.events },
       ],
     },
-    { type: "link", href: "/resources", label: dictionary.nav.resources },
+    {
+      type: "group",
+      label: dictionary.nav.resources,
+      children: [
+        { href: "/resources/downloads", label: dictionary.footer.downloads },
+        { href: "/resources", label: dictionary.footer.examinations },
+        { href: "/resources", label: dictionary.footer.technicalDocuments },
+        { href: "/resources", label: dictionary.footer.rulesAndGuidelines },
+      ],
+    },
     { type: "link", href: "/contact", label: dictionary.nav.contact },
   ];
 }

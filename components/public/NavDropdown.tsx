@@ -60,7 +60,7 @@ export function NavDropdown({ lang, group }: NavDropdownProps) {
           className="border-border bg-background absolute top-full left-0 z-50 mt-2 w-56 border shadow-sm"
         >
           {group.children.map((item) => (
-            <li key={item.href} role="none">
+            <li key={item.label} role="none">
               <Link
                 role="menuitem"
                 href={`/${lang}${item.href}`}

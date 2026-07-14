@@ -22,32 +22,12 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
   return (
     <section className="relative md:h-[406px] lg:h-[720px]">
       <div className="relative h-[280px] w-full overflow-hidden sm:h-[360px] md:absolute md:inset-0 md:h-full">
-        <motion.div
-          className="absolute inset-0 md:-right-[39px] lg:right-0"
-          initial={initial ?? { opacity: 0, scale: 1.025 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.48, duration: 0.62, ease: easeOutExpo }}
-        >
-          <Image
-            src="/images/homepage/hero-practitioner.png"
-            alt="Three Chito-Ryu Karate-Do practitioners in fighting stances"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-[91%_center] md:object-right"
-          />
-        </motion.div>
-
         <div className="pointer-events-none absolute top-1/2 left-[66%] aspect-square w-[70%] max-w-[700px] -translate-x-1/2 -translate-y-1/2 sm:w-[58%] md:w-[49%]">
           <motion.div
             className="relative h-full w-full"
-            initial={initial ?? { x: "-105vw", opacity: 0, scale: 0.12 }}
-            animate={{ x: 0, opacity: [0, 1, 1, 0], scale: 1 }}
-            transition={{
-              duration: 1.12,
-              ease: easeOutExpo,
-              times: [0, 0.12, 0.72, 1],
-            }}
+            initial={initial ?? { scale: 0, opacity: 0, rotate: -140 }}
+            animate={{ scale: 1, opacity: 1, rotate: 0 }}
+            transition={{ duration: 0.7, ease: easeOutExpo }}
           >
             <span
               className="bg-primary block h-full w-full"
@@ -64,6 +44,22 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
             />
           </motion.div>
         </div>
+
+        <motion.div
+          className="absolute inset-0 md:-right-[39px] lg:right-0"
+          initial={initial ?? { opacity: 0, scale: 1.025 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.62, duration: 0.55, ease: easeOutExpo }}
+        >
+          <Image
+            src="/images/homepage/hero-practitioner.png"
+            alt="Three Chito-Ryu Karate-Do practitioners in fighting stances"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[91%_center] md:object-right"
+          />
+        </motion.div>
       </div>
 
       <div className="bg-background relative px-5 py-6 md:absolute md:inset-0 md:bg-transparent md:px-10 md:pt-20 lg:px-20 lg:pt-[120px]">

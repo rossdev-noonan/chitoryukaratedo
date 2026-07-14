@@ -105,6 +105,9 @@
     "philosophyCta": "আমাদের দর্শন সম্পর্কে আরও জানুন",
     "eventsLabel": "ইভেন্ট",
     "upcomingEventsHeading": "আসন্ন ইভেন্ট",
-    "viewAllEvents": "সব ইভেন্ট দেখুন"
+    "viewAllEvents": "সব ইভেন্ট দেখুন",
+    "upcomingEvents": [
+      { "title": "১৫তম চিতো-র্যু কারাতে সোকে কাপ", "location": "গোল্ড কোস্ট, অস্ট্রেলিয়া" }
+    ]
   }
 }

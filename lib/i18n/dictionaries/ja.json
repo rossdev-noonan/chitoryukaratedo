@@ -105,6 +105,9 @@
     "philosophyCta": "私たちの理念について詳しく見る",
     "eventsLabel": "イベント",
     "upcomingEventsHeading": "開催予定のイベント",
-    "viewAllEvents": "すべてのイベントを見る"
+    "viewAllEvents": "すべてのイベントを見る",
+    "upcomingEvents": [
+      { "title": "第15回千唐流空手道 宗家杯", "location": "ゴールドコースト、オーストラリア" }
+    ]
   }
 }

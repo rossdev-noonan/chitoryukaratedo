@@ -105,6 +105,9 @@
     "philosophyCta": "Les mer om vår filosofi",
     "eventsLabel": "arrangementer",
     "upcomingEventsHeading": "Kommende arrangementer",
-    "viewAllEvents": "Se alle arrangementer"
+    "viewAllEvents": "Se alle arrangementer",
+    "upcomingEvents": [
+      { "title": "15. Chito-Ryu Karate Soke Cup", "location": "Gold Coast, Australia" }
+    ]
   }
 }

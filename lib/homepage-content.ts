@@ -35,6 +35,13 @@ export const homeNewsCards: HomeNewsCard[] = [
   },
 ];
 
+export interface HomeUpcomingEvent {
+  startDate: string;
+  href: string;
+}
+
+export const homeUpcomingEvents: HomeUpcomingEvent[] = [{ startDate: "2026-08-13", href: "/events" }];
+
 export interface OriginsAccordionItem {
   title: string;
   body: string;

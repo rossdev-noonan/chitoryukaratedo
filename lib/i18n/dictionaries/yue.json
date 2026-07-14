@@ -105,6 +105,9 @@
     "philosophyCta": "深入了解我哋嘅理念",
     "eventsLabel": "活動",
     "upcomingEventsHeading": "即將舉行嘅活動",
-    "viewAllEvents": "查看所有活動"
+    "viewAllEvents": "查看所有活動",
+    "upcomingEvents": [
+      { "title": "第15屆千唐流空手道宗家杯", "location": "黃金海岸，澳洲" }
+    ]
   }
 }

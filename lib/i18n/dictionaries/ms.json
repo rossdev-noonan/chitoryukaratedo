@@ -105,6 +105,9 @@
     "philosophyCta": "Ketahui Lebih Lanjut Tentang Falsafah Kami",
     "eventsLabel": "acara",
     "upcomingEventsHeading": "Acara Akan Datang",
-    "viewAllEvents": "Lihat Semua Acara"
+    "viewAllEvents": "Lihat Semua Acara",
+    "upcomingEvents": [
+      { "title": "Piala Soke Karate Chito-Ryu ke-15", "location": "Gold Coast, Australia" }
+    ]
   }
 }

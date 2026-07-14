@@ -105,6 +105,9 @@
     "philosophyCta": "Learn More About Our Philosophy",
     "eventsLabel": "events",
     "upcomingEventsHeading": "Upcoming Events",
-    "viewAllEvents": "View All Events"
+    "viewAllEvents": "View All Events",
+    "upcomingEvents": [
+      { "title": "15th Chito-Ryu Karate Soke Cup", "location": "Gold Coast, Australia" }
+    ]
   }
 }

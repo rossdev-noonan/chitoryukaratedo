@@ -12,7 +12,7 @@ export function HomeOrigins({ dictionary }: HomeOriginsProps) {
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-10">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
         <div>
-          <p className="text-primary text-sm font-semibold tracking-widest uppercase">
+          <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase">
             {dictionary.home.originsLabel}
           </p>
           <h2 className="font-heading mt-2 text-3xl font-bold sm:text-4xl">

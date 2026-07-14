@@ -76,5 +76,6 @@ export interface Dictionary {
     eventsLabel: string;
     upcomingEventsHeading: string;
     viewAllEvents: string;
+    upcomingEvents: { title: string; location: string }[];
   };
 }

@@ -15,7 +15,7 @@ export function HomeNewsEvents({ lang, dictionary }: HomeNewsEventsProps) {
   return (
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-10">
       <div className="flex items-end justify-between">
-        <p className="text-primary text-sm font-semibold tracking-widest uppercase">
+        <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase">
           {dictionary.home.newsEventsLabel}
         </p>
         <Link

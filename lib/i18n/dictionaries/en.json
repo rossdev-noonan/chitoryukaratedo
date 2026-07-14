@@ -106,6 +106,7 @@
     "eventsLabel": "events",
     "upcomingEventsHeading": "Upcoming Events",
     "viewAllEvents": "View All Events",
+    "viewEventDetails": "View Event Details",
     "upcomingEvents": [
       { "title": "15th Chito-Ryu Karate Soke Cup", "location": "Gold Coast, Australia" }
     ]

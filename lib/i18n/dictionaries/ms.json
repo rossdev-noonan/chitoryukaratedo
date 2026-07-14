@@ -106,6 +106,7 @@
     "eventsLabel": "acara",
     "upcomingEventsHeading": "Acara Akan Datang",
     "viewAllEvents": "Lihat Semua Acara",
+    "viewEventDetails": "Lihat Butiran Acara",
     "upcomingEvents": [
       { "title": "Piala Soke Karate Chito-Ryu ke-15", "location": "Gold Coast, Australia" }
     ]

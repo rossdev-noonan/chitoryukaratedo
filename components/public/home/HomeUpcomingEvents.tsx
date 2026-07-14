@@ -56,16 +56,20 @@ export function HomeUpcomingEvents({ lang, dictionary }: HomeUpcomingEventsProps
             <Link
               key={`${event.startDate}-${index}`}
               href={`/${lang}${event.href}`}
-              className="border-border bg-background group flex gap-5 border p-6 shadow-sm transition-colors hover:bg-black/[0.02]"
+              className="group flex gap-5 rounded-[2px] border border-[#c8a24a] bg-white p-5 drop-shadow-[0px_4px_6px_rgba(0,0,0,0.05)] transition-colors hover:bg-black/[0.02]"
             >
-              <div className="border-primary text-primary flex h-[72px] w-16 shrink-0 flex-col items-center justify-center rounded-lg border">
-                <span className="text-xs font-bold uppercase">{month}</span>
-                <span className="text-2xl font-bold">{day}</span>
+              <div className="relative flex h-[72px] w-16 shrink-0 flex-col items-center justify-center overflow-hidden rounded-lg border border-[#9b0d18]">
+                <div className="absolute top-0 h-[7px] w-full rounded-tl-[4px] rounded-tr-[4px] bg-[#c1121f]" />
+                <span className="text-[12px] font-bold uppercase text-[#b31b1b]">{month}</span>
+                <span className="text-2xl font-bold text-[#1f2937]">{day}</span>
               </div>
               <div>
-                <p className="font-heading font-bold">{text.title}</p>
-                <p className="text-muted-foreground mt-1 text-sm">{text.location}</p>
-                <ArrowRight className="text-primary mt-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                <p className="font-heading font-bold text-[#1a1a1a]">{text.title}</p>
+                <p className="mt-2 text-sm text-[#666]">{text.location}</p>
+                <span className="mt-4 inline-flex items-center gap-2 text-xs font-bold text-[#c1121f]">
+                  {dictionary.home.viewEventDetails}
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </span>
               </div>
             </Link>
           );

@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { SectionEyebrow } from "@/components/public/home/SectionEyebrow";
 import type { Locale } from "@/lib/i18n/locales";
 import type { Dictionary } from "@/lib/i18n/types";
 
@@ -15,9 +16,7 @@ export function HomePhilosophy({ lang, dictionary }: HomePhilosophyProps) {
     <section className="bg-secondary/40">
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-10">
         <div>
-          <p className="text-sm font-semibold tracking-widest text-[#806735] uppercase">
-            {dictionary.home.philosophyLabel}
-          </p>
+          <SectionEyebrow>{dictionary.home.philosophyLabel}</SectionEyebrow>
           <div className="bg-primary mt-2 h-0.5 w-[86px]" />
           <h2 className="font-heading mt-2 text-3xl font-bold sm:text-4xl">
             {dictionary.home.philosophyHeadingLine1}

@@ -133,45 +133,15 @@
   }
 }
 
-/* Hero entrance animation — approximates Gil's Figma prototype reference
-   video (13.07.2026_11.32.10_REC.mp4): image scales/fades in, headline and
-   CTAs reveal with a stagger. The plugin's exact keyframes/easing aren't
-   readable via the Figma API (get_motion_context only reads native Smart
-   Animate prototype reactions, not third-party timeline plugin data), so
-   this is a faithful re-creation from the reference video, not an exact
-   1:1 export — adjust timing/easing if Gil flags it as off. */
-@keyframes hero-circle-in {
-  from {
-    opacity: 0;
-    transform: scale(0) rotate(-30deg);
-  }
-  70% {
-    opacity: 1;
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) rotate(0deg);
-  }
-}
-@keyframes hero-image-in {
-  from {
-    opacity: 0;
-    transform: scale(1.05);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-@keyframes hero-content-in {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Figma's #A1824A eyebrow color is visually preserved while the semantic
+   text uses the closest WCAG-AA shade underneath. Generated decoration does
+   not duplicate the label for assistive technology. */
+.figma-eyebrow::after {
+  position: absolute;
+  inset: 0;
+  color: var(--brand-accent);
+  content: attr(data-visual-label);
+  pointer-events: none;
 }
 
 /* Script-specific font overrides for locales the base Noto Serif JP +

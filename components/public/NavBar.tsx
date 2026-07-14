@@ -32,21 +32,26 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
 
   return (
     <header className="border-border bg-background sticky top-0 z-40 border-b">
-      <div className="mx-auto flex h-[70px] max-w-7xl items-center justify-between px-2.5 sm:px-6 lg:h-20 lg:px-10">
-        <Link href={`/${lang}`} className="flex items-center gap-3">
+      <div className="mx-auto flex h-[70px] max-w-7xl items-center justify-between px-2.5 sm:h-20 sm:px-10 lg:px-10">
+        <Link href={`/${lang}`} className="flex items-center gap-1 sm:gap-3">
           <Image
             src="/brand/chito-ryu-logo.svg"
             alt="Chito-Ryu International"
             width={48}
             height={48}
-            className="h-12 w-12 lg:h-10 lg:w-10"
+            className="h-12 w-12 sm:h-[70px] sm:w-[70px] lg:h-10 lg:w-10"
           />
-          <span className="font-heading leading-tight">
-            <span className="text-muted-foreground block text-sm lg:text-xs">千唐流国際</span>
-            <span className="text-primary block text-[10px] font-bold tracking-wide uppercase sm:hidden">
+          <span className="font-heading flex w-[67px] flex-col items-center text-center leading-tight sm:w-auto sm:items-start sm:text-left">
+            <span className="text-foreground block text-xs font-bold sm:text-base lg:text-xs">
+              千唐流国際
+            </span>
+            <span className="text-foreground block text-[10px] font-semibold uppercase sm:text-sm lg:hidden">
               Chito Ryu
             </span>
-            <span className="text-foreground hidden text-sm font-semibold sm:block">
+            <span className="text-foreground block text-[6px] tracking-[0.84px] uppercase sm:text-[10px] sm:tracking-[0.2px] lg:hidden">
+              International
+            </span>
+            <span className="text-foreground hidden text-sm font-semibold lg:block">
               Chito Ryu International
             </span>
           </span>
@@ -69,11 +74,13 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
         </nav>
 
         <div className="flex items-center gap-3 lg:gap-4">
-          <LanguagePicker lang={lang} dictionary={dictionary} />
+          <div className="hidden lg:block">
+            <LanguagePicker lang={lang} dictionary={dictionary} />
+          </div>
 
           <Link
             href={`/${lang}/login`}
-            className="bg-primary text-primary-foreground px-5 py-3 text-sm font-bold whitespace-nowrap transition-opacity hover:opacity-90 sm:px-6 sm:py-2.5"
+            className="bg-primary-dark text-primary-foreground px-6 py-3 text-sm font-bold whitespace-nowrap transition-opacity hover:opacity-90 sm:px-5 sm:py-2.5 lg:px-6 lg:py-3"
           >
             {dictionary.nav.joinUs}
           </Link>

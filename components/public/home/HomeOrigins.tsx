@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { OriginsAccordion } from "@/components/public/home/OriginsAccordion";
+import { SectionEyebrow } from "@/components/public/home/SectionEyebrow";
 import type { Dictionary } from "@/lib/i18n/types";
 
 interface HomeOriginsProps {
@@ -12,9 +13,7 @@ export function HomeOrigins({ dictionary }: HomeOriginsProps) {
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-10">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
         <div>
-          <p className="text-sm font-semibold tracking-widest text-[#806735] uppercase">
-            {dictionary.home.originsLabel}
-          </p>
+          <SectionEyebrow>{dictionary.home.originsLabel}</SectionEyebrow>
           <div className="bg-primary mt-2 h-0.5 w-[86px]" />
           <h2 className="font-heading mt-2 text-3xl font-bold sm:text-4xl">
             {dictionary.home.originsHeading}

@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { SectionEyebrow } from "@/components/public/home/SectionEyebrow";
 import type { Locale } from "@/lib/i18n/locales";
 import type { Dictionary } from "@/lib/i18n/types";
 import { homeNewsCards } from "@/lib/homepage-content";
@@ -16,9 +17,7 @@ export function HomeNewsEvents({ lang, dictionary }: HomeNewsEventsProps) {
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-10">
       <div className="flex items-end justify-between">
         <div>
-          <p className="text-sm font-semibold tracking-widest text-[#806735] uppercase">
-            {dictionary.home.newsEventsLabel}
-          </p>
+          <SectionEyebrow>{dictionary.home.newsEventsLabel}</SectionEyebrow>
           <div className="bg-primary mt-2 h-0.5 w-[86px]" />
         </div>
         <Link
@@ -32,11 +31,15 @@ export function HomeNewsEvents({ lang, dictionary }: HomeNewsEventsProps) {
         {dictionary.home.latestUpdates}
       </h2>
 
-      <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
         {homeNewsCards.map((card, index) => {
-          const text = dictionary.home.newsCards[index];
+          const text = dictionary.home.newsCards[index] ?? card;
           return (
-            <Link key={card.title} href={`/${lang}${card.href}`} className="group block">
+            <Link
+              key={card.title}
+              href={`/${lang}${card.href}`}
+              className={`group ${index === 3 ? "hidden md:block lg:hidden" : "block"}`}
+            >
               <div className="relative aspect-[16/10] w-full overflow-hidden">
                 <Image
                   src={card.imageSrc}

@@ -1,4 +1,7 @@
+"use client";
+
 import { ArrowRight, MapPin } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,60 +13,116 @@ interface HomeHeroProps {
   dictionary: Dictionary;
 }
 
+const easeOutExpo = [0.16, 1, 0.3, 1] as const;
+
 export function HomeHero({ lang, dictionary }: HomeHeroProps) {
+  const reduceMotion = useReducedMotion();
+  const initial = reduceMotion ? false : undefined;
+
   return (
-    <section className="relative md:h-[654px] lg:h-[720px]">
+    <section className="relative md:h-[406px] lg:h-[720px]">
       <div className="relative h-[280px] w-full overflow-hidden sm:h-[360px] md:absolute md:inset-0 md:h-full">
-        {/* Circle-first entrance: a red brush-stroke stand-in scales/rotates in
-            from nothing, then the real composite photo (which already has the
-            brush stroke baked in) cross-fades on top of it — approximates
-            Gil's reference video since the separated circle/photo layers
-            aren't available through the Figma API for this component. */}
-        <div
-          aria-hidden
-          className="motion-safe:animate-[hero-circle-in_650ms_ease-out_both] absolute top-1/2 right-[8%] h-[70%] aspect-square -translate-y-1/2 rounded-full"
-          style={{
-            background:
-              "radial-gradient(circle, var(--color-primary) 0%, var(--color-primary-dark) 70%, transparent 100%)",
-          }}
-        />
-        <Image
-          src="/images/homepage/hero-practitioner.png"
-          alt="Three Chito-Ryu Karate-Do practitioners in fighting stances"
-          fill
-          priority
-          sizes="100vw"
-          className="motion-safe:animate-[hero-image-in_700ms_ease-out_both] object-cover object-[70%_center] [animation-delay:450ms] md:object-right"
-        />
+        <motion.div
+          className="absolute inset-0 md:-right-[39px] lg:right-0"
+          initial={initial ?? { opacity: 0, scale: 1.025 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.48, duration: 0.62, ease: easeOutExpo }}
+        >
+          <Image
+            src="/images/homepage/hero-practitioner.png"
+            alt="Three Chito-Ryu Karate-Do practitioners in fighting stances"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[91%_center] md:object-right"
+          />
+        </motion.div>
+
+        <div className="pointer-events-none absolute top-1/2 left-[66%] aspect-square w-[70%] max-w-[700px] -translate-x-1/2 -translate-y-1/2 sm:w-[58%] md:w-[49%]">
+          <motion.div
+            className="relative h-full w-full"
+            initial={initial ?? { x: "-105vw", opacity: 0, scale: 0.12 }}
+            animate={{ x: 0, opacity: [0, 1, 1, 0], scale: 1 }}
+            transition={{
+              duration: 1.12,
+              ease: easeOutExpo,
+              times: [0, 0.12, 0.72, 1],
+            }}
+          >
+            <span
+              className="bg-primary block h-full w-full"
+              style={{
+                WebkitMaskImage: "url(/images/homepage/hero-brush-mask.png)",
+                maskImage: "url(/images/homepage/hero-brush-mask.png)",
+                WebkitMaskPosition: "center",
+                maskPosition: "center",
+                WebkitMaskRepeat: "no-repeat",
+                maskRepeat: "no-repeat",
+                WebkitMaskSize: "contain",
+                maskSize: "contain",
+              }}
+            />
+          </motion.div>
+        </div>
       </div>
 
-      <div className="bg-background relative px-4 py-8 sm:px-6 md:absolute md:inset-0 md:bg-transparent md:px-6 md:pt-[120px] lg:px-10">
-        <div className="md:max-w-xl">
-          <h1 className="font-heading motion-safe:animate-[hero-content-in_700ms_ease-out_both] text-3xl leading-tight font-medium sm:text-4xl lg:text-5xl [animation-delay:150ms]">
-            <span className="text-foreground">{dictionary.home.heroTitleLine1}</span>
-            <br />
-            <span className="text-primary">{dictionary.home.heroTitleHighlight}</span>{" "}
-            <span className="text-foreground">{dictionary.home.heroTitleLine2}</span>
-          </h1>
-          <p className="text-muted-foreground mt-4 max-w-md motion-safe:animate-[hero-content-in_700ms_ease-out_both] md:mt-6 [animation-delay:300ms]">
+      <div className="bg-background relative px-5 py-6 md:absolute md:inset-0 md:bg-transparent md:px-10 md:pt-20 lg:px-20 lg:pt-[120px]">
+        <div className="md:w-full lg:w-[720px] lg:max-w-[50vw]">
+          <motion.h1
+            className="font-heading text-2xl leading-normal font-medium md:w-[311px] md:text-[28px] lg:w-[720px] lg:text-5xl"
+            initial={initial ?? { x: -20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.16, duration: 0.56, ease: easeOutExpo }}
+          >
+            <span className="text-foreground block">{dictionary.home.heroTitleLine1}</span>
+            <span className="mt-0 block lg:mt-4">
+              <span className="text-primary">{dictionary.home.heroTitleHighlight}</span>{" "}
+              <span className="text-foreground">{dictionary.home.heroTitleLine2}</span>
+            </span>
+          </motion.h1>
+
+          <motion.p
+            className="text-muted-foreground mt-4 max-w-[230px] text-xs leading-normal lg:mt-10 lg:max-w-[480px] lg:text-lg lg:leading-[1.6]"
+            initial={initial ?? { y: 12, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.5, ease: easeOutExpo }}
+          >
             {dictionary.home.heroDescription}
-          </p>
-          <div className="mt-6 flex flex-col gap-3 motion-safe:animate-[hero-content-in_700ms_ease-out_both] sm:flex-row sm:flex-wrap md:mt-8 [animation-delay:450ms]">
+          </motion.p>
+
+          <motion.div
+            className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap md:mt-8 lg:mt-10"
+            initial={initial ?? { y: 14, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.76, duration: 0.5, ease: easeOutExpo }}
+          >
             <Link
               href={`/${lang}/about`}
-              className="bg-primary text-primary-foreground inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold transition-opacity hover:opacity-90"
+              className="bg-primary-dark text-primary-foreground inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-bold transition-opacity hover:opacity-90"
             >
               {dictionary.home.aboutChitoRyu}
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               href={`/${lang}/dojo-directory`}
-              className="border-border text-foreground md:bg-background/90 inline-flex items-center justify-center gap-2 border bg-white px-6 py-3 text-sm font-bold transition-colors hover:bg-black/[0.03] md:hover:bg-white"
+              className="border-brand-accent text-brand-accent inline-flex items-center justify-center gap-2 border bg-white/80 px-8 py-4 text-base font-semibold transition-colors hover:bg-white"
             >
               {dictionary.home.findADojo}
               <MapPin className="h-4 w-4" />
             </Link>
-          </div>
+          </motion.div>
+
+          <motion.div
+            aria-hidden="true"
+            className="absolute -top-5 left-6 flex items-center gap-2 md:hidden lg:static lg:mt-7 lg:flex"
+            initial={initial ?? { opacity: 0, scaleX: 0 }}
+            animate={{ opacity: 1, scaleX: 1 }}
+            transition={{ delay: 1.02, duration: 0.4, ease: easeOutExpo }}
+            style={{ transformOrigin: "left" }}
+          >
+            <span className="bg-primary h-1 w-10 rounded-sm" />
+            <span className="bg-brand-accent h-1 w-6 rounded-sm" />
+          </motion.div>
         </div>
       </div>
     </section>

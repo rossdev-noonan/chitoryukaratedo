@@ -2,6 +2,7 @@ import { ArrowRight, ChevronDown, MapPin, Search } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { SectionEyebrow } from "@/components/public/home/SectionEyebrow";
 import { getApprovedDojos, getDojoCountsByContinent } from "@/lib/directory";
 import type { Continent } from "@/lib/continents";
 import type { Locale } from "@/lib/i18n/locales";
@@ -32,9 +33,7 @@ export async function HomeDojoFinder({ lang, dictionary }: HomeDojoFinderProps) 
   return (
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-10">
       <div className="text-center">
-        <p className="text-sm font-semibold tracking-widest text-[#806735] uppercase">
-          {dictionary.home.dojoFinderLabel}
-        </p>
+        <SectionEyebrow centered>{dictionary.home.dojoFinderLabel}</SectionEyebrow>
         <div className="bg-primary mx-auto mt-2 h-0.5 w-[86px]" />
         <h2 className="font-heading mt-2 text-3xl font-bold sm:text-4xl">
           {dictionary.home.dojoFinderHeading}

@@ -33,6 +33,13 @@ export const homeNewsCards: HomeNewsCard[] = [
     imageSrc: "/images/homepage/news-new-dojo.jpeg",
     href: "/news",
   },
+  {
+    category: "Event",
+    title: "Spring Camp",
+    detail: "Train together in Kumamoto, Japan.",
+    imageSrc: "/images/homepage/news-spring-camp.png",
+    href: "/events",
+  },
 ];
 
 export interface HomeUpcomingEvent {
@@ -40,10 +47,7 @@ export interface HomeUpcomingEvent {
   href: string;
 }
 
-export const homeUpcomingEvents: HomeUpcomingEvent[] = Array.from({ length: 4 }, () => ({
-  startDate: "2026-08-13",
-  href: "/events",
-}));
+export const homeUpcomingEvents: HomeUpcomingEvent[] = [{ startDate: "2026-08-13", href: "/events" }];
 
 export interface OriginsAccordionItem {
   title: string;

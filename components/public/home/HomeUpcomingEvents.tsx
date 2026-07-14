@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
+import { SectionEyebrow } from "@/components/public/home/SectionEyebrow";
 import { homeUpcomingEvents } from "@/lib/homepage-content";
 import type { Locale } from "@/lib/i18n/locales";
 import type { Dictionary } from "@/lib/i18n/types";
@@ -29,9 +30,7 @@ export function HomeUpcomingEvents({ lang, dictionary }: HomeUpcomingEventsProps
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-10">
       <div className="flex items-end justify-between">
         <div>
-          <p className="text-sm font-semibold tracking-widest text-[#806735] uppercase">
-            {dictionary.home.eventsLabel}
-          </p>
+          <SectionEyebrow>{dictionary.home.eventsLabel}</SectionEyebrow>
           <div className="bg-primary mt-2 h-0.5 w-[86px]" />
         </div>
         <Link
@@ -55,11 +54,9 @@ export function HomeUpcomingEvents({ lang, dictionary }: HomeUpcomingEventsProps
           const day = new Intl.DateTimeFormat(BCP47[lang], { day: "numeric" }).format(date);
           return (
             <Link
-              key={event.href + text.title}
+              key={`${event.startDate}-${index}`}
               href={`/${lang}${event.href}`}
-              className={`border-border bg-background group gap-5 border p-6 shadow-sm transition-colors hover:bg-black/[0.02] ${
-                index === 3 ? "hidden md:flex lg:hidden" : "flex"
-              }`}
+              className="border-border bg-background group flex gap-5 border p-6 shadow-sm transition-colors hover:bg-black/[0.02]"
             >
               <div className="border-primary text-primary flex h-[72px] w-16 shrink-0 flex-col items-center justify-center rounded-lg border">
                 <span className="text-xs font-bold uppercase">{month}</span>

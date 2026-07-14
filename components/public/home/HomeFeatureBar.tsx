@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import type { Dictionary } from "@/lib/i18n/types";
 
 interface HomeFeatureBarProps {
@@ -7,9 +5,9 @@ interface HomeFeatureBarProps {
 }
 
 const ICONS = [
-  "/images/homepage/icons/feature-origins.png",
-  "/images/homepage/icons/feature-community.png",
-  "/images/homepage/icons/feature-teaching.png",
+  "/images/homepage/icons/feature-origins.svg",
+  "/images/homepage/icons/feature-community.svg",
+  "/images/homepage/icons/feature-teaching.svg",
   "/images/homepage/icons/feature-development.png",
 ];
 
@@ -23,7 +21,10 @@ export function HomeFeatureBar({ dictionary }: HomeFeatureBarProps) {
               <div className="border-accent hidden self-stretch border-l sm:block" />
             )}
             <div className="flex flex-1 items-start gap-4 sm:pl-6">
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element -- small
+                  decorative vector/transparent icons, no benefit from next/image's
+                  raster optimization pipeline and SVGs aren't optimized by default */}
+              <img
                 src={ICONS[index]}
                 alt=""
                 width={40}

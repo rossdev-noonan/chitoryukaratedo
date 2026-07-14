@@ -39,7 +39,7 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
             alt="Chito-Ryu International"
             width={48}
             height={48}
-            className="h-12 w-12 sm:h-[70px] sm:w-[70px] lg:h-10 lg:w-10"
+            className="h-12 w-12 object-contain sm:h-[70px] sm:w-[70px] lg:h-10 lg:w-10"
           />
           <span className="font-heading flex w-[67px] flex-col items-center text-center leading-tight sm:w-auto sm:items-start sm:text-left">
             <span className="text-foreground block text-xs font-bold sm:text-base lg:text-xs">

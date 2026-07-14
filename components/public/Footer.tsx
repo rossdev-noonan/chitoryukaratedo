@@ -40,7 +40,7 @@ export function Footer({ lang, dictionary }: FooterProps) {
                 alt=""
                 width={40}
                 height={40}
-                className="h-10 w-10"
+                className="h-10 w-10 object-contain"
               />
               <span className="font-heading leading-tight">
                 <span className="block text-xs opacity-70">千唐流国際</span>

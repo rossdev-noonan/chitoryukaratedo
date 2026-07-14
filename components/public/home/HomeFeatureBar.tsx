@@ -1,3 +1,5 @@
+import { Fragment } from "react";
+
 import type { Dictionary } from "@/lib/i18n/types";
 
 interface HomeFeatureBarProps {
@@ -14,13 +16,11 @@ const ICONS = [
 export function HomeFeatureBar({ dictionary }: HomeFeatureBarProps) {
   return (
     <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
-      <div className="border-border bg-background flex flex-col gap-8 border px-6 py-8 sm:flex-row sm:gap-0 lg:px-20 lg:py-12">
+      <div className="flex flex-col gap-8 border border-[#e5e7eb] bg-white px-6 py-8 sm:flex-row sm:items-start sm:gap-[40px] sm:px-10 sm:py-9 lg:px-[80px] lg:py-[48px]">
         {dictionary.home.featureBar.map((item, index) => (
-          <div key={item.title} className="flex flex-1 items-start gap-4">
-            {index > 0 && (
-              <div className="border-accent hidden self-stretch border-l sm:block" />
-            )}
-            <div className="flex flex-1 items-start gap-4 sm:pl-6">
+          <Fragment key={item.title}>
+            {index > 0 && <div className="border-accent hidden h-[58px] w-0 border-l sm:block" />}
+            <div className="flex flex-1 items-start gap-[16px]">
               {/* eslint-disable-next-line @next/next/no-img-element -- small
                   decorative vector/transparent icons, no benefit from next/image's
                   raster optimization pipeline and SVGs aren't optimized by default */}
@@ -32,11 +32,11 @@ export function HomeFeatureBar({ dictionary }: HomeFeatureBarProps) {
                 className="h-10 w-10 shrink-0 object-contain"
               />
               <div>
-                <p className="text-foreground font-bold">{item.title}</p>
-                <p className="text-muted-foreground mt-1 text-sm">{item.description}</p>
+                <p className="text-[16px] font-bold text-[#1f2937]">{item.title}</p>
+                <p className="mt-1 text-[14px] leading-[1.4] text-[#666]">{item.description}</p>
               </div>
             </div>
-          </div>
+          </Fragment>
         ))}
       </div>
     </section>

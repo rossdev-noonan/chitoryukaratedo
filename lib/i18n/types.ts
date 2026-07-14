@@ -9,6 +9,8 @@ export interface Dictionary {
     events: string;
     resources: string;
     contact: string;
+    community: string;
+    newsEventsGroup: string;
     joinUs: string;
     openMenu: string;
     closeMenu: string;

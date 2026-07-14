@@ -1,14 +1,15 @@
 "use client";
 
-import { Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { LanguagePicker } from "@/components/public/LanguagePicker";
+import { NavDropdown } from "@/components/public/NavDropdown";
 import type { Locale } from "@/lib/i18n/locales";
 import type { Dictionary } from "@/lib/i18n/types";
-import { getPrimaryNavItems } from "@/lib/nav-items";
+import { getPrimaryNavGroups } from "@/lib/nav-items";
 
 interface NavBarProps {
   lang: Locale;
@@ -17,7 +18,8 @@ interface NavBarProps {
 
 export function NavBar({ lang, dictionary }: NavBarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const navItems = getPrimaryNavItems(dictionary);
+  const [openMobileGroup, setOpenMobileGroup] = useState<string | null>(null);
+  const navGroups = getPrimaryNavGroups(dictionary);
 
   useEffect(() => {
     if (!isMenuOpen) return;
@@ -48,15 +50,19 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
         </Link>
 
         <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={`/${lang}${item.href}`}
-              className="text-foreground/80 hover:text-primary text-sm font-medium transition-colors"
-            >
-              {item.label}
-            </Link>
-          ))}
+          {navGroups.map((entry) =>
+            entry.type === "group" ? (
+              <NavDropdown key={entry.label} lang={lang} group={entry} />
+            ) : (
+              <Link
+                key={entry.href}
+                href={`/${lang}${entry.href}`}
+                className="text-foreground/80 hover:text-primary text-sm font-medium transition-colors"
+              >
+                {entry.label}
+              </Link>
+            ),
+          )}
         </nav>
 
         <div className="flex items-center gap-4">
@@ -90,16 +96,50 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
           aria-label="Primary mobile"
           className="border-border flex flex-col gap-1 border-t px-4 py-3 lg:hidden"
         >
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={`/${lang}${item.href}`}
-              className="text-foreground/80 hover:text-primary py-2 text-sm font-medium"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {navGroups.map((entry) =>
+            entry.type === "group" ? (
+              <div key={entry.label} className="border-border/60 border-b py-1 last:border-b-0">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setOpenMobileGroup((open) => (open === entry.label ? null : entry.label))
+                  }
+                  aria-expanded={openMobileGroup === entry.label}
+                  className="text-foreground/80 flex w-full items-center justify-between py-2 text-sm font-medium"
+                >
+                  {entry.label}
+                  <ChevronDown
+                    className={`h-4 w-4 transition-transform ${
+                      openMobileGroup === entry.label ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                {openMobileGroup === entry.label && (
+                  <div className="flex flex-col gap-1 pb-2 pl-4">
+                    {entry.children.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={`/${lang}${item.href}`}
+                        className="text-foreground/70 hover:text-primary py-1.5 text-sm"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                key={entry.href}
+                href={`/${lang}${entry.href}`}
+                className="text-foreground/80 hover:text-primary py-2 text-sm font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {entry.label}
+              </Link>
+            ),
+          )}
         </nav>
       )}
     </header>

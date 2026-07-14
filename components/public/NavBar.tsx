@@ -57,7 +57,7 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
               <Link
                 key={entry.href}
                 href={`/${lang}${entry.href}`}
-                className="text-foreground/80 hover:text-primary text-sm font-medium transition-colors"
+                className="text-foreground/80 hover:text-primary after:bg-brand-accent relative text-sm font-medium transition-colors after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:transition-transform after:duration-200 hover:after:scale-x-100"
               >
                 {entry.label}
               </Link>

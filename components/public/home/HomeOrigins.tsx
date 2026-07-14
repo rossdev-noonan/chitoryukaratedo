@@ -15,6 +15,7 @@ export function HomeOrigins({ dictionary }: HomeOriginsProps) {
           <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase">
             {dictionary.home.originsLabel}
           </p>
+          <div className="bg-primary mt-2 h-0.5 w-[86px]" />
           <h2 className="font-heading mt-2 text-3xl font-bold sm:text-4xl">
             {dictionary.home.originsHeading}
           </h2>

@@ -28,9 +28,12 @@ export function HomeUpcomingEvents({ lang, dictionary }: HomeUpcomingEventsProps
   return (
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-10">
       <div className="flex items-end justify-between">
-        <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase">
-          {dictionary.home.eventsLabel}
-        </p>
+        <div>
+          <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase">
+            {dictionary.home.eventsLabel}
+          </p>
+          <div className="bg-primary mt-2 h-0.5 w-[86px]" />
+        </div>
         <Link
           href={`/${lang}/events`}
           className="text-primary hidden text-sm font-semibold hover:underline sm:inline"

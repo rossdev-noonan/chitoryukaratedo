@@ -18,6 +18,7 @@ export function HomePhilosophy({ lang, dictionary }: HomePhilosophyProps) {
           <p className="text-brand-accent text-sm font-semibold tracking-widest uppercase">
             {dictionary.home.philosophyLabel}
           </p>
+          <div className="bg-primary mt-2 h-0.5 w-[86px]" />
           <h2 className="font-heading mt-2 text-3xl font-bold sm:text-4xl">
             {dictionary.home.philosophyHeadingLine1}
             <br />

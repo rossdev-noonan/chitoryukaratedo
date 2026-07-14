@@ -22,7 +22,7 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
   return (
     <section className="relative md:h-[406px] lg:h-[720px]">
       <div className="relative h-[280px] w-full overflow-hidden sm:h-[360px] md:absolute md:inset-0 md:h-full">
-        <div className="pointer-events-none absolute top-1/2 left-[66%] aspect-square w-[70%] max-w-[700px] -translate-x-1/2 -translate-y-1/2 sm:w-[58%] md:w-[49%]">
+        <div className="pointer-events-none absolute top-1/2 left-[70%] aspect-square w-[70%] max-w-[700px] -translate-x-1/2 -translate-y-1/2 sm:w-[58%] md:w-[49%]">
           <motion.div
             className="relative h-full w-full"
             initial={initial ?? { scale: 0, opacity: 0, rotate: -140 }}

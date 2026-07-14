@@ -22,6 +22,29 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
   return (
     <section className="relative md:h-[406px] lg:h-[720px]">
       <div className="relative h-[280px] w-full overflow-hidden sm:h-[360px] md:absolute md:inset-0 md:h-full">
+        {/* Ambient ink-wash backdrop: present from the very start and stays
+            visible underneath the circle/photo — approximates the faint
+            gray texture in Gil's reference video (a light wash that's
+            already there before anything else appears), reusing the same
+            hero photo so it's always in sync, just blurred + desaturated
+            rather than a separately extracted asset. */}
+        <motion.div
+          aria-hidden
+          className="absolute inset-0 md:-right-[39px] lg:right-0"
+          initial={initial ?? { opacity: 0 }}
+          animate={{ opacity: 0.16 }}
+          transition={{ duration: 0.3 }}
+          style={{ filter: "grayscale(1) blur(28px)", transform: "scale(1.15)" }}
+        >
+          <Image
+            src="/images/homepage/hero-practitioner.png"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover object-[91%_center] md:object-right"
+          />
+        </motion.div>
+
         <div className="pointer-events-none absolute top-1/2 left-[70%] aspect-square w-[70%] max-w-[700px] -translate-x-1/2 -translate-y-1/2 sm:w-[58%] md:w-[49%]">
           <motion.div
             className="relative h-full w-full"

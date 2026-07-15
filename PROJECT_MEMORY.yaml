@@ -1,0 +1,512 @@
+# ============================================================================
+# PROJECT_MEMORY.yaml
+# Comprehensive build memory for the Chito-Ryu International website.
+# Purpose: let any agent/tool (Claude Code, Codex, a human dev) pick up this
+# project cold — with zero prior conversation history — and understand what
+# exists, why it exists, what's still open, and what NOT to redo or break.
+#
+# Update this file at the end of every work session / phase milestone.
+# Keep entries factual and dated. Do not delete history — append.
+# ============================================================================
+
+meta:
+  document_purpose: >
+    Single source of truth for project state, meant to survive a transition
+    to a different coding agent or human developer. Read this file in full
+    before making any architectural changes.
+  last_updated: "2026-07-15"
+  maintained_by: "Claude Code sessions, updated per session/phase"
+  companion_docs:
+    - path: chito-ryu-build-procedure-codex-claude.md
+      purpose: "Original phase-by-phase build spec (Phases 1-8) this project was built against"
+    - path: handover-to-gil.md
+      purpose: "Running handoff doc to Gil (designer) — build status, open design questions, schema gaps"
+    - path: sitemap-and-routing.md
+      purpose: "Canonical route list and routing conventions"
+    - path: AGENTS.md
+      purpose: "Points agents to node_modules/next/dist/docs — this Next.js version (16) has real breaking changes from training-data assumptions"
+
+project:
+  name: "Chito-Ryu International"
+  description: >
+    Official international website for the Chito-Ryu Karate-Do federation.
+    Public marketing/directory site + gated admin panel for federation staff
+    to manage dojos, teachers, users, approvals, rank evidence.
+  domain: "chitoryukaratedo.com"
+  repo: "https://github.com/rossdev-noonan/chitoryukaratedo"
+  status: "pre-launch, actively building, deployed to Vercel production URL"
+  local_path: "D:\\iCKF"
+
+stakeholders:
+  - name: Ross
+    github: rossdev-noonan
+    role: "Site owner / primary decision maker. Non-technical. Pushes to git himself (never push without his explicit ask each session). Wants terse reports, no jargon for Mike."
+  - name: Gil
+    role: "Designer. Owns Figma file 'Chito Ryu Intl Website' (fileKey 6zDwLFntGwVpIYdgnZmq8M). Iterates frequently and without notice — re-fetch design_context per section before building, never trust a stale full-page dump."
+  - name: Adrian
+    role: "SEO. Will need Sanity Studio access once content model is ready — his real need is meta titles/descriptions and page body copy per locale, not touching hero/animation-coupled copy."
+  - name: Mike Noonan
+    role: "CEO stakeholder. Reports to him must be short, plain-English, zero technical terms."
+  - name: Sheehan
+    role: "Executive Assistant to Mike. Owns billing/card-on-file decisions (Sanity Pro, Supabase Pro upgrades gated on this)."
+
+# ----------------------------------------------------------------------------
+# TECH STACK
+# ----------------------------------------------------------------------------
+tech_stack:
+  framework: "Next.js 16 (App Router, Turbopack) — NOTE: real breaking changes vs training data, e.g. middleware.ts renamed to proxy.ts. Always check node_modules/next/dist/docs before assuming API shape."
+  language: "TypeScript, strict"
+  styling: "Tailwind CSS v4 (@theme inline token system in app/globals.css)"
+  ui_scaffold: "shadcn/ui (components/ui/* — mostly UNUSED scaffold, see known_gaps)"
+  animation: "Framer Motion, imported as `motion/react` (package name `motion` v12.x)"
+  icons: "lucide-react + real bespoke SVG/PNG assets pulled from Figma per-section (not generic icon substitutes)"
+  cms: "Sanity (project ID 3425k2is, dataset production) — content layer for marketing pages, News, Events"
+  database: "Supabase (org 'Chito-Ryu International', project 'chitoryukaratedo', Free tier as of last check) — structured operational data: users/roles, countries, dojos, teachers, approvals, rank_evidence, audit_logs"
+  auth: "Supabase Auth (invite-only, no public signup), cookie-based via @supabase/ssr"
+  hosting: "Vercel, Pro plan, auto-deploys main to production (no staging branch yet)"
+  email: "Resend planned for transactional email — NOT yet set up; Supabase's shared rate-limited test mailer is in use for invite/reset emails meanwhile"
+  bot_protection: "Cloudflare Turnstile on the public contact form"
+  rate_limiting: "Upstash Redis (@upstash/ratelimit)"
+  validation: "Zod on every Server Action input"
+  testing: "Playwright E2E (49 tests as of last count), @axe-core/playwright for accessibility"
+  i18n: "Custom App Router pattern (app/[lang]/...), no external i18n library — 9 locales"
+  domain_registrar: "TPPWholesale — DNS changes deliberately deferred until launch"
+
+# ----------------------------------------------------------------------------
+# ARCHITECTURE
+# ----------------------------------------------------------------------------
+architecture:
+  routing:
+    pattern: "app/[lang]/(public)/... and app/[lang]/(auth)/... — locale-prefixed via Next.js's own documented App Router i18n pattern"
+    admin: "app/admin/... — UNPREFIXED, English-only, guarded by proxy.ts (matches Gil's brief: admin is 'low-personality', never discussed as multilingual)"
+    api: "app/api/... — unprefixed, excluded from locale proxy matcher"
+    proxy: >
+      proxy.ts (Next 16 renamed middleware.ts -> proxy.ts) does two jobs:
+      (1) /admin/* auth gate via supabase.auth.getUser() + redirect to /{locale}/login if unauthenticated,
+      (2) locale detection/redirect for everything else: cookie (NEXT_LOCALE, sticky) > geo (x-vercel-ip-country / cf-ipcountry headers) > Accept-Language > default 'en'.
+
+  content_ownership_split:
+    supabase_owns: "countries, dojos, teachers, users/roles, approvals queue, rank_evidence, audit_logs — all admin-editable via /admin/* with real RLS + Server Action role checks"
+    sanity_owns_intended: "generic marketing page bodies (page schema), newsPost, event — schema exists, wired to public query layer, but DATASET IS EMPTY (see current_phase). No locale support in schema yet."
+    hardcoded_in_code: >
+      Homepage sections (hero copy, trust bar stats, philosophy text, CTA banner, origins accordion)
+      live in lib/homepage-content.ts + lib/i18n/dictionaries/*.json. NOT in Sanity or Supabase.
+      This was a deliberate interim decision (2026-07-10) so a future Sanity swap is a one-file change,
+      but that swap has not happened yet — see open_decisions.
+
+  i18n:
+    locales: ["en", "ja", "yue", "no", "zh", "ms", "ta", "sv", "bn"]
+    locale_names: "English, Japanese, Cantonese, Norwegian, Mandarin, Malay, Tamil, Swedish, Bengali"
+    default_locale: "en"
+    dictionary_files: "lib/i18n/dictionaries/{locale}.json, typed via lib/i18n/types.ts (Dictionary interface)"
+    translation_provenance: >
+      CAVEAT — repeat to Ross/Adrian before treating any non-English copy as launch-final:
+      all non-English translations were AI-generated by Claude sessions, not a professional
+      translation service or native speaker. Cantonese, Mandarin, Norwegian, Malay, Tamil,
+      Swedish, Bengali copy — especially martial-arts terminology and formal federation
+      register — needs native-speaker review before launch.
+    fonts_per_script: "Noto Serif JP (headings/kanji), Inter (body/Latin), Noto Sans HK (Cantonese), Noto Sans SC (Mandarin), Noto Sans Tamil, Noto Sans Bengali — loaded conditionally per-locale, not on <html>, so unused locales don't cost other visitors bandwidth"
+    other_pages_status: "Non-homepage public pages (About, History, Leadership, etc.) keep ENGLISH placeholder body text under every locale prefix — chrome (nav/footer) is fully translated/functional, but page body copy was deliberately not translated since it's structural placeholder pending real design/content"
+
+  auth_roles:
+    - role: sohonbu_admin
+      description: "Full access — only role that can write directly to real tables, review/approve queue items, manage users, delete nothing from audit_logs (nobody can)"
+    - role: country_admin
+      description: "Can only submit (not directly write) changes scoped to their own country_id"
+    - role: dojo_admin
+      description: "Can only submit changes scoped to their own dojo_id"
+    - role: teacher
+      description: "Can submit rank_evidence for themselves; blocked from dojo/teacher submissions"
+  auth_roles_enforcement: "Defense in depth — Server Actions check role server-side AND Supabase RLS policies independently enforce the same rules at the database layer (closed a real direct-REST-API bypass gap on 2026-07-08, migration 0005)"
+
+  key_directories:
+    "app/[lang]/(public)/": "Public marketing/directory pages"
+    "app/[lang]/(auth)/": "Login, accept-invite, reset-password"
+    "app/admin/": "Gated admin panel"
+    "app/api/": "revalidate webhook (Sanity -> ISR), no other API routes built"
+    "components/public/home/": "Homepage section components (HomeHero, HomeFeatureBar, HomeUpcomingEvents, HomeOrigins, HomeCTA, HomeDojoFinder, etc.)"
+    "components/admin/": "Admin panel components"
+    "lib/": "Data access layer — directory.ts, auth.ts, admin-records.ts, approvals.ts, rank-evidence.ts, homepage-content.ts, continents.ts, i18n/, sanity/, supabase/"
+    "supabase/migrations/": "All schema changes as numbered .sql files, applied by hand via Supabase SQL Editor (no Supabase CLI wired into this repo)"
+    "sanity/schemaTypes/": "page.ts, newsPost.ts, event.ts — minimal, no locale support yet"
+
+# ----------------------------------------------------------------------------
+# PHASE HISTORY (condensed — see the auto-memory project_phase_log.md or
+# `git log --oneline` for full narrative detail on any entry)
+# ----------------------------------------------------------------------------
+phases_completed:
+  - id: 1
+    name: "Project Foundation"
+    date_range: "2026-07-07"
+    commits: ["bfd23a4"]
+    summary: "Next.js App Router + TS + Tailwind v4 + shadcn/ui + Zod scaffolded. No live services yet."
+
+  - id: 2
+    name: "Page Scaffolding (structural only, no visual design)"
+    date_range: "2026-07-07"
+    commits: ["a182ea3"]
+    summary: "All sitemap routes exist and resolve. Neutral styling, no palette/typography decisions — design was on hold pending Figma handoff."
+
+  - id: "2-infra"
+    name: "GitHub + Vercel setup"
+    date_range: "2026-07-07"
+    summary: "Repo on GitHub (rossdev-noonan/chitoryukaratedo, public). Vercel Pro, auto-deploy main. Domain confirmed at TPPWholesale, DNS work deferred."
+
+  - id: 3
+    name: "Sanity + Supabase provisioned, Directory/Data model live"
+    date_range: "2026-07-08"
+    commits: ["c888ad2", "88c91b1"]
+    summary: >
+      Both Sanity and Supabase projects created (Ross did the account signups —
+      account creation is not something an agent can do). Full Supabase schema
+      applied (users/countries/dojos/teachers/approvals/rank_evidence/audit_logs,
+      RLS everywhere, Japanese/Romaji fields, pg_trgm fuzzy search, soft deletes,
+      audit triggers). Directory/teacher pages swapped from mock data to live
+      Supabase queries. News/Events wired to Sanity + revalidation webhook.
+      Real bug fixed: raw-SQL-created tables need explicit GRANTs beyond RLS
+      (migration 0003) — Table Editor UI grants automatically, SQL Editor does not.
+
+  - id: 4
+    name: "Admin & Approval Workflow"
+    date_range: "2026-07-08 to 2026-07-08"
+    commits: ["cd68c38", "0970894", "b2b0061", "3c83e21", "5831a60", "9c8ebd2", "a5f97c9", "7f83525", "2253e4a", "05d692b", "3616b9d"]
+    summary: >
+      Real Supabase Auth login/logout, admin dashboard, approval queue
+      (submit -> review -> approve writes to real table / reject), user
+      invite/edit/delete with lockout guards, private rank-evidence upload
+      with signed URLs, kana->Romaji auto-suggest. Two real security/logic
+      bugs found and fixed same-day: (1) approvals RLS only checked
+      submitted_by not role/scope — any authenticated user could bypass
+      Server Action checks via direct REST calls (migration 0005), (2)
+      approved submissions were writing status:"pending" into live tables
+      because payload was inserted unchanged — nothing approved ever
+      actually went live until fixed. Also fixed an accept-invite session-
+      hijack bug where a stale ambient session could silently overwrite an
+      unrelated account's password.
+
+  - id: "4b"
+    name: "Password reset + hydration fix"
+    date_range: "2026-07-09"
+    commits: ["fe35fb3", "2db3b92"]
+    summary: >
+      Real self-service password reset built. Found and fixed a hydration
+      crash affecting both accept-invite and reset-password: URL #hash
+      values can't be read during SSR, causing a client/server render
+      mismatch. Fixed with useSyncExternalStore (the correct pattern for
+      any future browser-only-value-on-first-render auth flow, e.g. MFA).
+
+  - id: 5
+    name: "Japanese/Romaji search"
+    date_range: "2026-07-09"
+    commits: ["964a5af"]
+    summary: "Search support for Japanese/Romaji fields on public directory, building on the pg_trgm indexes from Phase 3."
+
+  - id: 6
+    name: "SEO + Security/Compliance basics"
+    date_range: "2026-07-09"
+    commits: ["a0cccdf", "83dbf6b"]
+    summary: "SEO metadata, JSON-LD, canonical URLs, dynamic sitemap. Turnstile + rate limiting + real contact form."
+
+  - id: 7
+    name: "QA: E2E, Accessibility, Performance"
+    date_range: "2026-07-09"
+    commits: ["62617f4", "eaf4190", "aa59686"]
+    summary: >
+      49-test Playwright E2E suite. Zero accessibility violations (axe-core).
+      Lighthouse: Performance 96-98, A11y/Best-Practices/SEO 100 across
+      pages tested. One real CLS issue found and fixed (Turnstile widget
+      layout shift on /contact). Admin walkthrough video delivered
+      (co-recording approach — automated-tab screen capture doesn't work,
+      Chrome only composites a human-selected tab even though automation
+      genuinely works under the hood; see full log entry for the pattern).
+
+  - id: "7b"
+    name: "Waiting-on-design QA sweep"
+    date_range: "2026-07-10"
+    commits: ["4b13e63"]
+    summary: >
+      Self-directed audit while blocked on Gil/Adrian. Found Supabase org
+      is Free tier not Pro (zero backups — flagged, not yet upgraded).
+      Fixed a real broken "Remove user" (hard-delete failed on FK
+      violations) by replacing with deactivate/reactivate. Added teacher
+      photo storage (spec'd but never built). Confirmed all 32 documented
+      routes exist and match spec.
+
+  - id: 8
+    name: "Figma handoff lands, homepage built"
+    date_range: "2026-07-10"
+    commits: ["4116f0e", "013c0c7", "7cb363d"]
+    summary: >
+      Gil's Figma file connected via Dev Mode MCP. Real brand tokens
+      extracted (#C1121F primary, #9B0D18 primary-dark, #A1824A bronze,
+      #FAF9F7 background; Noto Serif JP + Inter). Homepage built with
+      real assets. Found Sanity was provisioned but never actually
+      populated — homepage built with hardcoded content isolated in
+      lib/homepage-content.ts for a planned future Sanity swap.
+
+  - id: 9
+    name: "Real i18n (9 languages) + geo-based default locale"
+    date_range: "2026-07-10"
+    commits: ["94de963", "9443bbc", "7f988d6", "c7f62f5"]
+    summary: >
+      Full site-wide i18n architecture (see architecture.i18n above).
+      Geo-based default locale via edge headers, sticky cookie override.
+      Loading skeletons added to all data-fetching routes. Found and
+      correctly handled real Next.js 16 behavior: notFound() returns
+      HTTP 200 with an auto-injected noindex meta tag, not a 404 status,
+      on streamed routes — not a bug, documented framework behavior.
+
+  - id: 10
+    name: "Figma sync round 2 + Dojo Directory restyle + nav grouping proposal"
+    date_range: "2026-07-13"
+    commits: ["352252f", "4e417db", "ae6e30e"]
+    summary: >
+      Synced hero to Gil's updated 3-practitioner image. Dojo Directory
+      country list restyled as card grid. World map gained real
+      per-continent dojo counts (getDojoCountsByContinent, real Supabase
+      aggregation, not fabricated). Sent Gil a nav-grouping proposal
+      (9 flat links -> 5 dropdown groups) after his crowding feedback.
+
+  - id: 11
+    name: "Nav dropdown, feature bar fixes, hero animation v1"
+    date_range: "2026-07-14"
+    commits: ["1faef1d", "0998345", "773b84c", "6a5e32e", "3b337d7", "b850c36", "9a3afb1", "a728f50", "36b9447", "f8a28e6", "1c17e53", "9100071", "f5ade12", "0b555f7"]
+    summary: >
+      Grouped dropdown nav implemented per Gil's exact mockups (About,
+      Community=Dojo Directory+Teachers, News&Events, Resources, Contact).
+      Feature bar rebuilt with real icon assets after first attempt used
+      generic Lucide substitutes (lesson: always re-fetch get_design_context
+      scoped to the exact node, never build from memory/a stale full dump).
+      Hero animation built and iterated multiple times against Gil's
+      reference videos. Navbar logo aspect-ratio distortion fixed.
+
+  - id: 12
+    name: "Hero rebuild with real Figma layered assets, 2-slide carousel, security audit, trust bar v2"
+    date_range: "2026-07-15"
+    commits: ["2eebd8a", "85daaf9", "faa5cbe", "cc88aff", "5bbbffa", "cfea77d", "727063e"]
+    summary: >
+      Root-caused the hero circle/photo "overlap" complaint: was using one
+      flattened photo + independent mask, when Gil's real Figma structure
+      is 5 separate layers (enso circle + 3 individually-positioned
+      practitioner cutouns) with exact motion keyframe data pullable via
+      get_motion_context. Rebuilt to match exactly — this is now the
+      reference pattern for any future Figma animated-component work.
+      Built a real 2-slide hero carousel (students slide / sokes slide),
+      circle stays fixed across transitions and spins continuously after
+      settling (30s/revolution) per Ross's explicit feedback. Fixed a
+      real crossfade bug: AnimatePresence mode="sync" showed both slides'
+      photos overlapping mid-transition — switched to mode="wait" for
+      sequential (not simultaneous) crossfade. Synced trust bar to Gil's
+      restyled version (separate icon cards, "300+ Dojos" not "400+
+      Official Dojos"). Full codebase security audit: no secrets/leaks
+      found, RLS correctly protects a page-level-only-checks-auth gap on
+      /admin/users, npm audit clean of high/critical (12 moderate, all in
+      unused Sanity Studio tooling deps).
+
+current_phase:
+  name: "Homepage Figma sync (holding) + Sanity/Supabase content architecture planning"
+  status: "IN PROGRESS — paused mid-decision"
+  summary: >
+    Ross said "let Gil finish first" on further homepage Figma sync — that
+    thread is intentionally paused, not abandoned. Current focus shifted to
+    making content genuinely dynamic (Sanity for marketing content, Supabase
+    already dynamic for operational data) instead of hardcoded, specifically
+    so Adrian (SEO) can self-serve page copy and SEO metadata.
+  findings_this_session:
+    - "Sanity project IS live and connected (credentials all valid, verified via a real query) — but the dataset is COMPLETELY EMPTY. Zero page/newsPost/event documents exist, only Sanity's internal system records."
+    - "Existing Sanity schema (page/newsPost/event) has NO locale/i18n support at all — a blocker for any real content entry given the site is 9-locale."
+    - "Public /news and /events pages already query Sanity (not Supabase) and currently render empty lists against the live empty dataset — not broken, just no content yet."
+    - "Homepage sections (hero, trust bar, philosophy, CTA) are hardcoded in code/dictionaries, not connected to any CMS."
+  blocking_question_awaiting_ross:
+    question: >
+      Two options for how Sanity should own homepage/page content — asked
+      2026-07-15, not yet answered:
+    option_a:
+      name: "SEO-focused (recommended)"
+      description: >
+        Sanity manages page BODY content + SEO metadata (title/description)
+        per page per locale for the static marketing pages (About, History,
+        Leadership, Resources, etc.) and News/Events. Homepage's structural/
+        animated sections (hero copy, trust bar, CTA banner) STAY in code/
+        dictionaries as-is, since they're tightly coupled to layout/animation
+        (e.g. hero's red-highlight-word line-splitting) and not really
+        freeform "content." Adrian gets full self-serve SEO control without
+        translation-maintenance burden or hero-design breakage risk.
+    option_b:
+      name: "Full CMS"
+      description: >
+        Every homepage section becomes Sanity-editable too, including hero
+        copy. Requires adding real locale support to the Sanity schema
+        (Sanity has no built-in i18n — needs either the
+        @sanity/document-internationalization plugin or a manual
+        locale-object-per-field pattern) and shifts translation-maintenance
+        from AI-generated dictionaries onto Adrian/Sanity content editors.
+        Bigger build, bigger ongoing content-ops burden, higher risk of
+        breaking hero's design-coupled layout via freeform edits.
+
+known_gaps:
+  - category: data
+    description: "Live Dojo Directory shows literal test/placeholder entries ('Example Dojo', 'Test Approval Dojo') in production data."
+    owner: "Adrian/admin — needs deletion via /admin/dojos, not a code fix"
+    severity: low
+
+  - category: data
+    description: >
+      Gil's Figma "Upcoming Events" mockup shows 3 specific events (Canada
+      Dan Grading Sep 15, Japan Dojo Visit Oct 16, Australia Dan Grading
+      Nov 17) that are NOT in the real homeUpcomingEvents data
+      (lib/homepage-content.ts) — only the one real Soke Cup event exists.
+      Deliberately not fabricated (real-data-only policy). Ask Ross/Adrian
+      whether these are real confirmed events to add.
+    owner: "Ross"
+    severity: low
+
+  - category: schema
+    description: "dojos table has no phone number or 'HQ dojo' badge field, but Gil's card design shows both. Omitted from homepage cards rather than fabricated."
+    owner: "future migration if Ross confirms the fields are wanted"
+    severity: low
+
+  - category: infra
+    description: "Supabase org still on Free tier, not Pro — zero backups exist. Flagged 2026-07-10, Ross chose to hold off pre-launch."
+    owner: "Ross / Sheehan (billing)"
+    severity: medium
+    action_needed: "Must upgrade before real user data exists / before launch"
+
+  - category: infra
+    description: "Resend (transactional email) never set up. Supabase's shared rate-limited test mailer is used for invite/reset emails meanwhile — has hit rate limits multiple times during testing."
+    owner: "Ross"
+    severity: medium
+
+  - category: code_quality
+    description: "Unused shadcn scaffold (components/ui/badge.tsx, button.tsx, card.tsx, separator.tsx) and unused Sanity helper (lib/sanity/image.ts, lib/utils.ts) — dead code, harmless, flagged by knip scan 2026-07-15."
+    owner: "cleanup whenever convenient, not urgent"
+    severity: low
+
+  - category: security_ux
+    description: >
+      /admin/users page (and similar admin pages) don't add an app-level
+      role check before rendering — only the layout's "is authenticated"
+      check gates access. Verified this is NOT a real data leak (Supabase
+      RLS policies users_select_self/users_select_sohonbu correctly
+      restrict what a lower-role user's query actually returns), but a
+      non-sohonbu user hitting the page sees a confusing near-empty table
+      instead of a clean "access denied."
+    owner: "polish item, not urgent"
+    severity: low
+
+  - category: cms
+    description: "Sanity dataset is empty — see current_phase.findings_this_session. No News/Events/Page content has ever been authored."
+    owner: "Adrian, once schema/locale decision is made"
+    severity: high
+    blocks: "Real News/Events content going live; Adrian's SEO self-service workflow"
+
+  - category: nav
+    description: "'Community' nav dropdown label was Gil's naming choice, not deeply validated. Sohonbu Experience page exists but is unlinked from nav (Ross's decision)."
+    owner: "n/a — already resolved per Ross's decisions, noting for context only"
+    severity: informational
+
+open_decisions:
+  - id: sanity-content-scope
+    status: "AWAITING ROSS'S ANSWER (asked 2026-07-15)"
+    see: current_phase.blocking_question_awaiting_ross
+
+future_phases:
+  - name: "Sanity content architecture (blocked on open_decisions.sanity-content-scope)"
+    scope: >
+      Once Ross picks option A or B: expand/rebuild Sanity schema
+      accordingly, add locale support if option B, seed real content,
+      wire homepage components to Sanity with graceful-empty fallback,
+      hand Adrian a clear content-entry checklist per page/locale.
+
+  - name: "Dojo Finder section full build"
+    scope: >
+      Gil's Figma shows a richer search UI (region/country dropdowns) and
+      a world map with real per-region dojo-count pins, plus proper dojo
+      listing cards (HQ badge, phone). Homepage currently has a simpler
+      version. Explicitly paused per Ross ("let Gil finish first").
+
+  - name: "Native-speaker translation review"
+    scope: "All 8 non-English dictionaries need review before being treated as launch-final — see architecture.i18n.translation_provenance."
+
+  - name: "Resend transactional email setup"
+    scope: "Replace Supabase's shared test mailer for invite/reset emails."
+
+  - name: "Supabase Pro upgrade"
+    scope: "Needed before real user data / launch — enables backups. Gated on Sheehan's billing decision."
+
+  - name: "Launch checklist items (deferred from Phase 3 planning, 2026-07-08)"
+    scope: >
+      Separate Supabase dev/prod projects, maintenance-mode env flag,
+      monitoring/alerting, rollback runbook, testing coverage targets.
+      Deliberately not built early — YAGNI until closer to launch.
+
+  - name: "Public read API (/api/v1/dojos, /api/v1/teachers)"
+    scope: "Spec'd in original build doc, Ross chose to skip — no known consumer needs it yet. Revisit only if a real integration need appears."
+
+# ----------------------------------------------------------------------------
+# STANDING CONVENTIONS — do not relitigate these, they're settled
+# ----------------------------------------------------------------------------
+conventions:
+  commit_message_format: "YYYY-MM-DD_short-description-of-changes_changesdone (NOT conventional-commit style, per Ross's explicit preference set 2026-07-08)"
+  git_push_policy: "Always commit to main. NEVER push without Ross's explicit ask, every single time — a prior push approval does not carry forward to later commits."
+  github_account: "ONLY use rossdev-noonan. NEVER suggest or use RossDev1201 — tied to a locked/compromised email."
+  design_hold_policy: "Historically: no visual design work until Gil's Figma/MCP handoff. That hold is now lifted for pages Gil has actually designed (homepage). Other pages remain structural-only until their Figma comps land."
+  real_data_only_policy: >
+    Never fabricate content (duplicate events, fake dojo phone numbers,
+    invented stats) to match a Figma mockup's placeholder-looking content.
+    If real data doesn't exist for a design element, omit it or ask —
+    do not invent plausible-looking fake data. This has been enforced
+    multiple times (duplicate event cards bug, continent dojo counts,
+    dojo phone/HQ badge fields, Upcoming Events real-data flag).
+  figma_verification_policy: >
+    Always re-fetch get_design_context scoped to the EXACT node before
+    building or fixing a section — never build from a stale full-page
+    dump or from memory of an earlier fetch. Use real icon/image assets
+    downloaded from Figma, never generic Lucide/stock substitutes. For
+    animated components, also fetch get_motion_context — don't guess at
+    timing/easing. Figma's remote MCP only sees the file's top-level
+    'Branding' page; the desktop app's local Dev Mode MCP is required to
+    see Gil's latest unpublished edits — use computer-use to check the
+    desktop app when the remote MCP seems stale.
+  ceo_reports_no_jargon: "Anything written for Mike must be short, plain-English, zero technical terms."
+  terse_reports: "EOD/status reports generally should be short bullets, not prose."
+  finish_phase_before_next: "Close all loose ends of the current phase without asking, then move on — don't ask which of several remaining items to do first."
+  proactive_verification: "Silently triple-check edge cases/integration details on every build, unprompted, especially auth/security-adjacent code."
+  dev_server_policy: "NEVER run build/dev/start commands in a way that could collide with Ross's already-running local dev server. Ask him to restart it if something needs a fresh process; don't run it yourself in the same directory."
+  no_unnecessary_flagging: "Resolve routine technical deviations silently. Only flag genuine scope/decision points that need Ross's judgment."
+  translation_caveat_repeat: "Repeat the AI-translation caveat (see architecture.i18n.translation_provenance) at any delivery point involving non-English copy — don't just say it once and assume it's remembered."
+
+# ----------------------------------------------------------------------------
+# ACCOUNTS / CREDENTIALS STATUS (no secrets here — status only)
+# ----------------------------------------------------------------------------
+credentials_and_accounts:
+  github: "rossdev-noonan — connected, repo public, Ross pushes manually"
+  vercel: "Pro plan, team scope michael-noonans-projects, auto-deploys main"
+  supabase:
+    org: "Chito-Ryu International"
+    project: "chitoryukaratedo"
+    region: "Asia-Pacific (Tokyo)"
+    tier: "Free (as of 2026-07-10 check) — Pro upgrade pending, gated on Sheehan's billing"
+    rls: "Enabled by default on new tables (project setting)"
+  sanity:
+    org: "Chito-Ryu International"
+    project_id: "3425k2is"
+    dataset: "production"
+    tier: "Growth Trial (as of 2026-07-08)"
+    studio_access: "Standalone Studio (npm run studio, localhost:3333) — NOT embedded in the Next.js app (hit a real Next.js 16 + Turbopack + React Compiler incompatibility with embedded Sanity Studio, reverted to standalone). Ross has logged in once and confirmed it works."
+    dataset_content_status: "EMPTY — see current_phase"
+  domain_registrar: "TPPWholesale — chitoryukaratedo.com confirmed registered, DNS changes deliberately deferred until launch"
+  resend: "NOT set up yet"
+  env_vars: ".env.local (gitignored, never committed) — all Sanity/Supabase vars populated and verified working. See .env.example for the full required var list with no real values."
+
+# ----------------------------------------------------------------------------
+# QUICK-START FOR A NEW AGENT
+# ----------------------------------------------------------------------------
+quick_start:
+  - "Read AGENTS.md first — this Next.js version has real breaking changes, check node_modules/next/dist/docs before assuming any API shape."
+  - "Read this file (PROJECT_MEMORY.yaml) in full before making architectural changes."
+  - "Check `git log --oneline` and cross-reference against phases_completed above for anything more recent than last_updated."
+  - "Never assume Sanity has content — verify with a live query before building anything that depends on it (see current_phase.findings_this_session for how)."
+  - "Never fabricate data to fill in a Figma mockup's placeholder-looking numbers/names — see conventions.real_data_only_policy."
+  - "Never push to git without the user's explicit ask for that specific push."
+  - "If working on the homepage, hold off on further Figma sync unless the user says Gil's changes are ready — check current_phase for the latest status of that pause."

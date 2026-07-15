@@ -35,6 +35,9 @@ export interface Dictionary {
     heroTitleHighlight: string;
     heroTitleLine2: string;
     heroDescription: string;
+    heroSlide2Title1: string;
+    heroSlide2Title2: string;
+    heroSlide2Description: string;
     aboutChitoRyu: string;
     findADojo: string;
     originsLabel: string;

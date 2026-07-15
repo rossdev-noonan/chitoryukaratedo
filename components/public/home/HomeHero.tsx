@@ -15,6 +15,21 @@ interface HomeHeroProps {
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 
+// Gil's Figma prototype encodes the enso's slide-in with a custom decaying-oscillation
+// ease (spring-like overshoot). Reproduced exactly from the exported motion data
+// (get_motion_context on node 152:126) so the circle settles the way Gil designed it.
+const ensoSlideEase = (t: number) =>
+  1 - Math.exp(-t * 7.6657) * (Math.cos(t * 6.7605) + 1.1339 * Math.sin(t * 6.7605));
+
+// Layer geometry copied 1:1 from Figma (canvas 1440x720), expressed as percentages of
+// an aspect-ratio-locked wrapper so every layer stays pixel-aligned at every breakpoint.
+const heroLayers = {
+  center: { left: 45.972, top: 12.222, width: 38.889, height: 121.111 },
+  left: { left: 28.264, top: 21.667, width: 37.153, height: 124.444 },
+  right: { left: 65.417, top: 21.667, width: 40.417, height: 102.222 },
+  enso: { left: 41.319, top: 1.528, width: 51.361, height: 102.722 },
+} as const;
+
 export function HomeHero({ lang, dictionary }: HomeHeroProps) {
   const reduceMotion = useReducedMotion();
   const initial = reduceMotion ? false : undefined;
@@ -23,7 +38,7 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
     <section className="relative md:h-[406px] lg:h-[720px]">
       <div className="relative h-[280px] w-full overflow-hidden sm:h-[360px] md:absolute md:inset-0 md:h-full">
         {/* Ambient ink-wash backdrop: Gil's real texture export, present
-            from the very start and stays visible underneath the circle/photo. */}
+            from the very start and stays visible underneath the circle/photos. */}
         <motion.div
           aria-hidden
           className="absolute inset-0 md:-right-[39px] lg:right-0"
@@ -32,7 +47,7 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
           transition={{ duration: 0.3 }}
         >
           <Image
-            src="/images/homepage/hero-texture-bg.png"
+            src="/images/homepage/hero-bg-texture-real.png"
             alt=""
             fill
             sizes="100vw"
@@ -40,42 +55,94 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
           />
         </motion.div>
 
-        <motion.div
-          className="pointer-events-none absolute inset-0 md:-right-[39px] lg:right-0"
-          initial={initial ?? { scale: 0, opacity: 0, rotate: -140 }}
-          animate={{ scale: 1, opacity: 1, rotate: 0 }}
-          transition={{ duration: 0.7, ease: easeOutExpo }}
-        >
-          <span
-            className="bg-primary block h-full w-full"
+        {/* Image stack: matches Gil's real Figma layer structure exactly (enso circle,
+            left/center/right practitioner cutouts are separate assets, not one flattened
+            photo), so nothing can drift out of alignment the way a merged photo could. */}
+        <div className="absolute inset-0 aspect-[1440/720] md:-right-[39px] lg:right-0">
+          <motion.div
+            className="pointer-events-none absolute z-10"
             style={{
-              WebkitMaskImage: "url(/images/homepage/hero-brush-mask-aligned.png)",
-              maskImage: "url(/images/homepage/hero-brush-mask-aligned.png)",
-              WebkitMaskPosition: "91% center",
-              maskPosition: "91% center",
-              WebkitMaskRepeat: "no-repeat",
-              maskRepeat: "no-repeat",
-              WebkitMaskSize: "cover",
-              maskSize: "cover",
+              left: `${heroLayers.enso.left}%`,
+              top: `${heroLayers.enso.top}%`,
+              width: `${heroLayers.enso.width}%`,
+              height: `${heroLayers.enso.height}%`,
             }}
-          />
-        </motion.div>
+            initial={initial ?? { opacity: 0, scale: 0.1, x: "-180%", rotate: 261.3 }}
+            animate={{ opacity: 1, scale: 1, x: "0%", rotate: 81.3 }}
+            transition={{
+              opacity: { duration: 0.3 },
+              scale: { duration: 1, ease: easeOutExpo },
+              x: { duration: 2, ease: ensoSlideEase },
+              rotate: { duration: 10, ease: "linear" },
+            }}
+          >
+            <Image src="/images/homepage/hero-enso.png" alt="" fill sizes="50vw" />
+          </motion.div>
 
-        <motion.div
-          className="absolute inset-0 md:-right-[39px] lg:right-0"
-          initial={initial ?? { opacity: 0, scale: 1.025 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.62, duration: 0.55, ease: easeOutExpo }}
-        >
-          <Image
-            src="/images/homepage/hero-practitioner.png"
-            alt="Three Chito-Ryu Karate-Do practitioners in fighting stances"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-[91%_center] md:object-right"
-          />
-        </motion.div>
+          <motion.div
+            className="absolute z-20"
+            style={{
+              left: `${heroLayers.right.left}%`,
+              top: `${heroLayers.right.top}%`,
+              width: `${heroLayers.right.width}%`,
+              height: `${heroLayers.right.height}%`,
+            }}
+            initial={initial ?? { opacity: 0, x: "35%" }}
+            animate={{ opacity: 1, x: "0%" }}
+            transition={{ delay: 0.62, duration: 0.55, ease: easeOutExpo }}
+          >
+            <Image
+              src="/images/homepage/hero-right.png"
+              alt=""
+              fill
+              sizes="40vw"
+              className="object-contain"
+            />
+          </motion.div>
+
+          <motion.div
+            className="absolute z-30"
+            style={{
+              left: `${heroLayers.left.left}%`,
+              top: `${heroLayers.left.top}%`,
+              width: `${heroLayers.left.width}%`,
+              height: `${heroLayers.left.height}%`,
+            }}
+            initial={initial ?? { opacity: 0, x: "-35%" }}
+            animate={{ opacity: 1, x: "0%" }}
+            transition={{ delay: 0.62, duration: 0.55, ease: easeOutExpo }}
+          >
+            <Image
+              src="/images/homepage/hero-left.png"
+              alt=""
+              fill
+              sizes="38vw"
+              className="object-contain"
+            />
+          </motion.div>
+
+          <motion.div
+            className="absolute z-40"
+            style={{
+              left: `${heroLayers.center.left}%`,
+              top: `${heroLayers.center.top}%`,
+              width: `${heroLayers.center.width}%`,
+              height: `${heroLayers.center.height}%`,
+            }}
+            initial={initial ?? { opacity: 0, y: "20%" }}
+            animate={{ opacity: 1, y: "0%" }}
+            transition={{ delay: 0.62, duration: 0.55, ease: easeOutExpo }}
+          >
+            <Image
+              src="/images/homepage/hero-center.png"
+              alt="Three Chito-Ryu Karate-Do practitioners in fighting stances"
+              fill
+              priority
+              sizes="39vw"
+              className="object-contain"
+            />
+          </motion.div>
+        </div>
       </div>
 
       <div className="bg-background relative px-5 py-6 md:absolute md:inset-0 md:bg-transparent md:px-10 md:pt-20 lg:px-20 lg:pt-[120px]">

@@ -16,6 +16,8 @@ interface HomeHeroProps {
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 const SLIDE_INTERVAL_MS = 7000;
+const ENSO_SETTLE_MS = 10000;
+const ENSO_REST_ROTATION = 81.3;
 
 // Gil's Figma prototype encodes the enso's slide-in with a custom decaying-oscillation
 // ease (spring-like overshoot). Reproduced exactly from the exported motion data
@@ -97,6 +99,7 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
   const initial = reduceMotion ? false : undefined;
   const slides = useHeroSlides(dictionary);
   const [activeSlide, setActiveSlide] = useState(0);
+  const [ensoSettled, setEnsoSettled] = useState(false);
 
   useEffect(() => {
     if (reduceMotion) return;
@@ -105,6 +108,12 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
     }, SLIDE_INTERVAL_MS);
     return () => clearInterval(id);
   }, [reduceMotion, slides.length]);
+
+  useEffect(() => {
+    if (reduceMotion) return;
+    const id = setTimeout(() => setEnsoSettled(true), ENSO_SETTLE_MS);
+    return () => clearTimeout(id);
+  }, [reduceMotion]);
 
   const slide = slides[activeSlide];
 
@@ -143,13 +152,21 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
               height: `${ensoLayer.height}%`,
             }}
             initial={initial ?? { opacity: 0, scale: 0.1, x: "-180%", rotate: 261.3 }}
-            animate={{ opacity: 1, scale: 1, x: "0%", rotate: 81.3 }}
-            transition={{
-              opacity: { duration: 0.3 },
-              scale: { duration: 1, ease: easeOutExpo },
-              x: { duration: 2, ease: ensoSlideEase },
-              rotate: { duration: 10, ease: "linear" },
-            }}
+            animate={
+              ensoSettled
+                ? { opacity: 1, scale: 1, x: "0%", rotate: ENSO_REST_ROTATION + 360 }
+                : { opacity: 1, scale: 1, x: "0%", rotate: ENSO_REST_ROTATION }
+            }
+            transition={
+              ensoSettled
+                ? { rotate: { duration: 24, ease: "linear", repeat: Infinity } }
+                : {
+                    opacity: { duration: 0.3 },
+                    scale: { duration: 1, ease: easeOutExpo },
+                    x: { duration: 2, ease: ensoSlideEase },
+                    rotate: { duration: 10, ease: "linear" },
+                  }
+            }
           >
             <Image src="/images/homepage/hero-enso.png" alt="" fill sizes="50vw" />
           </motion.div>

@@ -95,11 +95,11 @@
       "australia": "Australia"
     },
     "dojoCountLabel": "{count} dojo",
-    "featureBar": [
-      { "title": "Asal Usul Tradisional", "description": "Berakar umbi dalam sejarah 1000 tahun." },
-      { "title": "Komuniti Global", "description": "Dojo di lebih 20 buah negara di seluruh dunia." },
-      { "title": "Pengajaran Tulen", "description": "Warisan langsung daripada O-Sensei Chitose." },
-      { "title": "Perkembangan Sepanjang Hayat", "description": "Untuk semua peringkat umur, tahap dan latar belakang." }
+    "trustBar": [
+      { "value": "3", "label": "Generasi Soke" },
+      { "value": "100+", "label": "Tahun Tradisi" },
+      { "value": "20+", "label": "Negara" },
+      { "value": "400+", "label": "Dojo Rasmi" }
     ],
     "philosophyLabel": "Jalan Chito-Ryu",
     "philosophyHeadingLine1": "Lebih daripada Karate.",
@@ -112,6 +112,15 @@
     "viewEventDetails": "Lihat Butiran Acara",
     "upcomingEvents": [
       { "title": "Piala Soke Karate Chito-Ryu ke-15", "location": "Gold Coast, Australia" }
+    ],
+    "featuredEventLabel": "Acara Pilihan",
+    "featuredEventDateRange": "13-15 Ogos 2026",
+    "featuredEventActivities": [
+      "Mesyuarat Antarabangsa",
+      "Istiadat Pembukaan/Penutupan",
+      "Pertandingan",
+      "Penggredan Dan",
+      "Klinik Antarabangsa"
     ]
   }
 }

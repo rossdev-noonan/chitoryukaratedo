@@ -70,7 +70,7 @@ export interface Dictionary {
       australia: string;
     };
     dojoCountLabel: string;
-    featureBar: { title: string; description: string }[];
+    trustBar: { value: string; label: string }[];
     philosophyLabel: string;
     philosophyHeadingLine1: string;
     philosophyHeadingLine2: string;
@@ -81,5 +81,8 @@ export interface Dictionary {
     viewAllEvents: string;
     viewEventDetails: string;
     upcomingEvents: { title: string; location: string }[];
+    featuredEventLabel: string;
+    featuredEventDateRange: string;
+    featuredEventActivities: string[];
   };
 }

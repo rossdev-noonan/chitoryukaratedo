@@ -159,7 +159,7 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
             }
             transition={
               ensoSettled
-                ? { rotate: { duration: 24, ease: "linear", repeat: Infinity } }
+                ? { rotate: { duration: 30, ease: "linear", repeat: Infinity } }
                 : {
                     opacity: { duration: 0.3 },
                     scale: { duration: 1, ease: easeOutExpo },

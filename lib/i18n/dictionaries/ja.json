@@ -95,11 +95,11 @@
       "australia": "オーストラリア"
     },
     "dojoCountLabel": "道場 {count} 件",
-    "featureBar": [
-      { "title": "伝統的な起源", "description": "千年の歴史に根ざす。" },
-      { "title": "世界的なコミュニティ", "description": "世界20カ国以上に道場。" },
-      { "title": "本格的な指導", "description": "千歳翁先生からの直系継承。" },
-      { "title": "生涯にわたる成長", "description": "年齢、レベル、背景を問わず。" }
+    "trustBar": [
+      { "value": "3", "label": "代の宗家" },
+      { "value": "100+", "label": "年の伝統" },
+      { "value": "20+", "label": "カ国" },
+      { "value": "400+", "label": "公認道場" }
     ],
     "philosophyLabel": "千唐流の道",
     "philosophyHeadingLine1": "空手を超えて。",
@@ -112,6 +112,9 @@
     "viewEventDetails": "イベント詳細を見る",
     "upcomingEvents": [
       { "title": "第15回千唐流空手道 宗家杯", "location": "ゴールドコースト、オーストラリア" }
-    ]
+    ],
+    "featuredEventLabel": "注目イベント",
+    "featuredEventDateRange": "2026年8月13日〜15日",
+    "featuredEventActivities": ["国際会議", "開会式・閉会式", "競技会", "段位審査", "国際クリニック"]
   }
 }

@@ -49,6 +49,22 @@ export interface HomeUpcomingEvent {
 
 export const homeUpcomingEvents: HomeUpcomingEvent[] = [{ startDate: "2026-08-13", href: "/events" }];
 
+export interface HomeFeaturedEvent {
+  startDate: string;
+  posterSrc: string;
+  href: string;
+  addressLine1: string;
+  addressLine2: string;
+}
+
+export const homeFeaturedEvent: HomeFeaturedEvent = {
+  startDate: "2026-08-13",
+  posterSrc: "/images/homepage/event-soke-cup-poster.png",
+  href: "/events",
+  addressLine1: "Gold Coast Sport and Leisure Centre 296 Nerang Broadbeach Road,",
+  addressLine2: "Gold Coast, Australia",
+};
+
 export interface OriginsAccordionItem {
   title: string;
   body: string;

@@ -95,11 +95,11 @@
       "australia": "Australia"
     },
     "dojoCountLabel": "{count} dojos",
-    "featureBar": [
-      { "title": "Traditional Origins", "description": "Rooted in 1000 years of history." },
-      { "title": "Global Community", "description": "Dojo in 20+ countries worldwide." },
-      { "title": "Authentic Teaching", "description": "Direct lineage from O-Sensei Chitose." },
-      { "title": "Lifetime Development", "description": "For all ages, all levels, all backgrounds." }
+    "trustBar": [
+      { "value": "3", "label": "Generations of Soke" },
+      { "value": "100+", "label": "Years of Tradition" },
+      { "value": "20+", "label": "Countries" },
+      { "value": "400+", "label": "Official Dojos" }
     ],
     "philosophyLabel": "The Way of Chito-Ryu",
     "philosophyHeadingLine1": "More than Karate.",
@@ -112,6 +112,15 @@
     "viewEventDetails": "View Event Details",
     "upcomingEvents": [
       { "title": "15th Chito-Ryu Karate Soke Cup", "location": "Gold Coast, Australia" }
+    ],
+    "featuredEventLabel": "Featured event",
+    "featuredEventDateRange": "13th-15th August 2026",
+    "featuredEventActivities": [
+      "International Meeting",
+      "Opening/Closing Ceremony",
+      "Competition",
+      "Dan Gradings",
+      "International Clinic"
     ]
   }
 }

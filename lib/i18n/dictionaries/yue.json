@@ -95,11 +95,11 @@
       "australia": "澳洲"
     },
     "dojoCountLabel": "{count} 個道場",
-    "featureBar": [
-      { "title": "傳統起源", "description": "植根於千年歷史。" },
-      { "title": "全球社群", "description": "遍佈全球20多個國家嘅道場。" },
-      { "title": "正宗教學", "description": "直接傳承自千歲翁先生。" },
-      { "title": "終身發展", "description": "適合任何年齡、程度同背景。" }
+    "trustBar": [
+      { "value": "3", "label": "代宗師" },
+      { "value": "100+", "label": "年傳統" },
+      { "value": "20+", "label": "個國家" },
+      { "value": "400+", "label": "認可道場" }
     ],
     "philosophyLabel": "千唐流之道",
     "philosophyHeadingLine1": "不只係空手道。",
@@ -112,6 +112,9 @@
     "viewEventDetails": "查看活動詳情",
     "upcomingEvents": [
       { "title": "第15屆千唐流空手道宗家杯", "location": "黃金海岸，澳洲" }
-    ]
+    ],
+    "featuredEventLabel": "焦點活動",
+    "featuredEventDateRange": "2026年8月13日至15日",
+    "featuredEventActivities": ["國際會議", "開幕式／閉幕式", "比賽", "段位評核", "國際交流班"]
   }
 }

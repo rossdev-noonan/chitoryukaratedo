@@ -95,11 +95,11 @@
       "australia": "Australia"
     },
     "dojoCountLabel": "{count} dojoer",
-    "featureBar": [
-      { "title": "Tradisjonelle røtter", "description": "Forankret i 1000 års historie." },
-      { "title": "Globalt fellesskap", "description": "Dojoer i over 20 land verden over." },
-      { "title": "Autentisk undervisning", "description": "Direkte arvelinje fra O-Sensei Chitose." },
-      { "title": "Livslang utvikling", "description": "For alle aldre, nivåer og bakgrunner." }
+    "trustBar": [
+      { "value": "3", "label": "generasjoner av Soke" },
+      { "value": "100+", "label": "års tradisjon" },
+      { "value": "20+", "label": "land" },
+      { "value": "400+", "label": "offisielle dojoer" }
     ],
     "philosophyLabel": "Chito-Ryus vei",
     "philosophyHeadingLine1": "Mer enn karate.",
@@ -112,6 +112,15 @@
     "viewEventDetails": "Se arrangementsdetaljer",
     "upcomingEvents": [
       { "title": "15. Chito-Ryu Karate Soke Cup", "location": "Gold Coast, Australia" }
+    ],
+    "featuredEventLabel": "Fremhevet arrangement",
+    "featuredEventDateRange": "13.-15. august 2026",
+    "featuredEventActivities": [
+      "Internasjonalt møte",
+      "Åpnings-/avslutningsseremoni",
+      "Konkurranse",
+      "Dan-graderinger",
+      "Internasjonal klinikk"
     ]
   }
 }

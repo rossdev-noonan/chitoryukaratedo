@@ -1,8 +1,9 @@
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 import { SectionEyebrow } from "@/components/public/home/SectionEyebrow";
-import { homeUpcomingEvents } from "@/lib/homepage-content";
+import { homeFeaturedEvent, homeUpcomingEvents } from "@/lib/homepage-content";
 import type { Locale } from "@/lib/i18n/locales";
 import type { Dictionary } from "@/lib/i18n/types";
 
@@ -26,6 +27,19 @@ const BCP47: Record<Locale, string> = {
 export function HomeUpcomingEvents({ lang, dictionary }: HomeUpcomingEventsProps) {
   if (homeUpcomingEvents.length === 0) return null;
 
+  const featuredText = dictionary.home.upcomingEvents[0];
+  const featuredDate = new Date(homeFeaturedEvent.startDate);
+  const featuredMonth = new Intl.DateTimeFormat(BCP47[lang], { month: "short" })
+    .format(featuredDate)
+    .toUpperCase();
+  const featuredDay = new Intl.DateTimeFormat(BCP47[lang], { day: "numeric" }).format(featuredDate);
+
+  // The featured event above is already shown in full; only list events that
+  // aren't a duplicate of it here.
+  const otherEvents = homeUpcomingEvents
+    .map((event, index) => ({ event, index }))
+    .filter(({ event }) => event.startDate !== homeFeaturedEvent.startDate);
+
   return (
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-10">
       <div className="flex items-end justify-between">
@@ -40,41 +54,86 @@ export function HomeUpcomingEvents({ lang, dictionary }: HomeUpcomingEventsProps
           {dictionary.home.viewAllEvents}
         </Link>
       </div>
-      <h2 className="font-heading mt-2 text-3xl font-bold sm:text-4xl">
-        {dictionary.home.upcomingEventsHeading}
-      </h2>
 
-      <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {homeUpcomingEvents.map((event, index) => {
-          const text = dictionary.home.upcomingEvents[index] ?? dictionary.home.upcomingEvents[0];
-          const date = new Date(event.startDate);
-          const month = new Intl.DateTimeFormat(BCP47[lang], { month: "short" })
-            .format(date)
-            .toUpperCase();
-          const day = new Intl.DateTimeFormat(BCP47[lang], { day: "numeric" }).format(date);
-          return (
-            <Link
-              key={`${event.startDate}-${index}`}
-              href={`/${lang}${event.href}`}
-              className="group flex gap-5 rounded-[2px] border border-[#c8a24a] bg-white p-5 drop-shadow-[0px_4px_6px_rgba(0,0,0,0.05)] transition-colors hover:bg-black/[0.02]"
-            >
-              <div className="relative flex h-[72px] w-16 shrink-0 flex-col items-center justify-center overflow-hidden rounded-lg border border-[#9b0d18]">
-                <div className="absolute top-0 h-[7px] w-full rounded-tl-[4px] rounded-tr-[4px] bg-[#c1121f]" />
-                <span className="text-[12px] font-bold uppercase text-[#b31b1b]">{month}</span>
-                <span className="text-2xl font-bold text-[#1f2937]">{day}</span>
-              </div>
-              <div>
-                <p className="font-heading font-bold text-[#1a1a1a]">{text.title}</p>
-                <p className="mt-2 text-sm text-[#666]">{text.location}</p>
-                <span className="mt-4 inline-flex items-center gap-2 text-xs font-bold text-[#c1121f]">
-                  {dictionary.home.viewEventDetails}
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                </span>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
+      <h2 className="font-heading mt-8 text-2xl font-semibold text-[#1f2937]">
+        {dictionary.home.featuredEventLabel}
+      </h2>
+      <Link
+        href={`/${lang}${homeFeaturedEvent.href}`}
+        className="group mt-4 flex flex-col gap-6 rounded-[2px] border border-[#c8a24a] bg-white p-5 drop-shadow-[0px_4px_6px_rgba(0,0,0,0.05)] transition-colors hover:bg-black/[0.02] sm:flex-row"
+      >
+        <div className="relative h-[237px] w-full shrink-0 sm:w-[420px]">
+          <Image
+            src={homeFeaturedEvent.posterSrc}
+            alt={featuredText.title}
+            fill
+            sizes="(min-width: 640px) 420px, 100vw"
+            className="object-cover"
+          />
+        </div>
+        <div className="relative flex h-[72px] w-16 shrink-0 flex-col items-center justify-center overflow-hidden rounded-lg border border-[#9b0d18] bg-[#c1121f]">
+          <div className="absolute top-0 h-[7px] w-full bg-[#c8a24a]" />
+          <span className="text-[12px] font-bold text-white uppercase">{featuredMonth}</span>
+          <span className="text-2xl font-bold text-white">{featuredDay}</span>
+        </div>
+        <div className="flex flex-col gap-2">
+          <p className="font-heading text-base font-bold text-[#1a1a1a]">{featuredText.title}</p>
+          <p className="text-sm text-[#666]">{dictionary.home.featuredEventDateRange}</p>
+          <p className="text-sm text-[#666]">
+            {homeFeaturedEvent.addressLine1}
+            <br />
+            {homeFeaturedEvent.addressLine2}
+          </p>
+          <ul className="list-disc pl-[21px] text-sm text-[#666]">
+            {dictionary.home.featuredEventActivities.map((activity) => (
+              <li key={activity}>{activity}</li>
+            ))}
+          </ul>
+          <span className="mt-2 inline-flex items-center gap-2 text-xs font-bold text-[#c1121f]">
+            {dictionary.home.viewEventDetails}
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+          </span>
+        </div>
+      </Link>
+
+      {otherEvents.length > 0 && (
+        <>
+          <h2 className="font-heading mt-10 text-2xl font-semibold text-[#1f2937]">
+            {dictionary.home.upcomingEventsHeading}
+          </h2>
+          <div className="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {otherEvents.map(({ event, index }) => {
+              const text = dictionary.home.upcomingEvents[index] ?? dictionary.home.upcomingEvents[0];
+              const date = new Date(event.startDate);
+              const month = new Intl.DateTimeFormat(BCP47[lang], { month: "short" })
+                .format(date)
+                .toUpperCase();
+              const day = new Intl.DateTimeFormat(BCP47[lang], { day: "numeric" }).format(date);
+              return (
+                <Link
+                  key={`${event.startDate}-${index}`}
+                  href={`/${lang}${event.href}`}
+                  className="group flex gap-5 rounded-[2px] border border-[#c8a24a] bg-white p-5 drop-shadow-[0px_4px_6px_rgba(0,0,0,0.05)] transition-colors hover:bg-black/[0.02]"
+                >
+                  <div className="relative flex h-[72px] w-16 shrink-0 flex-col items-center justify-center overflow-hidden rounded-lg border border-[#9b0d18]">
+                    <div className="absolute top-0 h-[7px] w-full rounded-tl-[4px] rounded-tr-[4px] bg-[#c1121f]" />
+                    <span className="text-[12px] font-bold text-[#b31b1b] uppercase">{month}</span>
+                    <span className="text-2xl font-bold text-[#1f2937]">{day}</span>
+                  </div>
+                  <div>
+                    <p className="font-heading font-bold text-[#1a1a1a]">{text.title}</p>
+                    <p className="mt-2 text-sm text-[#666]">{text.location}</p>
+                    <span className="mt-4 inline-flex items-center gap-2 text-xs font-bold text-[#c1121f]">
+                      {dictionary.home.viewEventDetails}
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </>
+      )}
     </section>
   );
 }

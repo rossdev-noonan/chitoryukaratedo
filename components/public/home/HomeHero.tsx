@@ -171,7 +171,7 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
             <Image src="/images/homepage/hero-enso.png" alt="" fill sizes="50vw" />
           </motion.div>
 
-          <AnimatePresence mode="sync">
+          <AnimatePresence mode="wait">
             <motion.div
               key={`right-${activeSlide}`}
               className="absolute z-20"
@@ -183,8 +183,8 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
               }}
               initial={initial ?? { opacity: 0, x: "35%" }}
               animate={{ opacity: 1, x: "0%" }}
-              exit={{ opacity: 0 }}
-              transition={{ delay: activeSlide === 0 ? 0.62 : 0, duration: 0.55, ease: easeOutExpo }}
+              exit={{ opacity: 0, transition: { duration: 0.35, ease: "easeIn" } }}
+              transition={{ delay: activeSlide === 0 ? 0.62 : 0.1, duration: 0.55, ease: easeOutExpo }}
             >
               <Image
                 src={slide.photos.right.src}
@@ -196,7 +196,7 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
             </motion.div>
           </AnimatePresence>
 
-          <AnimatePresence mode="sync">
+          <AnimatePresence mode="wait">
             <motion.div
               key={`left-${activeSlide}`}
               className="absolute z-30"
@@ -208,8 +208,8 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
               }}
               initial={initial ?? { opacity: 0, x: "-35%" }}
               animate={{ opacity: 1, x: "0%" }}
-              exit={{ opacity: 0 }}
-              transition={{ delay: activeSlide === 0 ? 0.62 : 0, duration: 0.55, ease: easeOutExpo }}
+              exit={{ opacity: 0, transition: { duration: 0.35, ease: "easeIn" } }}
+              transition={{ delay: activeSlide === 0 ? 0.62 : 0.1, duration: 0.55, ease: easeOutExpo }}
             >
               <Image
                 src={slide.photos.left.src}
@@ -221,7 +221,7 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
             </motion.div>
           </AnimatePresence>
 
-          <AnimatePresence mode="sync">
+          <AnimatePresence mode="wait">
             <motion.div
               key={`center-${activeSlide}`}
               className="absolute z-40"
@@ -233,8 +233,8 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
               }}
               initial={initial ?? { opacity: 0, y: "20%" }}
               animate={{ opacity: 1, y: "0%" }}
-              exit={{ opacity: 0 }}
-              transition={{ delay: activeSlide === 0 ? 0.62 : 0, duration: 0.55, ease: easeOutExpo }}
+              exit={{ opacity: 0, transition: { duration: 0.35, ease: "easeIn" } }}
+              transition={{ delay: activeSlide === 0 ? 0.62 : 0.1, duration: 0.55, ease: easeOutExpo }}
             >
               <Image
                 src={slide.photos.center.src}
@@ -251,14 +251,13 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
 
       <div className="bg-background relative px-5 py-6 md:absolute md:inset-0 md:bg-transparent md:px-10 md:pt-20 lg:px-20 lg:pt-[120px]">
         <div className="relative md:w-full lg:w-[720px] lg:max-w-[50vw]">
-          <AnimatePresence mode="sync">
+          <AnimatePresence mode="wait">
             <motion.div
               key={`text-${activeSlide}`}
-              className="relative"
               initial={initial ?? { x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              exit={{ opacity: 0, position: "absolute", top: 0, left: 0 }}
-              transition={{ delay: activeSlide === 0 ? 0.16 : 0, duration: 0.56, ease: easeOutExpo }}
+              exit={{ opacity: 0, transition: { duration: 0.35, ease: "easeIn" } }}
+              transition={{ delay: activeSlide === 0 ? 0.16 : 0.1, duration: 0.56, ease: easeOutExpo }}
             >
               <h1 className="font-heading text-2xl leading-normal font-medium md:w-[311px] md:text-[28px] lg:w-[720px] lg:text-5xl">
                 <span className="block">

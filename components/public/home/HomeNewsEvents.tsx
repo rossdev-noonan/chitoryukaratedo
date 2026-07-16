@@ -49,10 +49,10 @@ export function HomeNewsEvents({ lang, dictionary }: HomeNewsEventsProps) {
                   className="object-cover transition-transform group-hover:scale-105"
                 />
               </div>
-              <p className="text-primary mt-4 text-xs font-semibold tracking-wide uppercase">
+              <span className="bg-brand-accent text-background mt-4 inline-flex items-center rounded-[2px] px-3 py-1 text-xs font-bold uppercase">
                 {text.category}
-              </p>
-              <h3 className="font-heading mt-1 text-lg font-bold">{text.title}</h3>
+              </span>
+              <h3 className="font-heading mt-2 text-lg font-bold">{text.title}</h3>
               <p className="text-muted-foreground mt-2 flex items-center gap-1.5 text-sm">
                 {text.detail}
                 <ArrowRight className="h-3.5 w-3.5 shrink-0 transition-transform group-hover:translate-x-0.5" />

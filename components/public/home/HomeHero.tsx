@@ -285,10 +285,10 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
             transition={{ delay: 0.76, duration: 0.5, ease: easeOutExpo }}
           >
             <Link
-              href={`/${lang}/about`}
+              href={activeSlide === 1 ? `/${lang}/login` : `/${lang}/about`}
               className="bg-primary-dark text-primary-foreground hover:bg-primary inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-bold transition-colors"
             >
-              {dictionary.home.aboutChitoRyu}
+              {activeSlide === 1 ? dictionary.home.joinCommunity : dictionary.home.aboutChitoRyu}
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link

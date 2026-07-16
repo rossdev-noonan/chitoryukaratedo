@@ -75,12 +75,12 @@ export function HomeUpcomingEvents({ lang, dictionary }: HomeUpcomingEventsProps
                 />
               </div>
               <div className="flex gap-5">
-                <div className="relative flex h-[72px] w-16 shrink-0 flex-col items-center justify-center overflow-hidden rounded-lg border border-[#9b0d18] bg-[#c1121f]">
-                  <div className="absolute top-0 h-[7px] w-full bg-[#c8a24a]" />
-                  <span className="text-[12px] font-bold text-white uppercase">
+                <div className="relative flex h-[72px] w-16 shrink-0 flex-col items-center justify-center overflow-hidden rounded-lg border border-[#9b0d18]">
+                  <div className="absolute top-0 h-[7px] w-full bg-[#c1121f]" />
+                  <span className="text-[12px] font-bold text-[#b31b1b] uppercase">
                     {featuredMonth}
                   </span>
-                  <span className="text-2xl font-bold text-white">{featuredDay}</span>
+                  <span className="text-2xl font-bold text-[#1f2937]">{featuredDay}</span>
                 </div>
                 <div className="flex flex-col gap-2">
                   <p className="font-heading text-base font-bold text-[#1a1a1a]">

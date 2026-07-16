@@ -11,8 +11,8 @@ interface HomeOriginsProps {
 
 export function HomeOrigins({ dictionary }: HomeOriginsProps) {
   return (
-    <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-10">
-      <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
+    <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-0 lg:py-[120px]">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[726fr_495fr] lg:gap-[10px] lg:items-center">
         <div className="relative aspect-[774/544] w-full">
           <SlideFadeReveal direction="from-left" className="absolute inset-0">
             <Image

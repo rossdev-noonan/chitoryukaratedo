@@ -22,11 +22,11 @@ export function HomeMemberCountries({ dictionary }: HomeMemberCountriesProps) {
       </h2>
       <p className="text-muted-foreground mt-2">{dictionary.home.memberCountriesDescription}</p>
 
-      <div className="mt-10 flex flex-wrap items-center justify-center gap-[10px] lg:flex-nowrap">
+      <div className="mt-10 flex flex-wrap items-center justify-center gap-[10px]">
         {ALPHABETICAL_COUNTRIES.map((country) => (
           <div
             key={country.slug}
-            className="h-[54px] w-20 shrink-0 overflow-hidden rounded-[4px] sm:h-[72px] sm:w-[108px]"
+            className="h-[52px] w-[78px] shrink-0 overflow-hidden rounded-[4px]"
           >
             <CountryFlag country={country} shape="rect" />
           </div>

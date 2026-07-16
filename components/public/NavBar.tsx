@@ -80,7 +80,7 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
 
           <Link
             href={`/${lang}/login`}
-            className="bg-primary-dark text-primary-foreground px-6 py-3 text-sm font-bold whitespace-nowrap transition-opacity hover:opacity-90 sm:px-5 sm:py-2.5 lg:px-6 lg:py-3"
+            className="bg-primary-dark text-primary-foreground hover:bg-primary px-6 py-3 text-sm font-bold whitespace-nowrap transition-colors sm:px-5 sm:py-2.5 lg:px-6 lg:py-3"
           >
             {dictionary.nav.joinUs}
           </Link>

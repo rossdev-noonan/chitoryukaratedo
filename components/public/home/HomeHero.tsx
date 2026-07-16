@@ -286,14 +286,14 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
           >
             <Link
               href={`/${lang}/about`}
-              className="bg-primary-dark text-primary-foreground inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-bold transition-opacity hover:opacity-90"
+              className="bg-primary-dark text-primary-foreground hover:bg-primary inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-bold transition-colors"
             >
               {dictionary.home.aboutChitoRyu}
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               href={`/${lang}/dojo-directory`}
-              className="border-brand-accent text-brand-accent inline-flex items-center justify-center gap-2 border bg-white/80 px-8 py-4 text-base font-semibold transition-colors hover:bg-white"
+              className="border-brand-accent text-brand-accent hover:bg-brand-accent inline-flex items-center justify-center gap-2 border bg-white/80 px-8 py-4 text-base font-semibold transition-colors hover:text-white"
             >
               {dictionary.home.findADojo}
               <MapPin className="h-4 w-4" />

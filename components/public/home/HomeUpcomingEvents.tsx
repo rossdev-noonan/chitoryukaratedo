@@ -65,13 +65,13 @@ export function HomeUpcomingEvents({ lang, dictionary }: HomeUpcomingEventsProps
               href={`/${lang}${homeFeaturedEvent.href}`}
               className="group mt-4 flex flex-1 flex-col gap-6 rounded-[2px] border border-[#c8a24a] bg-white p-5 drop-shadow-[0px_4px_6px_rgba(0,0,0,0.05)] transition-colors hover:bg-black/[0.02]"
             >
-              <div className="relative aspect-video w-full shrink-0">
+              <div className="relative aspect-[509/115] w-full shrink-0">
                 <Image
                   src={homeFeaturedEvent.posterSrc}
                   alt={featuredText.title}
                   fill
                   sizes="(min-width: 1024px) 600px, 100vw"
-                  className="object-contain"
+                  className="object-cover"
                 />
               </div>
               <div className="flex gap-5">

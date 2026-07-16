@@ -82,7 +82,7 @@ export function NavDropdown({ lang, group }: NavDropdownProps) {
         }}
         aria-expanded={isOpen}
         aria-haspopup="true"
-        className="text-foreground/80 hover:text-primary after:bg-brand-accent relative flex items-center gap-1 text-sm font-medium transition-colors after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:transition-transform after:duration-200 hover:after:scale-x-100 focus-visible:after:scale-x-100"
+        className="text-foreground/80 hover:text-primary flex items-center gap-1 text-sm font-medium transition-colors"
       >
         {group.label}
         <ChevronDown className="h-3.5 w-3.5" />

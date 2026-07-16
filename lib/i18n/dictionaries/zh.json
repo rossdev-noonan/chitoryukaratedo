@@ -96,10 +96,26 @@
     },
     "dojoCountLabel": "{count} 个道场",
     "trustBar": [
-      { "value": "3", "label": "代宗师" },
-      { "value": "100+", "label": "年传统" },
-      { "value": "20+", "label": "个国家" },
-      { "value": "300+", "label": "道场" }
+      {
+        "value": "100+",
+        "label": "年传统",
+        "description": "Rooted in over a century of tradition."
+      },
+      {
+        "value": "3",
+        "label": "代宗师",
+        "description": "Preserving an unbroken lineage of leadership."
+      },
+      {
+        "value": "20+",
+        "label": "个国家",
+        "description": "Connecting the global Chito-Ryu community."
+      },
+      {
+        "value": "300+",
+        "label": "道场",
+        "description": "A global network of recognized dojos."
+      }
     ],
     "philosophyLabel": "千唐流之道",
     "philosophyHeadingLine1": "不只是空手道。",
@@ -111,10 +127,34 @@
     "viewAllEvents": "查看所有活动",
     "viewEventDetails": "查看活动详情",
     "upcomingEvents": [
-      { "title": "第15届千唐流空手道宗家杯", "location": "黄金海岸，澳大利亚" }
+      {
+        "title": "第15届千唐流空手道宗家杯",
+        "location": "黄金海岸，澳大利亚"
+      },
+      {
+        "title": "Canada Dan Grading",
+        "location": "Ontario, Canada"
+      },
+      {
+        "title": "Japan Dojo Visit",
+        "location": "Kumamoto, Japan"
+      },
+      {
+        "title": "Australia Dan Grading",
+        "location": "Sydney, Australia"
+      }
     ],
     "featuredEventLabel": "焦点活动",
     "featuredEventDateRange": "2026年8月13日至15日",
-    "featuredEventActivities": ["国际会议", "开幕式／闭幕式", "比赛", "段位评核", "国际交流班"]
+    "featuredEventActivities": [
+      "国际会议",
+      "开幕式／闭幕式",
+      "比赛",
+      "段位评核",
+      "国际交流班"
+    ],
+    "affiliationsLabel": "AFFILIATIONS",
+    "memberCountriesHeading": "ICKF Member Countries",
+    "memberCountriesDescription": "Officially representing National Chito-Ryu Associations across the world."
   }
 }

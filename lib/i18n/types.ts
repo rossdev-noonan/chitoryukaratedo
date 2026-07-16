@@ -70,7 +70,10 @@ export interface Dictionary {
       australia: string;
     };
     dojoCountLabel: string;
-    trustBar: { value: string; label: string }[];
+    trustBar: { value: string; label: string; description: string }[];
+    affiliationsLabel: string;
+    memberCountriesHeading: string;
+    memberCountriesDescription: string;
     philosophyLabel: string;
     philosophyHeadingLine1: string;
     philosophyHeadingLine2: string;

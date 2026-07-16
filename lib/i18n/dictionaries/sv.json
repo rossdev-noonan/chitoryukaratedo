@@ -96,10 +96,26 @@
     },
     "dojoCountLabel": "{count} dojon",
     "trustBar": [
-      { "value": "3", "label": "generationer av Soke" },
-      { "value": "100+", "label": "års tradition" },
-      { "value": "20+", "label": "länder" },
-      { "value": "300+", "label": "dojos" }
+      {
+        "value": "100+",
+        "label": "års tradition",
+        "description": "Rooted in over a century of tradition."
+      },
+      {
+        "value": "3",
+        "label": "generationer av Soke",
+        "description": "Preserving an unbroken lineage of leadership."
+      },
+      {
+        "value": "20+",
+        "label": "länder",
+        "description": "Connecting the global Chito-Ryu community."
+      },
+      {
+        "value": "300+",
+        "label": "dojos",
+        "description": "A global network of recognized dojos."
+      }
     ],
     "philosophyLabel": "Chito-Ryus väg",
     "philosophyHeadingLine1": "Mer än karate.",
@@ -111,7 +127,22 @@
     "viewAllEvents": "Se alla evenemang",
     "viewEventDetails": "Se evenemangsdetaljer",
     "upcomingEvents": [
-      { "title": "15:e Chito-Ryu Karate Soke Cup", "location": "Gold Coast, Australien" }
+      {
+        "title": "15:e Chito-Ryu Karate Soke Cup",
+        "location": "Gold Coast, Australien"
+      },
+      {
+        "title": "Canada Dan Grading",
+        "location": "Ontario, Canada"
+      },
+      {
+        "title": "Japan Dojo Visit",
+        "location": "Kumamoto, Japan"
+      },
+      {
+        "title": "Australia Dan Grading",
+        "location": "Sydney, Australia"
+      }
     ],
     "featuredEventLabel": "Utvalt evenemang",
     "featuredEventDateRange": "13–15 augusti 2026",
@@ -121,6 +152,9 @@
       "Tävling",
       "Dan-graderingar",
       "Internationell klinik"
-    ]
+    ],
+    "affiliationsLabel": "AFFILIATIONS",
+    "memberCountriesHeading": "ICKF Member Countries",
+    "memberCountriesDescription": "Officially representing National Chito-Ryu Associations across the world."
   }
 }

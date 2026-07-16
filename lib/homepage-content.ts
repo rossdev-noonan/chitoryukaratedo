@@ -47,7 +47,12 @@ export interface HomeUpcomingEvent {
   href: string;
 }
 
-export const homeUpcomingEvents: HomeUpcomingEvent[] = [{ startDate: "2026-08-13", href: "/events" }];
+export const homeUpcomingEvents: HomeUpcomingEvent[] = [
+  { startDate: "2026-08-13", href: "/events" },
+  { startDate: "2026-09-15", href: "/events" },
+  { startDate: "2026-10-16", href: "/events" },
+  { startDate: "2026-11-17", href: "/events" },
+];
 
 export interface HomeFeaturedEvent {
   startDate: string;
@@ -64,6 +69,11 @@ export const homeFeaturedEvent: HomeFeaturedEvent = {
   addressLine1: "Gold Coast Sport and Leisure Centre 296 Nerang Broadbeach Road,",
   addressLine2: "Gold Coast, Australia",
 };
+
+// Decorative Japanese sub-label shown next to each trust-bar stat, matching
+// Gil's Figma exactly — this is a fixed bilingual flourish, not translated
+// per locale, so it lives here rather than in the dictionaries.
+export const trustBarSubLabels = ["百余年", "三代", "二十か国以上", "三百道場以上"];
 
 export interface OriginsAccordionItem {
   title: string;

@@ -16,14 +16,9 @@ interface HomeHeroProps {
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
 const SLIDE_INTERVAL_MS = 7000;
-const ENSO_SETTLE_MS = 10000;
 const ENSO_REST_ROTATION = 81.3;
-
-// Gil's Figma prototype encodes the enso's slide-in with a custom decaying-oscillation
-// ease (spring-like overshoot). Reproduced exactly from the exported motion data
-// (get_motion_context on node 152:126) so the circle settles the way Gil designed it.
-const ensoSlideEase = (t: number) =>
-  1 - Math.exp(-t * 7.6657) * (Math.cos(t * 6.7605) + 1.1339 * Math.sin(t * 6.7605));
+const ENSO_ZOOM_DURATION_S = 1.6;
+const ENSO_SPIN_DURATION_S = 30;
 
 // Layer geometry copied 1:1 from Figma (canvas 1440x720) for each slide variant, expressed
 // as percentages of an aspect-ratio-locked wrapper so every layer stays pixel-aligned at
@@ -99,7 +94,6 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
   const initial = reduceMotion ? false : undefined;
   const slides = useHeroSlides(dictionary);
   const [activeSlide, setActiveSlide] = useState(0);
-  const [ensoSettled, setEnsoSettled] = useState(false);
 
   useEffect(() => {
     if (reduceMotion) return;
@@ -108,12 +102,6 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
     }, SLIDE_INTERVAL_MS);
     return () => clearInterval(id);
   }, [reduceMotion, slides.length]);
-
-  useEffect(() => {
-    if (reduceMotion) return;
-    const id = setTimeout(() => setEnsoSettled(true), ENSO_SETTLE_MS);
-    return () => clearTimeout(id);
-  }, [reduceMotion]);
 
   const slide = slides[activeSlide];
 
@@ -141,8 +129,16 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
         {/* Image stack: matches Gil's real Figma layer structure exactly (enso circle,
             left/center/right practitioner cutouts are separate assets, not one flattened
             photo). The enso is rendered once, outside the slide crossfade, so it never
-            re-runs its entrance or shifts position when the active slide changes. */}
-        <div className="absolute inset-0 aspect-[1440/720] md:-right-[39px] lg:right-0">
+            re-runs its entrance or shifts position when the active slide changes.
+            `top-0 right-0 h-full` + `aspect-[1440/720]` (rather than `inset-0`) is
+            deliberate: `inset-0` pins all four edges and fully determines both width
+            and height independently, which silently overrides `aspect-ratio` whenever
+            the real container isn't exactly 2:1 — that stretched the enso into an oval
+            and skewed every photo's proportions. Anchoring only top+right and deriving
+            width from height keeps the 1440:720 ratio exact at every breakpoint. */}
+        <div className="absolute top-0 right-0 h-full aspect-[1440/720] md:-right-[39px] lg:right-0">
+          {/* Zooms out from its own center to full size (no slide-in), while
+              spinning continuously and indefinitely from the moment it appears. */}
           <motion.div
             className="pointer-events-none absolute z-10"
             style={{
@@ -151,24 +147,18 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
               width: `${ensoLayer.width}%`,
               height: `${ensoLayer.height}%`,
             }}
-            initial={initial ?? { opacity: 0, scale: 0.1, x: "-180%", rotate: 261.3 }}
-            animate={
-              ensoSettled
-                ? { opacity: 1, scale: 1, x: "0%", rotate: ENSO_REST_ROTATION + 360 }
-                : { opacity: 1, scale: 1, x: "0%", rotate: ENSO_REST_ROTATION }
-            }
-            transition={
-              ensoSettled
-                ? { rotate: { duration: 30, ease: "linear", repeat: Infinity } }
-                : {
-                    opacity: { duration: 0.3 },
-                    scale: { duration: 1, ease: easeOutExpo },
-                    x: { duration: 2, ease: ensoSlideEase },
-                    rotate: { duration: 10, ease: "linear" },
-                  }
-            }
+            initial={initial ?? { opacity: 0, scale: 0.1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ opacity: { duration: 0.3 }, scale: { duration: ENSO_ZOOM_DURATION_S, ease: easeOutExpo } }}
           >
-            <Image src="/images/homepage/hero-enso.png" alt="" fill sizes="50vw" />
+            <motion.div
+              className="relative h-full w-full"
+              initial={initial ?? { rotate: ENSO_REST_ROTATION }}
+              animate={{ rotate: ENSO_REST_ROTATION + 360 }}
+              transition={{ duration: ENSO_SPIN_DURATION_S, ease: "linear", repeat: Infinity }}
+            >
+              <Image src="/images/homepage/hero-enso.png" alt="" fill sizes="50vw" />
+            </motion.div>
           </motion.div>
 
           <AnimatePresence mode="wait">

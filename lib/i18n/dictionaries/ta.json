@@ -96,10 +96,26 @@
     },
     "dojoCountLabel": "{count} டோஜோக்கள்",
     "trustBar": [
-      { "value": "3", "label": "சோகே தலைமுறைகள்" },
-      { "value": "100+", "label": "பாரம்பரிய ஆண்டுகள்" },
-      { "value": "20+", "label": "நாடுகள்" },
-      { "value": "300+", "label": "டோஜோக்கள்" }
+      {
+        "value": "100+",
+        "label": "பாரம்பரிய ஆண்டுகள்",
+        "description": "Rooted in over a century of tradition."
+      },
+      {
+        "value": "3",
+        "label": "சோகே தலைமுறைகள்",
+        "description": "Preserving an unbroken lineage of leadership."
+      },
+      {
+        "value": "20+",
+        "label": "நாடுகள்",
+        "description": "Connecting the global Chito-Ryu community."
+      },
+      {
+        "value": "300+",
+        "label": "டோஜோக்கள்",
+        "description": "A global network of recognized dojos."
+      }
     ],
     "philosophyLabel": "சிடோ-ர்யூவின் வழி",
     "philosophyHeadingLine1": "கராத்தேவை விட மேலானது.",
@@ -111,7 +127,22 @@
     "viewAllEvents": "அனைத்து நிகழ்வுகளையும் காண்க",
     "viewEventDetails": "நிகழ்வு விவரங்களைக் காண்க",
     "upcomingEvents": [
-      { "title": "15வது சிட்டோ-ர்யூ கராத்தே சோகே கோப்பை", "location": "கோல்ட் கோஸ்ட், ஆஸ்திரேலியா" }
+      {
+        "title": "15வது சிட்டோ-ர்யூ கராத்தே சோகே கோப்பை",
+        "location": "கோல்ட் கோஸ்ட், ஆஸ்திரேலியா"
+      },
+      {
+        "title": "Canada Dan Grading",
+        "location": "Ontario, Canada"
+      },
+      {
+        "title": "Japan Dojo Visit",
+        "location": "Kumamoto, Japan"
+      },
+      {
+        "title": "Australia Dan Grading",
+        "location": "Sydney, Australia"
+      }
     ],
     "featuredEventLabel": "சிறப்பு நிகழ்வு",
     "featuredEventDateRange": "13-15 ஆகஸ்ட் 2026",
@@ -121,6 +152,9 @@
       "போட்டி",
       "டான் தரப்படுத்தல்",
       "சர்வதேச கிளினிக்"
-    ]
+    ],
+    "affiliationsLabel": "AFFILIATIONS",
+    "memberCountriesHeading": "ICKF Member Countries",
+    "memberCountriesDescription": "Officially representing National Chito-Ryu Associations across the world."
   }
 }

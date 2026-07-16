@@ -4,6 +4,7 @@ import { HomeCTA } from "@/components/public/home/HomeCTA";
 import { HomeDojoFinder } from "@/components/public/home/HomeDojoFinder";
 import { HomeFeatureBar } from "@/components/public/home/HomeFeatureBar";
 import { HomeHero } from "@/components/public/home/HomeHero";
+import { HomeMemberCountries } from "@/components/public/home/HomeMemberCountries";
 import { HomeNewsEvents } from "@/components/public/home/HomeNewsEvents";
 import { HomeOrigins } from "@/components/public/home/HomeOrigins";
 import { HomePhilosophy } from "@/components/public/home/HomePhilosophy";
@@ -28,6 +29,7 @@ export default async function HomePage({ params }: HomePageProps) {
   return (
     <>
       <HomeHero lang={lang} dictionary={dictionary} />
+      <HomeMemberCountries dictionary={dictionary} />
       <HomeFeatureBar dictionary={dictionary} />
       <HomePhilosophy lang={lang} dictionary={dictionary} />
       <HomeUpcomingEvents lang={lang} dictionary={dictionary} />

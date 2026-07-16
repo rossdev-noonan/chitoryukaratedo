@@ -96,10 +96,26 @@
     },
     "dojoCountLabel": "{count}টি ডোজো",
     "trustBar": [
-      { "value": "3", "label": "সোকে প্রজন্ম" },
-      { "value": "100+", "label": "ঐতিহ্যের বছর" },
-      { "value": "20+", "label": "দেশ" },
-      { "value": "300+", "label": "ডোজো" }
+      {
+        "value": "100+",
+        "label": "ঐতিহ্যের বছর",
+        "description": "Rooted in over a century of tradition."
+      },
+      {
+        "value": "3",
+        "label": "সোকে প্রজন্ম",
+        "description": "Preserving an unbroken lineage of leadership."
+      },
+      {
+        "value": "20+",
+        "label": "দেশ",
+        "description": "Connecting the global Chito-Ryu community."
+      },
+      {
+        "value": "300+",
+        "label": "ডোজো",
+        "description": "A global network of recognized dojos."
+      }
     ],
     "philosophyLabel": "চিতো-রিউ-এর পথ",
     "philosophyHeadingLine1": "কারাতের চেয়েও বেশি কিছু।",
@@ -111,7 +127,22 @@
     "viewAllEvents": "সব ইভেন্ট দেখুন",
     "viewEventDetails": "ইভেন্টের বিবরণ দেখুন",
     "upcomingEvents": [
-      { "title": "১৫তম চিতো-র্যু কারাতে সোকে কাপ", "location": "গোল্ড কোস্ট, অস্ট্রেলিয়া" }
+      {
+        "title": "১৫তম চিতো-র্যু কারাতে সোকে কাপ",
+        "location": "গোল্ড কোস্ট, অস্ট্রেলিয়া"
+      },
+      {
+        "title": "Canada Dan Grading",
+        "location": "Ontario, Canada"
+      },
+      {
+        "title": "Japan Dojo Visit",
+        "location": "Kumamoto, Japan"
+      },
+      {
+        "title": "Australia Dan Grading",
+        "location": "Sydney, Australia"
+      }
     ],
     "featuredEventLabel": "বৈশিষ্ট্যযুক্ত ইভেন্ট",
     "featuredEventDateRange": "১৩-১৫ আগস্ট ২০২৬",
@@ -121,6 +152,9 @@
       "প্রতিযোগিতা",
       "ড্যান গ্রেডিং",
       "আন্তর্জাতিক ক্লিনিক"
-    ]
+    ],
+    "affiliationsLabel": "AFFILIATIONS",
+    "memberCountriesHeading": "ICKF Member Countries",
+    "memberCountriesDescription": "Officially representing National Chito-Ryu Associations across the world."
   }
 }

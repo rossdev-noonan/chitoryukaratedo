@@ -163,6 +163,26 @@ export async function getDojoCountsByContinent(): Promise<Record<Continent, numb
   return counts;
 }
 
+// Real dojos grouped by country slug, for the homepage's per-country map popover.
+// Countries with no matching row (or no dojos) correctly resolve to an empty array.
+export async function getDojosByCountrySlugs(slugs: string[]): Promise<Record<string, Dojo[]>> {
+  const supabase = await createSupabaseServerClient();
+  const [{ data: countries }, { data: dojos }] = await Promise.all([
+    supabase.from("countries").select("id, slug").in("slug", slugs),
+    supabase.from("dojos").select(DOJO_COLUMNS),
+  ]);
+
+  const slugByCountryId = new Map((countries ?? []).map((c) => [c.id, c.slug]));
+  const grouped: Record<string, Dojo[]> = Object.fromEntries(slugs.map((slug) => [slug, []]));
+
+  for (const row of (dojos ?? []) as DojoRow[]) {
+    const slug = slugByCountryId.get(row.country_id);
+    if (slug && slug in grouped) grouped[slug].push(toDojo(row));
+  }
+
+  return grouped;
+}
+
 export async function getApprovedDojos(limit?: number): Promise<Dojo[]> {
   const supabase = await createSupabaseServerClient();
   let query = supabase.from("dojos").select(DOJO_COLUMNS).order("name");

@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { BrushReveal } from "@/components/public/home/BrushReveal";
 import { SectionEyebrow } from "@/components/public/home/SectionEyebrow";
 import type { Locale } from "@/lib/i18n/locales";
 import type { Dictionary } from "@/lib/i18n/types";
@@ -13,8 +14,8 @@ interface HomePhilosophyProps {
 
 export function HomePhilosophy({ lang, dictionary }: HomePhilosophyProps) {
   return (
-    <section className="bg-secondary/40">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-10">
+    <section>
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[447fr_773fr] lg:px-5">
         <div>
           <SectionEyebrow>{dictionary.home.philosophyLabel}</SectionEyebrow>
           <div className="bg-primary mt-2 h-0.5 w-[86px]" />
@@ -33,25 +34,16 @@ export function HomePhilosophy({ lang, dictionary }: HomePhilosophyProps) {
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 gap-6">
-          <div className="relative aspect-[3/4] w-full overflow-hidden">
+        <div className="relative aspect-[1447/1024] w-full">
+          <BrushReveal className="absolute inset-0">
             <Image
-              src="/images/homepage/philosophy-1.jpeg"
-              alt="Chito-Ryu Karate-Do practitioners training"
-              fill
-              sizes="(min-width: 1024px) 300px, 45vw"
-              className="object-cover"
-            />
-          </div>
-          <div className="relative aspect-[3/4] w-full overflow-hidden">
-            <Image
-              src="/images/homepage/philosophy-2.jpeg"
+              src="/images/homepage/philosophy-training.png"
               alt="Chito-Ryu Karate-Do dojo training session"
               fill
-              sizes="(min-width: 1024px) 300px, 45vw"
-              className="object-cover"
+              sizes="(min-width: 1024px) 600px, 90vw"
+              className="object-contain"
             />
-          </div>
+          </BrushReveal>
         </div>
       </div>
     </section>

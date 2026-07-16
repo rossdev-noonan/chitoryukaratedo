@@ -96,10 +96,26 @@
     },
     "dojoCountLabel": "道場 {count} 件",
     "trustBar": [
-      { "value": "3", "label": "代の宗家" },
-      { "value": "100+", "label": "年の伝統" },
-      { "value": "20+", "label": "カ国" },
-      { "value": "300+", "label": "道場" }
+      {
+        "value": "100+",
+        "label": "年の伝統",
+        "description": "Rooted in over a century of tradition."
+      },
+      {
+        "value": "3",
+        "label": "代の宗家",
+        "description": "Preserving an unbroken lineage of leadership."
+      },
+      {
+        "value": "20+",
+        "label": "カ国",
+        "description": "Connecting the global Chito-Ryu community."
+      },
+      {
+        "value": "300+",
+        "label": "道場",
+        "description": "A global network of recognized dojos."
+      }
     ],
     "philosophyLabel": "千唐流の道",
     "philosophyHeadingLine1": "空手を超えて。",
@@ -111,10 +127,34 @@
     "viewAllEvents": "すべてのイベントを見る",
     "viewEventDetails": "イベント詳細を見る",
     "upcomingEvents": [
-      { "title": "第15回千唐流空手道 宗家杯", "location": "ゴールドコースト、オーストラリア" }
+      {
+        "title": "第15回千唐流空手道 宗家杯",
+        "location": "ゴールドコースト、オーストラリア"
+      },
+      {
+        "title": "Canada Dan Grading",
+        "location": "Ontario, Canada"
+      },
+      {
+        "title": "Japan Dojo Visit",
+        "location": "Kumamoto, Japan"
+      },
+      {
+        "title": "Australia Dan Grading",
+        "location": "Sydney, Australia"
+      }
     ],
     "featuredEventLabel": "注目イベント",
     "featuredEventDateRange": "2026年8月13日〜15日",
-    "featuredEventActivities": ["国際会議", "開会式・閉会式", "競技会", "段位審査", "国際クリニック"]
+    "featuredEventActivities": [
+      "国際会議",
+      "開会式・閉会式",
+      "競技会",
+      "段位審査",
+      "国際クリニック"
+    ],
+    "affiliationsLabel": "AFFILIATIONS",
+    "memberCountriesHeading": "ICKF Member Countries",
+    "memberCountriesDescription": "Officially representing National Chito-Ryu Associations across the world."
   }
 }

@@ -96,10 +96,26 @@
     },
     "dojoCountLabel": "{count} dojos",
     "trustBar": [
-      { "value": "3", "label": "Generations of Soke" },
-      { "value": "100+", "label": "Years of Tradition" },
-      { "value": "20+", "label": "Countries" },
-      { "value": "300+", "label": "Dojos" }
+      {
+        "value": "100+",
+        "label": "Years of Tradition",
+        "description": "Rooted in over a century of tradition."
+      },
+      {
+        "value": "3",
+        "label": "Generations of Soke",
+        "description": "Preserving an unbroken lineage of leadership."
+      },
+      {
+        "value": "20+",
+        "label": "Countries",
+        "description": "Connecting the global Chito-Ryu community."
+      },
+      {
+        "value": "300+",
+        "label": "Dojos",
+        "description": "A global network of recognized dojos."
+      }
     ],
     "philosophyLabel": "The Way of Chito-Ryu",
     "philosophyHeadingLine1": "More than Karate.",
@@ -111,7 +127,22 @@
     "viewAllEvents": "View All Events",
     "viewEventDetails": "View Event Details",
     "upcomingEvents": [
-      { "title": "15th Chito-Ryu Karate Soke Cup", "location": "Gold Coast, Australia" }
+      {
+        "title": "15th Chito-Ryu Karate Soke Cup",
+        "location": "Gold Coast, Australia"
+      },
+      {
+        "title": "Canada Dan Grading",
+        "location": "Ontario, Canada"
+      },
+      {
+        "title": "Japan Dojo Visit",
+        "location": "Kumamoto, Japan"
+      },
+      {
+        "title": "Australia Dan Grading",
+        "location": "Sydney, Australia"
+      }
     ],
     "featuredEventLabel": "Featured event",
     "featuredEventDateRange": "13th-15th August 2026",
@@ -121,6 +152,9 @@
       "Competition",
       "Dan Gradings",
       "International Clinic"
-    ]
+    ],
+    "affiliationsLabel": "AFFILIATIONS",
+    "memberCountriesHeading": "ICKF Member Countries",
+    "memberCountriesDescription": "Officially representing National Chito-Ryu Associations across the world."
   }
 }

@@ -96,10 +96,26 @@
     },
     "dojoCountLabel": "{count} dojoer",
     "trustBar": [
-      { "value": "3", "label": "generasjoner av Soke" },
-      { "value": "100+", "label": "års tradisjon" },
-      { "value": "20+", "label": "land" },
-      { "value": "300+", "label": "dojoer" }
+      {
+        "value": "100+",
+        "label": "års tradisjon",
+        "description": "Rooted in over a century of tradition."
+      },
+      {
+        "value": "3",
+        "label": "generasjoner av Soke",
+        "description": "Preserving an unbroken lineage of leadership."
+      },
+      {
+        "value": "20+",
+        "label": "land",
+        "description": "Connecting the global Chito-Ryu community."
+      },
+      {
+        "value": "300+",
+        "label": "dojoer",
+        "description": "A global network of recognized dojos."
+      }
     ],
     "philosophyLabel": "Chito-Ryus vei",
     "philosophyHeadingLine1": "Mer enn karate.",
@@ -111,7 +127,22 @@
     "viewAllEvents": "Se alle arrangementer",
     "viewEventDetails": "Se arrangementsdetaljer",
     "upcomingEvents": [
-      { "title": "15. Chito-Ryu Karate Soke Cup", "location": "Gold Coast, Australia" }
+      {
+        "title": "15. Chito-Ryu Karate Soke Cup",
+        "location": "Gold Coast, Australia"
+      },
+      {
+        "title": "Canada Dan Grading",
+        "location": "Ontario, Canada"
+      },
+      {
+        "title": "Japan Dojo Visit",
+        "location": "Kumamoto, Japan"
+      },
+      {
+        "title": "Australia Dan Grading",
+        "location": "Sydney, Australia"
+      }
     ],
     "featuredEventLabel": "Fremhevet arrangement",
     "featuredEventDateRange": "13.-15. august 2026",
@@ -121,6 +152,9 @@
       "Konkurranse",
       "Dan-graderinger",
       "Internasjonal klinikk"
-    ]
+    ],
+    "affiliationsLabel": "AFFILIATIONS",
+    "memberCountriesHeading": "ICKF Member Countries",
+    "memberCountriesDescription": "Officially representing National Chito-Ryu Associations across the world."
   }
 }

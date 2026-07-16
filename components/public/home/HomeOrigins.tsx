@@ -22,13 +22,13 @@ export function HomeOrigins({ dictionary }: HomeOriginsProps) {
           <OriginsAccordion dictionary={dictionary} />
         </div>
 
-        <div className="relative aspect-[3/2] w-full overflow-hidden">
+        <div className="relative aspect-[774/544] w-full">
           <Image
             src="/images/homepage/origins-portrait.png"
             alt="O-Sensei Tsuyoshi Chitose and Tsunetomo Soke, founders and lineage of Chito-Ryu Karate-Do"
             fill
             sizes="(min-width: 1024px) 600px, 100vw"
-            className="object-cover"
+            className="object-contain"
           />
         </div>
       </div>

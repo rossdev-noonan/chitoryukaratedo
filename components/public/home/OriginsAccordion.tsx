@@ -22,7 +22,7 @@ export function OriginsAccordion({ dictionary }: OriginsAccordionProps) {
               type="button"
               onClick={() => setOpenIndex(isOpen ? null : index)}
               aria-expanded={isOpen}
-              className="flex w-full items-center justify-between py-4 text-left text-sm font-semibold"
+              className="flex w-full items-center justify-between py-4 text-left text-sm font-bold tracking-wide uppercase"
             >
               {item.title}
               {isOpen ? (

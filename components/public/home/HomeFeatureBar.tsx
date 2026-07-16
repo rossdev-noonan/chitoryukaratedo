@@ -10,10 +10,10 @@ interface HomeFeatureBarProps {
 export function HomeFeatureBar({ dictionary }: HomeFeatureBarProps) {
   return (
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-10">
-      <div className="border-border flex flex-wrap items-center justify-center gap-x-[55px] gap-y-6 border bg-white px-5 py-10">
+      <div className="border-border flex flex-wrap items-center justify-center gap-x-[55px] gap-y-6 border bg-white px-5 py-10 lg:flex-nowrap">
         {dictionary.home.trustBar.map((item, index) => (
           <Fragment key={item.label}>
-            <div className="flex flex-col gap-1">
+            <div className="flex w-full max-w-[199px] flex-col gap-1 sm:w-[199px]">
               <p className="font-heading flex items-baseline gap-2">
                 <span className="text-primary text-4xl font-bold sm:text-[40px]">
                   {item.value}
@@ -24,7 +24,7 @@ export function HomeFeatureBar({ dictionary }: HomeFeatureBarProps) {
               <p className="text-muted-foreground text-xs">{item.description}</p>
             </div>
             {index < dictionary.home.trustBar.length - 1 && (
-              <div className="border-border hidden h-[67px] border-l sm:block" aria-hidden />
+              <div className="border-border hidden h-[67px] shrink-0 border-l sm:block" aria-hidden />
             )}
           </Fragment>
         ))}

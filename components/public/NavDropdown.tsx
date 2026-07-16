@@ -97,7 +97,7 @@ export function NavDropdown({ lang, group }: NavDropdownProps) {
           <ul
             role="menu"
             aria-label={group.label}
-            className="border-border bg-background w-full border shadow-sm"
+            className="border-border bg-background border-t-primary w-full border border-t-2 shadow-sm"
           >
             {group.children.map((item) => (
               <li key={item.label} role="none">
@@ -105,7 +105,7 @@ export function NavDropdown({ lang, group }: NavDropdownProps) {
                   role="menuitem"
                   href={`/${lang}${item.href}`}
                   onClick={closeMenu}
-                  className="text-foreground/80 hover:bg-muted hover:text-primary block px-4 py-2.5 text-sm"
+                  className="text-foreground/80 hover:bg-muted hover:text-primary after:bg-brand-accent relative block px-4 py-2.5 text-sm after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:transition-transform after:duration-200 hover:after:scale-x-100"
                 >
                   {item.label}
                 </Link>

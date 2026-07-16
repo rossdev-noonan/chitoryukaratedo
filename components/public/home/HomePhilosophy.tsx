@@ -2,8 +2,8 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { BrushReveal } from "@/components/public/home/BrushReveal";
 import { SectionEyebrow } from "@/components/public/home/SectionEyebrow";
+import { SlideFadeReveal } from "@/components/public/home/SlideFadeReveal";
 import type { Locale } from "@/lib/i18n/locales";
 import type { Dictionary } from "@/lib/i18n/types";
 
@@ -35,7 +35,7 @@ export function HomePhilosophy({ lang, dictionary }: HomePhilosophyProps) {
         </div>
 
         <div className="relative aspect-[1447/1024] w-full">
-          <BrushReveal className="absolute inset-0">
+          <SlideFadeReveal direction="from-right" className="absolute inset-0">
             <Image
               src="/images/homepage/philosophy-training.png"
               alt="Chito-Ryu Karate-Do dojo training session"
@@ -43,7 +43,7 @@ export function HomePhilosophy({ lang, dictionary }: HomePhilosophyProps) {
               sizes="(min-width: 1024px) 600px, 90vw"
               className="object-contain"
             />
-          </BrushReveal>
+          </SlideFadeReveal>
         </div>
       </div>
     </section>

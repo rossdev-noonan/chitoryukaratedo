@@ -56,14 +56,14 @@ export function HomeUpcomingEvents({ lang, dictionary }: HomeUpcomingEventsProps
           </Link>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-[100px]">
-          <div>
+        <div className="mt-8 grid grid-cols-1 items-stretch gap-10 lg:grid-cols-2 lg:gap-[100px]">
+          <div className="flex flex-col">
             <h2 className="font-heading text-2xl font-semibold text-[#1f2937]">
               {dictionary.home.featuredEventLabel}
             </h2>
             <Link
               href={`/${lang}${homeFeaturedEvent.href}`}
-              className="group mt-4 flex flex-col gap-6 rounded-[2px] border border-[#c8a24a] bg-white p-5 drop-shadow-[0px_4px_6px_rgba(0,0,0,0.05)] transition-colors hover:bg-black/[0.02]"
+              className="group mt-4 flex flex-1 flex-col gap-6 rounded-[2px] border border-[#c8a24a] bg-white p-5 drop-shadow-[0px_4px_6px_rgba(0,0,0,0.05)] transition-colors hover:bg-black/[0.02]"
             >
               <div className="relative h-[237px] w-full shrink-0">
                 <Image
@@ -107,11 +107,11 @@ export function HomeUpcomingEvents({ lang, dictionary }: HomeUpcomingEventsProps
           </div>
 
           {otherEvents.length > 0 && (
-            <div>
+            <div className="flex flex-col">
               <h2 className="font-heading text-2xl font-semibold text-[#1f2937]">
                 {dictionary.home.upcomingEventsHeading}
               </h2>
-              <div className="mt-4 flex flex-col gap-6">
+              <div className="mt-4 flex flex-1 flex-col justify-between gap-6">
                 {otherEvents.map(({ event, index }) => {
                   const text =
                     dictionary.home.upcomingEvents[index] ?? dictionary.home.upcomingEvents[0];

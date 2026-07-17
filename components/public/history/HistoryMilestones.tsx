@@ -3,7 +3,7 @@ import { historyMilestones } from "@/lib/history-content";
 export function HistoryMilestones() {
   return (
     <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-10 lg:pb-20">
-      <div className="border-brand-accent border-t-[3px] px-4 py-8 sm:px-6 lg:px-16 lg:py-10">
+      <div className="border-primary-dark border-t-[3px] px-4 py-8 sm:px-6 lg:px-16 lg:py-10">
         <div className="flex flex-col gap-2">
           <div className="bg-primary h-0.5 w-10" />
           <h2 className="font-heading text-3xl font-semibold text-black sm:text-4xl">

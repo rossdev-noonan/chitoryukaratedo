@@ -4,9 +4,10 @@ import {
   historyAragakiParagraph,
   historyDojoParagraph,
   historyDojoPhotoCaption,
-  historyDojoSecondHeading,
   historyDojoSecondParagraph,
   historyDojoSecondPhotoCaption,
+  historyDometrichParagraph,
+  historyDometrichPhotoCaption,
   historyEarlyYearsCaption,
   historyEarlyYearsParagraph,
   historyHirohitoSectionParagraphs,
@@ -61,7 +62,7 @@ function CaptionedPhoto({
 export function HistoryBiography() {
   return (
     <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-10 lg:pb-20">
-      <article className="border-brand-accent border-t-[3px] px-4 py-8 sm:px-6 lg:px-10 lg:py-10">
+      <article className="border-primary-dark border-t-[3px] px-4 py-8 sm:px-6 lg:px-10 lg:py-10">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-10">
           <div className="relative h-[300px] w-full shrink-0 shadow-[0px_20px_40px_0px_rgba(0,0,0,0.06)] sm:h-[380px] lg:h-[408px] lg:w-[443px]">
             <Image
@@ -141,21 +142,26 @@ export function HistoryBiography() {
           />
         </div>
 
-        {/* Gil's latest Figma pass added this second "Chitose Opens his own
-            Dojo" block with a real 1955 photo, but its paragraph is the
-            Aragaki-training text again rather than dojo-opening copy —
-            implemented literally per instruction; likely needs a source-copy
-            fix from Gil (see EOD notes). */}
         <div className="mt-12 flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-10">
           <CaptionedPhoto
             src="/images/history/funakoshi-1955.png"
             alt="Chitose and Professor Gichin Funakoshi, August 18, 1955"
             caption={historyDojoSecondPhotoCaption}
           />
-          <div className="lg:w-[467px] lg:shrink-0">
-            <h3 className="text-2xl font-semibold text-black">{historyDojoSecondHeading}</h3>
-            <p className="mt-5 leading-[1.6] text-black">{historyDojoSecondParagraph}</p>
-          </div>
+          <p className="leading-[1.6] text-black lg:w-[467px] lg:shrink-0">
+            {historyDojoSecondParagraph}
+          </p>
+        </div>
+
+        <div className="mt-12 flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-10">
+          <p className="leading-[1.6] text-black lg:w-[467px] lg:shrink-0">
+            {historyDometrichParagraph}
+          </p>
+          <CaptionedPhoto
+            src="/images/history/osensei-dometrich.png"
+            alt="O'Sensei with Dometrich"
+            caption={historyDometrichPhotoCaption}
+          />
         </div>
 
         <div className="mt-10 flex flex-col gap-6">

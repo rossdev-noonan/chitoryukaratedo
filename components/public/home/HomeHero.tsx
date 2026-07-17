@@ -107,7 +107,7 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
 
   return (
     <section className="relative md:h-[406px] lg:h-[720px]">
-      <div className="relative h-[280px] w-full overflow-hidden sm:h-[360px] md:absolute md:inset-0 md:h-full">
+      <div className="isolate relative h-[280px] w-full overflow-hidden sm:h-[360px] md:absolute md:inset-0 md:h-full">
         {/* Ambient ink-wash backdrop: Gil's real texture export, present
             from the very start and stays visible underneath the circle/photos. */}
         <motion.div
@@ -240,7 +240,7 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
       </div>
 
       <div className="bg-background relative px-5 py-6 md:absolute md:inset-0 md:bg-transparent md:px-10 md:pt-20 lg:px-20 lg:pt-[120px]">
-        <div className="relative md:w-full lg:w-[720px] lg:max-w-[50vw]">
+        <div className="relative md:w-[480px] lg:w-[720px] lg:max-w-[50vw]">
           <AnimatePresence mode="wait">
             <motion.div
               key={`text-${activeSlide}`}

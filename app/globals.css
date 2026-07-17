@@ -158,3 +158,15 @@
 .font-locale-bn {
   font-family: var(--font-noto-sans-bn), var(--font-inter), sans-serif;
 }
+
+/* Infinite left-to-right marquee for the member-country flags on tablet/mobile
+   (see HomeMemberCountries.tsx). The track renders the flag list twice back
+   to back, so translating exactly -50% loops seamlessly. */
+@keyframes marquee {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}

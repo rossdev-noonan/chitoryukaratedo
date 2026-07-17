@@ -22,15 +22,17 @@ export function HomeMemberCountries({ dictionary }: HomeMemberCountriesProps) {
       </h2>
       <p className="text-muted-foreground mt-2">{dictionary.home.memberCountriesDescription}</p>
 
-      <div className="mt-10 flex flex-wrap items-center justify-center gap-[10px]">
-        {ALPHABETICAL_COUNTRIES.map((country) => (
-          <div
-            key={country.slug}
-            className="h-[52px] w-[78px] shrink-0 overflow-hidden rounded-[4px]"
-          >
-            <CountryFlag country={country} shape="rect" />
-          </div>
-        ))}
+      <div className="mt-10 overflow-x-auto">
+        <div className="flex w-max min-w-full items-center justify-center gap-[10px] px-4 sm:px-6 lg:px-0">
+          {ALPHABETICAL_COUNTRIES.map((country) => (
+            <div
+              key={country.slug}
+              className="h-[52px] w-[78px] shrink-0 overflow-hidden rounded-[4px] shadow-[0_1px_3px_rgba(0,0,0,0.15)] ring-1 ring-black/5"
+            >
+              <CountryFlag country={country} shape="rect" />
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

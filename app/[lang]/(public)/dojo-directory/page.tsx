@@ -3,10 +3,31 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+import { CountryFlag } from "@/components/public/CountryFlag";
 import { GlobalCommunityCTA } from "@/components/public/GlobalCommunityCTA";
 import { continentForCountrySlug, type Continent } from "@/lib/continents";
+import { FEATURED_DIRECTORY_COUNTRIES } from "@/lib/countries-featured";
 import { getApprovedDojos, getCountries } from "@/lib/directory";
 import type { Locale } from "@/lib/i18n/locales";
+
+// Gil's fix for the old flag-row not scaling as ICKF adds members: a bounded
+// "popular countries" quick-pick list + a "See more" link to the full
+// federations list below, instead of rendering every country's flag inline.
+const POPULAR_COUNTRY_SLUGS = [
+  "japan",
+  "usa",
+  "canada",
+  "australia",
+  "scotland",
+  "norway",
+  "jamaica",
+  "hong-kong",
+  "singapore",
+  "ireland",
+];
+const POPULAR_COUNTRIES = POPULAR_COUNTRY_SLUGS.map((slug) =>
+  FEATURED_DIRECTORY_COUNTRIES.find((country) => country.slug === slug),
+).filter((country) => country !== undefined);
 
 export const metadata: Metadata = {
   title: "World Dojo Directory",
@@ -155,6 +176,25 @@ export default async function DojoDirectoryPage({ params, searchParams }: DojoDi
             </button>
           </form>
 
+          <div className="mt-6 flex w-full flex-wrap items-center gap-2 sm:mt-8">
+            <span className="text-sm font-semibold text-[#374151]">Popular countries</span>
+            {POPULAR_COUNTRIES.map((country) => (
+              <Link
+                key={country.slug}
+                href={`/${lang}/dojo-directory?country=${country.slug}`}
+                className="border-border flex items-center gap-2 rounded-full border bg-white py-1 pr-3 pl-1 text-sm text-[#374151] transition-colors hover:border-primary"
+              >
+                <span className="relative block h-5 w-5 shrink-0 overflow-hidden rounded-full">
+                  <CountryFlag country={country} shape="circle" />
+                </span>
+                {country.name}
+              </Link>
+            ))}
+            <a href="#federations" className="text-primary text-sm font-semibold hover:underline">
+              See more
+            </a>
+          </div>
+
           <div className="relative mt-10 h-60 w-full overflow-hidden rounded-xl sm:h-80 lg:h-[480px]">
             <Image
               src="/images/figma/directory-world-map.png"
@@ -176,7 +216,7 @@ export default async function DojoDirectoryPage({ params, searchParams }: DojoDi
             ))}
           </div>
 
-          <div className="mt-10 flex w-full flex-col gap-4 lg:mt-20">
+          <div id="federations" className="mt-10 flex w-full scroll-mt-24 flex-col gap-4 lg:mt-20">
             {visibleCountries.length === 0 ? (
               <p className="text-muted-foreground text-center text-sm">No federations found.</p>
             ) : (

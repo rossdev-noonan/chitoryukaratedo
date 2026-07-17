@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -82,27 +82,33 @@ export function HomeUpcomingEvents({ lang, dictionary }: HomeUpcomingEventsProps
                   </span>
                   <span className="text-2xl font-bold text-[#1f2937]">{featuredDay}</span>
                 </div>
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-1">
                   <p className="font-heading text-base font-bold text-[#1a1a1a]">
                     {featuredText.title}
                   </p>
                   <p className="text-sm text-[#666]">{dictionary.home.featuredEventDateRange}</p>
-                  <p className="text-sm text-[#666]">
-                    {homeFeaturedEvent.addressLine1}
-                    <br />
-                    {homeFeaturedEvent.addressLine2}
-                  </p>
-                  <ul className="list-disc pl-[21px] text-sm text-[#666]">
-                    {dictionary.home.featuredEventActivities.map((activity) => (
-                      <li key={activity}>{activity}</li>
-                    ))}
-                  </ul>
-                  <span className="mt-2 inline-flex items-center gap-2 text-xs font-bold text-[#c1121f]">
-                    {dictionary.home.viewEventDetails}
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                  </span>
                 </div>
               </div>
+              <div className="flex items-start gap-2 text-sm text-[#666]">
+                <MapPin className="text-primary mt-0.5 h-4 w-4 shrink-0" />
+                <span>
+                  {homeFeaturedEvent.addressLine1} {homeFeaturedEvent.addressLine2}
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {dictionary.home.featuredEventActivities.map((activity) => (
+                  <span
+                    key={activity}
+                    className="rounded-full border border-[#e5e7eb] px-3 py-1 text-xs text-[#666]"
+                  >
+                    {activity}
+                  </span>
+                ))}
+              </div>
+              <span className="inline-flex items-center gap-2 text-xs font-bold text-[#c1121f]">
+                {dictionary.home.viewEventDetails}
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </span>
             </Link>
           </div>
 

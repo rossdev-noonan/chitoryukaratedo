@@ -1,0 +1,87 @@
+import { ArrowRight, MapPin } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+
+import type { Locale } from "@/lib/i18n/locales";
+
+interface HistoryHeroProps {
+  lang: Locale;
+}
+
+// Percentages against Figma's 1440x720 hero canvas — same aspect-locked
+// technique as HomeHero, so the oversized "history pic 1" image (it bleeds
+// above/below the hero on the real canvas) clips and scales correctly at
+// every breakpoint instead of relying on a fixed pixel box.
+const historyPicGeometry = { left: 28.889, top: -35.278, width: 75.417, height: 151.0 };
+
+export function HistoryHero({ lang }: HistoryHeroProps) {
+  return (
+    <section className="relative overflow-hidden md:h-[406px] lg:h-[720px]">
+      <div className="absolute inset-0">
+        <Image
+          src="/images/history/hero-bg-practitioner.png"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+      </div>
+
+      <div className="relative h-[280px] w-full overflow-hidden sm:h-[360px] md:h-full">
+        <div className="absolute top-0 right-0 h-full aspect-[1440/720]">
+          <div
+            className="absolute"
+            style={{
+              left: `${historyPicGeometry.left}%`,
+              top: `${historyPicGeometry.top}%`,
+              width: `${historyPicGeometry.width}%`,
+              height: `${historyPicGeometry.height}%`,
+            }}
+          >
+            <Image
+              src="/images/history/history-pic-1.png"
+              alt="Torii gate and shrine under cherry blossoms"
+              fill
+              sizes="(min-width: 1024px) 75vw, 100vw"
+              className="object-contain"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-background relative px-5 py-6 md:absolute md:inset-0 md:bg-transparent md:px-10 md:pt-20 lg:px-20 lg:pt-[120px]">
+        <div className="relative md:w-[480px] lg:w-[630px]">
+          <p className="text-brand-accent text-sm font-semibold uppercase">
+            home / about / history
+          </p>
+          <div className="bg-primary mt-2 h-0.5 w-[86px]" />
+          <h1 className="font-heading mt-3 text-3xl font-semibold text-[#1f2937] sm:text-4xl lg:text-5xl">
+            History of Chito Ryu
+          </h1>
+          <p className="mt-4 max-w-[480px] text-base leading-[1.6] text-[#4b5563] lg:text-lg">
+            A tradition spanning over one thousand years, born in China and elevated in Okinawa
+            and Japan.
+          </p>
+
+          <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:flex-wrap lg:mt-8">
+            <Link
+              href={`/${lang}/login`}
+              className="bg-primary-dark text-primary-foreground hover:bg-primary inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-bold transition-colors"
+            >
+              Join our Community
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href={`/${lang}/dojo-directory`}
+              className="border-brand-accent text-brand-accent hover:bg-brand-accent inline-flex items-center justify-center gap-2 border bg-white/80 px-8 py-4 text-base font-semibold transition-colors hover:text-white"
+            >
+              Find our Dojo
+              <MapPin className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

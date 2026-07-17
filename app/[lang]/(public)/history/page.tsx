@@ -1,21 +1,32 @@
 import type { Metadata } from "next";
 
-import { PageHeader } from "@/components/public/PageHeader";
-import { PlaceholderNotice } from "@/components/public/PlaceholderNotice";
+import { GlobalCommunityCTA } from "@/components/public/GlobalCommunityCTA";
+import { HistoryBiography } from "@/components/public/history/HistoryBiography";
+import { HistoryHero } from "@/components/public/history/HistoryHero";
+import { HistoryMilestones } from "@/components/public/history/HistoryMilestones";
+import { HistoryOrigins } from "@/components/public/history/HistoryOrigins";
+import type { Locale } from "@/lib/i18n/locales";
 
 export const metadata: Metadata = {
   title: "History",
-  description: "The history of Chito-Ryu karate.",
+  description: "The history of Chito-Ryu karate, from its origins in China to Dr. Tsuyoshi Chitose founding Chito Ryu in Japan.",
 };
 
-export default function HistoryPage() {
+interface HistoryPageProps {
+  params: Promise<{ lang: Locale }>;
+}
+
+export default async function HistoryPage({ params }: HistoryPageProps) {
+  const { lang } = await params;
+
   return (
     <>
-      <PageHeader
-        title="History"
-        description="Copy pending — this page is owned by Sanity and will be authored by the content team."
-      />
-      <PlaceholderNotice source="Sanity" />
+      <HistoryHero lang={lang} />
+      <HistoryOrigins />
+      <HistoryMilestones />
+      <HistoryBiography />
+      <GlobalCommunityCTA lang={lang} />
+      <div className="h-20" aria-hidden />
     </>
   );
 }

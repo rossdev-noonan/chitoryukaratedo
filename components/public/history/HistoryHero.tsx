@@ -9,10 +9,11 @@ interface HistoryHeroProps {
 }
 
 // Percentages against Figma's 1440x720 hero canvas — same aspect-locked
-// technique as HomeHero, so the oversized "history pic 1" image (it bleeds
-// above/below the hero on the real canvas) clips and scales correctly at
-// every breakpoint instead of relying on a fixed pixel box.
-const historyPicGeometry = { left: 28.889, top: -35.278, width: 75.417, height: 151.0 };
+// technique as HomeHero, so the "history pic 1" box scales correctly at
+// every breakpoint instead of relying on a fixed pixel box. Gil replaced the
+// torii-gate photo with a new aerial dojo-ceremony shot and moved/resized
+// the box (left 501, top 40, w 968, h 539 on the 1440x720 canvas).
+const historyPicGeometry = { left: 34.792, top: 5.556, width: 67.222, height: 74.861 };
 
 export function HistoryHero({ lang }: HistoryHeroProps) {
   return (
@@ -41,10 +42,10 @@ export function HistoryHero({ lang }: HistoryHeroProps) {
           >
             <Image
               src="/images/history/history-pic-1.png"
-              alt="Torii gate and shrine under cherry blossoms"
+              alt="Aerial view of Chito-Ryu practitioners in formation before a ceremonial hall"
               fill
-              sizes="(min-width: 1024px) 75vw, 100vw"
-              className="object-contain"
+              sizes="(min-width: 1024px) 68vw, 100vw"
+              className="object-cover"
             />
           </div>
         </div>

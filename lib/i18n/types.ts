@@ -45,6 +45,7 @@ export interface Dictionary {
     originsHeading: string;
     originsDescription: string;
     accordion: { title: string; body: string }[];
+    originsLearnMoreLink: string;
     newsEventsLabel: string;
     latestUpdates: string;
     viewAllNews: string;

@@ -35,7 +35,7 @@ export default async function HomePage({ params }: HomePageProps) {
       <HomeUpcomingEvents lang={lang} dictionary={dictionary} />
       <div className="flex flex-col">
         <div className="order-1 md:hidden lg:order-1 lg:block">
-          <HomeOrigins dictionary={dictionary} />
+          <HomeOrigins lang={lang} dictionary={dictionary} />
         </div>
         <div className="order-2 md:order-1 lg:order-3">
           <HomeCTA lang={lang} dictionary={dictionary} />

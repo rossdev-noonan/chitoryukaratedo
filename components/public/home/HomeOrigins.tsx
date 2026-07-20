@@ -3,13 +3,15 @@ import Image from "next/image";
 import { OriginsAccordion } from "@/components/public/home/OriginsAccordion";
 import { SectionEyebrow } from "@/components/public/home/SectionEyebrow";
 import { SlideFadeReveal } from "@/components/public/home/SlideFadeReveal";
+import type { Locale } from "@/lib/i18n/locales";
 import type { Dictionary } from "@/lib/i18n/types";
 
 interface HomeOriginsProps {
+  lang: Locale;
   dictionary: Dictionary;
 }
 
-export function HomeOrigins({ dictionary }: HomeOriginsProps) {
+export function HomeOrigins({ lang, dictionary }: HomeOriginsProps) {
   return (
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-0 lg:py-[120px]">
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-[726fr_495fr] lg:gap-[10px] lg:items-center">
@@ -32,7 +34,7 @@ export function HomeOrigins({ dictionary }: HomeOriginsProps) {
             {dictionary.home.originsHeading}
           </h2>
           <p className="text-muted-foreground mt-4">{dictionary.home.originsDescription}</p>
-          <OriginsAccordion dictionary={dictionary} />
+          <OriginsAccordion lang={lang} dictionary={dictionary} />
         </div>
       </div>
     </section>

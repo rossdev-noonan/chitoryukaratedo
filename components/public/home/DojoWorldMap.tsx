@@ -1,139 +1,72 @@
-"use client";
-
-import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
 
-import { CountryFlag } from "@/components/public/CountryFlag";
-import type { Dojo } from "@/lib/directory";
-import type { FeaturedCountry } from "@/lib/countries-featured";
-import type { Locale } from "@/lib/i18n/locales";
+import type { Continent } from "@/lib/continents";
+import type { Dictionary } from "@/lib/i18n/types";
+
+// Pixel-calibrated against the "dojo-directory-map.png" asset (1536x672, same
+// 1280x560 aspect as Figma's map-container): each pin's position was read
+// directly from Gil's Figma layout (node 279:4443, "map-section") rather than
+// estimated, so the callouts sit on their real continents.
+const CONTINENT_PINS: { continent: Continent; xPct: number; yPct: number }[] = [
+  { continent: "northAmerica", xPct: 30.16, yPct: 36.88 },
+  { continent: "southAmerica", xPct: 36.88, yPct: 64.02 },
+  { continent: "europe", xPct: 50.63, yPct: 32.23 },
+  { continent: "asia", xPct: 77.5, yPct: 39.91 },
+  { continent: "australia", xPct: 79.38, yPct: 70.63 },
+  { continent: "africa", xPct: 54.3, yPct: 73.66 },
+];
 
 interface DojoWorldMapProps {
-  lang: Locale;
-  countries: FeaturedCountry[];
-  dojosBySlug: Record<string, Dojo[]>;
-  noDojosLabel: string;
+  dictionary: Dictionary;
+  dojoCountsByContinent: Record<Continent, number>;
 }
 
-export function DojoWorldMap({ lang, countries, dojosBySlug, noDojosLabel }: DojoWorldMapProps) {
-  const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
-  const selected = countries.find((country) => country.slug === selectedSlug) ?? null;
-  const selectedDojos = selected ? (dojosBySlug[selected.slug] ?? []) : [];
-
+export function DojoWorldMap({ dictionary, dojoCountsByContinent }: DojoWorldMapProps) {
   return (
-    <div>
-      <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
-        {countries.map((country) => (
-          <button
-            key={country.slug}
-            type="button"
-            aria-pressed={country.slug === selectedSlug}
-            aria-label={country.name}
-            onClick={() =>
-              setSelectedSlug((current) => (current === country.slug ? null : country.slug))
-            }
-            className={`flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border text-xl transition-transform hover:scale-110 ${
-              country.slug === selectedSlug
-                ? "border-primary bg-primary/10 scale-110"
-                : "border-border bg-background"
-            }`}
+    <div className="relative aspect-[1280/560] w-full overflow-hidden rounded-xl">
+      <Image
+        src="/images/homepage/dojo-directory-map.png"
+        alt="World map showing Chito-Ryu dojo regions"
+        fill
+        sizes="(min-width: 1024px) 1100px, 100vw"
+        className="object-cover"
+      />
+
+      {CONTINENT_PINS.map(({ continent, xPct, yPct }) => {
+        const count = dojoCountsByContinent[continent] ?? 0;
+        const flipLeft = xPct > 55;
+
+        return (
+          <div
+            key={continent}
+            className="absolute flex -translate-y-1/2 items-center"
+            style={{
+              left: `${xPct}%`,
+              top: `${yPct}%`,
+              flexDirection: flipLeft ? "row-reverse" : "row",
+            }}
           >
-            <span className="h-[22px] w-[22px]">
-              <CountryFlag country={country} />
+            <span className="relative block h-[16px] w-[16px] shrink-0 sm:h-[20px] sm:w-[20px] lg:h-[24px] lg:w-[24px]">
+              <Image
+                src="/images/homepage/icons/map-pin-continent.svg"
+                alt=""
+                fill
+                className="object-contain"
+              />
             </span>
-          </button>
-        ))}
-      </div>
-
-      <div className="relative mx-auto mt-8 aspect-[1100/480] w-full max-w-5xl overflow-hidden rounded-xl">
-        <Image
-          src="/images/homepage/world-map.png"
-          alt="World map showing Chito-Ryu dojo regions"
-          fill
-          sizes="(min-width: 1024px) 1024px, 100vw"
-          className="object-cover"
-        />
-
-        <AnimatePresence>
-          {selected && (
-            <motion.div
-              key={selected.slug}
-              className="absolute -translate-x-1/2 -translate-y-full"
-              style={{ left: `${selected.xPct}%`, top: `${selected.yPct}%` }}
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.25 }}
+            <div
+              className={`border-border bg-background flex flex-col gap-0.5 border px-2 py-1 whitespace-nowrap shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] sm:px-3 sm:py-1.5 ${flipLeft ? "mr-1" : "ml-1"}`}
             >
-              <div className="relative flex flex-col items-center">
-                <span className="relative flex h-4 w-4">
-                  <motion.span
-                    className="bg-primary absolute inline-flex h-full w-full rounded-full"
-                    animate={{ scale: [1, 2.4, 1], opacity: [0.6, 0, 0.6] }}
-                    transition={{ duration: 1.8, repeat: Infinity, ease: "easeOut" }}
-                  />
-                  <span className="bg-primary relative inline-flex h-4 w-4 rounded-full" />
-                </span>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        <AnimatePresence>
-          {selected && (
-            <motion.div
-              role="dialog"
-              aria-modal="false"
-              aria-label={selected.name}
-              className="border-border bg-background absolute z-10 w-64 -translate-x-1/2 rounded-lg border p-4 shadow-lg"
-              style={{
-                left: `${Math.min(Math.max(selected.xPct, 18), 82)}%`,
-                top: `${Math.min(selected.yPct + 8, 78)}%`,
-              }}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.2 }}
-            >
-              <div className="flex items-center justify-between gap-2">
-                <span className="flex items-center gap-2 text-sm font-semibold">
-                  <span className="h-4 w-4">
-                    <CountryFlag country={selected} />
-                  </span>
-                  {selected.name}
-                </span>
-                <button
-                  type="button"
-                  aria-label="Close"
-                  onClick={() => setSelectedSlug(null)}
-                  className="text-muted-foreground hover:text-foreground text-xs"
-                >
-                  ✕
-                </button>
-              </div>
-
-              <div className="mt-3 flex max-h-40 flex-col gap-2 overflow-y-auto">
-                {selectedDojos.length === 0 ? (
-                  <p className="text-muted-foreground text-xs">{noDojosLabel}</p>
-                ) : (
-                  selectedDojos.map((dojo) => (
-                    <Link
-                      key={dojo.slug}
-                      href={`/${lang}/dojo/${dojo.slug}`}
-                      className="hover:bg-black/[0.03]"
-                    >
-                      <p className="text-xs font-semibold">{dojo.name}</p>
-                      {dojo.city && <p className="text-muted-foreground text-xs">{dojo.city}</p>}
-                    </Link>
-                  ))
-                )}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+              <p className="text-[10px] font-semibold text-[#1f2937] sm:text-xs lg:text-sm">
+                {dictionary.home.continents[continent]}
+              </p>
+              <p className="text-[9px] text-[#4b5563] sm:text-[11px] lg:text-xs">
+                {dictionary.home.dojoCountLabel.replace("{count}", String(count))}
+              </p>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

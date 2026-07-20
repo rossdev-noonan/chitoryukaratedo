@@ -71,6 +71,8 @@ export interface Dictionary {
       australia: string;
     };
     dojoCountLabel: string;
+    popularCountries: string;
+    seeMore: string;
     trustBar: { value: string; label: string; description: string }[];
     affiliationsLabel: string;
     memberCountriesHeading: string;

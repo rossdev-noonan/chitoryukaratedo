@@ -96,6 +96,8 @@
       "australia": "オーストラリア"
     },
     "dojoCountLabel": "道場 {count} 件",
+    "popularCountries": "人気の国",
+    "seeMore": "もっと見る",
     "trustBar": [
       {
         "value": "100+",

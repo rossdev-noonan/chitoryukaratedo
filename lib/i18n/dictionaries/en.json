@@ -96,6 +96,8 @@
       "australia": "Australia"
     },
     "dojoCountLabel": "{count} dojos",
+    "popularCountries": "Popular countries",
+    "seeMore": "See more",
     "trustBar": [
       {
         "value": "100+",

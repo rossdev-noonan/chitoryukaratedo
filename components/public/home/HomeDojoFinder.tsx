@@ -1,10 +1,10 @@
-import { ArrowRight, ChevronDown, MapPin, Search } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 import { DojoWorldMap } from "@/components/public/home/DojoWorldMap";
 import { SectionEyebrow } from "@/components/public/home/SectionEyebrow";
 import { FEATURED_DIRECTORY_COUNTRIES } from "@/lib/countries-featured";
-import { getApprovedDojos, getDojosByCountrySlugs } from "@/lib/directory";
+import { getApprovedDojos, getDojoCountsByContinent } from "@/lib/directory";
 import type { Locale } from "@/lib/i18n/locales";
 import type { Dictionary } from "@/lib/i18n/types";
 
@@ -14,9 +14,9 @@ interface HomeDojoFinderProps {
 }
 
 export async function HomeDojoFinder({ lang, dictionary }: HomeDojoFinderProps) {
-  const [dojos, dojosBySlug] = await Promise.all([
+  const [dojos, dojoCountsByContinent] = await Promise.all([
     getApprovedDojos(4),
-    getDojosByCountrySlugs(FEATURED_DIRECTORY_COUNTRIES.map((country) => country.slug)),
+    getDojoCountsByContinent(),
   ]);
 
   return (
@@ -35,29 +35,64 @@ export async function HomeDojoFinder({ lang, dictionary }: HomeDojoFinderProps) 
         className="border-border bg-background mx-auto mt-8 flex max-w-3xl flex-col gap-3 border p-3 transition-colors hover:bg-black/[0.02] sm:flex-row sm:items-center"
       >
         <span className="border-border text-muted-foreground flex flex-1 items-center gap-2 border-b px-2 py-2 text-sm sm:border-r sm:border-b-0">
-          <Search className="h-4 w-4 shrink-0" />
+          <span className="relative block h-4 w-4 shrink-0 opacity-60">
+            <Image src="/images/homepage/icons/search.svg" alt="" fill className="object-contain" />
+          </span>
           {dictionary.home.searchPlaceholder}
         </span>
         <span className="text-muted-foreground flex items-center gap-1.5 px-2 py-2 text-sm">
           {dictionary.home.allRegions}
-          <ChevronDown className="h-3.5 w-3.5" />
+          <span className="relative block h-3.5 w-3.5 shrink-0 opacity-60">
+            <Image
+              src="/images/homepage/icons/chevron-down.svg"
+              alt=""
+              fill
+              className="object-contain"
+            />
+          </span>
         </span>
         <span className="text-muted-foreground flex items-center gap-1.5 px-2 py-2 text-sm">
           {dictionary.home.allCountries}
-          <ChevronDown className="h-3.5 w-3.5" />
+          <span className="relative block h-3.5 w-3.5 shrink-0 opacity-60">
+            <Image
+              src="/images/homepage/icons/chevron-down.svg"
+              alt=""
+              fill
+              className="object-contain"
+            />
+          </span>
         </span>
         <span className="bg-primary text-primary-foreground px-6 py-2.5 text-center text-sm font-bold">
           {dictionary.home.search}
         </span>
       </Link>
 
+      <div className="mx-auto mt-4 flex max-w-3xl flex-col gap-2">
+        <p className="text-[#8e8e93]">{dictionary.home.popularCountries}</p>
+        <div className="flex flex-wrap gap-2">
+          {FEATURED_DIRECTORY_COUNTRIES.map((country) => (
+            <Link
+              key={country.slug}
+              href={`/${lang}/dojo-directory?country=${country.slug}`}
+              className="border-border bg-background hover:border-primary flex h-7 items-center gap-2 rounded-full border px-3 py-1.5 text-xs text-[#4b5563] transition-colors"
+            >
+              <span className="relative block h-3.5 w-[22px] shrink-0 overflow-hidden rounded-[1.5px]">
+                <Image src={country.flagSrc} alt="" fill className="object-cover" />
+              </span>
+              {country.name}
+            </Link>
+          ))}
+          <Link
+            href={`/${lang}/dojo-directory`}
+            className="border-border bg-background hover:border-primary flex h-7 items-center rounded-full border px-3 py-1.5 text-xs text-[#4b5563] transition-colors"
+          >
+            {dictionary.home.seeMore}
+          </Link>
+        </div>
+      </div>
+
       <div className="mt-10">
-        <DojoWorldMap
-          lang={lang}
-          countries={FEATURED_DIRECTORY_COUNTRIES}
-          dojosBySlug={dojosBySlug}
-          noDojosLabel="No approved dojos here yet."
-        />
+        <DojoWorldMap dictionary={dictionary} dojoCountsByContinent={dojoCountsByContinent} />
       </div>
 
       {dojos.length > 0 && (
@@ -69,7 +104,16 @@ export async function HomeDojoFinder({ lang, dictionary }: HomeDojoFinderProps) 
               className="flex items-center justify-between gap-4 px-2 py-5 transition-colors hover:bg-black/[0.02]"
             >
               <div className="flex items-center gap-6">
-                <MapPin className="text-primary h-5 w-5 shrink-0" />
+                <span className="bg-background flex h-12 w-12 shrink-0 items-center justify-center rounded-full">
+                  <span className="relative block h-7 w-7">
+                    <Image
+                      src="/images/homepage/icons/map-pin-dojo.svg"
+                      alt=""
+                      fill
+                      className="object-contain"
+                    />
+                  </span>
+                </span>
                 <div>
                   <p className="font-heading font-semibold">{dojo.name}</p>
                   {dojo.city && <p className="text-muted-foreground mt-1 text-sm">{dojo.city}</p>}
@@ -79,7 +123,14 @@ export async function HomeDojoFinder({ lang, dictionary }: HomeDojoFinderProps) 
                 {dojo.contactEmail && (
                   <span className="text-muted-foreground text-sm">{dojo.contactEmail}</span>
                 )}
-                <ArrowRight className="text-primary h-5 w-5 shrink-0" />
+                <span className="relative block h-5 w-5 shrink-0">
+                  <Image
+                    src="/images/homepage/icons/arrow-right.svg"
+                    alt=""
+                    fill
+                    className="object-contain"
+                  />
+                </span>
               </div>
             </Link>
           ))}

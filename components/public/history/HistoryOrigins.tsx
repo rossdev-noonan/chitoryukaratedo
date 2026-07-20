@@ -40,8 +40,8 @@ export function HistoryOrigins() {
         <div>
           <div className="relative h-[380px] w-full shadow-[0px_20px_40px_0px_rgba(0,0,0,0.06)] sm:h-[420px] lg:h-[500px]">
             <Image
-              src="/images/history/founder-portrait.png"
-              alt="Dr. Tsuyoshi Chitose, founder of Chito Ryu"
+              src="/images/history/chito-ryu-emblem-diagram.png"
+              alt="Diagram of the Chito Ryu emblem: Sun, Hands, Chito Ryu, Karate-do, Universe"
               fill
               sizes="(min-width: 1024px) 692px, 100vw"
               className="object-contain"

@@ -31,13 +31,13 @@ export function BackToTop() {
           type="button"
           onClick={() => window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" })}
           aria-label="Back to top"
-          className="fixed right-6 bottom-6 z-50 h-14 w-14 cursor-pointer transition-transform hover:scale-105"
+          className="fixed right-4 bottom-4 z-50 h-11 w-11 cursor-pointer rounded-full bg-white/95 shadow-[0_4px_10px_rgba(0,0,0,0.25)] ring-1 ring-black/5 transition-transform hover:scale-105 sm:right-6 sm:bottom-6 sm:h-14 sm:w-14"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
           transition={{ duration: 0.3 }}
         >
-          <span className="relative block h-full w-full drop-shadow-[0_4px_10px_rgba(0,0,0,0.25)]">
+          <span className="relative block h-full w-full p-1.5 sm:p-2">
             <motion.span
               className="absolute inset-0 block"
               animate={reduceMotion ? undefined : { rotate: 360 }}

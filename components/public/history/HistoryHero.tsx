@@ -1,7 +1,8 @@
-import { ArrowRight, MapPin } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { MapPinSolid } from "@/components/public/icons/MapPinSolid";
 import type { Locale } from "@/lib/i18n/locales";
 
 interface HistoryHeroProps {
@@ -91,7 +92,7 @@ export function HistoryHero({ lang }: HistoryHeroProps) {
               className="border-brand-accent text-brand-accent hover:bg-brand-accent inline-flex w-full items-center justify-center gap-2 border bg-white/80 px-8 py-4 text-base font-semibold transition-colors hover:text-white sm:w-auto"
             >
               Find our Dojo
-              <MapPin className="h-4 w-4" />
+              <MapPinSolid className="h-4 w-4" />
             </Link>
           </div>
         </div>

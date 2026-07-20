@@ -32,23 +32,26 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
 
   return (
     <header className="border-border bg-background sticky top-0 z-40 border-b">
-      <div className="mx-auto flex h-[70px] max-w-7xl items-center justify-between px-2.5 sm:h-20 sm:px-10 lg:px-10">
-        <Link href={`/${lang}`} className="flex items-center gap-1 sm:gap-3">
+      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:h-20 sm:px-10 lg:px-10">
+        <Link href={`/${lang}`} className="flex items-center gap-2 sm:gap-3">
           <Image
             src="/brand/chito-ryu-logo.svg"
             alt="Chito-Ryu International"
-            width={48}
-            height={48}
-            className="h-12 w-12 object-contain sm:h-[70px] sm:w-[70px] lg:h-10 lg:w-10"
+            width={38}
+            height={31}
+            className="h-8 w-[38px] object-contain sm:h-[70px] sm:w-[70px] lg:h-10 lg:w-10"
           />
-          <span className="font-heading flex w-[67px] flex-col items-center text-center leading-tight sm:w-auto sm:items-start sm:text-left">
-            <span className="text-foreground block text-xs font-bold sm:text-base lg:text-xs">
+          <span className="font-heading flex flex-col items-start text-left leading-tight">
+            <span className="text-foreground block text-sm font-bold sm:text-base lg:text-xs">
               千唐流国際
             </span>
-            <span className="text-foreground block text-[10px] font-semibold uppercase sm:text-sm lg:hidden">
+            <span className="text-foreground block text-[10px] font-semibold sm:hidden">
+              Chito Ryu International
+            </span>
+            <span className="text-foreground hidden text-[10px] font-semibold uppercase sm:block sm:text-sm lg:hidden">
               Chito Ryu
             </span>
-            <span className="text-foreground block text-[6px] tracking-[0.84px] uppercase sm:text-[10px] sm:tracking-[0.2px] lg:hidden">
+            <span className="text-foreground hidden text-[6px] tracking-[0.84px] uppercase sm:block sm:text-[10px] sm:tracking-[0.2px] lg:hidden">
               International
             </span>
             <span className="text-foreground hidden text-sm font-semibold lg:block">
@@ -74,13 +77,11 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
         </nav>
 
         <div className="flex items-center gap-3 lg:gap-4">
-          <div className="hidden lg:block">
-            <LanguagePicker lang={lang} dictionary={dictionary} />
-          </div>
+          <LanguagePicker lang={lang} dictionary={dictionary} />
 
           <Link
             href={`/${lang}/login`}
-            className="bg-primary-dark text-primary-foreground hover:bg-primary px-6 py-3 text-sm font-bold whitespace-nowrap transition-colors sm:px-5 sm:py-2.5 lg:px-6 lg:py-3"
+            className="bg-primary-dark text-primary-foreground hover:bg-primary hidden px-6 py-3 text-sm font-bold whitespace-nowrap transition-colors lg:inline-block"
           >
             {dictionary.nav.joinUs}
           </Link>
@@ -150,6 +151,13 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
               </Link>
             ),
           )}
+          <Link
+            href={`/${lang}/login`}
+            className="bg-primary-dark text-primary-foreground hover:bg-primary mt-2 px-6 py-3 text-center text-sm font-bold transition-colors"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            {dictionary.nav.joinUs}
+          </Link>
         </nav>
       )}
     </header>

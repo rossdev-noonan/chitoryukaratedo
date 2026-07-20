@@ -15,7 +15,13 @@ export function CountryFlag({ country, shape = "circle", className = "" }: Count
 
   return (
     <span className={`relative block h-full w-full ${shapeClass} ${className}`}>
-      <Image src={country.flagSrc} alt="" fill className={`object-cover ${shapeClass}`} />
+      <Image
+        src={country.flagSrc}
+        alt=""
+        fill
+        sizes="80px"
+        className={`object-cover ${shapeClass}`}
+      />
     </span>
   );
 }

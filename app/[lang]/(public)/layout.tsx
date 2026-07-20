@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 
+import { BackToTop } from "@/components/public/BackToTop";
 import { Footer } from "@/components/public/Footer";
 import { NavBar } from "@/components/public/NavBar";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
@@ -21,6 +22,7 @@ export default async function PublicLayout({
       <NavBar lang={lang} dictionary={dictionary} />
       <main className="flex-1">{children}</main>
       <Footer lang={lang} dictionary={dictionary} />
+      <BackToTop />
     </>
   );
 }

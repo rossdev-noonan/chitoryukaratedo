@@ -66,24 +66,14 @@ export function HistoryMilestonesSidebar() {
         </li>
         {historySidebarMilestones.map((milestone, index) => {
           const isActive = index === activeIndex;
-          const isRevealed = index <= activeIndex;
           return (
-            <li
-              key={milestone.id}
-              className={`relative flex h-10 gap-3 transition-all duration-500 lg:h-[110px] lg:gap-10 ${
-                isRevealed
-                  ? "translate-y-0 opacity-100"
-                  : "pointer-events-none translate-y-6 opacity-0"
-              }`}
-              style={{ transitionDelay: `${index * 70}ms` }}
-            >
+            <li key={milestone.id} className="relative flex h-10 gap-3 lg:h-[110px] lg:gap-10">
               <div className="relative z-10 flex w-10 shrink-0 items-center justify-center lg:w-6">
                 <a
                   href={`#${milestone.id}`}
                   title={`${milestone.title} — ${milestone.year}`}
                   aria-current={isActive ? "true" : undefined}
-                  tabIndex={isRevealed ? 0 : -1}
-                  className={`font-heading flex h-10 w-10 shrink-0 items-center justify-center rounded-full border text-base transition-all duration-300 lg:h-[55px] lg:w-[55px] lg:text-[28px] ${
+                  className={`font-heading flex h-10 w-10 shrink-0 items-center justify-center rounded-full border text-base transition-colors duration-300 lg:h-[55px] lg:w-[55px] lg:text-[28px] ${
                     isActive
                       ? "border-primary bg-primary text-white shadow-[0_0_0_5px_rgba(193,18,31,0.08)]"
                       : "border-brand-accent/40 bg-background text-brand-accent"

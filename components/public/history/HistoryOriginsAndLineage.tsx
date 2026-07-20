@@ -25,7 +25,7 @@ export function HistoryOriginsAndLineage() {
           <HistoryMilestonesSidebar />
         </aside>
 
-        <div className="flex min-w-0 flex-col gap-2 py-10 lg:px-10">
+        <div className="bg-white flex min-w-0 flex-col gap-2 py-10 lg:px-10">
           <HistoryOrigins />
 
           <article id="origin-in-china" className="scroll-mt-[38vh] pt-10 lg:pt-[60px]">

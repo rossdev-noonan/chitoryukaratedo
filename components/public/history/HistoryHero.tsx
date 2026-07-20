@@ -71,12 +71,25 @@ export function HistoryHero({ lang }: HistoryHeroProps) {
             home / about / history
           </p>
           <div className="bg-primary mt-2 h-0.5 w-[86px]" />
-          <h1 className="font-heading mt-3 text-3xl font-semibold text-[#1f2937] sm:text-4xl lg:text-5xl">
+          {/* Gil's desktop hero copy has moved on from mobile's — mobile
+              frame (507:346) still literally reads "History of Chito Ryu" as
+              of this sync, so these render different text per breakpoint
+              rather than picking one. */}
+          <h1 className="font-heading mt-3 text-3xl font-semibold text-[#1f2937] md:hidden">
             History of Chito Ryu
           </h1>
-          <p className="mt-4 max-w-[480px] text-base leading-[1.6] text-[#4b5563] lg:text-lg">
+          <h1 className="font-heading mt-3 hidden text-4xl font-semibold text-[#1f2937] md:block lg:text-5xl">
+            A thousand years,
+            <br />
+            one lineage.
+          </h1>
+          <p className="mt-4 max-w-[480px] text-base leading-[1.6] text-[#4b5563] md:hidden">
             A tradition spanning over one thousand years, born in China and elevated in Okinawa
             and Japan.
+          </p>
+          <p className="mt-4 hidden max-w-[480px] text-base leading-[1.6] text-[#4b5563] md:block lg:text-lg">
+            From Fujian&apos;s temple courtyards to Chitose Sensei&apos;s dojo in Kumamoto — the
+            story of how Chito Ryu came to be.
           </p>
 
           <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:flex-wrap lg:mt-8">

@@ -11,34 +11,29 @@
 // Tang Dynasty — each with its own portrait. Confirmed by re-checking the
 // live Figma desktop frame directly (height grew from 12122px to 15492px
 // since the last sync), not just the cached dump.
+//
+// Further re-sync: Key Milestones moved from its own full-width section into
+// a compact sticky sidebar (year + title only, no description) that runs
+// alongside Origins/Origin-in-China/Tang-Dynasty. Note Gil's sidebar circles
+// literally repeat the "唐" character for 3 of the 4 milestones (only the
+// first uses "起") — kept as-is since it reads as his actual current file
+// state, not an obvious transcription typo, but worth a heads-up that it may
+// be a copy/paste slip on his end.
 
-export interface HistoryMilestone {
+export const historyOriginsDescription =
+  "Discover the history, philosophy and leadership behind Chito Ryu Karate Do, founded by Dr. Tsuyoshi Chitose, and now practiced by generations of martial artists across the globe.";
+
+export interface HistorySidebarMilestone {
+  char: string;
   year: string;
   title: string;
-  description: string;
 }
 
-export const historyMilestones: HistoryMilestone[] = [
-  {
-    year: "~1000",
-    title: "Origin in China",
-    description: "Karate-do believed to have originated approximately 1000 years ago in China.",
-  },
-  {
-    year: "618–907",
-    title: "Tang Dynasty (To-te)",
-    description: "To-te (Karate-do) flourished during the Tang Dynasty.",
-  },
-  {
-    year: "1898–1984",
-    title: "Tsuyoshi Chitose",
-    description: "Chitose Sensei is born in Okinawa and devotes his life to Karate-do.",
-  },
-  {
-    year: "1984–",
-    title: "International Federation",
-    description: "The International Chito-Ryu Karate-Do Federation continues the legacy worldwide.",
-  },
+export const historySidebarMilestones: HistorySidebarMilestone[] = [
+  { char: "起", year: "c. 1000 CE", title: "Origin in China" },
+  { char: "唐", year: "618-907", title: "Tang Dynasty" },
+  { char: "唐", year: "1898-1984", title: "Tsuyoshi Chitose" },
+  { char: "唐", year: "1984-present", title: "International Federation" },
 ];
 
 export interface HistoryMeaningDefinition {

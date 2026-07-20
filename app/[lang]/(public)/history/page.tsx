@@ -3,8 +3,7 @@ import type { Metadata } from "next";
 import { GlobalCommunityCTA } from "@/components/public/GlobalCommunityCTA";
 import { HistoryBiography } from "@/components/public/history/HistoryBiography";
 import { HistoryHero } from "@/components/public/history/HistoryHero";
-import { HistoryMilestones } from "@/components/public/history/HistoryMilestones";
-import { HistoryOrigins } from "@/components/public/history/HistoryOrigins";
+import { HistoryOriginsAndLineage } from "@/components/public/history/HistoryOriginsAndLineage";
 import type { Locale } from "@/lib/i18n/locales";
 
 export const metadata: Metadata = {
@@ -22,8 +21,7 @@ export default async function HistoryPage({ params }: HistoryPageProps) {
   return (
     <>
       <HistoryHero lang={lang} />
-      <HistoryOrigins />
-      <HistoryMilestones />
+      <HistoryOriginsAndLineage />
       <HistoryBiography />
       <GlobalCommunityCTA lang={lang} />
       <div className="h-20" aria-hidden />

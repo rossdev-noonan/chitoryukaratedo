@@ -55,3 +55,8 @@ next-env.d.ts
 
 # sanity CLI local runtime cache
 .sanity
+
+# Gil's raw high-res source images (Ross drops these locally for reference/export
+# only — we pull in and optimize individual assets into public/images/, we don't
+# commit the whole raw drop)
+/OneDrive_1_7-20-2026

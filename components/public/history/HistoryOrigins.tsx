@@ -1,7 +1,12 @@
 import Image from "next/image";
 
 import { SectionEyebrow } from "@/components/public/home/SectionEyebrow";
-import { historyFounderCitation, historyMeaningDefinitions } from "@/lib/history-content";
+import {
+  historyFounderCitation,
+  historyMeaningDefinitions,
+  historyWhatIsChitoRyuHeading,
+  historyWhatIsChitoRyuParagraphs,
+} from "@/lib/history-content";
 
 export function HistoryOrigins() {
   return (
@@ -53,6 +58,26 @@ export function HistoryOrigins() {
               {historyFounderCitation.linkText}
             </a>
           </p>
+        </div>
+      </div>
+
+      <div className="mt-16 text-left lg:mt-20">
+        <h3 className="text-primary text-2xl font-semibold">{historyWhatIsChitoRyuHeading}</h3>
+        <div className="mt-6 flex flex-col gap-4">
+          {historyWhatIsChitoRyuParagraphs.map((paragraph, index) => (
+            <p key={index} className="leading-[1.7] text-black">
+              {paragraph}
+            </p>
+          ))}
+        </div>
+        <div className="relative mt-10 aspect-[1280/838] w-full shadow-[0px_20px_40px_0px_rgba(0,0,0,0.06)]">
+          <Image
+            src="/images/history/about-china-map.png"
+            alt="Dr. Tsuyoshi Chitose gesturing before a map of North America"
+            fill
+            sizes="(min-width: 1024px) 1100px, 100vw"
+            className="object-cover"
+          />
         </div>
       </div>
     </section>

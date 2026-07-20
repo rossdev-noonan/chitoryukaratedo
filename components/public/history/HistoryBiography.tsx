@@ -2,17 +2,12 @@ import Image from "next/image";
 
 import {
   historyAragakiParagraph,
-  historyDojoParagraph,
-  historyDojoPhotoCaption,
-  historyDojoSecondParagraph,
-  historyDojoSecondPhotoCaption,
-  historyDometrichParagraph,
-  historyDometrichPhotoCaption,
+  historyChinaLineageByline,
+  historyChinaLineageHeading,
+  historyChinaLineageParagraphs,
   historyEarlyYearsCaption,
   historyEarlyYearsParagraph,
   historyHirohitoSectionParagraphs,
-  historyIntroParagraphs,
-  historyMainParagraphs,
   historyPortraits,
   historyWarEraParagraph,
 } from "@/lib/history-content";
@@ -64,29 +59,28 @@ export function HistoryBiography() {
     <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-10 lg:pb-20">
       <article className="border-primary-dark border-t-[3px] px-4 py-8 sm:px-6 lg:px-10 lg:py-10">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-10">
-          <div className="relative h-[300px] w-full shrink-0 shadow-[0px_20px_40px_0px_rgba(0,0,0,0.06)] sm:h-[380px] lg:h-[408px] lg:w-[443px]">
+          <div className="relative h-[300px] w-full shrink-0 shadow-[0px_20px_40px_0px_rgba(0,0,0,0.06)] sm:h-[380px] lg:h-[644px] lg:w-[521px]">
             <Image
-              src="/images/history/chitose-portrait.png"
+              src="/images/history/origin-china-portrait.png"
               alt="Dr. Tsuyoshi Chitose"
               fill
-              sizes="(min-width: 1024px) 443px, 100vw"
+              sizes="(min-width: 1024px) 521px, 100vw"
               className="object-cover"
             />
           </div>
           <div>
             <h2 className="font-heading text-3xl font-semibold text-black sm:text-4xl">
-              Tsuyoshi Chitose
+              {historyChinaLineageHeading}
             </h2>
+            <p className="mt-4 leading-[1.6] font-semibold whitespace-pre-line text-black">
+              {historyChinaLineageByline}
+            </p>
             <div className="mt-6 flex flex-col gap-4">
-              {historyIntroParagraphs.map((paragraph, index) =>
-                paragraph ? (
-                  <p key={index} className="leading-[1.6] text-black">
-                    {paragraph}
-                  </p>
-                ) : (
-                  <div key={index} aria-hidden />
-                ),
-              )}
+              {historyChinaLineageParagraphs.map((paragraph, index) => (
+                <p key={index} className="leading-[1.6] text-black">
+                  {paragraph}
+                </p>
+              ))}
             </div>
           </div>
         </div>
@@ -128,49 +122,6 @@ export function HistoryBiography() {
         </div>
 
         <p className="mt-10 leading-[1.6] text-black">{historyWarEraParagraph}</p>
-
-        <div className="mt-12 flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-10">
-          <div className="lg:w-[467px] lg:shrink-0">
-            <h3 className="text-2xl font-semibold text-black">Chitose Opens his own Dojo</h3>
-            <p className="mt-5 leading-[1.6] text-black">{historyDojoParagraph}</p>
-          </div>
-          <CaptionedPhoto
-            src="/images/history/era-photo.png"
-            alt="Chito Ryu Karate-Do practitioners"
-            caption={historyDojoPhotoCaption.title}
-            subtitle={historyDojoPhotoCaption.subtitle}
-          />
-        </div>
-
-        <div className="mt-12 flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-10">
-          <CaptionedPhoto
-            src="/images/history/funakoshi-1955.png"
-            alt="Chitose and Professor Gichin Funakoshi, August 18, 1955"
-            caption={historyDojoSecondPhotoCaption}
-          />
-          <p className="leading-[1.6] text-black lg:w-[467px] lg:shrink-0">
-            {historyDojoSecondParagraph}
-          </p>
-        </div>
-
-        <div className="mt-12 flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-10">
-          <p className="leading-[1.6] text-black lg:w-[467px] lg:shrink-0">
-            {historyDometrichParagraph}
-          </p>
-          <CaptionedPhoto
-            src="/images/history/osensei-dometrich.png"
-            alt="O'Sensei with Dometrich"
-            caption={historyDometrichPhotoCaption}
-          />
-        </div>
-
-        <div className="mt-10 flex flex-col gap-6">
-          {historyMainParagraphs.map((paragraph, index) => (
-            <p key={index} className="leading-[1.6] text-black">
-              {paragraph}
-            </p>
-          ))}
-        </div>
       </article>
     </section>
   );

@@ -27,13 +27,21 @@ export interface HistorySidebarMilestone {
   char: string;
   year: string;
   title: string;
+  id: string;
 }
 
+// `id` targets the matching section's anchor (see HistoryOriginsAndLineage.tsx
+// and HistoryBiography.tsx) — the sidebar scroll-spies against these.
 export const historySidebarMilestones: HistorySidebarMilestone[] = [
-  { char: "起", year: "c. 1000 CE", title: "Origin in China" },
-  { char: "唐", year: "618-907", title: "Tang Dynasty" },
-  { char: "唐", year: "1898-1984", title: "Tsuyoshi Chitose" },
-  { char: "唐", year: "1984-present", title: "International Federation" },
+  { char: "起", year: "c. 1000 CE", title: "Origin in China", id: "origin-in-china" },
+  { char: "唐", year: "618-907", title: "Tang Dynasty", id: "tang-dynasty" },
+  { char: "千", year: "1898-1984", title: "Tsuyoshi Chitose", id: "tsuyoshi-chitose" },
+  {
+    char: "連",
+    year: "1984-present",
+    title: "International Federation",
+    id: "international-federation",
+  },
 ];
 
 export interface HistoryMeaningDefinition {
@@ -170,7 +178,10 @@ export const historyFairmontParagraph =
 
 // Newly given its own portrait this sync — previously just plain text inside
 // the flowing paragraphs.
-export const historySlomanskiPortrait = { src: "/images/history/slomanski.png", caption: 'Henry "Hank" Slomanski' };
+export const historySlomanskiPortrait = {
+  src: "/images/history/slomanski.png",
+  caption: 'Henry "Hank" Slomanski',
+};
 export const historySlomanskiParagraph =
   "Henry Slomanski, a career soldier who was a member of the 187th Airborne Regimental Combat Team in Korea and Japan, had a small group he was teaching back on base in the USA. Two well known students at this time were Dan Inosanto, who in later years would become known for his connections with Bruce Lee, and Elvis Presley, who had started his karate training in Germany under Jurgen Seydel, and received his shodan in 1960 under Slomanski. Slomanski ended up in Vietnam by the mid 60's and was supposedly killed in a helicopter crash while on duty there. Another to show up during this period, 1956/57 was a student of Slomanski, Wallace Reumann, now a godan, who settled in Trenton, New Jersey. From this beginning in Trenton Reumann would create the American Karate Federation growing to a group of 27 dojo. In the early 60's Reumann moved out to California settling in the Monterey area. He would connect with Dometrich at Chitose's request. The New Jersey dojo was left in the hands of James Cheatham, a sandan under Reumann, and under this new leadership some top fighters were produced. Some of the students who would walk in the door of the Broad St. dojo under Cheatham were Karriem Allah who would gain fame through his television fight with Jeff Smith, and create his own karate system. Rudy Croswell, later to be a Shito Ryu instructor in the west and Prentiss Newton who attended the 1963 Canadian Championships held in Toronto under Masami Tsuruoka, and almost beat the eventual winner, Shane Higashi. Connections with the Nation Of Islam would cause the dojo to be expelled from the AKF organization shortly before Cheatham's death in a plane crash in 1965.";
 

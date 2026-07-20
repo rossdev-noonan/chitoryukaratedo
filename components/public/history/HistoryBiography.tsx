@@ -27,24 +27,15 @@ import { CaptionedPhoto, Portrait } from "@/components/public/history/HistoryPho
 
 export function HistoryBiography() {
   return (
-    <section className="mx-auto flex max-w-7xl flex-col gap-8 px-4 pb-16 sm:px-6 lg:px-10 lg:pb-20">
+    <div className="flex flex-col gap-16 pb-16 lg:pb-20">
       {/* Tsuyoshi Chitose (485:246) — the full article, restored */}
-      <article className="border-primary-dark border-t-[3px] px-4 py-8 sm:px-6 lg:px-10 lg:py-10">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-10">
-          <div className="relative h-[300px] w-full shrink-0 shadow-[0px_20px_40px_0px_rgba(0,0,0,0.06)] sm:h-[380px] lg:h-[408px] lg:w-[443px]">
-            <Image
-              src="/images/history/chitose-portrait.png"
-              alt="Dr. Tsuyoshi Chitose"
-              fill
-              sizes="(min-width: 1024px) 443px, 100vw"
-              className="object-cover"
-            />
-          </div>
+      <article id="tsuyoshi-chitose" className="scroll-mt-[38vh] pt-16">
+        <div className="flex flex-col gap-8">
           <div>
-            <h2 className="font-heading text-3xl font-semibold text-black sm:text-4xl">
+            <h2 className="font-heading text-4xl font-semibold text-black sm:text-5xl">
               Tsuyoshi Chitose
             </h2>
-            <div className="mt-6 flex flex-col gap-4">
+            <div className="mt-8 flex flex-col gap-4">
               {historyIntroParagraphs.map((paragraph, index) =>
                 paragraph ? (
                   <p key={index} className="leading-[1.6] text-black">
@@ -56,10 +47,19 @@ export function HistoryBiography() {
               )}
             </div>
           </div>
+          <div className="relative h-[360px] w-full shadow-[0px_20px_40px_0px_rgba(0,0,0,0.06)] sm:h-[470px] lg:h-[553px]">
+            <Image
+              src="/images/history/chitose-portrait.png"
+              alt="Dr. Tsuyoshi Chitose"
+              fill
+              sizes="(min-width: 1024px) 769px, 100vw"
+              className="object-cover"
+            />
+          </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-10">
-          <div className="lg:w-[467px] lg:shrink-0">
+        <div className="mt-16 flex flex-col gap-8">
+          <div>
             <h3 className="text-2xl font-semibold text-black">Early Years</h3>
             <p className="mt-5 leading-[1.6] text-black">{historyEarlyYearsParagraph}</p>
           </div>
@@ -72,8 +72,8 @@ export function HistoryBiography() {
 
         <p className="mt-10 leading-[1.6] text-black">{historyAragakiParagraph}</p>
 
-        <div className="mt-12 flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-10">
-          <div className="flex flex-col gap-10 sm:flex-row lg:w-[443px] lg:shrink-0 lg:flex-col">
+        <div className="mt-12 flex flex-col gap-8">
+          <div className="flex flex-col gap-10 sm:flex-row">
             <Portrait
               src={historyPortraits.hirohito.src}
               name={historyPortraits.hirohito.name}
@@ -96,8 +96,8 @@ export function HistoryBiography() {
 
         <p className="mt-10 leading-[1.6] text-black">{historyWarEraParagraph}</p>
 
-        <div className="mt-12 flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-10">
-          <div className="lg:w-[467px] lg:shrink-0">
+        <div className="mt-12 flex flex-col gap-8">
+          <div>
             <h3 className="text-2xl font-semibold text-black">Chitose Opens his own Dojo</h3>
             <p className="mt-5 leading-[1.6] text-black">{historyDojoParagraph}</p>
           </div>
@@ -109,22 +109,18 @@ export function HistoryBiography() {
           />
         </div>
 
-        <div className="mt-12 flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-10">
+        <div className="mt-12 flex flex-col gap-8">
           <CaptionedPhoto
             src="/images/history/funakoshi-1955.png"
             alt="Chitose and Professor Gichin Funakoshi, August 18, 1955"
             caption={historyDojoSecondPhotoCaption}
             circular
           />
-          <p className="leading-[1.6] text-black lg:w-[467px] lg:shrink-0">
-            {historyDojoSecondParagraph}
-          </p>
+          <p className="leading-[1.6] text-black">{historyDojoSecondParagraph}</p>
         </div>
 
-        <div className="mt-12 flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-10">
-          <p className="leading-[1.6] text-black lg:w-[467px] lg:shrink-0">
-            {historyDometrichParagraph}
-          </p>
+        <div className="mt-12 flex flex-col gap-8">
+          <p className="leading-[1.6] text-black">{historyDometrichParagraph}</p>
           <CaptionedPhoto
             src="/images/history/osensei-dometrich.png"
             alt="O'Sensei with Dometrich"
@@ -135,16 +131,14 @@ export function HistoryBiography() {
 
         <p className="mt-10 leading-[1.6] text-black">{historyFairmontParagraph}</p>
 
-        <div className="mt-12 flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-10">
+        <div className="mt-12 flex flex-col gap-8">
           <CaptionedPhoto
             src={historySlomanskiPortrait.src}
             alt={historySlomanskiPortrait.caption}
             caption={historySlomanskiPortrait.caption}
             circular
           />
-          <p className="leading-[1.6] text-black lg:w-[467px] lg:shrink-0">
-            {historySlomanskiParagraph}
-          </p>
+          <p className="leading-[1.6] text-black">{historySlomanskiParagraph}</p>
         </div>
 
         <div className="mt-10 flex flex-col gap-6">
@@ -157,23 +151,21 @@ export function HistoryBiography() {
       </article>
 
       {/* International Federation (505:1134) */}
-      <article className="border-primary-dark border-t-[3px] px-4 py-8 sm:px-6 lg:px-10 lg:py-10">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-10">
-          <div className="lg:w-[521px] lg:shrink-0">
-            <Portrait
-              src={historyInternationalFederationPortrait.src}
-              name={historyInternationalFederationPortrait.name}
-              caption={historyInternationalFederationPortrait.caption}
-            />
-          </div>
+      <article id="international-federation" className="scroll-mt-[38vh] pt-16">
+        <div className="flex flex-col gap-8">
           <div>
-            <h2 className="font-heading text-3xl font-semibold text-black sm:text-4xl">
+            <h2 className="font-heading text-4xl font-semibold text-black sm:text-5xl">
               {historyInternationalFederationHeading}
             </h2>
             <p className="mt-6 leading-[1.6] text-black">
               {historyInternationalFederationIntroParagraph}
             </p>
           </div>
+          <Portrait
+            src={historyInternationalFederationPortrait.src}
+            name={historyInternationalFederationPortrait.name}
+            caption={historyInternationalFederationPortrait.caption}
+          />
         </div>
 
         <div className="mt-10 flex flex-col gap-6">
@@ -184,6 +176,6 @@ export function HistoryBiography() {
           ))}
         </div>
       </article>
-    </section>
+    </div>
   );
 }

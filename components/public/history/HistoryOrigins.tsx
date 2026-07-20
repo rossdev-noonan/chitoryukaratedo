@@ -11,21 +11,23 @@ import {
 
 export function HistoryOrigins() {
   return (
-    <div className="text-center">
-      <SectionEyebrow centered>Origins</SectionEyebrow>
-      <div className="bg-primary mx-auto mt-2 h-0.5 w-[86px]" />
-      <h2 className="font-heading mt-2 text-3xl font-bold sm:text-4xl">The Origin of Chito Ryu</h2>
-      <p className="text-muted-foreground mx-auto mt-4 max-w-2xl leading-[1.7]">
+    <div>
+      <SectionEyebrow>Origins</SectionEyebrow>
+      <div className="bg-primary mt-2 h-0.5 w-[86px]" />
+      <h2 className="font-heading mt-2 text-4xl font-semibold sm:text-5xl">
+        The Origin of Chito Ryu
+      </h2>
+      <p className="text-muted-foreground mt-12 max-w-[769px] text-base leading-[1.7]">
         {historyOriginsDescription}
       </p>
 
-      <div className="mt-12 grid grid-cols-1 gap-10 text-left lg:grid-cols-[548fr_692fr] lg:items-center lg:gap-10">
+      <div className="mt-20 flex flex-col gap-10">
         <div>
           <h3 className="text-primary text-2xl font-semibold">The Meaning of CHI, TO, RYU</h3>
           <p className="mt-5 leading-[1.7] text-black">
-            O-Sensei was told by Arigaki Sensei that Karate-do originated approximately one
-            thousand years ago in China. Based on this, O-Sensei named his style “Chito Ryu”,
-            according to the origins of Karate-do.
+            O-Sensei was told by Arigaki Sensei that Karate-do originated approximately one thousand
+            years ago in China. Based on this, O-Sensei named his style “Chito Ryu”, according to
+            the origins of Karate-do.
           </p>
           <ul className="mt-6 flex flex-col gap-6">
             {historyMeaningDefinitions.map((item) => (
@@ -38,7 +40,7 @@ export function HistoryOrigins() {
         </div>
 
         <div>
-          <div className="relative h-[380px] w-full shadow-[0px_20px_40px_0px_rgba(0,0,0,0.06)] sm:h-[420px] lg:h-[500px]">
+          <div className="relative h-[380px] w-full max-w-[692px] shadow-[0px_20px_40px_0px_rgba(0,0,0,0.06)] sm:h-[420px] lg:h-[500px]">
             <Image
               src="/images/history/chito-ryu-emblem-diagram.png"
               alt="Diagram of the Chito Ryu emblem: Sun, Hands, Chito Ryu, Karate-do, Universe"

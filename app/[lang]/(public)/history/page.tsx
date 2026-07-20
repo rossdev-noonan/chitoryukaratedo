@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 
 import { GlobalCommunityCTA } from "@/components/public/GlobalCommunityCTA";
-import { HistoryBiography } from "@/components/public/history/HistoryBiography";
 import { HistoryHero } from "@/components/public/history/HistoryHero";
 import { HistoryOriginsAndLineage } from "@/components/public/history/HistoryOriginsAndLineage";
 import type { Locale } from "@/lib/i18n/locales";
 
 export const metadata: Metadata = {
   title: "History",
-  description: "The history of Chito-Ryu karate, from its origins in China to Dr. Tsuyoshi Chitose founding Chito Ryu in Japan.",
+  description:
+    "The history of Chito-Ryu karate, from its origins in China to Dr. Tsuyoshi Chitose founding Chito Ryu in Japan.",
 };
 
 interface HistoryPageProps {
@@ -22,7 +22,6 @@ export default async function HistoryPage({ params }: HistoryPageProps) {
     <>
       <HistoryHero lang={lang} />
       <HistoryOriginsAndLineage />
-      <HistoryBiography />
       <GlobalCommunityCTA lang={lang} />
       <div className="h-20" aria-hidden />
     </>

@@ -18,10 +18,13 @@ const historyPicGeometry = { left: 34.792, top: 5.556, width: 67.222, height: 74
 export function HistoryHero({ lang }: HistoryHeroProps) {
   return (
     <section className="relative overflow-hidden md:h-[406px] lg:h-[720px]">
-      <div className="absolute inset-0">
+      {/* Below md: Figma's mobile hero is just a flat 240px banner photo, not
+          the layered bg + repositioned crop used at md+ (that composition is
+          desktop-canvas math and doesn't translate to a narrow viewport). */}
+      <div className="relative h-[240px] w-full md:hidden">
         <Image
-          src="/images/history/hero-bg-practitioner.png"
-          alt=""
+          src="/images/history/history-pic-1.png"
+          alt="Aerial view of Chito-Ryu practitioners in formation before a ceremonial hall"
           fill
           priority
           sizes="100vw"
@@ -29,7 +32,17 @@ export function HistoryHero({ lang }: HistoryHeroProps) {
         />
       </div>
 
-      <div className="relative h-[280px] w-full overflow-hidden sm:h-[360px] md:h-full">
+      <div className="absolute inset-0 hidden md:block">
+        <Image
+          src="/images/history/hero-bg-practitioner.png"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+      </div>
+
+      <div className="relative hidden h-full w-full overflow-hidden md:block">
         <div className="absolute top-0 right-0 h-full aspect-[1440/720]">
           <div
             className="absolute"
@@ -68,14 +81,14 @@ export function HistoryHero({ lang }: HistoryHeroProps) {
           <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:flex-wrap lg:mt-8">
             <Link
               href={`/${lang}/login`}
-              className="bg-primary-dark text-primary-foreground hover:bg-primary inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-bold transition-colors"
+              className="bg-primary-dark text-primary-foreground hover:bg-primary inline-flex w-full items-center justify-center gap-2 px-8 py-4 text-base font-bold transition-colors sm:w-auto"
             >
               Join our Community
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               href={`/${lang}/dojo-directory`}
-              className="border-brand-accent text-brand-accent hover:bg-brand-accent inline-flex items-center justify-center gap-2 border bg-white/80 px-8 py-4 text-base font-semibold transition-colors hover:text-white"
+              className="border-brand-accent text-brand-accent hover:bg-brand-accent inline-flex w-full items-center justify-center gap-2 border bg-white/80 px-8 py-4 text-base font-semibold transition-colors hover:text-white sm:w-auto"
             >
               Find our Dojo
               <MapPin className="h-4 w-4" />

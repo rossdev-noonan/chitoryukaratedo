@@ -38,7 +38,7 @@ export function HistoryOrigins() {
         </div>
 
         <div>
-          <div className="relative h-[320px] w-full shadow-[0px_20px_40px_0px_rgba(0,0,0,0.06)] sm:h-[420px] lg:h-[500px]">
+          <div className="relative h-[380px] w-full shadow-[0px_20px_40px_0px_rgba(0,0,0,0.06)] sm:h-[420px] lg:h-[500px]">
             <Image
               src="/images/history/founder-portrait.png"
               alt="Dr. Tsuyoshi Chitose, founder of Chito Ryu"

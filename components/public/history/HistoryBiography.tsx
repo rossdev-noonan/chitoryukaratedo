@@ -59,7 +59,7 @@ export function HistoryBiography() {
     <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-10 lg:pb-20">
       <article className="border-primary-dark border-t-[3px] px-4 py-8 sm:px-6 lg:px-10 lg:py-10">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-10">
-          <div className="relative h-[300px] w-full shrink-0 shadow-[0px_20px_40px_0px_rgba(0,0,0,0.06)] sm:h-[380px] lg:h-[644px] lg:w-[521px]">
+          <div className="relative h-[360px] w-full shrink-0 shadow-[0px_20px_40px_0px_rgba(0,0,0,0.06)] sm:h-[380px] lg:h-[644px] lg:w-[521px]">
             <Image
               src="/images/history/origin-china-portrait.png"
               alt="Dr. Tsuyoshi Chitose"

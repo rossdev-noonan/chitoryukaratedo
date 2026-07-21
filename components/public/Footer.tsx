@@ -31,33 +31,39 @@ export function Footer({ lang, dictionary }: FooterProps) {
 
   return (
     <footer className="bg-foreground text-background">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-10">
-        <div className="grid grid-cols-2 gap-x-8 gap-y-10 lg:grid-cols-4">
-          <div className="col-span-2 lg:col-span-1">
+      <div className="mx-auto max-w-7xl px-5 py-10 sm:px-6 sm:py-16 md:px-10 md:pt-16 md:pb-12 lg:px-10">
+        <div className="grid grid-cols-1 gap-y-7 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-10 md:grid-cols-3 md:gap-x-10 md:gap-y-10 xl:grid-cols-4">
+          <div className="mb-3 min-h-[110px] sm:col-span-2 sm:mb-0 sm:min-h-0 md:col-span-3 xl:col-span-1">
             <div className="flex items-center gap-3">
               <Image
                 src="/brand/chito-ryu-logo.svg"
                 alt=""
                 width={40}
                 height={40}
-                className="h-10 w-10 object-contain"
+                className="h-8 w-10 object-contain sm:h-10 sm:w-10 md:h-8 md:w-10 xl:h-10 xl:w-10"
               />
               <span className="font-heading leading-tight">
-                <span className="block text-xs opacity-70">千唐流国際</span>
-                <span className="block text-sm font-semibold">Chito Ryu International</span>
+                <span className="block text-xs font-bold opacity-70 md:text-sm xl:text-xs">
+                  千唐流国際
+                </span>
+                <span className="block text-sm font-semibold md:text-[10px] xl:text-sm">
+                  Chito Ryu International
+                </span>
               </span>
             </div>
-            <p className="mt-4 text-sm opacity-70">{dictionary.footer.tagline}</p>
+            <p className="mt-4 text-[13px] leading-[1.5] opacity-70 sm:text-sm">
+              {dictionary.footer.tagline}
+            </p>
           </div>
 
-          <div>
-            <h3 className="text-sm font-semibold">{dictionary.footer.quickLinks}</h3>
-            <ul className="mt-4 flex flex-col gap-3">
-              {quickLinks.map((item) => (
-                <li key={item.label}>
+          <div className="min-h-[117px] sm:min-h-0">
+            <h3 className="text-sm leading-[17px] font-semibold">{dictionary.footer.quickLinks}</h3>
+            <ul className="mt-3 flex flex-col gap-2 sm:mt-4 sm:gap-3">
+              {quickLinks.map((item, index) => (
+                <li key={item.label} className={index === 3 ? "md:hidden xl:list-item" : undefined}>
                   <Link
                     href={`/${lang}${item.href}`}
-                    className="text-sm opacity-70 hover:opacity-100"
+                    className="block text-[13px] leading-4 opacity-70 hover:opacity-100 sm:text-sm"
                   >
                     {item.label}
                   </Link>
@@ -66,14 +72,16 @@ export function Footer({ lang, dictionary }: FooterProps) {
             </ul>
           </div>
 
-          <div>
-            <h3 className="text-sm font-semibold">{dictionary.footer.resourcesHeading}</h3>
-            <ul className="mt-4 flex flex-col gap-3">
-              {resourceLinks.map((item) => (
-                <li key={item.label}>
+          <div className="min-h-[117px] sm:min-h-0">
+            <h3 className="text-sm leading-[17px] font-semibold">
+              {dictionary.footer.resourcesHeading}
+            </h3>
+            <ul className="mt-3 flex flex-col gap-2 sm:mt-4 sm:gap-3">
+              {resourceLinks.map((item, index) => (
+                <li key={item.label} className={index === 3 ? "md:hidden xl:list-item" : undefined}>
                   <Link
                     href={`/${lang}${item.href}`}
-                    className="text-sm opacity-70 hover:opacity-100"
+                    className="block text-[13px] leading-4 opacity-70 hover:opacity-100 sm:text-sm"
                   >
                     {item.label}
                   </Link>
@@ -82,12 +90,12 @@ export function Footer({ lang, dictionary }: FooterProps) {
             </ul>
           </div>
 
-          <div className="col-span-2 lg:col-span-1">
-            <h3 className="text-sm font-semibold">{dictionary.footer.connect}</h3>
-            <div className="mt-4 flex flex-col gap-4">
+          <div className="min-h-[81px] sm:col-span-2 sm:min-h-0 md:col-span-1">
+            <h3 className="text-sm leading-[17px] font-semibold">{dictionary.footer.connect}</h3>
+            <div className="mt-3 flex flex-col gap-3 sm:mt-4 sm:gap-4">
               <a
                 href="mailto:info@chitoryu.org"
-                className="flex items-center gap-2 text-sm opacity-70 hover:opacity-100"
+                className="flex items-center gap-2 text-[13px] leading-4 opacity-70 hover:opacity-100 sm:text-sm"
               >
                 <Mail className="h-4 w-4" />
                 info@chitoryu.org
@@ -100,7 +108,7 @@ export function Footer({ lang, dictionary }: FooterProps) {
                   aria-label="Facebook"
                   className="opacity-70 hover:opacity-100"
                 >
-                  <FacebookIcon className="h-5 w-5" />
+                  <FacebookIcon className="h-6 w-6 sm:h-5 sm:w-5" />
                 </a>
                 <a
                   href="https://instagram.com"
@@ -109,31 +117,31 @@ export function Footer({ lang, dictionary }: FooterProps) {
                   aria-label="Instagram"
                   className="opacity-70 hover:opacity-100"
                 >
-                  <InstagramIcon className="h-5 w-5" />
+                  <InstagramIcon className="h-6 w-6 sm:h-5 sm:w-5" />
                 </a>
                 <a
                   href="https://youtube.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="YouTube"
-                  className="opacity-70 hover:opacity-100"
+                  className="opacity-70 hover:opacity-100 md:hidden xl:block"
                 >
-                  <YoutubeIcon className="h-5 w-5" />
+                  <YoutubeIcon className="h-6 w-6 sm:h-5 sm:w-5" />
                 </a>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs opacity-70 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-10 flex flex-col gap-4 border-t border-white/10 pt-4 text-xs opacity-70 sm:mt-12 sm:flex-row sm:items-center sm:justify-between sm:pt-6">
           <p>{dictionary.footer.copyright.replace("{year}", String(new Date().getFullYear()))}</p>
-          <nav aria-label="Legal and administrative" className="flex items-center gap-4">
+          <nav aria-label="Legal and administrative" className="flex items-center gap-4 md:gap-6">
             {legalItems.map((item) => (
               <Link key={item.href} href={`/${lang}${item.href}`} className="hover:opacity-100">
                 {item.label}
               </Link>
             ))}
-            <Link href={`/${lang}/login`} className="hover:opacity-100">
+            <Link href={`/${lang}/login`} className="hover:opacity-100 md:hidden xl:block">
               {dictionary.footer.admin}
             </Link>
           </nav>

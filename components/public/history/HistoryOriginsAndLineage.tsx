@@ -19,12 +19,12 @@ import {
 export function HistoryOriginsAndLineage() {
   return (
     <section className="bg-background w-full">
-      <div className="mx-auto grid w-full max-w-[1364px] grid-cols-[56px_minmax(0,1fr)] items-start gap-4 sm:grid-cols-[72px_minmax(0,1fr)] sm:gap-6 xl:grid-cols-[491px_minmax(0,849px)] xl:gap-6">
+      <div className="mx-auto grid w-full max-w-[1364px] grid-cols-[56px_minmax(0,1fr)] items-start gap-4 sm:grid-cols-[72px_minmax(0,1fr)] sm:gap-6 md:w-[calc(100%_-_40px)] md:max-w-[794px] md:grid-cols-[89px_minmax(0,670px)] md:gap-6 xl:w-full xl:grid-cols-[491px_minmax(0,849px)]">
         <aside className="self-stretch">
           <HistoryMilestonesSidebar />
         </aside>
 
-        <div className="flex min-w-0 flex-col gap-2.5 px-4 py-2.5 sm:px-6 xl:px-10">
+        <div className="flex min-w-0 flex-col gap-2.5 px-4 py-2.5 sm:px-6 md:w-full md:px-5 xl:w-auto xl:px-10">
           <HistoryOrigins />
 
           <article
@@ -66,7 +66,7 @@ export function HistoryOriginsAndLineage() {
               </div>
             </div>
 
-            <div className="w-full max-w-[737px]">
+            <div className="w-full max-w-[737px] md:max-w-[593px] xl:max-w-[737px]">
               <HistoryPhoto
                 src={historyGenerationsPortrait.src}
                 alt={historyGenerationsPortrait.caption}
@@ -85,7 +85,7 @@ export function HistoryOriginsAndLineage() {
               <p className="leading-[1.7] text-black">{historyTangDynastyParagraph}</p>
             </div>
             <div className="flex min-h-[412px] items-center justify-center py-5">
-              <div className="w-full max-w-[628px]">
+              <div className="w-full max-w-[628px] md:max-w-[478px] xl:max-w-[628px]">
                 <HistoryPhoto
                   src={historyTangDynastyPortrait}
                   alt="Illustration of Tang dynasty martial artists training before a temple"

@@ -32,35 +32,38 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
 
   return (
     <header className="border-border bg-background sticky top-0 z-40 border-b">
-      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:h-20 sm:px-10 lg:px-10">
+      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:h-20 sm:px-10 md:justify-start xl:justify-between">
         <Link href={`/${lang}`} className="flex items-center gap-2 sm:gap-3">
           <Image
             src="/brand/chito-ryu-logo.svg"
             alt="Chito-Ryu International"
             width={38}
             height={31}
-            className="h-8 w-[38px] object-contain sm:h-[70px] sm:w-[70px] lg:h-10 lg:w-10"
+            className="h-8 w-[38px] object-contain sm:h-[70px] sm:w-[70px] md:h-[31px] md:w-[38px] xl:h-10 xl:w-10"
           />
           <span className="font-heading flex flex-col items-start text-left leading-tight">
-            <span className="text-foreground block text-sm font-bold sm:text-base lg:text-xs">
+            <span className="text-foreground block text-sm font-bold sm:text-base md:text-sm xl:text-xs">
               千唐流国際
             </span>
             <span className="text-foreground block text-[10px] font-semibold sm:hidden">
               Chito Ryu International
             </span>
-            <span className="text-foreground hidden text-[10px] font-semibold uppercase sm:block sm:text-sm lg:hidden">
+            <span className="text-foreground hidden text-[10px] font-semibold uppercase sm:block sm:text-sm md:hidden">
               Chito Ryu
             </span>
-            <span className="text-foreground hidden text-[6px] tracking-[0.84px] uppercase sm:block sm:text-[10px] sm:tracking-[0.2px] lg:hidden">
+            <span className="text-foreground hidden text-[6px] tracking-[0.84px] uppercase sm:block sm:text-[10px] sm:tracking-[0.2px] md:hidden">
               International
             </span>
-            <span className="text-foreground hidden text-sm font-semibold lg:block">
+            <span className="text-foreground hidden text-[10px] font-semibold md:block xl:text-sm">
               Chito Ryu International
             </span>
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary">
+        <nav
+          className="hidden items-center gap-3 md:ml-[87px] md:flex xl:ml-0 xl:gap-6 md:[&>*:nth-child(3)]:hidden xl:[&>*:nth-child(3)]:flex"
+          aria-label="Primary"
+        >
           {navGroups.map((entry) =>
             entry.type === "group" ? (
               <NavDropdown key={entry.label} lang={lang} group={entry} />
@@ -76,19 +79,21 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
           )}
         </nav>
 
-        <div className="flex items-center gap-3 lg:gap-4">
-          <LanguagePicker lang={lang} dictionary={dictionary} />
+        <div className="flex items-center gap-3 md:ml-3 xl:ml-0 xl:gap-4">
+          <div className="md:order-2">
+            <LanguagePicker lang={lang} dictionary={dictionary} />
+          </div>
 
           <Link
             href={`/${lang}/login`}
-            className="bg-primary-dark text-primary-foreground hover:bg-primary hidden px-6 py-3 text-sm font-bold whitespace-nowrap transition-colors lg:inline-block"
+            className="bg-primary-dark text-primary-foreground hover:bg-primary hidden px-6 py-3 text-sm font-bold whitespace-nowrap transition-colors md:order-1 md:inline-block"
           >
             {dictionary.nav.joinUs}
           </Link>
 
           <button
             type="button"
-            className="text-foreground lg:hidden"
+            className="text-foreground md:hidden"
             aria-expanded={isMenuOpen}
             aria-controls="mobile-nav"
             onClick={() => setIsMenuOpen((open) => !open)}
@@ -105,7 +110,7 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
         <nav
           id="mobile-nav"
           aria-label="Primary mobile"
-          className="border-border flex flex-col gap-1 border-t px-4 py-3 lg:hidden"
+          className="border-border flex flex-col gap-1 border-t px-4 py-3 md:hidden"
         >
           {navGroups.map((entry) =>
             entry.type === "group" ? (

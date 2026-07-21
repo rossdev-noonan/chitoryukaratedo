@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { GlobalCommunityCTA } from "@/components/public/GlobalCommunityCTA";
 import { HistoryHero } from "@/components/public/history/HistoryHero";
+import { HistoryMobileContent } from "@/components/public/history/HistoryMobileContent";
 import { HistoryOriginsAndLineage } from "@/components/public/history/HistoryOriginsAndLineage";
 import type { Locale } from "@/lib/i18n/locales";
 
@@ -21,9 +22,14 @@ export default async function HistoryPage({ params }: HistoryPageProps) {
   return (
     <>
       <HistoryHero lang={lang} />
-      <HistoryOriginsAndLineage />
-      <GlobalCommunityCTA lang={lang} />
-      <div className="h-20" aria-hidden />
+      <HistoryMobileContent lang={lang} />
+      <div className="hidden md:block">
+        <HistoryOriginsAndLineage />
+      </div>
+      <div className="hidden md:block">
+        <GlobalCommunityCTA lang={lang} />
+      </div>
+      <div className="h-[26px] md:h-0 xl:h-20" aria-hidden />
     </>
   );
 }

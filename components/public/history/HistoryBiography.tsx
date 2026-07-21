@@ -30,7 +30,7 @@ function HistoryParagraph({ children }: { children: string }) {
 
 export function HistoryBiography() {
   return (
-    <div className="flex flex-col gap-2.5">
+    <div className="flex flex-col gap-2.5 md:px-5 xl:px-0">
       <article
         id="tsuyoshi-chitose"
         className="scroll-mt-[38vh] border-t-[3px] border-[#c8a24a] py-5"

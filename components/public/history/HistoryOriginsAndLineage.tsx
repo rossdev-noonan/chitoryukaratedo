@@ -68,6 +68,7 @@ export function HistoryOriginsAndLineage() {
                   src={historyGenerationsPortrait.src}
                   alt={historyGenerationsPortrait.caption}
                   caption={historyGenerationsPortrait.caption}
+                  circular
                 />
               </div>
             </div>
@@ -79,13 +80,13 @@ export function HistoryOriginsAndLineage() {
             </h2>
             <p className="mt-8 leading-[1.7] text-black">{historyTangDynastyParagraph}</p>
             <div className="mt-6 flex justify-center">
-              <div className="relative h-[300px] w-full max-w-[628px] shadow-[0px_20px_40px_0px_rgba(0,0,0,0.06)] sm:h-[380px] lg:h-[422px]">
+              <div className="relative h-[300px] w-full max-w-[628px] sm:h-[380px] lg:h-[422px]">
                 <Image
                   src={historyTangDynastyPortrait}
                   alt="Illustration of Tang dynasty martial artists training before a temple"
                   fill
                   sizes="(min-width: 1024px) 628px, 100vw"
-                  className="object-cover"
+                  className="object-contain drop-shadow-[0px_20px_40px_rgba(0,0,0,0.06)]"
                 />
               </div>
             </div>

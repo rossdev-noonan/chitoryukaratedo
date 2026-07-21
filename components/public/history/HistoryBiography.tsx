@@ -47,13 +47,13 @@ export function HistoryBiography() {
               )}
             </div>
           </div>
-          <div className="relative h-[360px] w-full shadow-[0px_20px_40px_0px_rgba(0,0,0,0.06)] sm:h-[470px] lg:h-[553px]">
+          <div className="relative h-[360px] w-full sm:h-[470px] lg:h-[553px]">
             <Image
               src="/images/history/chitose-portrait.png"
               alt="Dr. Tsuyoshi Chitose"
               fill
               sizes="(min-width: 1024px) 769px, 100vw"
-              className="object-cover"
+              className="object-contain drop-shadow-[0px_20px_40px_rgba(0,0,0,0.06)]"
             />
           </div>
         </div>
@@ -114,7 +114,6 @@ export function HistoryBiography() {
             src="/images/history/funakoshi-1955.png"
             alt="Chitose and Professor Gichin Funakoshi, August 18, 1955"
             caption={historyDojoSecondPhotoCaption}
-            circular
           />
           <p className="leading-[1.6] text-black">{historyDojoSecondParagraph}</p>
         </div>

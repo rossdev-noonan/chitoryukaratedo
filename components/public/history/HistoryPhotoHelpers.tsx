@@ -35,7 +35,7 @@ export function CaptionedPhoto({
         className={
           circular
             ? "relative mx-auto aspect-square w-full max-w-[420px] overflow-hidden rounded-full shadow-[0px_20px_40px_0px_rgba(0,0,0,0.06)]"
-            : "relative h-[320px] w-full shadow-[0px_20px_40px_0px_rgba(0,0,0,0.06)] sm:h-[420px] lg:h-[420px]"
+            : "relative h-[320px] w-full sm:h-[420px] lg:h-[420px]"
         }
       >
         <Image
@@ -43,7 +43,7 @@ export function CaptionedPhoto({
           alt={alt}
           fill
           sizes="(min-width: 1024px) 713px, 100vw"
-          className="object-cover"
+          className={circular ? "object-cover" : "object-contain drop-shadow-[0px_20px_40px_rgba(0,0,0,0.06)]"}
         />
       </div>
       {caption && <p className="mt-4 text-center text-base font-semibold text-black">{caption}</p>}

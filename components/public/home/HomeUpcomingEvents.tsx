@@ -42,7 +42,7 @@ export function HomeUpcomingEvents({ lang, dictionary }: HomeUpcomingEventsProps
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-10">
-      <div className="border-border border bg-white p-5">
+      <div className="border-border bg-secondary-background border p-5">
         <div className="flex items-end justify-between">
           <div>
             <SectionEyebrow>{dictionary.home.eventsLabel}</SectionEyebrow>
@@ -75,9 +75,9 @@ export function HomeUpcomingEvents({ lang, dictionary }: HomeUpcomingEventsProps
                 />
               </div>
               <div className="flex gap-5">
-                <div className="relative flex h-[72px] w-16 shrink-0 flex-col items-center justify-center overflow-hidden rounded-lg border border-[#9b0d18]">
+                <div className="border-primary-dark relative flex h-[72px] w-16 shrink-0 flex-col items-center justify-center overflow-hidden rounded-lg border">
                   <div className="absolute top-0 h-[7px] w-full bg-[#c1121f]" />
-                  <span className="text-[12px] font-bold text-[#b31b1b] uppercase">
+                  <span className="text-primary-dark text-[12px] font-bold uppercase">
                     {featuredMonth}
                   </span>
                   <span className="text-2xl font-bold text-[#1f2937]">{featuredDay}</span>
@@ -125,18 +125,16 @@ export function HomeUpcomingEvents({ lang, dictionary }: HomeUpcomingEventsProps
                   const month = new Intl.DateTimeFormat(BCP47[lang], { month: "short" })
                     .format(date)
                     .toUpperCase();
-                  const day = new Intl.DateTimeFormat(BCP47[lang], { day: "numeric" }).format(
-                    date,
-                  );
+                  const day = new Intl.DateTimeFormat(BCP47[lang], { day: "numeric" }).format(date);
                   return (
                     <Link
                       key={`${event.startDate}-${index}`}
                       href={`/${lang}${event.href}`}
                       className="group flex gap-5 rounded-[2px] border border-[#c8a24a] bg-white p-5 drop-shadow-[0px_4px_6px_rgba(0,0,0,0.05)] transition-colors hover:bg-black/[0.02]"
                     >
-                      <div className="relative flex h-[72px] w-16 shrink-0 flex-col items-center justify-center overflow-hidden rounded-lg border border-[#9b0d18]">
+                      <div className="border-primary-dark relative flex h-[72px] w-16 shrink-0 flex-col items-center justify-center overflow-hidden rounded-lg border">
                         <div className="absolute top-0 h-[7px] w-full rounded-tl-[4px] rounded-tr-[4px] bg-[#c1121f]" />
-                        <span className="text-[12px] font-bold text-[#b31b1b] uppercase">
+                        <span className="text-primary-dark text-[12px] font-bold uppercase">
                           {month}
                         </span>
                         <span className="text-2xl font-bold text-[#1f2937]">{day}</span>

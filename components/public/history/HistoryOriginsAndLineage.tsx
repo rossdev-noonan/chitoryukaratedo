@@ -1,8 +1,8 @@
-import Image from "next/image";
-
 import { HistoryBiography } from "@/components/public/history/HistoryBiography";
 import { HistoryMilestonesSidebar } from "@/components/public/history/HistoryMilestonesSidebar";
 import { HistoryOrigins } from "@/components/public/history/HistoryOrigins";
+import { HistoryPhoto } from "@/components/public/history/HistoryPhotoHelpers";
+import { HistorySectionTitle } from "@/components/public/history/HistorySectionTitle";
 import {
   historyChinaLineageByline,
   historyChinaLineageHeading,
@@ -15,28 +15,30 @@ import {
   historyTangDynastyParagraph,
   historyTangDynastyPortrait,
 } from "@/lib/history-content";
-import { CaptionedPhoto } from "@/components/public/history/HistoryPhotoHelpers";
 
 export function HistoryOriginsAndLineage() {
   return (
     <section className="bg-background w-full">
-      <div className="grid grid-cols-[56px_minmax(0,1fr)] items-start gap-4 px-4 sm:grid-cols-[72px_minmax(0,1fr)] sm:gap-6 sm:px-6 lg:grid-cols-[491px_minmax(0,849px)] lg:gap-6 lg:px-0">
+      <div className="mx-auto grid w-full max-w-[1364px] grid-cols-[56px_minmax(0,1fr)] items-start gap-4 sm:grid-cols-[72px_minmax(0,1fr)] sm:gap-6 xl:grid-cols-[491px_minmax(0,849px)] xl:gap-6">
         <aside className="self-stretch">
           <HistoryMilestonesSidebar />
         </aside>
 
-        <div className="bg-white flex min-w-0 flex-col gap-2 py-10 lg:px-10">
+        <div className="flex min-w-0 flex-col gap-2.5 px-4 py-2.5 sm:px-6 xl:px-10">
           <HistoryOrigins />
 
-          <article id="origin-in-china" className="scroll-mt-[38vh] pt-10 lg:pt-[60px]">
-            <div>
-              <h2 className="font-heading text-4xl font-semibold text-black sm:text-5xl">
+          <article
+            id="origin-in-china"
+            className="scroll-mt-[38vh] border-t-[3px] border-[#c8a24a] py-[5px]"
+          >
+            <div className="flex flex-col gap-6 py-5">
+              <HistorySectionTitle year="c. 1000 CE">
                 {historyChinaLineageHeading}
-              </h2>
-              <p className="mt-8 leading-[1.6] font-semibold whitespace-pre-line text-black">
+              </HistorySectionTitle>
+              <p className="leading-[1.6] whitespace-pre-line text-black">
                 {historyChinaLineageByline}
               </p>
-              <div className="mt-6 flex flex-col gap-4">
+              <div className="mt-6 flex flex-col gap-6">
                 {historyChinaLineageParagraphs.map((paragraph, index) => (
                   <p key={index} className="leading-[1.6] text-black">
                     {paragraph}
@@ -44,49 +46,50 @@ export function HistoryOriginsAndLineage() {
                 ))}
               </div>
             </div>
-            <div className="relative mt-6 h-[360px] w-full shadow-[0px_20px_40px_0px_rgba(0,0,0,0.06)] sm:h-[455px] lg:h-[537px]">
-              <Image
-                src={historyChinaLineagePortrait}
-                alt="Historic mural depicting Chinese martial arts practice"
-                fill
-                sizes="(min-width: 1024px) 769px, 100vw"
-                className="object-cover"
-              />
-            </div>
 
-            <div className="mt-16">
-              <h3 className="text-2xl font-semibold text-black">{historyGenerationsHeading}</h3>
-              <div className="mt-8 flex flex-col gap-4">
+            <HistoryPhoto
+              src={historyChinaLineagePortrait}
+              alt="Historic mural depicting Chinese martial arts practice"
+              frameClassName="aspect-[769/537] w-full"
+            />
+
+            <div className="mt-14 py-10">
+              <h3 className="text-2xl leading-none font-semibold text-black">
+                {historyGenerationsHeading}
+              </h3>
+              <div className="mt-8 flex flex-col gap-6">
                 {historyGenerationsParagraphs.map((paragraph, index) => (
                   <p key={index} className="leading-[1.6] text-black">
                     {paragraph}
                   </p>
                 ))}
               </div>
-              <div className="mt-6">
-                <CaptionedPhoto
-                  src={historyGenerationsPortrait.src}
-                  alt={historyGenerationsPortrait.caption}
-                  caption={historyGenerationsPortrait.caption}
-                  circular
-                />
-              </div>
+            </div>
+
+            <div className="w-full max-w-[737px]">
+              <HistoryPhoto
+                src={historyGenerationsPortrait.src}
+                alt={historyGenerationsPortrait.caption}
+                caption={historyGenerationsPortrait.caption}
+                frameClassName="aspect-[737/513] w-full"
+              />
             </div>
           </article>
 
-          <article id="tang-dynasty" className="scroll-mt-[38vh] pt-16">
-            <h2 className="font-heading text-4xl font-semibold text-black sm:text-5xl">
-              {historyTangDynastyHeading}
-            </h2>
-            <p className="mt-8 leading-[1.7] text-black">{historyTangDynastyParagraph}</p>
-            <div className="mt-6 flex justify-center">
-              <div className="relative h-[300px] w-full max-w-[628px] sm:h-[380px] lg:h-[422px]">
-                <Image
+          <article
+            id="tang-dynasty"
+            className="scroll-mt-[38vh] border-t-[3px] border-[#c8a24a] py-[5px]"
+          >
+            <div className="flex flex-col gap-8 py-5">
+              <HistorySectionTitle year="618-907">{historyTangDynastyHeading}</HistorySectionTitle>
+              <p className="leading-[1.7] text-black">{historyTangDynastyParagraph}</p>
+            </div>
+            <div className="flex min-h-[412px] items-center justify-center py-5">
+              <div className="w-full max-w-[628px]">
+                <HistoryPhoto
                   src={historyTangDynastyPortrait}
                   alt="Illustration of Tang dynasty martial artists training before a temple"
-                  fill
-                  sizes="(min-width: 1024px) 628px, 100vw"
-                  className="object-contain drop-shadow-[0px_20px_40px_rgba(0,0,0,0.06)]"
+                  frameClassName="aspect-[628/422] w-full"
                 />
               </div>
             </div>

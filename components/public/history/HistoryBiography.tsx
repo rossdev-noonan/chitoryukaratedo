@@ -1,5 +1,5 @@
-import Image from "next/image";
-
+import { HistoryPhoto } from "@/components/public/history/HistoryPhotoHelpers";
+import { HistorySectionTitle } from "@/components/public/history/HistorySectionTitle";
 import {
   historyAragakiParagraph,
   historyDojoParagraph,
@@ -23,157 +23,165 @@ import {
   historySlomanskiPortrait,
   historyWarEraParagraph,
 } from "@/lib/history-content";
-import { CaptionedPhoto, Portrait } from "@/components/public/history/HistoryPhotoHelpers";
+
+function HistoryParagraph({ children }: { children: string }) {
+  return <p className="leading-[1.6] text-black">{children}</p>;
+}
 
 export function HistoryBiography() {
   return (
-    <div className="flex flex-col gap-16 pb-16 lg:pb-20">
-      {/* Tsuyoshi Chitose (485:246) — the full article, restored */}
-      <article id="tsuyoshi-chitose" className="scroll-mt-[38vh] pt-16">
-        <div className="flex flex-col gap-8">
-          <div>
-            <h2 className="font-heading text-4xl font-semibold text-black sm:text-5xl">
-              Tsuyoshi Chitose
-            </h2>
-            <div className="mt-8 flex flex-col gap-4">
+    <div className="flex flex-col gap-2.5">
+      <article
+        id="tsuyoshi-chitose"
+        className="scroll-mt-[38vh] border-t-[3px] border-[#c8a24a] py-5"
+      >
+        <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-8 py-5">
+            <HistorySectionTitle year="1898-1984">Tsuyoshi Chitose</HistorySectionTitle>
+            <div className="flex flex-col leading-[1.6] text-black">
               {historyIntroParagraphs.map((paragraph, index) =>
                 paragraph ? (
-                  <p key={index} className="leading-[1.6] text-black">
-                    {paragraph}
-                  </p>
+                  <p key={index}>{paragraph}</p>
                 ) : (
-                  <div key={index} aria-hidden />
+                  <span key={index} className="h-6" aria-hidden />
                 ),
               )}
             </div>
           </div>
-          <div className="relative h-[360px] w-full sm:h-[470px] lg:h-[553px]">
-            <Image
-              src="/images/history/chitose-portrait.png"
-              alt="Dr. Tsuyoshi Chitose"
-              fill
-              sizes="(min-width: 1024px) 769px, 100vw"
-              className="object-contain drop-shadow-[0px_20px_40px_rgba(0,0,0,0.06)]"
-            />
-          </div>
-        </div>
 
-        <div className="mt-16 flex flex-col gap-8">
-          <div>
-            <h3 className="text-2xl font-semibold text-black">Early Years</h3>
-            <p className="mt-5 leading-[1.6] text-black">{historyEarlyYearsParagraph}</p>
-          </div>
-          <CaptionedPhoto
-            src="/images/history/okinawa-map.png"
-            alt="Map of Okinawa marking the city of Naha"
-            caption={historyEarlyYearsCaption}
+          <HistoryPhoto
+            src="/images/history/chitose-portrait.png"
+            alt="Dr. Tsuyoshi Chitose"
+            frameClassName="aspect-[772/553] w-full"
           />
         </div>
 
-        <p className="mt-10 leading-[1.6] text-black">{historyAragakiParagraph}</p>
+        <section className="mt-5">
+          <div className="py-10">
+            <h3 className="text-2xl leading-none font-semibold text-black">Early Years</h3>
+            <p className="mt-8 leading-[1.6] text-black">{historyEarlyYearsParagraph}</p>
+          </div>
+          <HistoryPhoto
+            src="/images/history/figma-okinawa-map.png"
+            alt="Map of Okinawa marking the city of Naha"
+            caption={historyEarlyYearsCaption}
+            frameClassName="aspect-[772/513] w-full"
+          />
+          <div className="py-10">
+            <HistoryParagraph>{historyAragakiParagraph}</HistoryParagraph>
+          </div>
+        </section>
 
-        <div className="mt-12 flex flex-col gap-8">
-          <div className="flex flex-col gap-10 sm:flex-row">
-            <Portrait
-              src={historyPortraits.hirohito.src}
-              name={historyPortraits.hirohito.name}
-              caption={historyPortraits.hirohito.caption}
-            />
-            <Portrait
+        <section className="flex flex-col gap-6">
+          <HistoryPhoto
+            src={historyPortraits.hirohito.src}
+            alt={historyPortraits.hirohito.name}
+            caption={historyPortraits.hirohito.name}
+            subtitle={historyPortraits.hirohito.caption}
+            frameClassName="aspect-[772/613.379] w-full"
+          />
+          <div className="ml-auto w-full max-w-[730px]">
+            <HistoryPhoto
               src={historyPortraits.funakoshi.src}
-              name={historyPortraits.funakoshi.name}
-              caption={historyPortraits.funakoshi.caption}
+              alt={historyPortraits.funakoshi.name}
+              caption={historyPortraits.funakoshi.name}
+              subtitle={historyPortraits.funakoshi.caption}
+              frameClassName="aspect-[730/646] w-full"
             />
           </div>
           <div className="flex flex-col gap-6">
             {historyHirohitoSectionParagraphs.map((paragraph, index) => (
-              <p key={index} className="leading-[1.6] text-black">
-                {paragraph}
-              </p>
+              <HistoryParagraph key={index}>{paragraph}</HistoryParagraph>
             ))}
           </div>
+        </section>
+
+        <div className="py-10">
+          <HistoryParagraph>{historyWarEraParagraph}</HistoryParagraph>
         </div>
 
-        <p className="mt-10 leading-[1.6] text-black">{historyWarEraParagraph}</p>
-
-        <div className="mt-12 flex flex-col gap-8">
-          <div>
-            <h3 className="text-2xl font-semibold text-black">Chitose Opens his own Dojo</h3>
-            <p className="mt-5 leading-[1.6] text-black">{historyDojoParagraph}</p>
+        <section className="flex flex-col gap-6 py-[17px]">
+          <div className="py-10">
+            <h3 className="text-2xl leading-none font-semibold text-black">
+              Chitose Opens his own Dojo
+            </h3>
+            <p className="mt-8 leading-[1.6] text-black">{historyDojoParagraph}</p>
           </div>
-          <CaptionedPhoto
-            src="/images/history/backyard-training.png"
+          <HistoryPhoto
+            src="/images/history/figma-backyard-training.png"
             alt="Chito Ryu Karate-Do practitioners training in a backyard dojo"
             caption={historyDojoPhotoCaption.title}
             subtitle={historyDojoPhotoCaption.subtitle}
+            frameClassName="aspect-[772/513] w-full"
           />
-        </div>
-
-        <div className="mt-12 flex flex-col gap-8">
-          <CaptionedPhoto
-            src="/images/history/funakoshi-1955.png"
+          <HistoryPhoto
+            src="/images/history/figma-funakoshi-1955.png"
             alt="Chitose and Professor Gichin Funakoshi, August 18, 1955"
             caption={historyDojoSecondPhotoCaption}
-            circular
+            frameClassName="aspect-[809/471] w-full xl:w-[calc(100%+37px)] xl:max-w-none xl:-translate-x-[18.5px]"
           />
-          <p className="leading-[1.6] text-black">{historyDojoSecondParagraph}</p>
-        </div>
+          <HistoryParagraph>{historyDojoSecondParagraph}</HistoryParagraph>
+        </section>
 
-        <div className="mt-12 flex flex-col gap-8">
-          <p className="leading-[1.6] text-black">{historyDometrichParagraph}</p>
-          <CaptionedPhoto
-            src="/images/history/osensei-dometrich.png"
+        <section className="mt-5 flex flex-col gap-5">
+          <div className="py-10">
+            <HistoryParagraph>{historyDometrichParagraph}</HistoryParagraph>
+          </div>
+          <HistoryPhoto
+            src="/images/history/figma-osensei-dometrich.png"
             alt="O'Sensei with Dometrich"
             caption={historyDometrichPhotoCaption}
-            circular
+            frameClassName="aspect-[773/523] w-full"
           />
+        </section>
+
+        <div className="py-10">
+          <HistoryParagraph>{historyFairmontParagraph}</HistoryParagraph>
         </div>
 
-        <p className="mt-10 leading-[1.6] text-black">{historyFairmontParagraph}</p>
-
-        <div className="mt-12 flex flex-col gap-8">
-          <CaptionedPhoto
+        <section className="flex flex-col gap-5">
+          <HistoryPhoto
             src={historySlomanskiPortrait.src}
             alt={historySlomanskiPortrait.caption}
             caption={historySlomanskiPortrait.caption}
-            circular
+            frameClassName="aspect-[761/492] w-full max-w-[761px]"
           />
-          <p className="leading-[1.6] text-black">{historySlomanskiParagraph}</p>
-        </div>
+          <div className="py-10">
+            <HistoryParagraph>{historySlomanskiParagraph}</HistoryParagraph>
+          </div>
+        </section>
 
-        <div className="mt-10 flex flex-col gap-6">
+        <div className="flex flex-col gap-6">
           {historyMainParagraphs.map((paragraph, index) => (
-            <p key={index} className="leading-[1.6] text-black">
-              {paragraph}
-            </p>
+            <HistoryParagraph key={index}>{paragraph}</HistoryParagraph>
           ))}
         </div>
       </article>
 
-      {/* International Federation (505:1134) */}
-      <article id="international-federation" className="scroll-mt-[38vh] pt-16">
-        <div className="flex flex-col gap-8">
-          <div>
-            <h2 className="font-heading text-4xl font-semibold text-black sm:text-5xl">
+      <article
+        id="international-federation"
+        className="scroll-mt-[38vh] border-t-[3px] border-[#c8a24a] py-[5px]"
+      >
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-8 py-5">
+            <HistorySectionTitle year="1898-1984">
               {historyInternationalFederationHeading}
-            </h2>
-            <p className="mt-6 leading-[1.6] text-black">
-              {historyInternationalFederationIntroParagraph}
-            </p>
+            </HistorySectionTitle>
+            <HistoryParagraph>{historyInternationalFederationIntroParagraph}</HistoryParagraph>
           </div>
-          <Portrait
+          <HistoryPhoto
             src={historyInternationalFederationPortrait.src}
-            name={historyInternationalFederationPortrait.name}
-            caption={historyInternationalFederationPortrait.caption}
+            alt={historyInternationalFederationPortrait.name}
+            caption={historyInternationalFederationPortrait.name}
+            subtitle={historyInternationalFederationPortrait.caption}
+            frameClassName="aspect-[771/539.336] w-full"
+            imageClassName="object-contain"
           />
-        </div>
-
-        <div className="mt-10 flex flex-col gap-6">
-          {historyInternationalFederationClosingParagraphs.map((paragraph, index) => (
-            <p key={index} className="leading-[1.6] text-black">
-              {paragraph}
-            </p>
-          ))}
+          <div className="flex flex-col gap-6 py-5">
+            {historyInternationalFederationClosingParagraphs.map((paragraph, index) => (
+              <HistoryParagraph key={index}>{paragraph}</HistoryParagraph>
+            ))}
+          </div>
         </div>
       </article>
     </div>

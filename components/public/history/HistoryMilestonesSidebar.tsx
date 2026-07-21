@@ -75,7 +75,7 @@ export function HistoryMilestonesSidebar() {
                   aria-current={isActive ? "true" : undefined}
                   className={`font-heading flex h-10 w-10 shrink-0 items-center justify-center rounded-full border text-base transition-colors duration-300 lg:h-[55px] lg:w-[55px] lg:text-[28px] ${
                     isActive
-                      ? "border-primary bg-primary text-white shadow-[0_0_0_5px_rgba(193,18,31,0.08)]"
+                      ? "bg-primary border-transparent text-white shadow-[0_0_0_6px_rgba(200,162,74,0.38)]"
                       : "border-brand-accent/40 bg-background text-brand-accent"
                   }`}
                 >

@@ -1,53 +1,52 @@
 import Image from "next/image";
+import type { CSSProperties } from "react";
 
-// Individual/paired-person portraits render as circular crops in Figma
-// (masked with an ellipse layer on the canvas — the Figma-to-code export
-// only describes the underlying rectangle node, so this isn't visible in
-// the generated markup, only in the actual rendered design).
-export function Portrait({ src, name, caption }: { src: string; name: string; caption: string }) {
-  return (
-    <div>
-      <div className="relative mx-auto aspect-square w-full max-w-[350px] overflow-hidden rounded-full shadow-[0px_20px_40px_0px_rgba(0,0,0,0.06)]">
-        <Image src={src} alt={name} fill sizes="350px" className="object-cover" />
-      </div>
-      <p className="mt-4 text-center text-base font-semibold text-black">{name}</p>
-      <p className="text-center text-xs text-black">{caption}</p>
-    </div>
-  );
-}
-
-export function CaptionedPhoto({
-  src,
-  alt,
-  caption,
-  subtitle,
-  circular = false,
-}: {
+interface HistoryPhotoProps {
   src: string;
   alt: string;
+  frameClassName: string;
+  imageClassName?: string;
+  imageStyle?: CSSProperties;
   caption?: string;
   subtitle?: string;
-  circular?: boolean;
-}) {
+}
+
+export function HistoryPhoto({
+  src,
+  alt,
+  frameClassName,
+  imageClassName = "object-contain",
+  imageStyle,
+  caption,
+  subtitle,
+}: HistoryPhotoProps) {
   return (
-    <div className="w-full min-w-0">
+    <figure className="w-full min-w-0">
       <div
-        className={
-          circular
-            ? "relative mx-auto aspect-square w-full max-w-[420px] overflow-hidden rounded-full shadow-[0px_20px_40px_0px_rgba(0,0,0,0.06)]"
-            : "relative h-[320px] w-full sm:h-[420px] lg:h-[420px]"
-        }
+        className={`relative overflow-visible bg-transparent ${frameClassName}`}
       >
         <Image
           src={src}
           alt={alt}
-          fill
-          sizes="(min-width: 1024px) 713px, 100vw"
-          className={circular ? "object-cover" : "object-contain drop-shadow-[0px_20px_40px_rgba(0,0,0,0.06)]"}
+          width={1447}
+          height={1024}
+          sizes="(min-width: 1280px) 772px, 100vw"
+          className={`${imageClassName} drop-shadow-[0_20px_40px_rgba(0,0,0,0.06)]`}
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            ...imageStyle,
+          }}
         />
       </div>
-      {caption && <p className="mt-4 text-center text-base font-semibold text-black">{caption}</p>}
+      {caption && (
+        <figcaption className="mt-4 text-center text-base font-bold text-black">
+          {caption}
+        </figcaption>
+      )}
       {subtitle && <p className="text-center text-xs text-black">{subtitle}</p>}
-    </div>
+    </figure>
   );
 }

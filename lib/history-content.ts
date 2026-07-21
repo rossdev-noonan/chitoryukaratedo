@@ -83,12 +83,12 @@ export interface HistoryPortrait {
 
 export const historyPortraits: { hirohito: HistoryPortrait; funakoshi: HistoryPortrait } = {
   hirohito: {
-    src: "/images/history/hirohito.png",
+    src: "/images/history/figma-hirohito.png",
     name: "Crown Prince Hirohito",
     caption: "Emperor of Japan",
   },
   funakoshi: {
-    src: "/images/history/funakoshi.png",
+    src: "/images/history/figma-funakoshi.png",
     name: "Gichin Funakoshi",
     caption: 'Known as a "Father of Modern Karate"',
   },
@@ -105,7 +105,7 @@ export const historyChinaLineageParagraphs: string[] = [
   'Chito Ryu\'s history as an organized school is generally dated to 1946, when the Yōseikan dojo was established in the town of Waifu, Kikuchi District, Kumamoto Prefecture. Its founder, the First Soke, was Chitose Tsuyoshin (1898–1984; born Chinen (Gochoku) Masuo in Okinawa). He was 48 years old at the time — just a year after the end of the Pacific War, while the wounds of the conflict were still fresh across Japan. Opening a dojo at 48 might seem late in life, but in fact, before the war, he had already opened and led the "Okinawa Kenpō Miyako Tōde Research Institute" on Miyako Island, Okinawa.',
   "In other words, while Chito Ryu as an organization dates to the postwar period, the First Soke's career teaching karate began much earlier. And as the name of that prewar Okinawan dojo makes clear, its roots trace back to tōde.",
 ];
-export const historyChinaLineagePortrait = "/images/history/origin-china-mural.png";
+export const historyChinaLineagePortrait = "/images/history/figma-origin-china.png";
 
 // --- Generations (nested inside 418:859, new sub-section this sync) ---
 export const historyGenerationsHeading = "Generations";
@@ -116,7 +116,7 @@ export const historyGenerationsParagraphs: string[] = [
   "Where birth and death years are not given definitively above, multiple accounts exist, and further research is needed.",
 ];
 export const historyGenerationsPortrait = {
-  src: "/images/history/matsumura-sokon.png",
+  src: "/images/history/figma-matsumura-sokon.png",
   caption: "Matsumura Sokon",
 };
 
@@ -125,7 +125,7 @@ export const historyGenerationsPortrait = {
 // "What is Chito Ryu?" section — Gil repeated it here verbatim in Figma.
 export const historyTangDynastyHeading = "Tang Dynasty";
 export const historyTangDynastyParagraph = historyWhatIsChitoRyuParagraphs[0];
-export const historyTangDynastyPortrait = "/images/history/tang-dynasty.png";
+export const historyTangDynastyPortrait = "/images/history/figma-tang-dynasty.png";
 
 // --- Tsuyoshi Chitose (485:246) — restored. Gil un-hid the full article
 // rather than deleting it; the previous sync mistakenly treated the hidden
@@ -179,7 +179,7 @@ export const historyFairmontParagraph =
 // Newly given its own portrait this sync — previously just plain text inside
 // the flowing paragraphs.
 export const historySlomanskiPortrait = {
-  src: "/images/history/slomanski.png",
+  src: "/images/history/figma-slomanski.png",
   caption: 'Henry "Hank" Slomanski',
 };
 export const historySlomanskiParagraph =
@@ -211,7 +211,7 @@ export const historyMainParagraphs: string[] = [
 // dropped since the portrait caption now covers that. ---
 export const historyInternationalFederationHeading = "International Federation";
 export const historyInternationalFederationPortrait = {
-  src: "/images/history/yasuhiro-chitose.png",
+  src: "/images/history/yasuhiro-chitose-transparent.png",
   name: "Yasuhiro Chitose",
   caption: "2nd Generation Soke",
 };

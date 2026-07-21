@@ -48,6 +48,7 @@
   --radius-4xl: calc(var(--radius) * 2.6);
   --color-primary-dark: var(--primary-dark);
   --color-brand-accent: var(--brand-accent);
+  --color-secondary-background: var(--secondary-background);
 }
 
 :root {
@@ -59,8 +60,9 @@
   --popover-foreground: #1f2937;
   --primary: #c1121f;
   --primary-foreground: #ffffff;
-  --primary-dark: #9b0d18;
-  --brand-accent: #a1824a;
+  --primary-dark: #a3271f;
+  --brand-accent: #b08d47;
+  --secondary-background: #faf6ec;
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: #1f2937;
   --muted: oklch(0.97 0 0);

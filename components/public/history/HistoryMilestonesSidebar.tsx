@@ -54,7 +54,7 @@ export function HistoryMilestonesSidebar() {
   }, []);
 
   return (
-    <div className="sticky top-20 py-6 md:pt-10 md:pb-16 xl:px-20 xl:pt-[129px]">
+    <div className="bg-secondary-background sticky top-20 py-6 md:pt-10 md:pb-16 xl:px-20 xl:pt-[129px]">
       <div
         className="text-brand-accent hidden h-[77px] w-[60px] items-center justify-center text-[34px] md:flex xl:hidden"
         aria-hidden
@@ -94,8 +94,8 @@ export function HistoryMilestonesSidebar() {
                   aria-current={isActive ? "true" : undefined}
                   className={`font-heading flex h-10 w-10 shrink-0 items-center justify-center rounded-full border text-base transition-colors duration-300 md:h-[55px] md:w-[55px] md:text-[28px] ${
                     isActive
-                      ? "bg-primary border-transparent text-white shadow-[0_0_0_6px_rgba(200,162,74,0.38)]"
-                      : "border-brand-accent/40 bg-background text-brand-accent"
+                      ? "bg-primary border-transparent text-white shadow-[0_0_0_6px_rgba(176,141,71,0.38)]"
+                      : "border-brand-accent/40 bg-secondary-background text-brand-accent"
                   }`}
                 >
                   {milestone.char}

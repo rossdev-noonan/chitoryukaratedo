@@ -54,7 +54,7 @@ export function HistoryMobileMilestones() {
   return (
     <div ref={wrapperRef} className="relative h-[170px] w-full">
       <section
-        className={`bg-background z-30 w-full overflow-hidden transition-[height,box-shadow] duration-300 ${
+        className={`bg-secondary-background z-30 w-full overflow-hidden transition-[height,box-shadow] duration-300 ${
           pinned
             ? "fixed top-14 right-0 left-0 h-[100px] shadow-[0_8px_20px_rgba(0,0,0,0.08)]"
             : mode === "hidden"
@@ -101,10 +101,10 @@ export function HistoryMobileMilestones() {
                 <span
                   className={`font-heading ml-[3px] flex h-7 w-7 items-center justify-center rounded-full border text-sm transition-colors duration-300 ${
                     isActive
-                      ? "border-primary bg-primary text-[#faf9f7] shadow-[0_0_0_2px_rgba(200,162,74,0.45)]"
+                      ? "border-primary bg-primary text-[#faf9f7] shadow-[0_0_0_2px_rgba(176,141,71,0.45)]"
                       : isPast
-                        ? "border-primary bg-background text-primary"
-                        : "border-brand-accent bg-background text-brand-accent"
+                        ? "border-primary bg-secondary-background text-primary"
+                        : "border-brand-accent bg-secondary-background text-brand-accent"
                   }`}
                 >
                   {milestone.char}

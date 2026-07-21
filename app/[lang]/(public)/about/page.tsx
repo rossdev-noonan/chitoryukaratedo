@@ -151,7 +151,7 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: Lo
                 style.
               </li>
             </ul>
-            <div className="mt-10 shadow-[0_20px_40px_rgba(0,0,0,0.06)]">
+            <div className="mt-10 border border-[#eee8dc] shadow-[0_20px_50px_rgba(68,52,24,0.08)]">
               <AnimatedEmblemMeaning />
             </div>
             <p className="mt-3 text-xs leading-[1.4] text-black">

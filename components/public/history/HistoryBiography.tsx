@@ -64,8 +64,8 @@ export function HistoryBiography() {
             <p className="mt-5 leading-[1.6] text-black">{historyEarlyYearsParagraph}</p>
           </div>
           <CaptionedPhoto
-            src="/images/history/era-photo.png"
-            alt="Chito Ryu Karate-Do practitioners"
+            src="/images/history/okinawa-map.png"
+            alt="Map of Okinawa marking the city of Naha"
             caption={historyEarlyYearsCaption}
           />
         </div>
@@ -102,8 +102,8 @@ export function HistoryBiography() {
             <p className="mt-5 leading-[1.6] text-black">{historyDojoParagraph}</p>
           </div>
           <CaptionedPhoto
-            src="/images/history/era-photo.png"
-            alt="Chito Ryu Karate-Do practitioners"
+            src="/images/history/backyard-training.png"
+            alt="Chito Ryu Karate-Do practitioners training in a backyard dojo"
             caption={historyDojoPhotoCaption.title}
             subtitle={historyDojoPhotoCaption.subtitle}
           />
@@ -114,6 +114,7 @@ export function HistoryBiography() {
             src="/images/history/funakoshi-1955.png"
             alt="Chitose and Professor Gichin Funakoshi, August 18, 1955"
             caption={historyDojoSecondPhotoCaption}
+            circular
           />
           <p className="leading-[1.6] text-black">{historyDojoSecondParagraph}</p>
         </div>

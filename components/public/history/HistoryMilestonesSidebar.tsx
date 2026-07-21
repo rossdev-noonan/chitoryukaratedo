@@ -58,9 +58,9 @@ export function HistoryMilestonesSidebar() {
 
       <ol className="relative mt-2 flex flex-col gap-3 lg:mt-7 lg:gap-6 lg:pl-9">
         <li aria-hidden className="pointer-events-none absolute inset-0 hidden lg:block">
-          <span className="bg-brand-accent/20 absolute top-[55px] bottom-[55px] left-5 w-px" />
+          <span className="bg-brand-accent/20 absolute top-[55px] bottom-[55px] left-12 w-px" />
           <span
-            className="bg-primary absolute top-[55px] left-5 w-px origin-top transition-[height] duration-700 ease-out"
+            className="bg-primary absolute top-[55px] left-12 w-px origin-top transition-[height] duration-700 ease-out"
             style={{ height: `${(activeIndex / (historySidebarMilestones.length - 1)) * 402}px` }}
           />
         </li>

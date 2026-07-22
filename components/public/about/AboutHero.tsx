@@ -8,7 +8,7 @@ import type { Locale } from "@/lib/i18n/locales";
 export function AboutHero({ lang }: { lang: Locale }) {
   return (
     <section className="bg-background relative overflow-hidden xl:h-[720px]">
-      <div className="relative h-[300px] xl:absolute xl:inset-0 xl:h-full">
+      <div className="relative h-[240px] md:mx-10 md:mt-12 md:h-[339px] md:overflow-hidden md:rounded-lg xl:absolute xl:inset-0 xl:m-0 xl:h-full xl:rounded-none">
         <Image
           src="/images/history/hero-bg-practitioner.png"
           alt=""
@@ -29,27 +29,29 @@ export function AboutHero({ lang }: { lang: Locale }) {
         </div>
       </div>
 
-      <div className="relative px-5 py-9 md:px-10 xl:w-[630px] xl:px-20 xl:pt-[120px] xl:pb-0">
-        <p className="text-brand-accent text-sm font-semibold uppercase md:text-xl">home / about</p>
-        <div className="bg-primary mt-[11px] h-0.5 w-[86px]" />
-        <h1 className="font-heading text-foreground mt-3 text-[34px] leading-none font-semibold md:text-5xl">
+      <div className="relative px-5 py-8 md:px-10 md:py-12 xl:w-[630px] xl:px-20 xl:pt-[120px] xl:pb-0">
+        <p className="text-brand-accent text-xs font-medium uppercase md:text-xl md:font-semibold">
+          home / about
+        </p>
+        <div className="bg-primary mt-4 h-0.5 w-[60px] md:mt-[11px] md:w-[86px]" />
+        <h1 className="font-heading text-foreground mt-4 text-2xl leading-none font-medium md:mt-3 md:text-5xl md:font-semibold">
           About Chito Ryu
         </h1>
-        <p className="text-muted-foreground mt-6 max-w-[480px] text-base leading-[1.6] md:text-lg xl:mt-10">
+        <p className="text-muted-foreground mt-6 max-w-[480px] text-xs leading-[1.5] md:text-lg md:leading-[1.6] xl:mt-10">
           From Fujian&apos;s temple courtyards to Chitose Sensei&apos;s dojo in Kumamoto — the story
           of how Chito Ryu came to be.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4 xl:mt-10">
           <Link
             href={`/${lang}/login`}
-            className="bg-primary-dark hover:bg-primary inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-bold text-white transition-colors"
+            className="bg-primary-dark hover:bg-primary inline-flex w-full items-center justify-center gap-2 px-8 py-4 text-sm font-bold text-white transition-colors sm:w-auto md:text-base"
           >
             Join our Community
             <ArrowRight className="size-4" />
           </Link>
           <Link
             href={`/${lang}/dojo-directory`}
-            className="text-brand-accent hover:bg-brand-accent inline-flex items-center justify-center gap-2 border border-[#d8cba8] bg-white/80 px-8 py-4 text-base font-semibold transition-colors hover:text-white"
+            className="text-brand-accent hover:bg-brand-accent inline-flex w-full items-center justify-center gap-2 border border-[#d8cba8] bg-white/80 px-8 py-4 text-sm font-semibold transition-colors hover:text-white sm:w-auto md:text-base"
           >
             Find our Dojo
             <MapPinSolid className="size-4" />

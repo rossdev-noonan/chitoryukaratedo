@@ -30,14 +30,14 @@ const pins = [
 export function AboutWorldMap() {
   return (
     <div className="pb-10">
-      <h3 className="font-heading text-[34px] font-semibold text-black md:text-5xl">
+      <h3 className="font-heading text-2xl font-medium text-black md:text-[32px] xl:text-5xl xl:font-semibold">
         ICKF Members
       </h3>
-      <div className="mt-8 flex flex-wrap gap-3">
+      <div className="mt-8 grid grid-cols-3 gap-1 sm:flex sm:flex-wrap sm:gap-3">
         {members.map(([name, file]) => (
           <div
             key={name}
-            className="text-muted-foreground flex h-7 min-w-[117px] items-center gap-2 rounded-full border border-[#e5e7eb] bg-white px-3 py-1.5 text-xs"
+            className="text-muted-foreground flex h-7 min-w-0 items-center gap-2 rounded-full border border-[#e5e7eb] bg-white px-2 py-1.5 text-[10px] sm:min-w-[117px] sm:px-3 sm:text-xs"
           >
             <span className="relative h-[14px] w-[22px] overflow-hidden rounded-[2px] border border-[#e5e7eb]">
               <Image
@@ -53,7 +53,7 @@ export function AboutWorldMap() {
         ))}
       </div>
 
-      <div className="relative mt-[68px] aspect-[1284/560] w-full overflow-hidden rounded-xl bg-[#fafafa]">
+      <div className="relative mt-10 aspect-[1284/560] w-full overflow-hidden rounded-xl bg-[#fafafa] md:mt-[68px]">
         <Image
           src="/images/about/world-map.png"
           alt="Map showing the worldwide Chito-Ryu community"

@@ -29,8 +29,7 @@ const callouts = [
     symbol: "千唐流",
     title: "千唐流 — Chito Ryu",
     meaning: "千唐流 — the thousand-year Tang lineage.",
-    path:
-      "M 486 67 C 432 57, 385 91, 337 151 M 486 67 C 470 98, 425 145, 375 185 M 486 67 C 526 128, 477 190, 413 221",
+    path: "M 486 67 C 432 57, 385 91, 337 151 M 486 67 C 470 98, 425 145, 375 185 M 486 67 C 526 128, 477 190, 413 221",
     dots: [
       [337, 151],
       [375, 185],
@@ -83,7 +82,7 @@ export function AnimatedEmblemMeaning() {
   return (
     <section
       ref={ref}
-      className="overflow-hidden bg-[#fffefc] px-4 py-10 sm:px-8 sm:py-14 lg:px-12 lg:py-16"
+      className="overflow-hidden bg-[#fffefc] px-2 py-10 sm:px-6 sm:py-14 lg:px-12 lg:py-16"
       aria-labelledby="crest-meaning-title"
     >
       <header className="mx-auto max-w-3xl text-center">
@@ -92,7 +91,7 @@ export function AnimatedEmblemMeaning() {
         </p>
         <h3
           id="crest-meaning-title"
-          className="font-heading text-foreground mt-4 text-[34px] leading-[1.08] font-medium sm:text-5xl"
+          className="font-heading text-foreground mt-4 text-[28px] leading-[1.08] font-medium sm:text-4xl lg:text-5xl"
         >
           The Crest &amp; Its Meaning
         </h3>
@@ -101,7 +100,7 @@ export function AnimatedEmblemMeaning() {
         </p>
       </header>
 
-      <div className="mx-auto mt-8 grid max-w-5xl items-center gap-7 lg:mt-12 lg:grid-cols-[minmax(0,1.55fr)_minmax(260px,0.85fr)] lg:gap-12">
+      <div className="mx-auto mt-8 grid max-w-5xl items-center gap-7 md:mt-12 md:grid-cols-[minmax(0,1.55fr)_minmax(210px,0.85fr)] md:gap-5 lg:grid-cols-[minmax(0,1.55fr)_minmax(260px,0.85fr)] lg:gap-12">
         <div
           className="relative mx-auto aspect-[580/430] w-full max-w-[650px]"
           aria-label="Interactive explanation of the Chito-Ryu emblem"
@@ -109,11 +108,7 @@ export function AnimatedEmblemMeaning() {
           <div className="absolute top-[58%] left-1/2 aspect-square w-[64%] -translate-x-1/2 -translate-y-1/2">
             <motion.div
               className="absolute inset-0"
-              initial={
-                reduceMotion
-                  ? false
-                  : { clipPath: "circle(0% at 50% 50%)", opacity: 1 }
-              }
+              initial={reduceMotion ? false : { clipPath: "circle(0% at 50% 50%)", opacity: 1 }}
               animate={
                 shouldAnimate
                   ? {
@@ -251,7 +246,7 @@ export function AnimatedEmblemMeaning() {
 
         <div
           id="crest-detail"
-          className={`relative flex min-h-[150px] items-center justify-center px-7 py-8 transition-[background-color,border-color,border-radius,box-shadow] duration-300 lg:min-h-[190px] ${
+          className={`relative flex min-h-[150px] items-center justify-center px-5 py-6 transition-[background-color,border-color,border-radius,box-shadow] duration-300 md:min-h-[190px] lg:px-7 lg:py-8 ${
             activeCallout
               ? "rounded-xl border border-[#e4dac8] bg-[#f8f4ed] text-left shadow-[0_18px_42px_rgba(45,38,27,0.25)]"
               : "border border-dashed border-[#e8e1d3] bg-white/65 text-center"

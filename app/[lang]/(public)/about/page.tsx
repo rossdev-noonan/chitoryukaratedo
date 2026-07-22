@@ -17,11 +17,11 @@ export const metadata: Metadata = {
 function SectionHeading({ eyebrow, children }: { eyebrow: string; children: React.ReactNode }) {
   return (
     <div>
-      <p className="text-brand-accent text-base font-semibold tracking-[0.1em] uppercase md:text-xl">
+      <p className="text-brand-accent text-xs font-medium tracking-[0.1em] uppercase md:text-xl md:font-semibold">
         {eyebrow}
       </p>
-      <div className="bg-primary mt-4 h-0.5 w-[86px]" />
-      <h2 className="font-heading text-foreground mt-6 text-[30px] font-medium md:text-[32px]">
+      <div className="bg-primary mt-4 h-0.5 w-[60px] md:w-[86px]" />
+      <h2 className="font-heading text-foreground mt-6 text-2xl font-medium md:text-[32px]">
         {children}
       </h2>
     </div>
@@ -29,14 +29,14 @@ function SectionHeading({ eyebrow, children }: { eyebrow: string; children: Reac
 }
 
 function Subheading({ children }: { children: React.ReactNode }) {
-  return <h3 className="text-foreground text-lg font-semibold uppercase md:text-xl">{children}</h3>;
+  return <h3 className="text-foreground text-base font-normal uppercase md:text-xl">{children}</h3>;
 }
 
 function SectionShell({ id, children }: { id: string; children: React.ReactNode }) {
   return (
     <section
       id={id}
-      className="scroll-mt-[160px] border-t border-[#c8a24a] py-12 first:border-0 md:py-[50px]"
+      className="scroll-mt-[140px] border-t border-[#c8a24a] py-[50px] first:border-0 md:scroll-mt-[170px] md:py-16"
     >
       {children}
     </section>
@@ -51,10 +51,10 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: Lo
       <AboutHero lang={lang} />
       <AboutSectionNav />
 
-      <div className="mx-auto mb-[72px] w-[calc(100%-2rem)] max-w-[1364px] bg-white px-5 md:px-10">
+      <div className="mx-auto mb-[72px] w-full max-w-[1364px] bg-white px-5 md:px-10 xl:w-[calc(100%-2rem)]">
         <SectionShell id="story">
           <SectionHeading eyebrow="Origin">The Story</SectionHeading>
-          <div className="text-foreground mt-6 space-y-5 text-base leading-[1.7]">
+          <div className="text-foreground mt-6 space-y-5 text-xs leading-[1.5] md:text-base md:leading-[1.7]">
             <Subheading>A Lineage Older Than a Name</Subheading>
             <p>
               Chito Ryu&apos;s roots reach back nearly a thousand years, to fighting traditions
@@ -73,10 +73,10 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: Lo
           </div>
 
           <div className="mt-12">
-            <h3 className="font-heading text-foreground text-[28px] font-medium md:text-[32px]">
+            <h3 className="font-heading text-foreground text-2xl font-medium md:text-[32px]">
               What is Chito Ryu
             </h3>
-            <div className="mt-6 space-y-5 text-base leading-[1.7] text-black">
+            <div className="mt-6 space-y-5 text-xs leading-[1.5] text-black md:text-base md:leading-[1.7]">
               <p>
                 The empty-handed martial art known as karate originated in ancient China, crossed
                 the sea to Okinawa, and there developed into a distinctive art called <em>tōde</em>
@@ -99,7 +99,7 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: Lo
                 and continue to teach, spread, and develop the art.
               </p>
             </div>
-            <div className="relative mt-10 h-[300px] w-full shadow-[0_20px_40px_rgba(0,0,0,0.06)] md:h-[537px]">
+            <div className="relative mt-10 h-[232px] w-full shadow-[0_20px_40px_rgba(0,0,0,0.06)] md:h-[400px] xl:h-[537px]">
               <Image
                 src="/images/about/tsuyoshi-chitose-map.png"
                 alt="Dr. Tsuyoshi Chitose before a map of East Asia"
@@ -113,7 +113,7 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: Lo
 
         <SectionShell id="philosophy">
           <SectionHeading eyebrow="Philosophy">The Way of Chito Ryu</SectionHeading>
-          <div className="mt-6 space-y-5 text-base leading-[1.7] text-black">
+          <div className="mt-6 space-y-5 text-xs leading-[1.5] text-black md:text-base md:leading-[1.7]">
             <Subheading>More Than Karate. A Way of Life.</Subheading>
             <p>
               Chito Ryu was never meant to be only a fighting style. Chitose Sensei, drawing on his
@@ -129,15 +129,15 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: Lo
           </div>
 
           <div className="mt-12">
-            <h3 className="text-foreground text-xl font-semibold uppercase">
+            <h3 className="text-foreground text-base font-bold uppercase md:text-xl md:font-semibold">
               The Meaning of <span className="text-primary">Chi, To, Ryu</span>
             </h3>
-            <p className="mt-5 text-base leading-[1.7] text-black">
+            <p className="mt-5 text-xs leading-[1.5] text-black md:text-base md:leading-[1.7]">
               O-Sensei was told by Arigaki Sensei that Karate-do originated approximately one
               thousand years ago in China. Based on this, O-Sensei named his style &quot;Chito
               Ryu&quot;, according to the origins of Karate-do.
             </p>
-            <ul className="marker:text-primary mt-8 space-y-5 pl-5 text-base leading-[1.7] text-black">
+            <ul className="marker:text-primary mt-8 space-y-6 pl-5 text-xs leading-[1.5] text-black md:space-y-5 md:text-base md:leading-[1.7]">
               <li>
                 <strong className="text-primary">&quot;CHI&quot;</strong> means &apos;one
                 thousand&apos;.
@@ -162,7 +162,7 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: Lo
 
         <SectionShell id="leadership">
           <SectionHeading eyebrow="Leadership & Lineage">Leadership</SectionHeading>
-          <div className="mt-6 space-y-5 text-base leading-[1.7] text-black">
+          <div className="mt-6 space-y-5 text-xs leading-[1.5] text-black md:text-base md:leading-[1.7]">
             <Subheading>代々 — Passed Down Through the Generations</Subheading>
             <p>
               Since Chitose Sensei&apos;s founding, Chito Ryu has been guided by three generations
@@ -177,7 +177,7 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: Lo
             </p>
           </div>
           <figure className="mt-10">
-            <div className="relative h-[300px] w-full shadow-[0_20px_40px_rgba(0,0,0,0.06)] md:h-[500px]">
+            <div className="relative h-[248px] w-full shadow-[0_20px_40px_rgba(0,0,0,0.06)] md:h-[400px] xl:h-[500px]">
               <Image
                 src="/images/about/three-soke-generations.png"
                 alt="The three generations of Chito-Ryu Soke leadership"
@@ -194,7 +194,7 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: Lo
 
         <SectionShell id="worldwide">
           <SectionHeading eyebrow="Global Community">Worldwide</SectionHeading>
-          <div className="mt-6 space-y-5 text-base leading-[1.7] text-black">
+          <div className="mt-6 space-y-5 text-xs leading-[1.5] text-black md:text-base md:leading-[1.7]">
             <Subheading>One Lineage, Twenty Countries</Subheading>
             <p>
               What began in a single dojo in Kumamoto now spans more than twenty countries and 300
@@ -204,7 +204,7 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: Lo
               they stand.
             </p>
           </div>
-          <div className="mt-[100px]">
+          <div className="mt-8 md:mt-12 xl:mt-[100px]">
             <AboutWorldMap />
           </div>
         </SectionShell>

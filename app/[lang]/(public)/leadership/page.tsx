@@ -41,7 +41,7 @@ const lineage = [
     sidebarRole: "Sandaime · 3rd Gen",
     role: "Sandaime Soke • 3rd Generation Soke",
     shortRole: "3rd Generation",
-    years: "2024–Present",
+    years: "2023–Present",
     name: "Tsuyoshi Chitose",
     photoSrc: "/images/leadership/sandaime-soke-figma.png",
   },
@@ -50,7 +50,7 @@ const lineage = [
 function LeadershipHero({ lang }: { lang: Locale }) {
   return (
     <section className="bg-background relative overflow-hidden xl:h-[720px]">
-      <div className="relative h-[240px] xl:absolute xl:inset-0 xl:h-full">
+      <div className="relative h-[240px] md:mx-5 md:mt-12 md:h-[516px] md:overflow-hidden md:rounded-lg xl:absolute xl:inset-0 xl:m-0 xl:h-full xl:rounded-none">
         <Image
           src="/images/history/hero-bg-practitioner.png"
           alt=""
@@ -71,7 +71,7 @@ function LeadershipHero({ lang }: { lang: Locale }) {
         </div>
       </div>
 
-      <div className="relative px-5 py-8 md:px-10 md:py-12 xl:w-[630px] xl:px-20 xl:pt-[120px] xl:pb-0">
+      <div className="relative px-5 py-8 md:px-20 md:pt-8 md:pb-0 xl:w-[630px] xl:px-20 xl:pt-[120px] xl:pb-0">
         <p className="text-brand-accent text-xs font-medium uppercase md:text-xl md:font-semibold">
           home / about / leadership
         </p>
@@ -106,7 +106,7 @@ function LeadershipHero({ lang }: { lang: Locale }) {
 
 function LineageNavigator() {
   return (
-    <nav className="bg-secondary-background px-5 py-4 xl:hidden" aria-label="Soke lineage">
+    <nav className="bg-secondary-background px-5 py-4 md:hidden" aria-label="Soke lineage">
       <div className="mx-auto max-w-3xl">
         <p className="text-foreground text-base font-semibold">
           Lineage <span className="ml-4 text-[10px] font-normal uppercase">Tap to jump</span>
@@ -138,6 +138,37 @@ function LineageNavigator() {
         </div>
       </div>
     </nav>
+  );
+}
+
+function TabletLineageRail() {
+  return (
+    <aside className="bg-secondary-background hidden self-stretch md:block xl:hidden">
+      <nav
+        className="sticky top-24 flex flex-col items-center px-2 py-10"
+        aria-label="Soke lineage"
+      >
+        <span className="font-heading text-foreground text-sm font-semibold tracking-[0.18em] uppercase [writing-mode:vertical-rl]">
+          Lineage
+        </span>
+        <div className="relative mt-8 flex flex-col gap-[69px] before:absolute before:top-7 before:bottom-7 before:left-1/2 before:w-px before:-translate-x-1/2 before:bg-[#d8cba8]">
+          {lineage.map((entry, index) => (
+            <a
+              key={entry.id}
+              href={`#${entry.id}`}
+              className={`font-heading relative z-10 flex size-14 items-center justify-center rounded-full border text-2xl ${
+                index === 0
+                  ? "border-primary bg-primary text-white"
+                  : "border-[#d8cba8] bg-[#faf6ec] text-[#b08d47]"
+              }`}
+              aria-label={`${entry.sidebarRole}: ${entry.name}`}
+            >
+              {entry.mark}
+            </a>
+          ))}
+        </div>
+      </nav>
+    </aside>
   );
 }
 
@@ -187,9 +218,9 @@ function SokeProfile({ entry }: { entry: (typeof lineage)[number] }) {
   return (
     <article
       id={entry.id}
-      className="scroll-mt-24 border-t border-[#d8cba8] py-10 md:py-14 xl:px-20"
+      className="scroll-mt-24 border-t border-[#d8cba8] py-10 md:px-10 md:py-14 xl:px-20"
     >
-      <header className="relative flex flex-col items-center text-center xl:items-start xl:text-left">
+      <header className="relative flex flex-col items-center text-center md:items-start md:text-left">
         <span className="bg-brand-accent rounded-sm px-3 py-1 text-xs font-bold text-[#faf9f7] md:text-base">
           {entry.years}
         </span>
@@ -202,7 +233,7 @@ function SokeProfile({ entry }: { entry: (typeof lineage)[number] }) {
         </span>
       </header>
 
-      <div className="relative mt-7 aspect-[1447/1024] w-full md:mt-10">
+      <div className="relative mt-7 aspect-[1447/1024] w-full md:mt-10 md:aspect-auto md:h-[553px] xl:aspect-[1447/1024] xl:h-auto">
         <Image
           src={entry.photoSrc}
           alt={`${entry.name}, ${entry.role}`}
@@ -225,7 +256,7 @@ export default async function LeadershipPage({ params }: { params: Promise<{ lan
     <>
       <LeadershipHero lang={lang} />
 
-      <section className="px-5 py-10 text-center md:px-10 md:py-16 xl:hidden">
+      <section className="px-5 py-10 text-center md:hidden">
         <p className="text-brand-accent text-xs font-medium uppercase">Leadership</p>
         <div className="bg-primary mx-auto mt-2 h-0.5 w-[60px]" />
         <h2 className="font-heading text-foreground mt-4 text-2xl font-medium">Soke</h2>
@@ -239,10 +270,11 @@ export default async function LeadershipPage({ params }: { params: Promise<{ lan
 
       <LineageNavigator />
 
-      <div className="mx-auto grid w-full max-w-[1364px] xl:grid-cols-[420px_minmax(0,1fr)] xl:gap-6">
+      <div className="mx-auto grid w-full max-w-[1364px] md:w-[calc(100%-40px)] md:grid-cols-[89px_minmax(0,1fr)] md:gap-6 xl:w-full xl:grid-cols-[420px_minmax(0,1fr)]">
+        <TabletLineageRail />
         <LineageSidebar />
-        <main className="bg-white px-5 md:px-10 xl:px-0">
-          <section className="hidden px-10 py-14 xl:block">
+        <main className="bg-white px-5 md:px-5 xl:px-0">
+          <section className="hidden px-10 py-14 md:block">
             <p className="text-brand-accent text-xl font-semibold tracking-[0.1em] uppercase">
               Leadership
             </p>
@@ -262,7 +294,7 @@ export default async function LeadershipPage({ params }: { params: Promise<{ lan
       </div>
 
       <section className="mx-auto w-full max-w-7xl px-5 py-10 md:px-10 md:py-16 xl:px-0 xl:py-20">
-        <div className="bg-primary-dark flex min-h-[199px] flex-col items-start justify-center gap-8 px-6 py-12 sm:flex-row sm:items-center sm:justify-between md:px-10 xl:px-20">
+        <div className="bg-primary-dark flex min-h-[199px] flex-col items-start justify-center gap-8 px-6 py-12 md:min-h-[244px] md:items-center md:px-10 md:text-center xl:min-h-[199px] xl:flex-row xl:justify-between xl:px-20 xl:text-left">
           <div>
             <h2 className="font-heading text-2xl font-bold text-white md:text-[32px]">
               Continue the lineage.

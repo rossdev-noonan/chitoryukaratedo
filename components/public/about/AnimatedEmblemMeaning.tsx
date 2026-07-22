@@ -43,7 +43,7 @@ const callouts = [
     symbol: "空手道",
     title: "空手道 — Karate-do",
     meaning: "空手道 — the way of the empty hand.",
-    path: "M 86 388 C 118 348, 137 284, 201 272 M 86 388 C 158 415, 195 360, 228 316",
+    path: "M 95 374 C 111 330, 145 284, 201 272 M 108 392 C 152 380, 190 347, 228 316",
     dots: [
       [201, 272],
       [228, 316],

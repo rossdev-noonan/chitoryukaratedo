@@ -11,7 +11,7 @@ const callouts = [
     symbol: "日",
     title: "The Sun",
     meaning: "The red sun at the centre of the emblem.",
-    path: "M 290 59 C 290 91, 290 126, 290 158",
+    path: "M 290 43 C 290 82, 290 123, 290 158",
     dot: [290, 158],
   },
   {
@@ -20,7 +20,7 @@ const callouts = [
     symbol: "手",
     title: "Hands Joined in Peace",
     meaning: "The five lines on each side represent people joining hands in peace.",
-    path: "M 72 216 C 101 220, 119 235, 145 239",
+    path: "M 88 211 C 108 217, 124 234, 145 239",
     dot: [145, 239],
   },
   {
@@ -29,7 +29,7 @@ const callouts = [
     symbol: "千唐流",
     title: "千唐流 — Chito Ryu",
     meaning: "千唐流 — the thousand-year Tang lineage.",
-    path: "M 472 140 C 428 143, 403 171, 356 187",
+    path: "M 486 126 C 435 134, 405 169, 356 187",
     dot: [356, 187],
   },
   {
@@ -38,7 +38,7 @@ const callouts = [
     symbol: "空手道",
     title: "空手道 — Karate-do",
     meaning: "空手道 — the way of the empty hand.",
-    path: "M 75 381 C 138 377, 173 343, 224 318",
+    path: "M 88 370 C 142 367, 178 340, 224 318",
     dot: [224, 318],
   },
   {
@@ -47,7 +47,7 @@ const callouts = [
     symbol: "宇宙",
     title: "The Universe",
     meaning: "The enclosing circle represents the universe and our shared world.",
-    path: "M 472 363 C 451 360, 432 347, 408 333",
+    path: "M 486 354 C 456 354, 433 345, 408 333",
     dot: [408, 333],
   },
 ] as const;
@@ -57,7 +57,7 @@ type CalloutId = (typeof callouts)[number]["id"];
 const positions: Record<CalloutId, string> = {
   sun: "left-[44%] top-[3%] -translate-x-1/2",
   hands: "left-0 top-[42%]",
-  chito: "right-0 top-[23%]",
+  chito: "right-[-5%] top-[27%] sm:right-0",
   karate: "bottom-[3%] left-0",
   universe: "right-0 bottom-[6%]",
 };
@@ -157,7 +157,7 @@ export function AnimatedEmblemMeaning() {
                     d={callout.path}
                     fill="none"
                     stroke="#c5a24d"
-                    strokeWidth={isActive ? 4 : 1.7}
+                    strokeWidth={isActive ? 4 : 2.2}
                     strokeLinecap="round"
                     initial={reduceMotion ? false : { pathLength: 0, opacity: 0 }}
                     animate={
@@ -220,7 +220,7 @@ export function AnimatedEmblemMeaning() {
                 onClick={() => setActive((current) => (current === callout.id ? null : callout.id))}
                 aria-pressed={isActive}
                 aria-controls="crest-detail"
-                className={`absolute ${positions[callout.id]} px-2 py-1 text-left text-xs font-medium tracking-wide text-[#b9953f] transition-colors hover:text-[#846a2d] focus-visible:text-[#715824] focus-visible:outline-none sm:text-sm`}
+                className={`absolute ${positions[callout.id]} px-2 py-1 text-left text-sm font-medium tracking-wide text-[#b9953f] transition-colors hover:text-[#846a2d] focus-visible:text-[#715824] focus-visible:outline-none sm:text-lg`}
                 initial={reduceMotion ? false : { opacity: 0, y: 7 }}
                 animate={
                   shouldAnimate

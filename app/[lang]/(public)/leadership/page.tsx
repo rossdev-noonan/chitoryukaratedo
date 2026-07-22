@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { MapPinSolid } from "@/components/public/icons/MapPinSolid";
+import { LeadershipLineageSidebar } from "@/components/public/leadership/LeadershipLineageSidebar";
 import type { Locale } from "@/lib/i18n/locales";
 
 export const metadata: Metadata = {
@@ -141,79 +142,6 @@ function LineageNavigator() {
   );
 }
 
-function TabletLineageRail() {
-  return (
-    <aside className="bg-secondary-background hidden self-stretch md:block xl:hidden">
-      <nav
-        className="sticky top-24 flex flex-col items-center px-2 py-10"
-        aria-label="Soke lineage"
-      >
-        <span className="font-heading text-foreground text-sm font-semibold tracking-[0.18em] uppercase [writing-mode:vertical-rl]">
-          Lineage
-        </span>
-        <div className="relative mt-8 flex flex-col gap-[69px] before:absolute before:top-7 before:bottom-7 before:left-1/2 before:w-px before:-translate-x-1/2 before:bg-[#d8cba8]">
-          {lineage.map((entry, index) => (
-            <a
-              key={entry.id}
-              href={`#${entry.id}`}
-              className={`font-heading relative z-10 flex size-14 items-center justify-center rounded-full border text-2xl ${
-                index === 0
-                  ? "border-primary bg-primary text-white"
-                  : "border-[#d8cba8] bg-[#faf6ec] text-[#b08d47]"
-              }`}
-              aria-label={`${entry.sidebarRole}: ${entry.name}`}
-            >
-              {entry.mark}
-            </a>
-          ))}
-        </div>
-      </nav>
-    </aside>
-  );
-}
-
-function LineageSidebar() {
-  return (
-    <aside className="bg-secondary-background hidden self-stretch xl:block">
-      <div className="sticky top-24 px-14 py-12">
-        <h2 className="font-heading text-[32px] font-medium text-black">The Lineage</h2>
-        <nav
-          className="relative mt-14 space-y-6 before:absolute before:top-12 before:bottom-12 before:left-[27px] before:w-px before:bg-[#d8cba8]"
-          aria-label="Soke lineage"
-        >
-          {lineage.map((entry, index) => (
-            <a
-              key={entry.id}
-              href={`#${entry.id}`}
-              className="relative z-10 flex items-center gap-8"
-            >
-              <span
-                className={`font-heading flex size-14 shrink-0 items-center justify-center rounded-full border text-2xl ${
-                  index === 0
-                    ? "border-primary bg-primary text-white"
-                    : "border-[#d8cba8] bg-[#faf6ec] text-[#b08d47]"
-                }`}
-              >
-                {entry.mark}
-              </span>
-              <span>
-                <span
-                  className={`block text-base font-bold ${index === 0 ? "text-primary" : "text-[#b08d47]"}`}
-                >
-                  {entry.sidebarRole}
-                </span>
-                <span className="font-heading mt-2 block text-xl font-semibold text-black">
-                  {entry.name}
-                </span>
-              </span>
-            </a>
-          ))}
-        </nav>
-      </div>
-    </aside>
-  );
-}
-
 function SokeProfile({ entry }: { entry: (typeof lineage)[number] }) {
   return (
     <article
@@ -270,9 +198,8 @@ export default async function LeadershipPage({ params }: { params: Promise<{ lan
 
       <LineageNavigator />
 
-      <div className="mx-auto grid w-full max-w-[1364px] md:w-[calc(100%-40px)] md:grid-cols-[89px_minmax(0,1fr)] md:gap-6 xl:w-full xl:grid-cols-[420px_minmax(0,1fr)]">
-        <TabletLineageRail />
-        <LineageSidebar />
+      <div className="mx-auto grid w-full max-w-[1364px] md:w-[calc(100%-40px)] md:grid-cols-[89px_minmax(0,1fr)] md:gap-6 xl:w-full xl:grid-cols-[491px_minmax(0,849px)] xl:gap-0">
+        <LeadershipLineageSidebar entries={lineage} />
         <main className="bg-white px-5 md:px-5 xl:px-0">
           <section className="hidden px-10 py-14 md:block">
             <p className="text-brand-accent text-xl font-semibold tracking-[0.1em] uppercase">

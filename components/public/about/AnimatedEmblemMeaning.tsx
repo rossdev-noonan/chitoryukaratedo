@@ -55,8 +55,8 @@ const callouts = [
     symbol: "宇宙",
     title: "The Universe",
     meaning: "The enclosing circle represents the universe and our shared world.",
-    path: "M 490 384 C 423 401, 365 395, 368 335",
-    dots: [[368, 335]],
+    path: "M 490 384 C 431 403, 382 410, 355 378",
+    dots: [[355, 378]],
   },
 ] as const;
 

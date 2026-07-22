@@ -33,7 +33,7 @@ export function HistoryHero({ lang }: HistoryHeroProps) {
         />
       </div>
 
-      <div className="bg-background hidden px-5 pt-12 pb-8 md:block xl:hidden">
+      <div className="bg-background hidden px-10 pt-12 pb-8 md:block xl:hidden">
         <div className="flex h-[272px] flex-col items-start">
           <p className="text-brand-accent text-xl font-semibold uppercase">
             home / about / history
@@ -63,7 +63,7 @@ export function HistoryHero({ lang }: HistoryHeroProps) {
             </Link>
           </div>
         </div>
-        <div className="relative mt-8 h-[380px] w-full overflow-hidden rounded-lg">
+        <div className="relative mt-8 h-[339px] w-full overflow-hidden rounded-lg">
           <Image
             src="/images/history/history-pic-1.png"
             alt="Aerial view of Chito-Ryu practitioners in formation before a ceremonial hall"

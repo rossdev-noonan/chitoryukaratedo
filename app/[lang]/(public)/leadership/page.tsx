@@ -50,7 +50,7 @@ const lineage = [
 function LeadershipHero({ lang }: { lang: Locale }) {
   return (
     <section className="bg-background relative overflow-hidden xl:h-[720px]">
-      <div className="relative h-[240px] md:mx-5 md:mt-12 md:h-[516px] md:overflow-hidden md:rounded-lg xl:absolute xl:inset-0 xl:m-0 xl:h-full xl:rounded-none">
+      <div className="relative h-[240px] md:mx-10 md:mt-12 md:h-[339px] md:overflow-hidden md:rounded-lg xl:absolute xl:inset-0 xl:m-0 xl:h-full xl:rounded-none">
         <Image
           src="/images/history/hero-bg-practitioner.png"
           alt=""

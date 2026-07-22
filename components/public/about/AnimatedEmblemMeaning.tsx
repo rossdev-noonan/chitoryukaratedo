@@ -11,8 +11,8 @@ const callouts = [
     symbol: "日",
     title: "The Sun",
     meaning: "The red sun at the centre of the emblem.",
-    path: "M 290 43 C 290 82, 290 123, 290 158",
-    dot: [290, 158],
+    path: "M 248 34 C 292 72, 306 170, 290 250",
+    dots: [[290, 250]],
   },
   {
     id: "hands",
@@ -20,8 +20,8 @@ const callouts = [
     symbol: "手",
     title: "Hands Joined in Peace",
     meaning: "The five lines on each side represent people joining hands in peace.",
-    path: "M 88 211 C 108 217, 124 234, 145 239",
-    dot: [145, 239],
+    path: "M 83 94 C 76 154, 94 209, 145 223",
+    dots: [[145, 223]],
   },
   {
     id: "chito",
@@ -29,8 +29,13 @@ const callouts = [
     symbol: "千唐流",
     title: "千唐流 — Chito Ryu",
     meaning: "千唐流 — the thousand-year Tang lineage.",
-    path: "M 486 126 C 435 134, 405 169, 356 187",
-    dot: [356, 187],
+    path:
+      "M 486 67 C 432 57, 385 91, 337 151 M 486 67 C 470 98, 425 145, 375 185 M 486 67 C 526 128, 477 190, 413 221",
+    dots: [
+      [337, 151],
+      [375, 185],
+      [413, 221],
+    ],
   },
   {
     id: "karate",
@@ -38,8 +43,11 @@ const callouts = [
     symbol: "空手道",
     title: "空手道 — Karate-do",
     meaning: "空手道 — the way of the empty hand.",
-    path: "M 88 370 C 142 367, 178 340, 224 318",
-    dot: [224, 318],
+    path: "M 86 388 C 118 348, 137 284, 201 272 M 86 388 C 158 415, 195 360, 228 316",
+    dots: [
+      [201, 272],
+      [228, 316],
+    ],
   },
   {
     id: "universe",
@@ -47,8 +55,8 @@ const callouts = [
     symbol: "宇宙",
     title: "The Universe",
     meaning: "The enclosing circle represents the universe and our shared world.",
-    path: "M 486 354 C 456 354, 433 345, 408 333",
-    dot: [408, 333],
+    path: "M 490 384 C 423 401, 365 395, 368 335",
+    dots: [[368, 335]],
   },
 ] as const;
 
@@ -56,10 +64,10 @@ type CalloutId = (typeof callouts)[number]["id"];
 
 const positions: Record<CalloutId, string> = {
   sun: "left-[44%] top-[3%] -translate-x-1/2",
-  hands: "left-0 top-[42%]",
-  chito: "right-[-5%] top-[27%] sm:right-0",
-  karate: "bottom-[3%] left-0",
-  universe: "right-0 bottom-[6%]",
+  hands: "left-0 top-[18%]",
+  chito: "right-[-5%] top-[10%] sm:right-0",
+  karate: "bottom-0 left-0",
+  universe: "right-0 bottom-0",
 };
 
 const selectorOrder: CalloutId[] = ["sun", "chito", "hands", "universe", "karate"];
@@ -171,32 +179,38 @@ export function AnimatedEmblemMeaning() {
                       ease: [0.16, 1, 0.3, 1],
                     }}
                   />
-                  <motion.circle
-                    cx={callout.dot[0]}
-                    cy={callout.dot[1]}
-                    r={isActive ? 6.5 : 4}
-                    fill={isActive ? "#e62432" : "#c5a24d"}
-                    stroke={isActive ? "#fffefc" : "transparent"}
-                    strokeWidth={isActive ? 2.5 : 0}
-                    initial={reduceMotion ? false : { scale: 0 }}
-                    animate={
-                      shouldAnimate
-                        ? { scale: 1, opacity: active && !isActive ? 0.22 : 1 }
-                        : { scale: 0, opacity: 0 }
-                    }
-                    transition={{ delay: reduceMotion ? 0 : 2.55 + index * 0.1, duration: 0.22 }}
-                    style={{ transformOrigin: `${callout.dot[0]}px ${callout.dot[1]}px` }}
-                  />
+                  {callout.dots.map((dot, dotIndex) => (
+                    <motion.circle
+                      key={`${callout.id}-${dotIndex}`}
+                      cx={dot[0]}
+                      cy={dot[1]}
+                      r={isActive ? 6.5 : 4}
+                      fill={isActive ? "#e62432" : "#c5a24d"}
+                      stroke={isActive ? "#fffefc" : "transparent"}
+                      strokeWidth={isActive ? 2.5 : 0}
+                      initial={reduceMotion ? false : { scale: 0 }}
+                      animate={
+                        shouldAnimate
+                          ? { scale: 1, opacity: active && !isActive ? 0.22 : 1 }
+                          : { scale: 0, opacity: 0 }
+                      }
+                      transition={{
+                        delay: reduceMotion ? 0 : 2.55 + index * 0.1 + dotIndex * 0.05,
+                        duration: 0.22,
+                      }}
+                      style={{ transformOrigin: `${dot[0]}px ${dot[1]}px` }}
+                    />
+                  ))}
                 </g>
               );
             })}
           </svg>
 
-          {callouts.map((callout) => {
+          {callouts.flatMap((callout) => {
             const isActive = active === callout.id;
-            return (
+            return callout.dots.map((dot, dotIndex) => (
               <button
-                key={`${callout.id}-dot`}
+                key={`${callout.id}-dot-${dotIndex}`}
                 type="button"
                 onClick={() => setActive((current) => (current === callout.id ? null : callout.id))}
                 aria-label={`Show ${callout.label} meaning`}
@@ -204,11 +218,11 @@ export function AnimatedEmblemMeaning() {
                 aria-controls="crest-detail"
                 className="absolute z-10 size-7 -translate-x-1/2 -translate-y-1/2 rounded-full focus-visible:ring-2 focus-visible:ring-[#c5a24d] focus-visible:ring-offset-2 focus-visible:outline-none"
                 style={{
-                  left: `${(callout.dot[0] / 580) * 100}%`,
-                  top: `${(callout.dot[1] / 430) * 100}%`,
+                  left: `${(dot[0] / 580) * 100}%`,
+                  top: `${(dot[1] / 430) * 100}%`,
                 }}
               />
-            );
+            ));
           })}
 
           {callouts.map((callout, index) => {

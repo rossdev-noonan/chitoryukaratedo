@@ -59,7 +59,7 @@ function LeadershipHero({ lang }: { lang: Locale }) {
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 xl:top-10 xl:left-[34.8%] xl:h-[539px] xl:w-[67.2%]">
+        <div className="absolute inset-y-0 right-0 w-full xl:left-[34.8%] xl:w-[65.2%]">
           <Image
             src="/images/leadership/leadership-group.png"
             alt="Chito-Ryu International leadership group"
@@ -75,8 +75,8 @@ function LeadershipHero({ lang }: { lang: Locale }) {
         <p className="text-brand-accent text-xs font-medium uppercase md:text-xl md:font-semibold">
           home / about / leadership
         </p>
-        <div className="bg-primary mt-4 h-0.5 w-[60px] md:w-[86px]" />
-        <h1 className="font-heading text-foreground mt-4 text-2xl font-medium md:text-5xl md:font-semibold">
+        <div className="bg-primary mt-4 h-0.5 w-[60px] md:mt-[11px] md:w-[86px]" />
+        <h1 className="font-heading text-foreground mt-4 text-2xl font-medium md:mt-3 md:text-5xl md:font-semibold">
           Leadership
         </h1>
         <p className="text-muted-foreground mt-6 max-w-[480px] text-xs leading-[1.5] md:text-lg md:leading-[1.6] xl:mt-10">

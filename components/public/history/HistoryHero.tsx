@@ -9,13 +9,6 @@ interface HistoryHeroProps {
   lang: Locale;
 }
 
-// Percentages against Figma's 1440x720 hero canvas — same aspect-locked
-// technique as HomeHero, so the "history pic 1" box scales correctly at
-// every breakpoint instead of relying on a fixed pixel box. Gil replaced the
-// torii-gate photo with a new aerial dojo-ceremony shot and moved/resized
-// the box (left 501, top 40, w 968, h 539 on the 1440x720 canvas).
-const historyPicGeometry = { left: 34.792, top: 5.556, width: 67.222, height: 74.861 };
-
 export function HistoryHero({ lang }: HistoryHeroProps) {
   return (
     <section className="relative overflow-hidden">
@@ -86,33 +79,23 @@ export function HistoryHero({ lang }: HistoryHeroProps) {
       </div>
 
       <div className="relative hidden h-[720px] w-full overflow-hidden xl:block">
-        <div className="absolute top-0 right-0 aspect-[1440/720] h-full">
-          <div
-            className="absolute"
-            style={{
-              left: `${historyPicGeometry.left}%`,
-              top: `${historyPicGeometry.top}%`,
-              width: `${historyPicGeometry.width}%`,
-              height: `${historyPicGeometry.height}%`,
-            }}
-          >
-            <Image
-              src="/images/history/history-pic-1.png"
-              alt="Aerial view of Chito-Ryu practitioners in formation before a ceremonial hall"
-              fill
-              sizes="(min-width: 1024px) 68vw, 100vw"
-              className="object-cover"
-            />
-          </div>
+        <div className="absolute inset-y-0 right-0 w-full xl:left-[34.8%] xl:w-[65.2%]">
+          <Image
+            src="/images/history/history-pic-1.png"
+            alt="Aerial view of Chito-Ryu practitioners in formation before a ceremonial hall"
+            fill
+            sizes="(min-width: 1280px) 66vw, 100vw"
+            className="object-contain"
+          />
         </div>
       </div>
 
       <div className="bg-background relative px-5 py-8 md:hidden xl:absolute xl:inset-0 xl:block xl:bg-transparent xl:px-20 xl:pt-[120px]">
         <div className="relative xl:w-[630px]">
-          <p className="text-brand-accent text-xl font-semibold uppercase xl:text-sm">
+          <p className="text-brand-accent text-xl font-semibold uppercase">
             home / about / history
           </p>
-          <div className="bg-primary mt-2 h-[3px] w-[60px] xl:h-0.5 xl:w-[86px]" />
+          <div className="bg-primary mt-4 h-[3px] w-[60px] xl:mt-[11px] xl:h-0.5 xl:w-[86px]" />
           {/* Gil's desktop hero copy has moved on from mobile's — mobile
               frame (507:346) still literally reads "History of Chito Ryu" as
               of this sync, so these render different text per breakpoint

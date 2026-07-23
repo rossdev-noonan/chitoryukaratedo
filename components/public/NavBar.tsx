@@ -46,19 +46,22 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
           </span>
           <span className="font-heading flex flex-col items-start text-left leading-tight">
             <span className="text-foreground block text-sm font-bold sm:text-base md:text-sm xl:text-xs">
-              千唐流国際
+              国際千唐流空手道連盟
             </span>
             <span className="text-foreground block text-[10px] font-semibold sm:hidden">
-              Chito Ryu International
+              INTERNATIONAL CHITO RYU
+            </span>
+            <span className="text-foreground block text-[10px] font-semibold sm:hidden">
+              KARATE DO FEDERATION
             </span>
             <span className="text-foreground hidden text-[10px] font-semibold uppercase sm:block sm:text-sm md:hidden">
-              Chito Ryu
+              INTERNATIONAL CHITO RYU
             </span>
             <span className="text-foreground hidden text-[6px] tracking-[0.84px] uppercase sm:block sm:text-[10px] sm:tracking-[0.2px] md:hidden">
-              International
+              KARATE DO FEDERATION
             </span>
             <span className="text-foreground hidden text-[10px] font-semibold md:block xl:text-sm">
-              Chito Ryu International
+              INTERNATIONAL CHITO RYU KARATE DO FEDERATION
             </span>
           </span>
         </Link>

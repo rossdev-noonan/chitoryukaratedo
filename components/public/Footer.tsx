@@ -31,17 +31,19 @@ export function Footer({ lang, dictionary }: FooterProps) {
 
   return (
     <footer className="bg-foreground text-background">
-      <div className="mx-auto max-w-7xl px-5 py-10 sm:px-6 sm:py-16 md:px-10 md:pt-16 md:pb-12 lg:px-10">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-16 md:px-8 md:pt-16 md:pb-12 xl:px-0">
         <div className="grid grid-cols-1 gap-y-7 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-10 md:grid-cols-3 md:gap-x-10 md:gap-y-10 xl:grid-cols-4">
           <div className="mb-3 min-h-[110px] sm:col-span-2 sm:mb-0 sm:min-h-0 md:col-span-3 xl:col-span-1">
             <div className="flex items-center gap-3">
-              <Image
-                src="/brand/chito-ryu-logo.svg"
-                alt=""
-                width={40}
-                height={40}
-                className="h-8 w-10 object-contain sm:h-10 sm:w-10 md:h-8 md:w-10 xl:h-10 xl:w-10"
-              />
+              <span className="relative block h-10 w-10 shrink-0">
+                <Image
+                  src="/brand/chito-ryu-logo.svg"
+                  alt=""
+                  fill
+                  sizes="40px"
+                  className="object-contain"
+                />
+              </span>
               <span className="font-heading leading-tight">
                 <span className="block text-xs font-bold opacity-70 md:text-sm xl:text-xs">
                   千唐流国際

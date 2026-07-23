@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 
-import { PageHeader } from "@/components/public/PageHeader";
-import { PlaceholderNotice } from "@/components/public/PlaceholderNotice";
-import { SearchBox } from "@/components/public/SearchBox";
-import { TeacherCard } from "@/components/public/TeacherCard";
-import { getTeachers, searchTeachers } from "@/lib/directory";
+import { GlobalCommunityCTA } from "@/components/public/GlobalCommunityCTA";
+import type { TeacherRegistryEntry } from "@/components/public/TeacherCard";
+import { TeacherRegistry } from "@/components/public/TeacherRegistry";
+import { getApprovedDojos, getCountries, getTeachers } from "@/lib/directory";
 import { localeAlternates } from "@/lib/i18n/alternates";
 import type { Locale } from "@/lib/i18n/locales";
-import { checkSearchRateLimit } from "@/lib/rate-limit";
 
 interface TeachersPageProps {
   params: Promise<{ lang: Locale }>;
@@ -18,52 +16,54 @@ export async function generateMetadata({ params }: TeachersPageProps): Promise<M
   const { lang } = await params;
   return {
     title: "Teacher Registry",
-    description: "Approved and rank-verified Chito-Ryu teachers worldwide.",
-    // Canonical always points at the unfiltered list — search-query variations
-    // (?q=...) are the same underlying page, not distinct content to index.
+    description: "Search and explore approved, rank-verified Chito-Ryu teachers worldwide.",
     alternates: localeAlternates(lang, "/teachers"),
   };
 }
 
-export default async function TeachersPage({ params, searchParams }: TeachersPageProps) {
-  const { lang } = await params;
-  const { q } = await searchParams;
+function getTeacherPhotoUrl(photoPath: string | null) {
+  if (!photoPath) return null;
+  if (/^https?:\/\//i.test(photoPath)) return photoPath;
 
-  let teachers;
-  let rateLimited = false;
-  if (q) {
-    const withinLimit = await checkSearchRateLimit();
-    if (withinLimit) {
-      teachers = await searchTeachers(q);
-    } else {
-      rateLimited = true;
-      teachers = await getTeachers();
-    }
-  } else {
-    teachers = await getTeachers();
-  }
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  if (!supabaseUrl) return null;
+  const encodedPath = photoPath.split("/").map(encodeURIComponent).join("/");
+  return `${supabaseUrl}/storage/v1/object/public/teacher-photos-approved/${encodedPath}`;
+}
+
+export default async function TeachersPage({ params, searchParams }: TeachersPageProps) {
+  const [{ lang }, { q }, teachers, countries, dojos] = await Promise.all([
+    params,
+    searchParams,
+    getTeachers(),
+    getCountries(),
+    getApprovedDojos(),
+  ]);
+
+  const countryById = new Map(countries.map((country) => [country.id, country]));
+  const dojoById = new Map(dojos.map((dojo) => [dojo.id, dojo]));
+  const entries: TeacherRegistryEntry[] = teachers.map((teacher) => {
+    const country = countryById.get(teacher.countryId);
+    const dojo = dojoById.get(teacher.dojoId);
+    return {
+      id: teacher.id,
+      slug: teacher.slug,
+      nameNative: teacher.nameNative,
+      nameRomaji: teacher.nameRomaji,
+      rank: teacher.rank,
+      dojoName: dojo?.name ?? null,
+      dojoSlug: dojo?.slug ?? null,
+      dojoEmail: dojo?.contactEmail ?? null,
+      countryName: country?.name ?? null,
+      photoUrl: getTeacherPhotoUrl(teacher.photoPath),
+    };
+  });
 
   return (
     <>
-      <PageHeader title="Teacher Registry" description="Search by Romaji, kana, or native name." />
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SearchBox placeholder="Search teachers…" initialQuery={q ?? ""} />
-        {rateLimited && (
-          <p className="mt-2 text-sm text-red-600">
-            Too many searches — showing the full list. Try again in a minute.
-          </p>
-        )}
-      </div>
-      <div className="mx-auto mt-8 grid max-w-6xl grid-cols-1 gap-4 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-3">
-        {teachers.length === 0 ? (
-          <p className="text-muted-foreground col-span-full text-sm">No teachers found.</p>
-        ) : (
-          teachers.map((teacher) => (
-            <TeacherCard key={teacher.slug} teacher={teacher} lang={lang} />
-          ))
-        )}
-      </div>
-      <PlaceholderNotice source="Supabase (approved and rank-verified only)" />
+      <TeacherRegistry teachers={entries} lang={lang} initialQuery={q ?? ""} />
+      <GlobalCommunityCTA lang={lang} />
+      <div className="h-10 md:h-12 xl:h-20" aria-hidden="true" />
     </>
   );
 }

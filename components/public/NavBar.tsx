@@ -32,15 +32,18 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
 
   return (
     <header className="border-border bg-background sticky top-0 z-40 border-b">
-      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:h-20 sm:px-10 md:justify-start xl:justify-between">
+      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:h-20 sm:px-6 md:justify-start md:px-8 xl:justify-between xl:px-0">
         <Link href={`/${lang}`} className="flex items-center gap-2 sm:gap-3">
-          <Image
-            src="/brand/chito-ryu-logo.svg"
-            alt="Chito-Ryu International"
-            width={38}
-            height={31}
-            className="h-8 w-[38px] object-contain sm:h-[70px] sm:w-[70px] md:h-[31px] md:w-[38px] xl:h-10 xl:w-10"
-          />
+          <span className="relative block h-[31px] w-[38px] shrink-0 sm:h-[57px] sm:w-[70px]">
+            <Image
+              src="/brand/chito-ryu-logo.svg"
+              alt="Chito-Ryu International"
+              fill
+              sizes="(max-width: 639px) 38px, 70px"
+              loading="eager"
+              className="object-contain"
+            />
+          </span>
           <span className="font-heading flex flex-col items-start text-left leading-tight">
             <span className="text-foreground block text-sm font-bold sm:text-base md:text-sm xl:text-xs">
               千唐流国際
@@ -61,7 +64,7 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
         </Link>
 
         <nav
-          className="hidden items-center gap-3 md:ml-[87px] md:flex xl:ml-0 xl:gap-6 md:[&>*:nth-child(3)]:hidden xl:[&>*:nth-child(3)]:flex"
+          className="hidden items-center gap-3 md:ml-[68px] md:flex xl:ml-0 xl:gap-6 md:[&>*:nth-child(3)]:hidden xl:[&>*:nth-child(3)]:flex"
           aria-label="Primary"
         >
           {navGroups.map((entry) =>
@@ -80,20 +83,21 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
         </nav>
 
         <div className="flex items-center gap-3 md:ml-3 xl:ml-0 xl:gap-4">
-          <div className="md:order-2">
+          <div className="order-2">
             <LanguagePicker lang={lang} dictionary={dictionary} />
           </div>
 
           <Link
             href={`/${lang}/login`}
-            className="bg-primary-dark text-primary-foreground hover:bg-primary hidden px-6 py-3 text-sm font-bold whitespace-nowrap transition-colors md:order-1 md:inline-block"
+            className="bg-primary-dark text-primary-foreground hover:bg-primary order-1 inline-block px-4 py-3 text-sm font-bold whitespace-nowrap transition-colors md:px-6"
           >
-            {dictionary.nav.joinUs}
+            <span className="xl:hidden">Join</span>
+            <span className="hidden xl:inline">{dictionary.nav.joinUs}</span>
           </Link>
 
           <button
             type="button"
-            className="text-foreground md:hidden"
+            className="text-foreground order-3 md:hidden"
             aria-expanded={isMenuOpen}
             aria-controls="mobile-nav"
             onClick={() => setIsMenuOpen((open) => !open)}

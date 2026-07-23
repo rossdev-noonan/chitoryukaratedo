@@ -10,9 +10,6 @@ import { FEATURED_DIRECTORY_COUNTRIES } from "@/lib/countries-featured";
 import { getApprovedDojos, getCountries } from "@/lib/directory";
 import type { Locale } from "@/lib/i18n/locales";
 
-// Gil's fix for the old flag-row not scaling as ICKF adds members: a bounded
-// "popular countries" quick-pick list + a "See more" link to the full
-// federations list below, instead of rendering every country's flag inline.
 const POPULAR_COUNTRY_SLUGS = [
   "japan",
   "usa",
@@ -28,16 +25,6 @@ const POPULAR_COUNTRY_SLUGS = [
 const POPULAR_COUNTRIES = POPULAR_COUNTRY_SLUGS.map((slug) =>
   FEATURED_DIRECTORY_COUNTRIES.find((country) => country.slug === slug),
 ).filter((country) => country !== undefined);
-
-export const metadata: Metadata = {
-  title: "World Dojo Directory",
-  description: "Approved Chito-Ryu dojos and federations worldwide.",
-};
-
-interface DojoDirectoryPageProps {
-  params: Promise<{ lang: Locale }>;
-  searchParams: Promise<{ q?: string; region?: string; country?: string }>;
-}
 
 const REGION_LABELS: Record<Continent, string> = {
   northAmerica: "North America",
@@ -56,6 +43,16 @@ const MAP_PINS = [
   { left: "78%", top: "37%" },
   { left: "81%", top: "70%" },
 ];
+
+export const metadata: Metadata = {
+  title: "World Dojo Directory",
+  description: "Approved Chito-Ryu dojos and federations worldwide.",
+};
+
+interface DojoDirectoryPageProps {
+  params: Promise<{ lang: Locale }>;
+  searchParams: Promise<{ q?: string; region?: string; country?: string }>;
+}
 
 function displaySite(url: string | null) {
   if (!url) return null;
@@ -83,7 +80,7 @@ export default async function DojoDirectoryPage({ params, searchParams }: DojoDi
   const selectedRegion = filters.region as Continent | undefined;
   const selectedCountry = filters.country ?? "";
 
-  const countryMatches = (country: (typeof countries)[number]) => {
+  const visibleCountries = countries.filter((country) => {
     const region = continentForCountrySlug(country.slug);
     if (selectedCountry && country.slug !== selectedCountry) return false;
     if (selectedRegion && region !== selectedRegion) return false;
@@ -91,9 +88,8 @@ export default async function DojoDirectoryPage({ params, searchParams }: DojoDi
     return [country.name, country.federationName, country.representative]
       .filter(Boolean)
       .some((value) => value!.toLowerCase().includes(query));
-  };
+  });
 
-  const visibleCountries = countries.filter(countryMatches);
   const visibleDojos = dojos.filter((dojo) => {
     const country = countryById.get(dojo.countryId);
     if (!country) return false;
@@ -107,24 +103,38 @@ export default async function DojoDirectoryPage({ params, searchParams }: DojoDi
 
   return (
     <>
-      <section className="pt-10 pb-20 sm:pt-16 lg:pt-20 lg:pb-24">
-        <div className="mx-auto flex max-w-[1100px] flex-col items-center px-5 sm:px-6">
-          <div className="text-center">
-            <p className="text-brand-accent text-sm font-semibold uppercase">Find a Dojo</p>
-            <div className="bg-primary mx-auto mt-3 h-0.5 w-[86px]" />
-            <h1 className="public-hero-title font-heading mt-4 text-4xl font-medium text-black">
+      <section className="pt-14 pb-16 md:pt-16 md:pb-20 xl:pt-20 xl:pb-24">
+        <div className="mx-auto flex max-w-[1100px] flex-col items-center px-5 md:px-10 xl:px-0">
+          <nav
+            aria-label="Breadcrumb"
+            className="flex w-full items-center gap-2 text-[11px] text-[#6b7280] md:justify-center md:text-xs xl:justify-start"
+          >
+            <Link href={`/${lang}`} className="hover:text-primary transition-colors">
+              Home
+            </Link>
+            <span aria-hidden>/</span>
+            <span className="text-primary">Dojo Directory</span>
+          </nav>
+
+          <div className="mt-8 text-center md:mt-6 xl:mt-14">
+            <p className="text-brand-accent text-xs font-semibold uppercase md:text-xl">
+              Find a Dojo
+            </p>
+            <div className="bg-primary mx-auto mt-3 h-0.5 w-[60px] md:h-[3px] xl:mt-6 xl:w-[86px]" />
+            <h1 className="public-hero-title font-heading mt-4 text-2xl font-medium text-black md:text-[40px] xl:mt-5">
               Dojo Directory
             </h1>
-            <p className="mt-4 text-base leading-[1.6] text-[#4b5563]">
+            <p className="mt-2 text-xs leading-[1.6] text-[#4b5563] md:mt-4 md:text-base">
               Find an official Chito Ryu dojo near you.
             </p>
           </div>
 
           <form
             action={`/${lang}/dojo-directory`}
-            className="mt-10 flex w-full flex-col gap-3 sm:mt-12 lg:flex-row lg:items-center lg:gap-4"
+            method="get"
+            className="mt-8 grid w-full grid-cols-2 gap-3 md:mt-12 md:grid-cols-[1fr_1fr_auto] md:gap-4 xl:mt-24 xl:grid-cols-[minmax(0,1fr)_240px_240px_auto]"
           >
-            <label className="border-border flex h-12 flex-1 items-center gap-3 rounded-sm border bg-white px-4">
+            <label className="border-border col-span-2 flex h-12 items-center gap-3 rounded-sm border bg-white px-4 md:col-span-3 xl:col-span-1">
               <span className="sr-only">Search by country or city</span>
               <input
                 type="search"
@@ -135,12 +145,12 @@ export default async function DojoDirectoryPage({ params, searchParams }: DojoDi
               />
               <Search className="h-[18px] w-[18px] text-[#9ca3af]" />
             </label>
-            <label className="relative flex-1 lg:max-w-60">
+            <label className="relative">
               <span className="sr-only">Region</span>
               <select
                 name="region"
                 defaultValue={filters.region ?? ""}
-                className="border-border h-12 w-full appearance-none rounded-sm border bg-white px-4 pr-10 text-sm text-[#374151] outline-none"
+                className="border-border h-12 w-full appearance-none rounded-sm border bg-white px-3 pr-8 text-xs text-[#374151] outline-none md:px-4 md:pr-10 md:text-sm"
               >
                 <option value="">All Regions</option>
                 {Object.entries(REGION_LABELS).map(([value, label]) => (
@@ -149,14 +159,14 @@ export default async function DojoDirectoryPage({ params, searchParams }: DojoDi
                   </option>
                 ))}
               </select>
-              <ChevronDown className="pointer-events-none absolute top-1/2 right-4 h-4 w-4 -translate-y-1/2 text-[#374151]" />
+              <ChevronDown className="pointer-events-none absolute top-1/2 right-3 h-4 w-4 -translate-y-1/2 text-[#374151] md:right-4" />
             </label>
-            <label className="relative flex-1 lg:max-w-60">
+            <label className="relative">
               <span className="sr-only">Country</span>
               <select
                 name="country"
                 defaultValue={selectedCountry}
-                className="border-border h-12 w-full appearance-none rounded-sm border bg-white px-4 pr-10 text-sm text-[#374151] outline-none"
+                className="border-border h-12 w-full appearance-none rounded-sm border bg-white px-3 pr-8 text-xs text-[#374151] outline-none md:px-4 md:pr-10 md:text-sm"
               >
                 <option value="">All Countries</option>
                 {countries.map((country) => (
@@ -165,18 +175,18 @@ export default async function DojoDirectoryPage({ params, searchParams }: DojoDi
                   </option>
                 ))}
               </select>
-              <ChevronDown className="pointer-events-none absolute top-1/2 right-4 h-4 w-4 -translate-y-1/2 text-[#374151]" />
+              <ChevronDown className="pointer-events-none absolute top-1/2 right-3 h-4 w-4 -translate-y-1/2 text-[#374151] md:right-4" />
             </label>
             <button
               type="submit"
-              className="bg-primary text-primary-foreground h-12 rounded-sm px-8 text-sm font-bold lg:min-w-24"
+              className="bg-primary text-primary-foreground col-span-2 h-12 rounded-sm px-8 text-sm font-bold md:col-span-1 md:min-w-28 xl:min-w-24"
             >
-              <span className="lg:hidden">Search Dojos</span>
-              <span className="hidden lg:inline">Search</span>
+              <span className="xl:hidden">Search Dojos</span>
+              <span className="hidden xl:inline">Search</span>
             </button>
           </form>
 
-          <div className="mt-6 flex w-full flex-wrap items-center gap-2 sm:mt-8">
+          <div className="mt-6 hidden w-full flex-wrap items-center gap-2 xl:flex">
             <span className="text-sm font-semibold text-[#374151]">Popular countries</span>
             {POPULAR_COUNTRIES.map((country) => (
               <Link
@@ -190,33 +200,70 @@ export default async function DojoDirectoryPage({ params, searchParams }: DojoDi
                 {country.name}
               </Link>
             ))}
-            <a href="#federations" className="text-primary text-sm font-semibold hover:underline">
+            <a
+              href="#directory-results"
+              className="text-primary text-sm font-semibold hover:underline"
+            >
+              See more
+            </a>
+          </div>
+          <div className="mt-6 hidden w-full flex-wrap items-center gap-2 md:flex xl:hidden">
+            <span className="text-sm font-semibold text-[#374151]">Popular countries</span>
+            {POPULAR_COUNTRIES.filter((country) =>
+              ["japan", "usa", "canada", "australia", "scotland", "ireland"].includes(country.slug),
+            ).map((country) => (
+              <Link
+                key={country.slug}
+                href={`/${lang}/dojo-directory?country=${country.slug}`}
+                className="border-border hover:border-primary flex items-center gap-2 rounded-full border bg-white py-1 pr-3 pl-1 text-sm text-[#374151] transition-colors"
+              >
+                <span className="relative block h-5 w-5 shrink-0 overflow-hidden rounded-full">
+                  <CountryFlag country={country} shape="circle" />
+                </span>
+                {country.name}
+              </Link>
+            ))}
+            <a
+              href="#directory-results"
+              className="text-primary text-sm font-semibold hover:underline"
+            >
               See more
             </a>
           </div>
 
-          <div className="relative mt-10 h-60 w-full overflow-hidden rounded-xl sm:h-80 lg:h-[480px]">
+          <div className="relative mt-14 h-60 w-full overflow-hidden rounded-xl md:mt-10 md:h-[360px] xl:mt-28 xl:h-[480px]">
             <Image
               src="/images/figma/directory-world-map.png"
               alt="World map showing Chito-Ryu regions"
               fill
               priority
-              sizes="(min-width: 1024px) 1100px, 100vw"
+              sizes="(min-width: 1280px) 1100px, 100vw"
               className="object-cover"
             />
             {MAP_PINS.map((pin, index) => (
-              <MapPin
+              <span
                 key={`${pin.left}-${pin.top}`}
-                className={`text-primary absolute -translate-x-1/2 -translate-y-1/2 fill-current ${
-                  index > 3 ? "hidden sm:block" : ""
-                } h-5 w-5 sm:h-6 sm:w-6`}
+                className={`absolute h-5 w-5 -translate-x-1/2 -translate-y-1/2 md:h-6 md:w-6 ${
+                  index > 3 ? "hidden md:block" : ""
+                }`}
                 style={pin}
                 aria-hidden
-              />
+              >
+                <Image
+                  src="/images/homepage/icons/map-pin-continent.svg"
+                  alt=""
+                  fill
+                  sizes="24px"
+                  className="object-contain"
+                />
+              </span>
             ))}
           </div>
 
-          <div id="federations" className="mt-10 flex w-full scroll-mt-24 flex-col gap-4 lg:mt-20">
+          <div
+            id="directory-results"
+            className="mt-12 flex w-full scroll-mt-24 flex-col gap-4 md:mt-10 md:gap-3 xl:mt-20"
+          >
             {visibleCountries.length === 0 ? (
               <p className="text-muted-foreground text-center text-sm">No federations found.</p>
             ) : (
@@ -224,14 +271,14 @@ export default async function DojoDirectoryPage({ params, searchParams }: DojoDi
                 <Link
                   key={country.id}
                   href={`/${lang}/dojo-directory/${country.slug}`}
-                  className="border-border/60 group flex flex-col gap-4 rounded-xl border bg-white p-5 shadow-[0_4px_6px_rgba(0,0,0,0.02)] sm:flex-row sm:items-center sm:justify-between lg:rounded-none lg:px-10 lg:py-6"
+                  className="border-border/60 group flex flex-col gap-4 rounded-xl border bg-white p-5 shadow-[0_4px_6px_rgba(0,0,0,0.02)] md:flex-row md:items-center md:justify-between md:rounded-lg xl:rounded-none xl:px-10 xl:py-6"
                 >
-                  <span className="flex min-w-0 items-center gap-4 sm:gap-6">
+                  <span className="flex min-w-0 items-center gap-4 md:gap-6">
                     <span className="text-primary flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white">
                       <MapPin className="h-7 w-7" />
                     </span>
                     <span className="min-w-0">
-                      <span className="block text-base font-semibold text-black sm:text-xl">
+                      <span className="block text-base font-semibold text-black md:text-lg xl:text-xl">
                         {country.federationName ?? `${country.name} Chito-Ryu`}
                       </span>
                       <span className="mt-1 block text-sm text-[#6b7280]">{country.name}</span>
@@ -242,18 +289,18 @@ export default async function DojoDirectoryPage({ params, searchParams }: DojoDi
                       )}
                     </span>
                   </span>
-                  <span className="flex items-center justify-between gap-8 sm:justify-end">
+                  <span className="flex items-center justify-between gap-5 md:justify-end xl:gap-8">
                     {country.hasOwnFederationSite && (
-                      <span className="bg-brand-accent rounded px-3 py-1 text-[10px] font-bold text-[#faf9f7] uppercase sm:text-xs">
+                      <span className="bg-brand-accent rounded px-3 py-1 text-[10px] font-bold text-[#faf9f7] uppercase md:text-xs">
                         Federation
                       </span>
                     )}
                     {displaySite(country.federationSiteUrl) && (
-                      <span className="hidden w-48 truncate text-sm text-[#4b5563] md:block">
+                      <span className="hidden w-40 truncate text-sm text-[#4b5563] md:block xl:w-48">
                         {displaySite(country.federationSiteUrl)}
                       </span>
                     )}
-                    <span className="text-primary text-xs font-semibold sm:hidden">
+                    <span className="text-primary text-xs font-semibold md:hidden">
                       View Details
                     </span>
                     <ArrowRight className="text-primary h-5 w-5 transition-transform group-hover:translate-x-1" />
@@ -264,27 +311,30 @@ export default async function DojoDirectoryPage({ params, searchParams }: DojoDi
           </div>
         </div>
 
-        <div className="mx-auto mt-20 max-w-7xl px-5 sm:px-6 lg:px-10">
-          <div className="bg-primary h-0.5 w-[86px]" />
+        <div
+          id="approved-dojos"
+          className="mx-auto mt-20 max-w-7xl scroll-mt-24 px-5 md:px-10 xl:px-0"
+        >
+          <div className="bg-primary h-0.5 w-[60px] xl:w-[86px]" />
           <h2 className="mt-4 text-2xl font-semibold text-black">Approved Dojos</h2>
           {visibleDojos.length === 0 ? (
             <p className="text-muted-foreground mt-8 text-sm">No approved dojos found.</p>
           ) : (
-            <div className="mt-10 grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-10">
+            <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 xl:gap-10">
               {visibleDojos.slice(0, 6).map((dojo) => {
                 const country = countryById.get(dojo.countryId);
                 return (
                   <Link
                     key={dojo.id}
                     href={`/${lang}/dojo/${dojo.slug}`}
-                    className="border-border/60 group flex flex-col gap-4 rounded-xl border bg-white p-4 transition-transform hover:-translate-y-0.5 sm:flex-row sm:items-center sm:gap-5 lg:rounded-none lg:px-5 lg:py-6"
+                    className="border-border/60 group flex flex-col gap-4 rounded-xl border bg-white p-4 transition-transform hover:-translate-y-0.5 xl:flex-row xl:items-center xl:gap-5 xl:rounded-none xl:px-5 xl:py-6"
                   >
-                    <span className="relative h-40 w-full shrink-0 overflow-hidden rounded-lg bg-white sm:h-[100px] sm:w-40 sm:rounded-none">
+                    <span className="relative h-40 w-full shrink-0 overflow-hidden rounded-lg bg-white md:h-[140px] xl:h-[100px] xl:w-40 xl:rounded-none">
                       <Image
                         src={approvedDojoImage(dojo.name)}
                         alt=""
                         fill
-                        sizes="160px"
+                        sizes="(min-width: 1280px) 160px, (min-width: 768px) 314px, 350px"
                         className="object-contain"
                       />
                     </span>
@@ -301,8 +351,8 @@ export default async function DojoDirectoryPage({ params, searchParams }: DojoDi
                         </span>
                       )}
                     </span>
-                    <span className="text-primary flex items-center gap-1 text-xs font-semibold sm:self-center">
-                      <span className="sm:hidden">Details</span>
+                    <span className="text-primary flex items-center gap-1 text-xs font-semibold xl:self-center">
+                      <span className="xl:hidden">Details</span>
                       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </span>
                   </Link>
@@ -313,7 +363,7 @@ export default async function DojoDirectoryPage({ params, searchParams }: DojoDi
         </div>
       </section>
 
-      <GlobalCommunityCTA lang={lang} />
+      <GlobalCommunityCTA lang={lang} fullBleedUntilDesktop />
       <div className="h-20" aria-hidden />
     </>
   );

@@ -5,12 +5,24 @@ import type { Locale } from "@/lib/i18n/locales";
 
 interface GlobalCommunityCTAProps {
   lang: Locale;
+  fullBleedUntilDesktop?: boolean;
 }
 
-export function GlobalCommunityCTA({ lang }: GlobalCommunityCTAProps) {
+export function GlobalCommunityCTA({
+  lang,
+  fullBleedUntilDesktop = false,
+}: GlobalCommunityCTAProps) {
   return (
-    <section className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-8 xl:px-0">
-      <div className="bg-primary-dark flex min-h-[184px] flex-col items-start justify-center gap-5 rounded-sm p-6 md:items-center md:p-8 md:text-center xl:min-h-[199px] xl:flex-row xl:justify-between xl:px-20 xl:py-16 xl:text-left">
+    <section
+      className={`mx-auto w-full max-w-7xl ${
+        fullBleedUntilDesktop ? "px-0" : "px-4 sm:px-6 md:px-8 xl:px-0"
+      }`}
+    >
+      <div
+        className={`bg-primary-dark flex min-h-[184px] flex-col items-start justify-center gap-5 p-6 md:items-center md:p-8 md:text-center xl:min-h-[199px] xl:flex-row xl:justify-between xl:px-20 xl:py-16 xl:text-left ${
+          fullBleedUntilDesktop ? "rounded-none xl:rounded-sm" : "rounded-sm"
+        }`}
+      >
         <div className="w-full">
           <h2 className="font-heading text-2xl leading-tight font-bold text-white md:text-[26px] xl:text-[32px]">
             Join Our Global Community

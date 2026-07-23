@@ -72,6 +72,10 @@ function approvedDojoImage(name: string) {
   return "/brand/chito-ryu-logo.svg";
 }
 
+function popularCountryLabel(slug: string, name: string) {
+  return slug === "usa" ? "USA" : name;
+}
+
 export default async function DojoDirectoryPage({ params, searchParams }: DojoDirectoryPageProps) {
   const [{ lang }, filters] = await Promise.all([params, searchParams]);
   const [countries, dojos] = await Promise.all([getCountries(), getApprovedDojos()]);
@@ -186,46 +190,52 @@ export default async function DojoDirectoryPage({ params, searchParams }: DojoDi
             </button>
           </form>
 
-          <div className="mt-6 hidden w-full flex-wrap items-center gap-2 xl:flex">
-            <span className="text-sm font-semibold text-[#374151]">Popular countries</span>
-            {POPULAR_COUNTRIES.map((country) => (
-              <Link
-                key={country.slug}
-                href={`/${lang}/dojo-directory?country=${country.slug}`}
-                className="border-border hover:border-primary flex items-center gap-2 rounded-full border bg-white py-1 pr-3 pl-1 text-sm text-[#374151] transition-colors"
-              >
-                <span className="relative block h-5 w-5 shrink-0 overflow-hidden rounded-full">
-                  <CountryFlag country={country} shape="circle" />
-                </span>
-                {country.name}
-              </Link>
-            ))}
+          <div className="mt-6 hidden w-full max-w-[978px] flex-col items-start gap-2 xl:flex">
+            <span className="text-base leading-[1.7] text-[#8e8e93]">Popular countries</span>
+            <div className="flex w-full flex-wrap items-center gap-2">
+              {POPULAR_COUNTRIES.map((country) => (
+                <Link
+                  key={country.slug}
+                  href={`/${lang}/dojo-directory?country=${country.slug}`}
+                  className="border-border hover:border-primary flex h-7 items-center gap-2 rounded-full border bg-white px-3 py-1.5 text-xs text-[#4b5563] transition-colors"
+                >
+                  <span className="relative block h-3.5 w-[22px] shrink-0 overflow-hidden rounded-[1.5px]">
+                    <CountryFlag country={country} shape="rect" />
+                  </span>
+                  {popularCountryLabel(country.slug, country.name)}
+                </Link>
+              ))}
+            </div>
             <a
               href="#directory-results"
-              className="text-primary text-sm font-semibold hover:underline"
+              className="border-border hover:border-primary flex h-7 items-center rounded-full border bg-white px-3 py-1.5 text-xs text-[#4b5563] transition-colors"
             >
               See more
             </a>
           </div>
-          <div className="mt-6 hidden w-full flex-wrap items-center gap-2 md:flex xl:hidden">
-            <span className="text-sm font-semibold text-[#374151]">Popular countries</span>
-            {POPULAR_COUNTRIES.filter((country) =>
-              ["japan", "usa", "canada", "australia", "scotland", "ireland"].includes(country.slug),
-            ).map((country) => (
-              <Link
-                key={country.slug}
-                href={`/${lang}/dojo-directory?country=${country.slug}`}
-                className="border-border hover:border-primary flex items-center gap-2 rounded-full border bg-white py-1 pr-3 pl-1 text-sm text-[#374151] transition-colors"
-              >
-                <span className="relative block h-5 w-5 shrink-0 overflow-hidden rounded-full">
-                  <CountryFlag country={country} shape="circle" />
-                </span>
-                {country.name}
-              </Link>
-            ))}
+          <div className="mt-6 hidden w-full flex-col items-start gap-2 md:flex xl:hidden">
+            <span className="text-sm text-[#8e8e93]">Popular countries</span>
+            <div className="flex w-full flex-wrap items-center gap-2">
+              {POPULAR_COUNTRIES.filter((country) =>
+                ["japan", "usa", "canada", "australia", "scotland", "ireland"].includes(
+                  country.slug,
+                ),
+              ).map((country) => (
+                <Link
+                  key={country.slug}
+                  href={`/${lang}/dojo-directory?country=${country.slug}`}
+                  className="border-border hover:border-primary flex h-7 items-center gap-2 rounded-full border bg-white px-3 py-1.5 text-xs text-[#4b5563] transition-colors"
+                >
+                  <span className="relative block h-3.5 w-[22px] shrink-0 overflow-hidden rounded-[1.5px]">
+                    <CountryFlag country={country} shape="rect" />
+                  </span>
+                  {popularCountryLabel(country.slug, country.name)}
+                </Link>
+              ))}
+            </div>
             <a
               href="#directory-results"
-              className="text-primary text-sm font-semibold hover:underline"
+              className="border-border hover:border-primary flex h-7 items-center rounded-full border bg-white px-3 py-1.5 text-xs text-[#4b5563] transition-colors"
             >
               See more
             </a>
@@ -327,7 +337,7 @@ export default async function DojoDirectoryPage({ params, searchParams }: DojoDi
                   <Link
                     key={dojo.id}
                     href={`/${lang}/dojo/${dojo.slug}`}
-                    className="border-border/60 group flex flex-col gap-4 rounded-xl border bg-white p-4 transition-transform hover:-translate-y-0.5 xl:flex-row xl:items-center xl:gap-5 xl:rounded-none xl:px-5 xl:py-6"
+                    className="border-border/60 group flex flex-col gap-4 rounded-xl border bg-white p-4 transition-transform hover:-translate-y-0.5 xl:flex-row xl:items-center xl:gap-5 xl:rounded-none xl:px-10 xl:py-6"
                   >
                     <span className="relative h-40 w-full shrink-0 overflow-hidden rounded-lg bg-white md:h-[140px] xl:h-[100px] xl:w-40 xl:rounded-none">
                       <Image
@@ -364,7 +374,7 @@ export default async function DojoDirectoryPage({ params, searchParams }: DojoDi
       </section>
 
       <GlobalCommunityCTA lang={lang} fullBleedUntilDesktop />
-      <div className="h-20" aria-hidden />
+      <div className="hidden h-20 xl:block" aria-hidden />
     </>
   );
 }

@@ -112,7 +112,7 @@ export default async function DojoDirectoryPage({ params, searchParams }: DojoDi
           <div className="text-center">
             <p className="text-brand-accent text-sm font-semibold uppercase">Find a Dojo</p>
             <div className="bg-primary mx-auto mt-3 h-0.5 w-[86px]" />
-            <h1 className="font-heading mt-4 text-4xl font-medium text-black sm:text-5xl">
+            <h1 className="public-hero-title font-heading mt-4 text-4xl font-medium text-black">
               Dojo Directory
             </h1>
             <p className="mt-4 text-base leading-[1.6] text-[#4b5563]">
@@ -182,7 +182,7 @@ export default async function DojoDirectoryPage({ params, searchParams }: DojoDi
               <Link
                 key={country.slug}
                 href={`/${lang}/dojo-directory?country=${country.slug}`}
-                className="border-border flex items-center gap-2 rounded-full border bg-white py-1 pr-3 pl-1 text-sm text-[#374151] transition-colors hover:border-primary"
+                className="border-border hover:border-primary flex items-center gap-2 rounded-full border bg-white py-1 pr-3 pl-1 text-sm text-[#374151] transition-colors"
               >
                 <span className="relative block h-5 w-5 shrink-0 overflow-hidden rounded-full">
                   <CountryFlag country={country} shape="circle" />

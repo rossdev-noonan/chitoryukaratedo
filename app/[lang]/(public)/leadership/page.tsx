@@ -51,7 +51,7 @@ const lineage = [
 function LeadershipHero({ lang }: { lang: Locale }) {
   return (
     <section className="bg-background relative overflow-hidden xl:h-[720px]">
-      <div className="relative h-[240px] md:mx-10 md:mt-12 md:h-[339px] md:overflow-hidden md:rounded-lg xl:absolute xl:inset-0 xl:m-0 xl:h-full xl:rounded-none">
+      <div className="absolute inset-0 hidden xl:block">
         <Image
           src="/images/history/hero-bg-practitioner.png"
           alt=""
@@ -60,45 +60,58 @@ function LeadershipHero({ lang }: { lang: Locale }) {
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-y-0 right-0 w-full xl:left-[34.8%] xl:w-[65.2%]">
-          <Image
-            src="/images/leadership/leadership-group.png"
-            alt="Chito-Ryu International leadership group"
-            fill
-            priority
-            sizes="(min-width: 1280px) 68vw, 100vw"
-            className="object-cover xl:object-contain"
-          />
-        </div>
       </div>
 
-      <div className="relative px-5 py-8 md:px-20 md:pt-8 md:pb-0 xl:w-[630px] xl:px-20 xl:pt-[120px] xl:pb-0">
-        <p className="text-brand-accent text-xs font-medium uppercase md:text-xl md:font-semibold">
-          home / about / leadership
-        </p>
-        <div className="bg-primary mt-4 h-0.5 w-[60px] md:mt-[11px] md:w-[86px]" />
-        <h1 className="font-heading text-foreground mt-4 text-2xl font-medium md:mt-3 md:text-5xl md:font-semibold">
-          Leadership
-        </h1>
-        <p className="text-muted-foreground mt-6 max-w-[480px] text-xs leading-[1.5] md:text-lg md:leading-[1.6] xl:mt-10">
-          Three generations of Soke have guided Chito Ryu since its founding, each preserving the
-          art&apos;s technical standards while carrying it to a wider world.
-        </p>
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4 xl:mt-10">
-          <Link
-            href={`/${lang}/login`}
-            className="bg-primary-dark hover:bg-primary inline-flex items-center justify-center gap-2 px-8 py-4 text-sm font-bold text-white transition-colors md:text-base"
-          >
-            Join our Community
-            <ArrowRight className="size-4" />
-          </Link>
-          <Link
-            href={`/${lang}/dojo-directory`}
-            className="text-brand-accent hover:bg-brand-accent inline-flex items-center justify-center gap-2 border border-[#d8cba8] bg-white/80 px-8 py-4 text-sm font-semibold transition-colors hover:text-white md:text-base"
-          >
-            Find our Dojo
-            <MapPinSolid className="size-4" />
-          </Link>
+      <div className="relative mx-auto w-full max-w-[1440px] xl:h-full">
+        <div className="relative h-[240px] md:mx-10 md:mt-12 md:h-[339px] md:overflow-hidden md:rounded-lg xl:absolute xl:inset-0 xl:m-0 xl:h-full xl:rounded-none">
+          <Image
+            src="/images/history/hero-bg-practitioner.png"
+            alt=""
+            fill
+            priority
+            sizes="(min-width: 1440px) 1440px, 100vw"
+            className="object-cover xl:hidden"
+          />
+          <div className="absolute inset-y-0 right-0 w-full xl:left-[34.8%] xl:w-[65.2%]">
+            <Image
+              src="/images/leadership/leadership-group.png"
+              alt="Chito-Ryu International leadership group"
+              fill
+              priority
+              sizes="(min-width: 1440px) 939px, (min-width: 1280px) 68vw, 100vw"
+              className="object-cover xl:object-contain"
+            />
+          </div>
+        </div>
+
+        <div className="relative px-5 py-8 md:px-20 md:pt-8 md:pb-0 xl:w-[630px] xl:px-20 xl:pt-[120px] xl:pb-0">
+          <p className="public-hero-breadcrumb text-brand-accent font-medium uppercase md:font-semibold">
+            home / about / leadership
+          </p>
+          <div className="bg-primary mt-4 h-0.5 w-[60px] md:mt-[11px] md:w-[86px]" />
+          <h1 className="public-hero-title font-heading text-foreground mt-4 text-2xl font-medium md:mt-3 md:font-semibold">
+            Leadership
+          </h1>
+          <p className="text-muted-foreground mt-6 max-w-[480px] text-xs leading-[1.5] md:text-lg md:leading-[1.6] xl:mt-10">
+            Three generations of Soke have guided Chito Ryu since its founding, each preserving the
+            art&apos;s technical standards while carrying it to a wider world.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4 xl:mt-10">
+            <Link
+              href={`/${lang}/login`}
+              className="bg-primary-dark hover:bg-primary inline-flex items-center justify-center gap-2 px-8 py-4 text-sm font-bold text-white transition-colors md:text-base"
+            >
+              Join our Community
+              <ArrowRight className="size-4" />
+            </Link>
+            <Link
+              href={`/${lang}/dojo-directory`}
+              className="text-brand-accent hover:bg-brand-accent inline-flex items-center justify-center gap-2 border border-[#d8cba8] bg-white/80 px-8 py-4 text-sm font-semibold transition-colors hover:text-white md:text-base"
+            >
+              Find our Dojo
+              <MapPinSolid className="size-4" />
+            </Link>
+          </div>
         </div>
       </div>
     </section>
@@ -198,26 +211,28 @@ export default async function LeadershipPage({ params }: { params: Promise<{ lan
 
       <LineageNavigator />
 
-      <div className="mx-auto grid w-full max-w-[1364px] md:w-[calc(100%-40px)] md:grid-cols-[89px_minmax(0,1fr)] md:gap-6 xl:w-full xl:grid-cols-[491px_minmax(0,849px)] xl:gap-0">
-        <LeadershipLineageSidebar entries={lineage} />
-        <main className="bg-white px-5 md:px-5 xl:px-0">
-          <section className="hidden px-10 py-14 md:block">
-            <p className="text-brand-accent text-xl font-semibold tracking-[0.1em] uppercase">
-              Leadership
-            </p>
-            <div className="bg-primary mt-3 h-0.5 w-[86px]" />
-            <h2 className="font-heading text-foreground mt-6 text-[32px] font-medium">Soke</h2>
-            <p className="text-foreground mt-6 text-base leading-[1.7]">
-              The title of Soke, head of the school, has passed through three generations since
-              Chito Ryu was founded in 1946. Each Soke has been responsible for the same charge:
-              preserve the technical and philosophical core of the art, while guiding its growth
-              into new countries and new generations of practitioners.
-            </p>
-          </section>
-          {lineage.map((entry) => (
-            <SokeProfile key={entry.id} entry={entry} />
-          ))}
-        </main>
+      <div className="w-full overflow-hidden bg-white">
+        <div className="mx-auto grid w-full max-w-[1364px] md:w-[calc(100%-40px)] md:grid-cols-[89px_minmax(0,1fr)] md:gap-6 xl:w-full xl:grid-cols-[491px_minmax(0,849px)] xl:gap-0">
+          <LeadershipLineageSidebar entries={lineage} />
+          <main className="relative bg-white px-5 after:pointer-events-none after:absolute after:inset-y-0 after:left-full after:w-screen after:bg-white after:content-[''] md:px-5 xl:px-0">
+            <section className="hidden px-10 py-14 md:block">
+              <p className="text-brand-accent text-xl font-semibold tracking-[0.1em] uppercase">
+                Leadership
+              </p>
+              <div className="bg-primary mt-3 h-0.5 w-[86px]" />
+              <h2 className="font-heading text-foreground mt-6 text-[32px] font-medium">Soke</h2>
+              <p className="text-foreground mt-6 text-base leading-[1.7]">
+                The title of Soke, head of the school, has passed through three generations since
+                Chito Ryu was founded in 1946. Each Soke has been responsible for the same charge:
+                preserve the technical and philosophical core of the art, while guiding its growth
+                into new countries and new generations of practitioners.
+              </p>
+            </section>
+            {lineage.map((entry) => (
+              <SokeProfile key={entry.id} entry={entry} />
+            ))}
+          </main>
+        </div>
       </div>
 
       <section className="mx-auto w-full max-w-7xl px-5 py-10 md:px-10 md:py-16 xl:px-0 xl:py-20">

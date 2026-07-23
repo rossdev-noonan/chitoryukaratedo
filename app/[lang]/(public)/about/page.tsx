@@ -38,7 +38,9 @@ function SectionShell({ id, children }: { id: string; children: React.ReactNode 
       id={id}
       className="scroll-mt-[140px] border-t border-[#c8a24a] py-[50px] first:border-0 md:scroll-mt-[170px] md:py-16"
     >
-      {children}
+      <div className="mx-auto w-full max-w-[1364px] px-5 md:px-10 xl:w-[calc(100%-2rem)]">
+        {children}
+      </div>
     </section>
   );
 }
@@ -51,7 +53,7 @@ export default async function AboutPage({ params }: { params: Promise<{ lang: Lo
       <AboutHero lang={lang} />
       <AboutSectionNav />
 
-      <div className="mx-auto mb-[72px] w-full max-w-[1364px] bg-white px-5 md:px-10 xl:w-[calc(100%-2rem)]">
+      <div className="mb-[72px] w-full bg-white">
         <SectionShell id="story">
           <SectionHeading eyebrow="Origin">The Story</SectionHeading>
           <div className="text-foreground mt-6 space-y-5 text-xs leading-[1.5] md:text-base md:leading-[1.7]">

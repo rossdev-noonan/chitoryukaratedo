@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export interface LeadershipLineageEntry {
   id: string;
@@ -15,6 +15,8 @@ interface LeadershipLineageSidebarProps {
 
 export function LeadershipLineageSidebar({ entries }: LeadershipLineageSidebarProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const selectedIndexRef = useRef<number | null>(null);
+  const selectionTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     const targets = entries
@@ -26,12 +28,28 @@ export function LeadershipLineageSidebar({ entries }: LeadershipLineageSidebarPr
     let frame = 0;
     const update = () => {
       frame = 0;
+
+      // Keep a clicked entry selected while its smooth scroll is in flight.
+      // Without this lock, intermediate scroll events can immediately restore
+      // the preceding entry before the requested section reaches the marker.
+      if (selectedIndexRef.current !== null) {
+        setActiveIndex(selectedIndexRef.current);
+        return;
+      }
+
       const marker = window.innerHeight * 0.38 + 4;
       let nextIndex = 0;
 
       targets.forEach((target, index) => {
         if (target.getBoundingClientRect().top <= marker) nextIndex = index;
       });
+
+      // The last profile cannot always cross the marker on tall displays
+      // because the document runs out of scroll room. Reaching the page end
+      // must therefore activate Sandaime explicitly.
+      const documentHeight = document.documentElement.scrollHeight;
+      const isAtPageEnd = window.scrollY + window.innerHeight >= documentHeight - 2;
+      if (isAtPageEnd) nextIndex = targets.length - 1;
 
       setActiveIndex(nextIndex);
     };
@@ -51,6 +69,7 @@ export function LeadershipLineageSidebar({ entries }: LeadershipLineageSidebarPr
 
     return () => {
       if (frame) window.cancelAnimationFrame(frame);
+      if (selectionTimeoutRef.current) window.clearTimeout(selectionTimeoutRef.current);
       window.removeEventListener("scroll", requestUpdate);
       window.removeEventListener("resize", requestUpdate);
       window.removeEventListener("hashchange", updateFromHash);
@@ -58,16 +77,24 @@ export function LeadershipLineageSidebar({ entries }: LeadershipLineageSidebarPr
   }, [entries]);
 
   const selectEntry = (id: string, index: number) => {
+    selectedIndexRef.current = index;
+    if (selectionTimeoutRef.current) window.clearTimeout(selectionTimeoutRef.current);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
     window.history.replaceState(null, "", `#${id}`);
     setActiveIndex(index);
+
+    selectionTimeoutRef.current = window.setTimeout(() => {
+      selectedIndexRef.current = null;
+      selectionTimeoutRef.current = null;
+      window.dispatchEvent(new Event("scroll"));
+    }, 1000);
   };
 
   const progress = entries.length > 1 ? activeIndex / (entries.length - 1) : 0;
 
   return (
     <>
-      <aside className="bg-secondary-background hidden self-stretch md:block xl:hidden">
+      <aside className="bg-secondary-background before:bg-secondary-background relative hidden self-stretch before:pointer-events-none before:absolute before:inset-y-0 before:right-full before:w-screen before:content-[''] md:block xl:hidden">
         <nav className="sticky top-20 flex flex-col items-center py-10" aria-label="Soke lineage">
           <div
             className="text-brand-accent flex h-[77px] w-[60px] items-center justify-center text-[34px]"
@@ -110,7 +137,7 @@ export function LeadershipLineageSidebar({ entries }: LeadershipLineageSidebarPr
         </nav>
       </aside>
 
-      <aside className="bg-secondary-background hidden self-stretch xl:block">
+      <aside className="bg-secondary-background before:bg-secondary-background relative hidden self-stretch before:pointer-events-none before:absolute before:inset-y-0 before:right-full before:w-screen before:content-[''] xl:block">
         <div className="sticky top-20 px-20 pt-[129px] pb-16">
           <div className="bg-primary h-0.5 w-10" />
           <h2 className="font-heading mt-4 text-[28px] leading-none font-medium text-black">

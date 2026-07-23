@@ -146,6 +146,20 @@
   pointer-events: none;
 }
 
+/* Shared public-page hero typography. Keep this scoped to hero/header copy so
+   admin headings and content-level headings retain their own type scale. */
+.public-hero-breadcrumb {
+  font-size: 13px;
+  line-height: 1.25;
+}
+
+@media (min-width: 48rem) {
+  .public-hero-title {
+    font-size: 40px;
+    line-height: 1.15;
+  }
+}
+
 /* Script-specific font overrides for locales the base Noto Serif JP +
    Inter pairing doesn't cover — see app/[lang]/layout.tsx. */
 .font-locale-yue {

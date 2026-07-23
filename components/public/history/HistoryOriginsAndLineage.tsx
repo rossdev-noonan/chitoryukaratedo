@@ -18,13 +18,13 @@ import {
 
 export function HistoryOriginsAndLineage() {
   return (
-    <section className="bg-background w-full">
+    <section className="w-full overflow-hidden bg-white">
       <div className="mx-auto grid w-full max-w-[1364px] grid-cols-[56px_minmax(0,1fr)] items-start gap-4 sm:grid-cols-[72px_minmax(0,1fr)] sm:gap-6 md:w-[calc(100%_-_40px)] md:max-w-[794px] md:grid-cols-[89px_minmax(0,670px)] md:gap-6 xl:w-full xl:max-w-[1364px] xl:grid-cols-[491px_minmax(0,849px)]">
-        <aside className="bg-secondary-background self-stretch">
+        <aside className="bg-secondary-background before:bg-secondary-background relative self-stretch before:pointer-events-none before:absolute before:inset-y-0 before:right-full before:w-screen before:content-['']">
           <HistoryMilestonesSidebar />
         </aside>
 
-        <div className="flex min-w-0 flex-col gap-2.5 px-4 py-2.5 sm:px-6 md:w-full md:bg-white md:px-5 xl:w-auto xl:px-10">
+        <div className="relative flex min-w-0 flex-col gap-2.5 px-4 py-2.5 after:pointer-events-none after:absolute after:inset-y-0 after:left-full after:w-screen after:bg-white after:content-[''] sm:px-6 md:w-full md:bg-white md:px-5 xl:w-auto xl:px-10">
           <HistoryOrigins />
 
           <article

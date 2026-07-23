@@ -59,7 +59,7 @@ export default async function CountryPage({ params, searchParams }: CountryPageP
   return (
     <>
       <main className="mx-auto min-h-[650px] max-w-7xl px-5 py-16 sm:px-6 lg:px-10 lg:py-20">
-        <div className="text-brand-accent flex items-center gap-3 text-xs font-semibold tracking-[0.16em] uppercase">
+        <div className="public-hero-breadcrumb text-brand-accent flex items-center gap-3 font-semibold tracking-[0.16em] uppercase">
           <Link href={`/${lang}/dojo-directory`} className="hover:text-primary transition-colors">
             Dojo Directory
           </Link>
@@ -68,7 +68,7 @@ export default async function CountryPage({ params, searchParams }: CountryPageP
         </div>
         <div className="bg-primary mt-3 h-0.5 w-[86px]" />
 
-        <h1 className="font-heading text-foreground mt-8 max-w-3xl text-4xl font-medium tracking-tight sm:text-5xl">
+        <h1 className="public-hero-title font-heading text-foreground mt-8 max-w-3xl text-4xl font-medium tracking-tight">
           {match.hasOwnFederationSite
             ? `Official Federation for ${match.name}`
             : `Approved Dojos in ${match.name}`}

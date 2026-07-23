@@ -211,7 +211,7 @@ export default async function LeadershipPage({ params }: { params: Promise<{ lan
 
       <LineageNavigator />
 
-      <div className="w-full overflow-hidden bg-white">
+      <div className="w-full overflow-x-clip bg-white">
         <div className="mx-auto grid w-full max-w-[1364px] md:w-[calc(100%-40px)] md:grid-cols-[89px_minmax(0,1fr)] md:gap-6 xl:w-full xl:grid-cols-[491px_minmax(0,849px)] xl:gap-0">
           <LeadershipLineageSidebar entries={lineage} />
           <main className="relative bg-white px-5 after:pointer-events-none after:absolute after:inset-y-0 after:left-full after:w-screen after:bg-white after:content-[''] md:px-5 xl:px-0">

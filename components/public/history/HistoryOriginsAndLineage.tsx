@@ -18,7 +18,7 @@ import {
 
 export function HistoryOriginsAndLineage() {
   return (
-    <section className="w-full overflow-hidden bg-white">
+    <section className="w-full overflow-x-clip bg-white">
       <div className="mx-auto grid w-full max-w-[1364px] grid-cols-[56px_minmax(0,1fr)] items-start gap-4 sm:grid-cols-[72px_minmax(0,1fr)] sm:gap-6 md:w-[calc(100%_-_40px)] md:max-w-[794px] md:grid-cols-[89px_minmax(0,670px)] md:gap-6 xl:w-full xl:max-w-[1364px] xl:grid-cols-[491px_minmax(0,849px)]">
         <aside className="bg-secondary-background before:bg-secondary-background relative self-stretch before:pointer-events-none before:absolute before:inset-y-0 before:right-full before:w-screen before:content-['']">
           <HistoryMilestonesSidebar />

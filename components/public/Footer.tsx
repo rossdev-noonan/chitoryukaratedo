@@ -45,12 +45,15 @@ export function Footer({ lang, dictionary }: FooterProps) {
                 />
               </span>
               {/* Full lockup matching the literal Figma footer node
-                (719:2327/2328) — three lines, one uniform size/tracking,
-                not the shortened "Chito Ryu International" tagline. */}
-              <span className="flex flex-col text-[10px] leading-tight tracking-[0.02em] uppercase">
-                <span className="block">International chito ryu</span>
-                <span className="block">karate do federation</span>
-                <span className="block">国際千唐流空手道連盟</span>
+                (719:2327/2328) — three lines, one uniform size, not the
+                shortened "Chito Ryu International" tagline. The Japanese
+                line gets much wider tracking than the English lines so its
+                10 characters visually span the same width instead of
+                reading cramped and short. */}
+              <span className="flex flex-col text-[10px] leading-tight uppercase">
+                <span className="block tracking-[0.02em]">International chito ryu</span>
+                <span className="block tracking-[0.02em]">karate do federation</span>
+                <span className="block tracking-[0.28em]">国際千唐流空手道連盟</span>
               </span>
             </div>
             <p className="mt-4 text-[13px] leading-[1.5] opacity-70 sm:text-sm">

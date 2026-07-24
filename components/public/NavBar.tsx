@@ -66,10 +66,11 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
               KARATE DO FEDERATION
             </span>
 
-            {/* Same size/tracking as the English lines above, matching the
-              literal footer lockup node in Figma (719:2328) — all three
-              lines share one uniform scale, not an enlarged Japanese line. */}
-            <span className="text-foreground mt-0.5 block whitespace-nowrap text-[10px] font-normal tracking-[0.02em] sm:text-[14px] md:text-[11px] xl:text-[13px]">
+            {/* Same font-size as the English lines above (matching Figma's
+              footer lockup node 719:2328), but with wide letter-spacing so
+              the 10-character line visually spans the same width as the
+              English lines instead of reading cramped and short. */}
+            <span className="text-foreground mt-0.5 block whitespace-nowrap text-[10px] font-normal tracking-[0.28em] sm:text-[14px] md:text-[11px] xl:text-[13px]">
               国際千唐流空手道連盟
             </span>
           </span>

@@ -55,15 +55,30 @@ function useHeroSlides(dictionary: Dictionary): HeroSlide[] {
       photos: {
         center: {
           src: "/images/homepage/hero-center.png",
-          geometry: { left: 45.972, top: 12.222, width: 38.889, height: 121.111 },
+          geometry: {
+            left: 45.972,
+            top: 12.222,
+            width: 38.889,
+            height: 121.111,
+          },
         },
         left: {
           src: "/images/homepage/hero-left.png",
-          geometry: { left: 28.264, top: 21.667, width: 37.153, height: 124.444 },
+          geometry: {
+            left: 28.264,
+            top: 21.667,
+            width: 37.153,
+            height: 124.444,
+          },
         },
         right: {
           src: "/images/homepage/hero-right.png",
-          geometry: { left: 65.417, top: 21.667, width: 40.417, height: 102.222 },
+          geometry: {
+            left: 65.417,
+            top: 26.8,
+            width: 40.417,
+            height: 102.222,
+          },
         },
       },
     },
@@ -74,15 +89,30 @@ function useHeroSlides(dictionary: Dictionary): HeroSlide[] {
       photos: {
         center: {
           src: "/images/homepage/hero-center-2.png",
-          geometry: { left: 48.611, top: 11.111, width: 38.889, height: 121.111 },
+          geometry: {
+            left: 48.611,
+            top: 11.111,
+            width: 38.889,
+            height: 121.111,
+          },
         },
         left: {
           src: "/images/homepage/hero-left-2.png",
-          geometry: { left: 30.903, top: 20.556, width: 37.153, height: 124.444 },
+          geometry: {
+            left: 30.903,
+            top: 20.556,
+            width: 37.153,
+            height: 124.444,
+          },
         },
         right: {
           src: "/images/homepage/hero-right-2.png",
-          geometry: { left: 64.167, top: 27.083, width: 40.417, height: 102.222 },
+          geometry: {
+            left: 64.167,
+            top: 32.2,
+            width: 40.417,
+            height: 102.222,
+          },
         },
       },
     },

@@ -11,16 +11,14 @@ import { getApprovedDojos, getCountries } from "@/lib/directory";
 import type { Locale } from "@/lib/i18n/locales";
 
 const POPULAR_COUNTRY_SLUGS = [
-  "japan",
-  "usa",
-  "canada",
   "australia",
-  "scotland",
-  "norway",
-  "jamaica",
-  "hong-kong",
-  "singapore",
+  "canada",
   "ireland",
+  "japan",
+  "norway",
+  "scotland",
+  "usa",
+  "germany",
 ];
 const POPULAR_COUNTRIES = POPULAR_COUNTRY_SLUGS.map((slug) =>
   FEATURED_DIRECTORY_COUNTRIES.find((country) => country.slug === slug),

@@ -49,7 +49,7 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
           <span className="relative block h-[40px] w-[48px] shrink-0 sm:h-[72px] sm:w-[88px]">
             <Image
               src="/brand/chito-ryu-logo.svg"
-              alt="Chito-Ryu International"
+              alt="Chito Ryu International"
               fill
               sizes="(max-width: 639px) 48px, 88px"
               priority
@@ -66,12 +66,11 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
               KARATE DO FEDERATION
             </span>
 
-            {/* Sized proportionate to the English lines above, matching
-              Gil's Figma ratio (mobile: same size as English; desktop: ~4:3
-              larger — the Japanese line reads small next to full-size
-              English otherwise). */}
-            <span className="text-foreground mt-0.5 block whitespace-nowrap text-[10px] font-normal sm:text-[14px] md:text-[15px] xl:text-[17px]">
-              國際千唐流空手道連盟
+            {/* Same size/tracking as the English lines above, matching the
+              literal footer lockup node in Figma (719:2328) — all three
+              lines share one uniform scale, not an enlarged Japanese line. */}
+            <span className="text-foreground mt-0.5 block whitespace-nowrap text-[10px] font-normal tracking-[0.02em] sm:text-[14px] md:text-[11px] xl:text-[13px]">
+              国際千唐流空手道連盟
             </span>
           </span>
         </Link>

@@ -11,14 +11,12 @@ export interface FeaturedCountry {
 }
 
 export const FEATURED_DIRECTORY_COUNTRIES: FeaturedCountry[] = [
-  { slug: "canada", name: "Canada", flagSrc: "/images/flags/canada.png" },
-  { slug: "usa", name: "United States", flagSrc: "/images/flags/usa.png" },
-  { slug: "jamaica", name: "Jamaica", flagSrc: "/images/flags/jamaica.png" },
-  { slug: "ireland", name: "Ireland", flagSrc: "/images/flags/ireland.png" },
-  { slug: "scotland", name: "Scotland", flagSrc: "/images/flags/scotland.png" },
-  { slug: "norway", name: "Norway", flagSrc: "/images/flags/norway.png" },
-  { slug: "japan", name: "Japan", flagSrc: "/images/flags/japan.png" },
-  { slug: "hong-kong", name: "Hong Kong", flagSrc: "/images/flags/hong-kong.png" },
-  { slug: "singapore", name: "Singapore", flagSrc: "/images/flags/singapore.png" },
   { slug: "australia", name: "Australia", flagSrc: "/images/flags/australia.png" },
+  { slug: "canada", name: "Canada", flagSrc: "/images/flags/canada.png" },
+  { slug: "ireland", name: "Ireland", flagSrc: "/images/flags/ireland.png" },
+  { slug: "japan", name: "Japan", flagSrc: "/images/flags/japan.png" },
+  { slug: "norway", name: "Norway", flagSrc: "/images/flags/norway.png" },
+  { slug: "scotland", name: "Scotland", flagSrc: "/images/flags/scotland.png" },
+  { slug: "usa", name: "United States", flagSrc: "/images/flags/usa.png" },
+  { slug: "germany", name: "Germany", flagSrc: "/images/flags/germany.png" },
 ];

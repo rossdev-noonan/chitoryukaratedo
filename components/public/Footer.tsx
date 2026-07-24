@@ -44,13 +44,13 @@ export function Footer({ lang, dictionary }: FooterProps) {
                   className="object-contain"
                 />
               </span>
-              <span className="font-heading leading-tight">
-                <span className="block text-xs font-bold opacity-70 md:text-sm xl:text-xs">
-                  千唐流国際
-                </span>
-                <span className="block text-sm font-semibold md:text-[10px] xl:text-sm">
-                  Chito Ryu International
-                </span>
+              {/* Full lockup matching the literal Figma footer node
+                (719:2327/2328) — three lines, one uniform size/tracking,
+                not the shortened "Chito Ryu International" tagline. */}
+              <span className="flex flex-col text-[10px] leading-tight tracking-[0.02em] uppercase">
+                <span className="block">International chito ryu</span>
+                <span className="block">karate do federation</span>
+                <span className="block">国際千唐流空手道連盟</span>
               </span>
             </div>
             <p className="mt-4 text-[13px] leading-[1.5] opacity-70 sm:text-sm">

@@ -48,6 +48,7 @@
   --radius-4xl: calc(var(--radius) * 2.6);
   --color-primary-dark: var(--primary-dark);
   --color-brand-accent: var(--brand-accent);
+  --color-brand-accent-light: var(--brand-accent-light);
   --color-secondary-background: var(--secondary-background);
 }
 
@@ -62,6 +63,10 @@
   --primary-foreground: #ffffff;
   --primary-dark: #a3271f;
   --brand-accent: #b08d47;
+  /* Gil's Figma "Accent" swatch — a lighter gold distinct from the "Dark
+     Accent" (--brand-accent) used for eyebrow labels/badges. Used for
+     interactive line/underline decorations (see NavBar/NavDropdown). */
+  --brand-accent-light: #c8a24a;
   --secondary-background: #faf6ec;
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: #1f2937;

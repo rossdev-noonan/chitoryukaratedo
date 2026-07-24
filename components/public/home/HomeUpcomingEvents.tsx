@@ -63,7 +63,7 @@ export function HomeUpcomingEvents({ lang, dictionary }: HomeUpcomingEventsProps
             </h2>
             <Link
               href={`/${lang}${homeFeaturedEvent.href}`}
-              className="group mt-4 flex flex-1 flex-col gap-6 rounded-[2px] border border-[#c8a24a] bg-white p-5 drop-shadow-[0px_4px_6px_rgba(0,0,0,0.05)] transition-colors hover:bg-black/[0.02]"
+              className="border-brand-accent-light group mt-4 flex flex-1 flex-col gap-6 rounded-[2px] border bg-white p-5 drop-shadow-[0px_4px_6px_rgba(0,0,0,0.05)] transition-colors hover:bg-black/[0.02]"
             >
               <div className="relative aspect-[509/115] w-full shrink-0">
                 <Image
@@ -130,7 +130,7 @@ export function HomeUpcomingEvents({ lang, dictionary }: HomeUpcomingEventsProps
                     <Link
                       key={`${event.startDate}-${index}`}
                       href={`/${lang}${event.href}`}
-                      className="group flex gap-5 rounded-[2px] border border-[#c8a24a] bg-white p-5 drop-shadow-[0px_4px_6px_rgba(0,0,0,0.05)] transition-colors hover:bg-black/[0.02]"
+                      className="border-brand-accent-light group flex gap-5 rounded-[2px] border bg-white p-5 drop-shadow-[0px_4px_6px_rgba(0,0,0,0.05)] transition-colors hover:bg-black/[0.02]"
                     >
                       <div className="border-primary-dark relative flex h-[72px] w-16 shrink-0 flex-col items-center justify-center overflow-hidden rounded-lg border">
                         <div className="absolute top-0 h-[7px] w-full rounded-tl-[4px] rounded-tr-[4px] bg-[#c1121f]" />

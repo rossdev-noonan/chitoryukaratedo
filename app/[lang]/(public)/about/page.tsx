@@ -36,7 +36,7 @@ function SectionShell({ id, children }: { id: string; children: React.ReactNode 
   return (
     <section
       id={id}
-      className="scroll-mt-[140px] border-t border-[#c8a24a] py-[50px] first:border-0 md:scroll-mt-[170px] md:py-16"
+      className="border-brand-accent-light scroll-mt-[140px] border-t py-[50px] first:border-0 md:scroll-mt-[170px] md:py-16"
     >
       <div className="mx-auto w-full max-w-[1364px] px-5 md:px-10 xl:w-[calc(100%-2rem)]">
         {children}

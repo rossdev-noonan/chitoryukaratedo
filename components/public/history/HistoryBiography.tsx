@@ -33,7 +33,7 @@ export function HistoryBiography() {
     <div className="flex flex-col gap-2.5 md:px-5 xl:px-0">
       <article
         id="tsuyoshi-chitose"
-        className="scroll-mt-[38vh] border-t-[3px] border-[#c8a24a] py-5"
+        className="border-brand-accent-light scroll-mt-[38vh] border-t-[3px] py-5"
       >
         <div className="flex flex-col gap-3">
           <div className="flex flex-col gap-8 py-5">
@@ -160,7 +160,7 @@ export function HistoryBiography() {
 
       <article
         id="international-federation"
-        className="scroll-mt-[38vh] border-t-[3px] border-[#c8a24a] py-[5px]"
+        className="border-brand-accent-light scroll-mt-[38vh] border-t-[3px] py-[5px]"
       >
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-8 py-5">

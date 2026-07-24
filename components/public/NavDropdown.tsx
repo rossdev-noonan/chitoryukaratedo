@@ -105,7 +105,7 @@ export function NavDropdown({ lang, group }: NavDropdownProps) {
                   role="menuitem"
                   href={`/${lang}${item.href}`}
                   onClick={closeMenu}
-                  className="text-foreground/80 hover:bg-muted hover:text-primary after:bg-brand-accent relative block px-4 py-2.5 text-sm after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:transition-transform after:duration-200 hover:after:scale-x-100"
+                  className="text-foreground/80 hover:bg-muted hover:text-primary after:bg-brand-accent-light relative block px-4 py-2.5 text-sm after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:transition-transform after:duration-200 hover:after:scale-x-100"
                 >
                   {item.label}
                 </Link>

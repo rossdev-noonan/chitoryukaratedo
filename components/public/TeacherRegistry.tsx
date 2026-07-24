@@ -115,7 +115,7 @@ function TeacherProfileModal({
           <div className="w-full min-w-0">
             <h2
               id="teacher-profile-title"
-              className="font-heading truncate text-2xl leading-normal font-bold text-[#c8a24a]"
+              className="font-heading text-brand-accent-light truncate text-2xl leading-normal font-bold"
             >
               {teacher.nameNative || displayName}
             </h2>

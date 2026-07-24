@@ -29,7 +29,7 @@ export function HistoryOriginsAndLineage() {
 
           <article
             id="origin-in-china"
-            className="scroll-mt-[38vh] border-t-[3px] border-[#c8a24a] py-[5px]"
+            className="border-brand-accent-light scroll-mt-[38vh] border-t-[3px] py-[5px]"
           >
             <div className="flex flex-col gap-6 py-5">
               <HistorySectionTitle year="c. 1000 CE">
@@ -78,7 +78,7 @@ export function HistoryOriginsAndLineage() {
 
           <article
             id="tang-dynasty"
-            className="scroll-mt-[38vh] border-t-[3px] border-[#c8a24a] py-[5px]"
+            className="border-brand-accent-light scroll-mt-[38vh] border-t-[3px] py-[5px]"
           >
             <div className="flex flex-col gap-8 py-5">
               <HistorySectionTitle year="618-907">{historyTangDynastyHeading}</HistorySectionTitle>

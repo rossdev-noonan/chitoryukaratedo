@@ -66,7 +66,11 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
               KARATE DO FEDERATION
             </span>
 
-            <span className="text-foreground mt-0.5 block whitespace-nowrap text-[8px] font-normal sm:text-[11px] md:text-[9px] xl:text-[10px]">
+            {/* Sized proportionate to the English lines above, matching
+              Gil's Figma ratio (mobile: same size as English; desktop: ~4:3
+              larger — the Japanese line reads small next to full-size
+              English otherwise). */}
+            <span className="text-foreground mt-0.5 block whitespace-nowrap text-[10px] font-normal sm:text-[14px] md:text-[15px] xl:text-[17px]">
               國際千唐流空手道連盟
             </span>
           </span>
@@ -83,7 +87,7 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
               <Link
                 key={entry.href}
                 href={`/${lang}${entry.href}`}
-                className="text-foreground/80 hover:text-primary after:bg-brand-accent relative text-sm font-medium transition-colors after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:transition-transform after:duration-200 hover:after:scale-x-100"
+                className="text-foreground/80 hover:text-primary after:bg-brand-accent-light relative text-sm font-medium transition-colors after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:transition-transform after:duration-200 hover:after:scale-x-100"
               >
                 {entry.label}
               </Link>

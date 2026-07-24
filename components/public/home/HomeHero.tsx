@@ -141,29 +141,34 @@ export function HomeHero({ lang, dictionary }: HomeHeroProps) {
             {/* Zooms out from its own center to full size (no slide-in), while
               spinning continuously and indefinitely from the moment it appears. */}
             <motion.div
-              className="pointer-events-none absolute z-10"
-              style={{
-                left: `${ensoLayer.left}%`,
-                top: `${ensoLayer.top}%`,
-                width: `${ensoLayer.width}%`,
-                height: `${ensoLayer.height}%`,
-              }}
-              initial={initial ?? { opacity: 0, scale: 0.1 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{
-                opacity: { duration: 0.3 },
-                scale: { duration: ENSO_ZOOM_DURATION_S, ease: easeOutExpo },
-              }}
-            >
-              <motion.div
-                className="relative h-full w-full"
-                initial={initial ?? { rotate: ENSO_REST_ROTATION }}
-                animate={{ rotate: ENSO_REST_ROTATION + 360 }}
-                transition={{ duration: ENSO_SPIN_DURATION_S, ease: "linear", repeat: Infinity }}
-              >
-                <Image src="/images/homepage/hero-enso.png" alt="" fill sizes="50vw" />
-              </motion.div>
-            </motion.div>
+  className="pointer-events-none absolute z-10"
+  style={{
+    left: `${ensoLayer.left}%`,
+    top: `${ensoLayer.top}%`,
+    width: `${ensoLayer.width}%`,
+    height: `${ensoLayer.height}%`,
+  }}
+  initial={initial ?? { opacity: 0, scale: 0.1 }}
+  animate={{ opacity: 1, scale: 1 }}
+  transition={{
+    opacity: { duration: 0.3 },
+    scale: { duration: ENSO_ZOOM_DURATION_S, ease: easeOutExpo },
+  }}
+>
+  <div
+    className="relative h-full w-full"
+    style={{
+      transform: `rotate(${ENSO_REST_ROTATION}deg)`,
+    }}
+  >
+    <Image
+      src="/images/homepage/hero-enso.png"
+      alt=""
+      fill
+      sizes="50vw"
+    />
+  </div>
+</motion.div>
 
             <AnimatePresence mode="wait">
               <motion.div

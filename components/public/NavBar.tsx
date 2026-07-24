@@ -19,55 +19,61 @@ interface NavBarProps {
 export function NavBar({ lang, dictionary }: NavBarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openMobileGroup, setOpenMobileGroup] = useState<string | null>(null);
+
   const navGroups = getPrimaryNavGroups(dictionary);
 
   useEffect(() => {
     if (!isMenuOpen) return;
+
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setIsMenuOpen(false);
+      if (event.key === "Escape") {
+        setIsMenuOpen(false);
+      }
     };
+
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, [isMenuOpen]);
 
   return (
     <header className="border-border bg-background sticky top-0 z-40 border-b">
-      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:h-20 sm:px-6 md:justify-start md:px-8 xl:justify-between xl:px-0">
-        <Link href={`/${lang}`} className="flex items-center gap-2 sm:gap-3">
-          <span className="relative block h-[31px] w-[38px] shrink-0 sm:h-[57px] sm:w-[70px]">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:h-24 sm:px-6 md:justify-start md:px-8 xl:justify-between xl:px-0">
+        <Link
+          href={`/${lang}`}
+          className="flex shrink-0 items-center gap-3"
+          aria-label="International Chito Ryu Karate Do Federation"
+        >
+          <span className="relative block h-[40px] w-[48px] shrink-0 sm:h-[72px] sm:w-[88px]">
             <Image
               src="/brand/chito-ryu-logo.svg"
               alt="Chito-Ryu International"
               fill
-              sizes="(max-width: 639px) 38px, 70px"
-              loading="eager"
+              sizes="(max-width: 639px) 48px, 88px"
+              priority
               className="object-contain"
             />
           </span>
-          <span className="font-heading flex flex-col items-start text-left leading-tight">
-            <span className="text-foreground block text-sm font-bold sm:text-base md:text-sm xl:text-xs">
-              国際千唐流空手道連盟
-            </span>
-            <span className="text-foreground block text-[10px] font-semibold sm:hidden">
+
+          <span className="flex min-w-0 flex-col items-start text-left font-sans leading-tight">
+            <span className="text-foreground block whitespace-nowrap text-[10px] font-semibold tracking-[0.02em] sm:text-[14px] md:text-[11px] xl:text-[13px]">
               INTERNATIONAL CHITO RYU
             </span>
-            <span className="text-foreground block text-[10px] font-semibold sm:hidden">
+
+            <span className="text-foreground block whitespace-nowrap text-[10px] font-semibold tracking-[0.02em] sm:text-[14px] md:text-[11px] xl:text-[13px]">
               KARATE DO FEDERATION
             </span>
-            <span className="text-foreground hidden text-[10px] font-semibold uppercase sm:block sm:text-sm md:hidden">
-              INTERNATIONAL CHITO RYU
-            </span>
-            <span className="text-foreground hidden text-[6px] tracking-[0.84px] uppercase sm:block sm:text-[10px] sm:tracking-[0.2px] md:hidden">
-              KARATE DO FEDERATION
-            </span>
-            <span className="text-foreground hidden text-[10px] font-semibold md:block xl:text-sm">
-              INTERNATIONAL CHITO RYU KARATE DO FEDERATION
+
+            <span className="text-foreground mt-0.5 block whitespace-nowrap text-[8px] font-normal sm:text-[11px] md:text-[9px] xl:text-[10px]">
+              國際千唐流空手道連盟
             </span>
           </span>
         </Link>
 
         <nav
-          className="hidden items-center gap-3 md:ml-[68px] md:flex xl:ml-0 xl:gap-6 md:[&>*:nth-child(3)]:hidden xl:[&>*:nth-child(3)]:flex"
+          className="hidden items-center gap-3 md:ml-[48px] md:flex xl:ml-0 xl:gap-6 md:[&>*:nth-child(3)]:hidden xl:[&>*:nth-child(3)]:flex"
           aria-label="Primary"
         >
           {navGroups.map((entry) =>
@@ -105,9 +111,16 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
             aria-controls="mobile-nav"
             onClick={() => setIsMenuOpen((open) => !open)}
           >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
+
             <span className="sr-only">
-              {isMenuOpen ? dictionary.nav.closeMenu : dictionary.nav.openMenu}
+              {isMenuOpen
+                ? dictionary.nav.closeMenu
+                : dictionary.nav.openMenu}
             </span>
           </button>
         </div>
@@ -121,22 +134,29 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
         >
           {navGroups.map((entry) =>
             entry.type === "group" ? (
-              <div key={entry.label} className="border-border/60 border-b py-1 last:border-b-0">
+              <div
+                key={entry.label}
+                className="border-border/60 border-b py-1 last:border-b-0"
+              >
                 <button
                   type="button"
                   onClick={() =>
-                    setOpenMobileGroup((open) => (open === entry.label ? null : entry.label))
+                    setOpenMobileGroup((open) =>
+                      open === entry.label ? null : entry.label,
+                    )
                   }
                   aria-expanded={openMobileGroup === entry.label}
                   className="text-foreground/80 flex w-full items-center justify-between py-2 text-sm font-medium"
                 >
                   {entry.label}
+
                   <ChevronDown
                     className={`h-4 w-4 transition-transform ${
                       openMobileGroup === entry.label ? "rotate-180" : ""
                     }`}
                   />
                 </button>
+
                 {openMobileGroup === entry.label && (
                   <div className="flex flex-col gap-1 pb-2 pl-4">
                     {entry.children.map((item) => (
@@ -163,6 +183,7 @@ export function NavBar({ lang, dictionary }: NavBarProps) {
               </Link>
             ),
           )}
+
           <Link
             href={`/${lang}/login`}
             className="bg-primary-dark text-primary-foreground hover:bg-primary mt-2 px-6 py-3 text-center text-sm font-bold transition-colors"

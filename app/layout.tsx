@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Inter, Noto_Serif_JP } from "next/font/google";
+import { Cormorant_Garamond, Geist_Mono, Inter, Noto_Serif_JP } from "next/font/google";
 import "./globals.css";
 
 import { AuthRedirectGuard } from "@/components/AuthRedirectGuard";
@@ -19,6 +19,15 @@ const notoSerifJp = Noto_Serif_JP({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+// Editorial serif used only for the News page's desktop headline per Figma
+// (731:1105 / 723:4498) — mobile reverts to the standard font-heading
+// (Noto Serif JP), so this stays a scoped utility, not the site default.
+const cormorantGaramond = Cormorant_Garamond({
+  variable: "--font-cormorant-garamond",
+  subsets: ["latin"],
+  weight: ["500"],
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://chitoryukaratedo.com";
@@ -41,7 +50,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${notoSerifJp.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${notoSerifJp.variable} ${geistMono.variable} ${cormorantGaramond.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <JsonLd

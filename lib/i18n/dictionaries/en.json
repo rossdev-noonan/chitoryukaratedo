@@ -36,7 +36,7 @@
     "heroTitleLine2": "the World.",
     "heroDescription": "Chito Ryu Karate-Do is one of the oldest styles of karate, founded in Okinawa and brought to the world through dedication, discipline and respect.",
     "heroSlide2Title1": "One Official Home for",
-    "heroSlide2Title2": "Chito-Ryu Worldwide",
+    "heroSlide2Title2": "Chito Ryu Worldwide",
     "heroSlide2Description": "Connecting dojos, instructors, and practitioners through tradition, excellence, and a shared global community.",
     "aboutChitoRyu": "About Chito Ryu",
     "joinCommunity": "Join the Community",
@@ -65,7 +65,7 @@
     "newsCards": [
       {
         "category": "Event",
-        "title": "15th Chito-Ryu Karate Soke Cup",
+        "title": "15th Chito Ryu Karate Soke Cup",
         "detail": "Aug 13 - Aug 15, 2026 · Gold Coast, Australia"
       },
       {
@@ -121,10 +121,10 @@
         "description": "Recognized worldwide."
       }
     ],
-    "philosophyLabel": "The Way of Chito-Ryu",
+    "philosophyLabel": "The Way of Chito Ryu",
     "philosophyHeadingLine1": "More than Karate.",
     "philosophyHeadingLine2": "A Way of Life.",
-    "philosophyDescription": "Chito-Ryu emphasizes self-discipline, physical fitness, mental strength, and respect for others. Its training is for everyone—regardless of age, gender, or ability.",
+    "philosophyDescription": "Chito Ryu emphasizes self-discipline, physical fitness, mental strength, and respect for others. Its training is for everyone—regardless of age, gender, or ability.",
     "philosophyCta": "Learn More About Our Philosophy",
     "eventsLabel": "events",
     "upcomingEventsHeading": "Upcoming Events",
@@ -132,7 +132,7 @@
     "viewEventDetails": "View Event Details",
     "upcomingEvents": [
       {
-        "title": "15th Chito-Ryu Karate Soke Cup",
+        "title": "15th Chito Ryu Karate Soke Cup",
         "location": "Gold Coast, Australia"
       },
       {
@@ -159,6 +159,6 @@
     ],
     "affiliationsLabel": "AFFILIATIONS",
     "memberCountriesHeading": "ICKF Member Countries",
-    "memberCountriesDescription": "Officially representing National Chito-Ryu Associations across the world."
+    "memberCountriesDescription": "Officially representing National Chito Ryu Associations across the world."
   }
 }

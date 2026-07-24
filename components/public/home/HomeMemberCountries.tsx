@@ -1,6 +1,7 @@
 import { CountryFlag } from "@/components/public/CountryFlag";
 import { SectionEyebrow } from "@/components/public/home/SectionEyebrow";
-import { FEATURED_DIRECTORY_COUNTRIES, type FeaturedCountry } from "@/lib/countries-featured";
+import { ICKF_MEMBER_COUNTRIES } from "@/lib/countries-ickf-members";
+import type { FeaturedCountry } from "@/lib/countries-featured";
 import type { Dictionary } from "@/lib/i18n/types";
 
 interface HomeMemberCountriesProps {
@@ -8,7 +9,7 @@ interface HomeMemberCountriesProps {
 }
 
 // Alphabetical, matching Gil's Figma — distinct from the dojo-count map order.
-const ALPHABETICAL_COUNTRIES = [...FEATURED_DIRECTORY_COUNTRIES].sort((a, b) =>
+const ALPHABETICAL_COUNTRIES = [...ICKF_MEMBER_COUNTRIES].sort((a, b) =>
   a.name.localeCompare(b.name),
 );
 

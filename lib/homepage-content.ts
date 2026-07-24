@@ -14,7 +14,7 @@ export interface HomeNewsCard {
 export const homeNewsCards: HomeNewsCard[] = [
   {
     category: "Event",
-    title: "15th Chito-Ryu Karate Soke Cup",
+    title: "15th Chito Ryu Karate Soke Cup",
     detail: "Aug 13 - Aug 15, 2026 · Gold Coast, Australia",
     imageSrc: "/images/homepage/news-soke-cup.jpeg",
     href: "/events",

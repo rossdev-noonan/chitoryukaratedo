@@ -27,6 +27,7 @@ export function SubmitEventForm({
   return (
     <form
       action={formAction}
+      encType="multipart/form-data"
       className="border-border mt-3 flex max-w-md flex-col gap-3 border p-4"
     >
       <label className="flex flex-col gap-1 text-sm">
@@ -77,20 +78,23 @@ export function SubmitEventForm({
         <input name="addressLine2" className="border-border border px-3 py-2" />
       </label>
       <label className="flex flex-col gap-1 text-sm">
-        Poster image path — desktop (optional)
+        Poster image — desktop (optional, only shown if this becomes the featured event) — JPG,
+        PNG, or WEBP, max 5MB
         <input
+          type="file"
           name="posterDesktop"
-          placeholder="/images/events/my-poster.png"
-          className="border-border border px-3 py-2"
+          accept="image/jpeg,image/png,image/webp"
+          className="text-sm"
         />
-        <span className="text-muted-foreground text-xs">
-          Path to an image already placed in the site&apos;s public folder — there is no upload UI
-          yet.
-        </span>
       </label>
       <label className="flex flex-col gap-1 text-sm">
-        Poster image path — mobile (optional)
-        <input name="posterMobile" className="border-border border px-3 py-2" />
+        Poster image — mobile (optional)
+        <input
+          type="file"
+          name="posterMobile"
+          accept="image/jpeg,image/png,image/webp"
+          className="text-sm"
+        />
       </label>
       <label className="flex items-center gap-2 text-sm">
         <input type="checkbox" name="showOnMobile" defaultChecked />
@@ -130,7 +134,7 @@ export function SubmitEventForm({
         disabled={pending}
         className="border-border border px-4 py-2 text-sm disabled:opacity-50"
       >
-        {pending ? "Submitting…" : "Submit for approval"}
+        {pending ? "Uploading…" : "Submit for approval"}
       </button>
     </form>
   );

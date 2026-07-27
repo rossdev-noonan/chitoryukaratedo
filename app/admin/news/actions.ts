@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 import { getCurrentUser } from "@/lib/auth";
+import { uploadImage, validateImage } from "@/lib/news-event-images";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 const submitNewsSchema = z.object({
@@ -17,8 +18,6 @@ const submitNewsSchema = z.object({
   subtitle: z.string().max(200).optional(),
   description: z.string().max(2000).optional(),
   publishedAt: z.string().min(1),
-  imageDesktop: z.string().min(1).max(500),
-  imageMobile: z.string().max(500).optional(),
   showOnMobile: z.boolean(),
   countryId: z.string().uuid().optional().or(z.literal("")),
 });
@@ -47,8 +46,6 @@ export async function submitNewsAction(
     subtitle: formData.get("subtitle") || undefined,
     description: formData.get("description") || undefined,
     publishedAt: formData.get("publishedAt"),
-    imageDesktop: formData.get("imageDesktop"),
-    imageMobile: formData.get("imageMobile") || undefined,
     showOnMobile: formData.get("showOnMobile") === "on",
     countryId: formData.get("countryId") || undefined,
   });
@@ -56,6 +53,13 @@ export async function submitNewsAction(
   if (!parsed.success) {
     return { error: parsed.error.issues[0]?.message ?? "Invalid submission.", success: false };
   }
+
+  const desktopFile = formData.get("imageDesktop");
+  const mobileFile = formData.get("imageMobile");
+  const desktopError = validateImage(desktopFile, true);
+  if (desktopError) return { error: desktopError, success: false };
+  const mobileError = validateImage(mobileFile, false);
+  if (mobileError) return { error: mobileError, success: false };
 
   const supabase = await createSupabaseServerClient();
   const countryId = parsed.data.countryId || null;
@@ -78,6 +82,16 @@ export async function submitNewsAction(
     }
   }
 
+  const desktopUpload = await uploadImage(supabase, currentUser.id, desktopFile as File);
+  if (desktopUpload.error) return { error: desktopUpload.error, success: false };
+
+  let mobileImageUrl: string | null = null;
+  if (mobileFile instanceof File && mobileFile.size > 0) {
+    const mobileUpload = await uploadImage(supabase, currentUser.id, mobileFile);
+    if (mobileUpload.error) return { error: mobileUpload.error, success: false };
+    mobileImageUrl = mobileUpload.url;
+  }
+
   const { error } = await supabase.from("approvals").insert({
     entity_type: "news_post",
     action: "create",
@@ -88,8 +102,8 @@ export async function submitNewsAction(
       subtitle: parsed.data.subtitle ?? null,
       description: parsed.data.description ?? null,
       published_at: parsed.data.publishedAt,
-      image_desktop: parsed.data.imageDesktop,
-      image_mobile: parsed.data.imageMobile ?? null,
+      image_desktop: desktopUpload.url,
+      image_mobile: mobileImageUrl,
       show_on_mobile: parsed.data.showOnMobile,
       country_id: countryId,
       status: "pending",

@@ -86,8 +86,26 @@ architecture:
       (2) locale detection/redirect for everything else: cookie (NEXT_LOCALE, sticky) > geo (x-vercel-ip-country / cf-ipcountry headers) > Accept-Language > default 'en'.
 
   content_ownership_split:
-    supabase_owns: "countries, dojos, teachers, users/roles, approvals queue, rank_evidence, audit_logs — all admin-editable via /admin/* with real RLS + Server Action role checks"
-    sanity_owns_intended: "generic marketing page bodies (page schema), newsPost, event — schema exists, wired to public query layer, but DATASET IS EMPTY (see current_phase). No locale support in schema yet."
+    supabase_owns: >
+      countries, dojos, teachers, users/roles, approvals queue, rank_evidence,
+      audit_logs, and — as of 2026-07-27 — news_posts and events too. News/Events
+      moved OFF the Sanity plan entirely: Sohonbu/Country/Dojo Admin submit
+      through the same approvals-queue pattern as dojos/teachers (migration
+      0010_news_events.sql). Country/Dojo Admin submissions are scoped to
+      their own country; only Sohonbu Admin can leave it blank for a
+      federation-wide item. Seeded with the exact content already on /news
+      and /events. Known simplification: no image upload UI yet (submissions
+      reference a path that must already exist in the public folder), and
+      "featured" isn't submitter-controlled yet (stays as seeded until
+      changed directly in Supabase).
+    sanity_owns_intended: >
+      Sanity's newsPost/event schema types are now DEAD — nothing reads or
+      writes them (lib/sanity/content.ts is unused, kept only as it's
+      harmless). Sanity's remaining intended scope is just generic marketing
+      page bodies (page schema) for About/History/Leadership/Resources —
+      schema exists, dataset still EMPTY, no locale support. See
+      open_decisions.sanity-content-scope, whose scope is now narrower than
+      when it was first asked (no longer needs to cover News/Events).
     hardcoded_in_code: >
       Homepage sections (hero copy, trust bar stats, philosophy text, CTA banner, origins accordion)
       live in lib/homepage-content.ts + lib/i18n/dictionaries/*.json. NOT in Sanity or Supabase.
@@ -418,10 +436,24 @@ known_gaps:
     severity: low
 
   - category: cms
-    description: "Sanity dataset is empty — see current_phase.findings_this_session. No News/Events/Page content has ever been authored."
+    description: >
+      Sanity dataset is empty — still true, but no longer blocks News/Events
+      (moved to Supabase 2026-07-27, see content_ownership_split). Now only
+      blocks page-body content for About/History/Leadership/Resources and
+      Adrian's SEO self-service workflow.
     owner: "Adrian, once schema/locale decision is made"
-    severity: high
-    blocks: "Real News/Events content going live; Adrian's SEO self-service workflow"
+    severity: medium
+    blocks: "Page body content for static marketing pages; Adrian's SEO self-service workflow"
+
+  - category: code_quality
+    description: "lib/sanity/content.ts (getNewsPosts/getNewsPostBySlug/getEvents/getEventBySlug) is now fully unused — News/Events moved to Supabase 2026-07-27. Harmless, same treatment as the other known-unused Sanity helpers."
+    owner: "cleanup whenever convenient, not urgent"
+    severity: low
+
+  - category: feature
+    description: "News/Events admin submission has no image upload UI — a path to an already-placed public-folder image must be typed manually. No way to mark an item 'featured' from the form either (only via direct Supabase edit)."
+    owner: "future pass, not urgent — flagged at build time 2026-07-27"
+    severity: low
 
   - category: nav
     description: "'Community' nav dropdown label was Gil's naming choice, not deeply validated. Sohonbu Experience page exists but is unlinked from nav (Ross's decision)."
@@ -436,10 +468,13 @@ open_decisions:
 future_phases:
   - name: "Sanity content architecture (blocked on open_decisions.sanity-content-scope)"
     scope: >
-      Once Ross picks option A or B: expand/rebuild Sanity schema
-      accordingly, add locale support if option B, seed real content,
-      wire homepage components to Sanity with graceful-empty fallback,
-      hand Adrian a clear content-entry checklist per page/locale.
+      Narrower than originally scoped — News/Events no longer need Sanity at
+      all (moved to Supabase 2026-07-27). Remaining scope: once Ross picks
+      option A or B for the static marketing pages
+      (About/History/Leadership/Resources) and optionally the homepage:
+      expand/rebuild Sanity schema accordingly, add locale support if
+      option B, seed real content, hand Adrian a clear content-entry
+      checklist per page/locale.
 
   - name: "Admin/backend dashboard visual design"
     scope: >

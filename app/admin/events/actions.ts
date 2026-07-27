@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 import { getCurrentUser } from "@/lib/auth";
+import { uploadImage, validateImage } from "@/lib/news-event-images";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 const submitEventSchema = z.object({
@@ -19,8 +20,6 @@ const submitEventSchema = z.object({
   endDate: z.string().optional(),
   addressLine1: z.string().max(300).optional(),
   addressLine2: z.string().max(300).optional(),
-  posterDesktop: z.string().max(500).optional(),
-  posterMobile: z.string().max(500).optional(),
   showOnMobile: z.boolean(),
   countryId: z.string().uuid().optional().or(z.literal("")),
 });
@@ -51,8 +50,6 @@ export async function submitEventAction(
     endDate: formData.get("endDate") || undefined,
     addressLine1: formData.get("addressLine1") || undefined,
     addressLine2: formData.get("addressLine2") || undefined,
-    posterDesktop: formData.get("posterDesktop") || undefined,
-    posterMobile: formData.get("posterMobile") || undefined,
     showOnMobile: formData.get("showOnMobile") === "on",
     countryId: formData.get("countryId") || undefined,
   });
@@ -60,6 +57,13 @@ export async function submitEventAction(
   if (!parsed.success) {
     return { error: parsed.error.issues[0]?.message ?? "Invalid submission.", success: false };
   }
+
+  const posterDesktopFile = formData.get("posterDesktop");
+  const posterMobileFile = formData.get("posterMobile");
+  const desktopError = validateImage(posterDesktopFile, false);
+  if (desktopError) return { error: desktopError, success: false };
+  const mobileError = validateImage(posterMobileFile, false);
+  if (mobileError) return { error: mobileError, success: false };
 
   const supabase = await createSupabaseServerClient();
   const countryId = parsed.data.countryId || null;
@@ -82,6 +86,20 @@ export async function submitEventAction(
     }
   }
 
+  let posterDesktopUrl: string | null = null;
+  if (posterDesktopFile instanceof File && posterDesktopFile.size > 0) {
+    const upload = await uploadImage(supabase, currentUser.id, posterDesktopFile);
+    if (upload.error) return { error: upload.error, success: false };
+    posterDesktopUrl = upload.url;
+  }
+
+  let posterMobileUrl: string | null = null;
+  if (posterMobileFile instanceof File && posterMobileFile.size > 0) {
+    const upload = await uploadImage(supabase, currentUser.id, posterMobileFile);
+    if (upload.error) return { error: upload.error, success: false };
+    posterMobileUrl = upload.url;
+  }
+
   const tags = parsed.data.tags
     .split(",")
     .map((tag) => tag.trim())
@@ -99,8 +117,8 @@ export async function submitEventAction(
       end_date: parsed.data.endDate ?? null,
       address_line1: parsed.data.addressLine1 ?? null,
       address_line2: parsed.data.addressLine2 ?? null,
-      poster_desktop: parsed.data.posterDesktop ?? null,
-      poster_mobile: parsed.data.posterMobile ?? null,
+      poster_desktop: posterDesktopUrl,
+      poster_mobile: posterMobileUrl,
       show_on_mobile: parsed.data.showOnMobile,
       country_id: countryId,
       status: "pending",

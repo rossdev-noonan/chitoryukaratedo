@@ -29,6 +29,7 @@ export function SubmitNewsForm({
   return (
     <form
       action={formAction}
+      encType="multipart/form-data"
       className="border-border mt-3 flex max-w-md flex-col gap-3 border p-4"
     >
       <label className="flex flex-col gap-1 text-sm">
@@ -76,21 +77,18 @@ export function SubmitNewsForm({
         />
       </label>
       <label className="flex flex-col gap-1 text-sm">
-        Image path (desktop)
+        Image (desktop) — JPG, PNG, or WEBP, max 5MB
         <input
+          type="file"
           name="imageDesktop"
           required
-          placeholder="/images/news/my-image.png"
-          className="border-border border px-3 py-2"
+          accept="image/jpeg,image/png,image/webp"
+          className="text-sm"
         />
-        <span className="text-muted-foreground text-xs">
-          Path to an image already placed in the site&apos;s public folder — there is no upload UI
-          yet.
-        </span>
       </label>
       <label className="flex flex-col gap-1 text-sm">
-        Image path (mobile, optional)
-        <input name="imageMobile" className="border-border border px-3 py-2" />
+        Image (mobile, optional)
+        <input type="file" name="imageMobile" accept="image/jpeg,image/png,image/webp" className="text-sm" />
       </label>
       <label className="flex items-center gap-2 text-sm">
         <input type="checkbox" name="showOnMobile" defaultChecked />
@@ -130,7 +128,7 @@ export function SubmitNewsForm({
         disabled={pending}
         className="border-border border px-4 py-2 text-sm disabled:opacity-50"
       >
-        {pending ? "Submitting…" : "Submit for approval"}
+        {pending ? "Uploading…" : "Submit for approval"}
       </button>
     </form>
   );

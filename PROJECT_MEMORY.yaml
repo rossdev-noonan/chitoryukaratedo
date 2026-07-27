@@ -14,7 +14,7 @@ meta:
     Single source of truth for project state, meant to survive a transition
     to a different coding agent or human developer. Read this file in full
     before making any architectural changes.
-  last_updated: "2026-07-15"
+  last_updated: "2026-07-27"
   maintained_by: "Claude Code sessions, updated per session/phase"
   companion_docs:
     - path: chito-ryu-build-procedure-codex-claude.md
@@ -317,6 +317,29 @@ current_phase:
     - "Existing Sanity schema (page/newsPost/event) has NO locale/i18n support at all — a blocker for any real content entry given the site is 9-locale."
     - "Public /news and /events pages already query Sanity (not Supabase) and currently render empty lists against the live empty dataset — not broken, just no content yet."
     - "Homepage sections (hero, trust bar, philosophy, CTA) are hardcoded in code/dictionaries, not connected to any CMS."
+  audit_2026_07_27: >
+    Re-checked live (curl against Sanity's public query API, no auth needed):
+    dataset still has 0 newsPost / 0 event / 0 page documents, unchanged
+    since the 2026-07-15 finding above — 12 days, no drift.
+    NEW SINCE 2026-07-15: on 2026-07-24 the /news and /events LIST pages
+    (app/[lang]/(public)/news/page.tsx, events/page.tsx) were rebuilt from
+    Figma and switched from live Sanity queries to hardcoded content
+    (lib/news-content.ts, lib/events-content.ts) — a deliberate, disclosed
+    decision at the time (see project_phase_log.md 2026-07-24 entries),
+    consistent with how the homepage already works. BUT the DETAIL pages
+    (news/[slug]/page.tsx, events/[slug]/page.tsx) were never updated to
+    match — they still call getNewsPostBySlug/getEventBySlug against
+    Sanity (lib/sanity/content.ts). Since the new list-page cards link back
+    to the list page itself (not to /news/[slug] or /events/[slug]), no
+    user-facing link is currently broken, but the detail routes are now
+    orphaned dead code that would 404 for any real slug and can never
+    resolve anything the hardcoded list content has, until either (a) the
+    Sanity content-scope decision below is answered and detail pages get
+    real Sanity data, or (b) detail pages are rewired to read the same
+    lib/*-content.ts files as the list pages (matching the homepage
+    precedent). Not fixed yet — flagged for Ross's call, not a silent fix,
+    since it touches the same open architecture decision as the rest of
+    this section.
   blocking_question_awaiting_ross:
     question: >
       Two options for how Sanity should own homepage/page content — asked
@@ -417,6 +440,16 @@ future_phases:
       accordingly, add locale support if option B, seed real content,
       wire homepage components to Sanity with graceful-empty fallback,
       hand Adrian a clear content-entry checklist per page/locale.
+
+  - name: "Admin/backend dashboard visual design"
+    scope: >
+      No comps have ever existed for any admin screen — every screen is
+      still the bare Phase 2 scaffold (plain borders, no color, no icons).
+      Full screen-by-screen brief sent to Gil 2026-07-27 (see
+      handover-to-gil.md Section 10): 6 reusable components needed
+      (sidebar nav item, data table, status badge, stat card, empty state,
+      form field), proof pass on Dashboard + Approvals first. Awaiting
+      Gil's comps.
 
   - name: "Dojo Finder section full build"
     scope: >

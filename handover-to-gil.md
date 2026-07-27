@@ -99,7 +99,7 @@ Do your own brainstorm/critique pass on this before building — the above is a 
 | **Country page**                                 | Branches on `has_own_federation_site`. See `wireframes.html` "Country Page" tab — toggle between both modes.     | Don't let the "linked out" mode feel like an empty/lesser page — frame it as "this country's federation" with full presence, just without a hosted grid.                                                                                                                       |
 | **Teacher Registry / Detail**                    | Japanese name + Romaji is co-equal, not a secondary caption.                                                     | Test your type pairing here first — it's the highest-frequency CJK/Latin pairing on the site.                                                                                                                                                                                  |
 | **News / Events**                                | Straightforward editorial list/detail — no need to over-design.                                                  | Sanity-driven, standard pattern.                                                                                                                                                                                                                                               |
-| **Admin screens**                                | Plain, clear, low-personality. Status labels (pending/approved/rejected) must be unambiguous at a glance.        | This is a workflow tool for Sohonbu/country/dojo admins, not a showcase — prioritize clarity over brand expression here.                                                                                                                                                       |
+| **Admin screens**                                | Plain, clear, low-personality. Status labels (pending/approved/rejected) must be unambiguous at a glance.        | This is a workflow tool for Sohonbu/country/dojo admins, not a showcase — prioritize clarity over brand expression here. **Full screen-by-screen brief added 27 July 2026 — see Section 10.**                                                                                       |
 | **Resources (Soke Cup, Bogu Kumite, downloads)** | Documentation-style, calm, easy to scan for rules/forms.                                                         |                                                                                                                                                                                                                                                                                |
 
 ---
@@ -170,8 +170,61 @@ Real schema, as built. If a comp needs a field not listed here, flag it — addi
 | **Country** | name, slug, has_own_federation_site, federation_site_url, federation_name, representative | — |
 | **Dojo** | name, slug, city, head_instructor, contact_email, country | phone number, street address, description, photo |
 | **Teacher** | name (native + kana + romaji), rank, dojo, country, photo (**storage bucket exists, no upload UI built yet** — safe to design a photo treatment for teacher cards/detail now, the backend is ready) | bio/description text, certifications list beyond rank |
-| **News/Events** | Not yet real — Sanity (the CMS) hasn't actually been provisioned yet (empty project, not just unconfigured). Home's News & Events cards currently use hardcoded placeholder content matching your file. Design these as normal Sanity-driven content; they'll get wired to live data once Sanity is set up. |
+| **News/Events** | Sanity (the CMS) is live and connected, but its dataset is completely empty — zero articles/events have ever been entered (re-confirmed live 27 July 2026). The News/Events pages you designed are built and shipped using hardcoded content matching your file exactly, same pattern as the homepage. Real Sanity wiring is still an open decision (see build memory), not urgent for your comps — design these as regular editorial content, the data source underneath is a build-side decision. |
 
 **Icon library:** `lucide-react` — a large, consistent icon set, but it does **not** include brand icons (Facebook/Instagram/YouTube aren't in it). Those got hand-built as inline SVGs for the footer. If your comps use other brand/social icons, flag them — same treatment needed.
 
 **Fonts already locked in:** `Noto Serif JP` (display/headings) + `Inter` (body/UI), loaded via `next/font/google`. If a future page's comp wants a different pairing, raise it early — changing the font-loading setup is a small technical change but a real visual-identity decision, better made deliberately than by drift across pages.
+
+---
+
+## 10. Backend / Admin Dashboard — full brief (added 27 July 2026)
+
+**Status right now: every screen below is fully functional — real logins, real permissions, real data — but has zero visual design.** It's still the bare Phase 2 scaffold: plain borders, default text sizes, no color, no icons, no depth. No comps have ever been made for any admin screen; the one-line note in Section 4 was a placeholder intention, not a spec. This section is that spec, covering the whole panel in one pass instead of screen-by-screen requests.
+
+**Ask, in one line:** make it lean, clean, and professional — an internal tool that looks like the organization takes its own operations seriously, without borrowing the public site's ceremonial red/gold styling wholesale.
+
+### Who uses this and why it shapes the design
+
+- Internal federation staff only, never seen by the public: Sohonbu Admins (full access), Country Admins, Dojo Admins, Teachers — each progressively more restricted in what they can see/do.
+- It's a working tool, not a marketing surface. The original brief's "low-personality, plain, clear" instinct was right — but plain shouldn't read as unfinished. The goal is quiet competence, not decoration.
+- People will use this daily to review submissions, manage users, and track changes. Scanning speed and unambiguous status matter more than any visual flourish.
+
+### Every screen, what it actually does today
+
+1. **Dashboard** (`/admin`) — 3 overview stat numbers (pending approvals, approved this week, active admins) + a recent-activity feed (audit log excerpt: action, table, record id, timestamp).
+2. **Dojos** (`/admin/dojos`) — read-only list of all dojos with status.
+3. **Teachers** (`/admin/teachers`) — read-only list of all teachers with status.
+4. **Approvals** (`/admin/approvals`) — the core workflow screen and the one used most. A table: type of change, record name, submitted-by, status badge (pending/approved/rejected), Approve/Reject buttons on pending rows only.
+5. **Rank Evidence** (`/admin/rank-evidence`) — a submission form plus an approve/reject list for private grading-evidence files (signed-URL downloads — sensitive, needs to look distinctly "internal/private," never public-facing).
+6. **News** (`/admin/news`) / **Events** (`/admin/events`) — placeholder only right now, no real content management built yet. Don't spend comp time here beyond a simple matching placeholder state.
+7. **Resources** (`/admin/resources`) — same, placeholder only.
+8. **Users** (`/admin/users`) — table of every account (name/email/role) with per-row edit/delete, plus a full "invite a new admin" form below it (a role picker that reveals a country/dojo/teacher selector depending on the role chosen).
+9. **Settings** (`/admin/settings`) — placeholder only.
+10. **Login / accept-invite / reset-password** — the entry screens before anyone reaches the sidebar layout at all; currently bare forms.
+
+Shared across every screen: a left sidebar listing the 10 links above (plain text today, no icons, no active-page indicator), a top bar showing the signed-in user's email + role plus a logout link, and one `StatusBadge` component (pending/approved/rejected) reused everywhere a status appears.
+
+### What needs a decision or new asset from you
+
+- **Sidebar** — needs real icons per item, a clear active/current-page indicator, and a judgment call on whether 10 flat links should group (e.g. *Directory*: Dojos/Teachers · *Content*: News/Events/Resources · *People*: Users · *System*: Settings) — same kind of call as the public nav grouping, happy to take your read on whether it helps here or just adds a click for a smaller, expert audience.
+- **Status badges** — currently just an outlined text label, no color. These need real, consistent color coding (e.g. amber = pending, green = approved, muted/red = rejected) — scanning a queue by color is the entire point of a status column, and it's not doing that job yet.
+- **Data tables** — every list screen (Dojos, Teachers, Approvals, Users) reuses the same bare HTML table. One well-designed table pattern (row hover, column alignment, comfortable row height, optional zebra striping) upgrades all four screens at once rather than needing four separate designs.
+- **Overview cards** (Dashboard) — currently 3 plain bordered boxes with a number. Room for real hierarchy (larger number, a small icon or label treatment) without turning decorative.
+- **Empty states** — "No submissions yet" / "No activity logged yet" are just gray text in a box right now. Worth a small amount of intentional design so they read as "correctly empty," not "broken."
+- **Forms** (invite admin, submit dojo/teacher, submit rank evidence) — plain stacked label/input pairs today. One clean, consistent form pattern (field spacing, button placement, validation-error style) reused across all of them.
+
+### Suggested direction (a starting point, not a mandate)
+
+A "quiet operations tool" register: a neutral background — white or a very light warm gray, intentionally more neutral/utilitarian than the public site's washi/paper tone, so it doesn't read as trying to be the marketing site. One accent color reserved strictly for primary actions and status meaning (the seal-red could work sparingly here for "needs attention" states). Generous but not excessive whitespace. Tabular/monospaced figures for numbers, IDs, and dates so columns actually align. Icons from one consistent set — `lucide-react` is already a dependency, and unlike the public site (where we sourced bespoke assets per section), a consistent generic icon set is the *right* call here, not a shortcut: this is a workflow tool, not a brand showcase, and consistency reads as more professional than bespoke icons would.
+
+### Out of scope for this pass
+
+- News/Events/Resources/Settings have no real functionality yet — a simple placeholder state is enough, don't design data-heavy layouts for pages that don't exist as working features.
+- This is a visual/UX pass over screens that already work end-to-end — not a request to redesign the approval workflow, permissions model, or add new functionality.
+
+### What to deliver back
+
+1. One reusable component set covering every current screen: sidebar nav item (with active state), data table (header/row/hover), status badge (3 states), overview stat card, empty state, form field. Six components, whole panel covered.
+2. Applied once to the Dashboard and Approvals screens (the two used daily) as a proof pass before the rest follows the same system.
+3. Flag anything your comp assumes that isn't in this brief — filters, search, bulk actions, country/dojo counts, etc. aren't built yet; say so rather than assuming they exist.

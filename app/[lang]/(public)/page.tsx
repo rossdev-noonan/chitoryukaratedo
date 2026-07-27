@@ -8,7 +8,6 @@ import { HomeMemberCountries } from "@/components/public/home/HomeMemberCountrie
 import { HomeNewsEvents } from "@/components/public/home/HomeNewsEvents";
 import { HomeOrigins } from "@/components/public/home/HomeOrigins";
 import { HomePhilosophy } from "@/components/public/home/HomePhilosophy";
-import { HomeUpcomingEvents } from "@/components/public/home/HomeUpcomingEvents";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import type { Locale } from "@/lib/i18n/locales";
 
@@ -32,7 +31,10 @@ export default async function HomePage({ params }: HomePageProps) {
       <HomeMemberCountries dictionary={dictionary} />
       <HomeFeatureBar dictionary={dictionary} />
       <HomePhilosophy lang={lang} dictionary={dictionary} />
-      <HomeUpcomingEvents lang={lang} dictionary={dictionary} />
+      {/* Hidden 2026-07-27 per Ross — was re-enabled 2026-07-24 following
+          Figma evidence, but per this instruction it should stay off. If
+          re-enabling again, re-import HomeUpcomingEvents and confirm with
+          Ross first this time rather than going by Figma alone. */}
       <div className="flex flex-col">
         <div className="order-1 md:hidden lg:order-1 lg:block">
           <HomeOrigins lang={lang} dictionary={dictionary} />

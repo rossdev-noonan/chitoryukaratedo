@@ -3,23 +3,17 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
 
+import { establishSessionFromLink } from "@/lib/auth/session-from-link";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 const EXPIRED_LINK_MESSAGE = "This reset link is invalid or has expired. Request a new one below.";
 
-// Same protection as AcceptInviteForm: only trust a session that came from a
-// genuine, error-free recovery token in the URL. Never trust "a session
-// happens to exist" on its own — a browser tab already signed in as someone
-// else must never be able to have its password silently changed by a dead
-// or missing link.
-//
-// Supabase can deliver the token two ways depending on the project's auth
-// flow: the older implicit flow puts it in the URL hash (#access_token=...),
-// while @supabase/ssr defaults to PKCE, which puts a one-time code in the
-// query string (?code=...) instead. The client auto-exchanges that code for
-// a session on load (detectSessionInUrl), but only if we don't block it here
-// by only recognizing the hash format.
-function hasValidRecoveryToken(hash: string, search: string): boolean {
+// Purely decides which of the two forms to render (request-a-link vs
+// set-a-new-password) — a simple "does the URL look like a recovery link"
+// check, safe to read synchronously. This is NOT what grants permission to
+// actually change a password; see the explicit exchange in the effect below
+// for that.
+function looksLikeRecoveryLink(hash: string, search: string): boolean {
   if (hash) {
     const hashParams = new URLSearchParams(hash.replace(/^#/, ""));
     if (hashParams.has("access_token") && !hashParams.has("error")) return true;
@@ -44,7 +38,7 @@ export function ResetPasswordForm() {
   // free way to read browser-only state on first render.
   const hasToken = useSyncExternalStore(
     subscribeNoop,
-    () => hasValidRecoveryToken(window.location.hash, window.location.search),
+    () => looksLikeRecoveryLink(window.location.hash, window.location.search),
     () => false,
   );
 
@@ -59,15 +53,19 @@ export function ResetPasswordForm() {
   const [sessionError, setSessionError] = useState<string | null>(null);
   const [confirmPending, setConfirmPending] = useState(false);
 
+  // Deliberately never calls plain getSession() here — a browser tab already
+  // signed in as someone else must never have its password silently changed
+  // by a dead or missing link. Explicitly exchanging the link's own
+  // token/code ties "ready" to THIS link succeeding, never to "some session
+  // happens to exist" (which could just be the ambient one from before the
+  // link was ever clicked).
   useEffect(() => {
     if (!hasToken) return;
 
     const supabase = createSupabaseBrowserClient();
-    supabase.auth.getSession().then(({ data }) => {
-      setReady(!!data.session);
-      if (!data.session) {
-        setSessionError(EXPIRED_LINK_MESSAGE);
-      }
+    establishSessionFromLink(supabase, window.location.hash, window.location.search).then((ok) => {
+      setReady(ok);
+      if (!ok) setSessionError(EXPIRED_LINK_MESSAGE);
     });
   }, [hasToken]);
 

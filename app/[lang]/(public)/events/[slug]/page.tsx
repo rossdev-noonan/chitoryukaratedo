@@ -3,10 +3,9 @@ import { notFound } from "next/navigation";
 
 import { JsonLd } from "@/components/public/JsonLd";
 import { PageHeader } from "@/components/public/PageHeader";
-import { PlaceholderNotice } from "@/components/public/PlaceholderNotice";
 import { localeAlternates } from "@/lib/i18n/alternates";
 import type { Locale } from "@/lib/i18n/locales";
-import { getEventBySlug } from "@/lib/sanity/content";
+import { getEventBySlug } from "@/lib/events";
 
 interface EventDetailPageProps {
   params: Promise<{ lang: Locale; slug: string }>;
@@ -37,7 +36,6 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
   return (
     <>
       <PageHeader title={event.title} description={subtitle || undefined} />
-      <PlaceholderNotice source="Sanity" />
       <JsonLd
         data={{
           "@context": "https://schema.org",

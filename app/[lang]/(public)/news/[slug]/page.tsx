@@ -3,10 +3,9 @@ import { notFound } from "next/navigation";
 
 import { JsonLd } from "@/components/public/JsonLd";
 import { PageHeader } from "@/components/public/PageHeader";
-import { PlaceholderNotice } from "@/components/public/PlaceholderNotice";
 import { localeAlternates } from "@/lib/i18n/alternates";
 import type { Locale } from "@/lib/i18n/locales";
-import { getNewsPostBySlug } from "@/lib/sanity/content";
+import { getNewsPostBySlug } from "@/lib/news";
 
 interface NewsDetailPageProps {
   params: Promise<{ lang: Locale; slug: string }>;
@@ -33,7 +32,6 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
   return (
     <>
       <PageHeader title={post.title} description={post.publishedAt} />
-      <PlaceholderNotice source="Sanity" />
       <JsonLd
         data={{
           "@context": "https://schema.org",

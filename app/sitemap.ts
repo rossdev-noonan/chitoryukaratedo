@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
 
 import { getCountries, getDojosByCountryId, getTeachers } from "@/lib/directory";
+import { getAllPublicEventSlugs } from "@/lib/events";
 import { locales } from "@/lib/i18n/locales";
-import { getEvents, getNewsPosts } from "@/lib/sanity/content";
+import { getAllPublicNewsSlugs } from "@/lib/news";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://chitoryukaratedo.com";
 
@@ -44,8 +45,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [countries, teachers, newsPosts, events] = await Promise.all([
     getCountries(),
     getTeachers(),
-    getNewsPosts(),
-    getEvents(),
+    getAllPublicNewsSlugs(),
+    getAllPublicEventSlugs(),
   ]);
 
   const dojoLists = await Promise.all(

@@ -5,6 +5,11 @@ import { EventsFilters } from "@/components/public/events/EventsFilters";
 import { EventsHero } from "@/components/public/events/EventsHero";
 import { EventsUpcoming } from "@/components/public/events/EventsUpcoming";
 import { GlobalCommunityCTA } from "@/components/public/GlobalCommunityCTA";
+import {
+  getEventsMonthOptions,
+  getPublicFeaturedEvent,
+  getPublicUpcomingEvents,
+} from "@/lib/events";
 import type { Locale } from "@/lib/i18n/locales";
 
 export const metadata: Metadata = {
@@ -18,13 +23,23 @@ interface EventsPageProps {
 
 export default async function EventsPage({ params }: EventsPageProps) {
   const { lang } = await params;
+  const [featuredEvent, upcomingEvents] = await Promise.all([
+    getPublicFeaturedEvent(),
+    getPublicUpcomingEvents(),
+  ]);
+  const monthOptions = getEventsMonthOptions(upcomingEvents);
 
   return (
     <>
       <EventsHero />
       <EventsFilters />
-      <EventsFeatured lang={lang} />
-      <EventsUpcoming lang={lang} />
+      {featuredEvent && <EventsFeatured lang={lang} event={featuredEvent} />}
+      <EventsUpcoming
+        lang={lang}
+        events={upcomingEvents}
+        monthsDesktop={monthOptions}
+        monthsMobile={monthOptions}
+      />
       <div className="mt-4 xl:mt-8">
         <GlobalCommunityCTA lang={lang} />
       </div>

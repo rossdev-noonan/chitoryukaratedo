@@ -4,12 +4,7 @@ import { ArrowRight, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import {
-  eventsMonthsDesktop,
-  eventsMonthsMobile,
-  eventsUpcoming,
-  type EventsMonthOption,
-} from "@/lib/events-content";
+import type { EventsMonthOption, EventsUpcomingEvent } from "@/lib/events-content";
 import type { Locale } from "@/lib/i18n/locales";
 
 function EventCard({
@@ -90,11 +85,18 @@ function useMonthScrollSpy(months: EventsMonthOption[]) {
   return { activeId, jumpTo };
 }
 
-export function EventsUpcoming({ lang }: { lang: Locale }) {
-  const desktopSpy = useMonthScrollSpy(eventsMonthsDesktop);
-  const mobileSpy = useMonthScrollSpy(eventsMonthsMobile);
+interface EventsUpcomingProps {
+  lang: Locale;
+  events: EventsUpcomingEvent[];
+  monthsDesktop: EventsMonthOption[];
+  monthsMobile: EventsMonthOption[];
+}
 
-  const mobileEvents = eventsUpcoming.filter((event) => event.showOnMobile);
+export function EventsUpcoming({ lang, events, monthsDesktop, monthsMobile }: EventsUpcomingProps) {
+  const desktopSpy = useMonthScrollSpy(monthsDesktop);
+  const mobileSpy = useMonthScrollSpy(monthsMobile);
+
+  const mobileEvents = events.filter((event) => event.showOnMobile);
   const seenMobileGroups = new Set<string>();
 
   return (
@@ -121,7 +123,7 @@ export function EventsUpcoming({ lang }: { lang: Locale }) {
               Jump to month
             </p>
             <div className="mt-2 flex flex-wrap gap-1.5">
-              {eventsMonthsMobile.map((month) => {
+              {monthsMobile.map((month) => {
                 const isActive = mobileSpy.activeId === month.id;
                 return (
                   <button
@@ -168,7 +170,7 @@ export function EventsUpcoming({ lang }: { lang: Locale }) {
               Jump to month
             </p>
             <div className="flex flex-col gap-3">
-              {eventsMonthsDesktop.map((month) => {
+              {monthsDesktop.map((month) => {
                 const isActive = desktopSpy.activeId === month.id;
                 return (
                   <button
@@ -189,10 +191,8 @@ export function EventsUpcoming({ lang }: { lang: Locale }) {
           </div>
 
           <div className="flex flex-1 flex-col gap-8 py-5">
-            {eventsMonthsDesktop.map((month) => {
-              const monthEvents = eventsUpcoming.filter(
-                (event) => event.monthGroupId === month.id,
-              );
+            {monthsDesktop.map((month) => {
+              const monthEvents = events.filter((event) => event.monthGroupId === month.id);
               if (monthEvents.length === 0) return null;
               return (
                 <div key={month.id} id={month.id} className="flex flex-col gap-3">

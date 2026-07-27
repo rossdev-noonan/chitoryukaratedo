@@ -10,6 +10,8 @@ const TABLE_BY_ENTITY: Record<string, string> = {
   dojo: "dojos",
   teacher: "teachers",
   rank_evidence: "rank_evidence",
+  news_post: "news_posts",
+  event: "events",
 };
 
 export async function reviewApprovalAction(
@@ -69,6 +71,8 @@ export async function reviewApprovalAction(
   revalidatePath("/admin");
   revalidatePath("/dojo-directory");
   revalidatePath("/teachers");
+  revalidatePath("/news");
+  revalidatePath("/events");
 
   return { error: null };
 }

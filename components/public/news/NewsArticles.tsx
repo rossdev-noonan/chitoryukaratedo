@@ -2,10 +2,10 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { newsArticles } from "@/lib/news-content";
 import type { Locale } from "@/lib/i18n/locales";
+import type { NewsArticle } from "@/lib/news-content";
 
-function ArticleCard({ article, lang }: { article: (typeof newsArticles)[number]; lang: Locale }) {
+function ArticleCard({ article, lang }: { article: NewsArticle; lang: Locale }) {
   return (
     <Link
       href={`/${lang}/news`}
@@ -48,8 +48,8 @@ function ArticleCard({ article, lang }: { article: (typeof newsArticles)[number]
   );
 }
 
-export function NewsArticles({ lang }: { lang: Locale }) {
-  const mobileArticles = newsArticles.filter((article) => article.showOnMobile);
+export function NewsArticles({ lang, articles }: { lang: Locale; articles: NewsArticle[] }) {
+  const mobileArticles = articles.filter((article) => article.showOnMobile);
 
   return (
     <section className="bg-background">
@@ -75,7 +75,7 @@ export function NewsArticles({ lang }: { lang: Locale }) {
         </div>
 
         <div className="mt-6 hidden xl:flex xl:flex-wrap xl:gap-x-[50px] xl:gap-y-12">
-          {newsArticles.map((article) => (
+          {articles.map((article) => (
             <ArticleCard key={article.slug} article={article} lang={lang} />
           ))}
         </div>

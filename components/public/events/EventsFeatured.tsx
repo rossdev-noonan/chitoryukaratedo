@@ -3,12 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { MapPinSolid } from "@/components/public/icons/MapPinSolid";
-import { eventsFeaturedEvent } from "@/lib/events-content";
+import type { EventsFeaturedEvent } from "@/lib/events-content";
 import type { Locale } from "@/lib/i18n/locales";
 
-export function EventsFeatured({ lang }: { lang: Locale }) {
-  const event = eventsFeaturedEvent;
-
+export function EventsFeatured({ lang, event }: { lang: Locale; event: EventsFeaturedEvent }) {
   return (
     <section className="bg-background">
       <div className="mx-auto w-full max-w-[1440px] px-4 pt-4 pb-6 sm:px-6 md:px-10 xl:px-[190px] xl:pt-4 xl:pb-4">

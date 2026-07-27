@@ -1,6 +1,6 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
-export type ApprovalEntity = "country" | "dojo" | "teacher" | "rank_evidence";
+export type ApprovalEntity = "country" | "dojo" | "teacher" | "rank_evidence" | "news_post" | "event";
 export type ApprovalAction = "create" | "update" | "delete";
 export type ApprovalStatus = "pending" | "approved" | "rejected";
 

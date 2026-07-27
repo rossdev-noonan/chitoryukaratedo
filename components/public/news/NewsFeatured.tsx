@@ -1,12 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { newsFeaturedStory } from "@/lib/news-content";
 import type { Locale } from "@/lib/i18n/locales";
+import type { NewsFeaturedStory } from "@/lib/news-content";
 
-export function NewsFeatured({ lang }: { lang: Locale }) {
-  const story = newsFeaturedStory;
-
+export function NewsFeatured({ lang, story }: { lang: Locale; story: NewsFeaturedStory }) {
   return (
     <section className="bg-background">
       <div className="mx-auto w-full max-w-[1440px] px-4 pt-4 pb-6 sm:px-6 md:px-10 xl:px-[190px] xl:pt-6 xl:pb-6">

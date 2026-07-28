@@ -13,12 +13,13 @@ import type { Locale } from "@/lib/i18n/locales";
 const POPULAR_COUNTRY_SLUGS = [
   "australia",
   "canada",
+  "germany",
   "ireland",
   "japan",
   "norway",
+  "scotland",
   "switzerland",
   "usa",
-  "germany",
 ];
 const POPULAR_COUNTRIES = POPULAR_COUNTRY_SLUGS.map((slug) =>
   FEATURED_DIRECTORY_COUNTRIES.find((country) => country.slug === slug),

@@ -16,7 +16,7 @@ const POPULAR_COUNTRY_SLUGS = [
   "ireland",
   "japan",
   "norway",
-  "scotland",
+  "switzerland",
   "usa",
   "germany",
 ];
@@ -41,6 +41,7 @@ const MAP_PINS = [
   { left: "78%", top: "37%" },
   { left: "81%", top: "70%" },
 ];
+
 
 export const metadata: Metadata = {
   title: "World Dojo Directory",
@@ -215,7 +216,7 @@ export default async function DojoDirectoryPage({ params, searchParams }: DojoDi
             <span className="text-sm text-[#8e8e93]">Popular countries</span>
             <div className="flex w-full flex-wrap items-center gap-2">
               {POPULAR_COUNTRIES.filter((country) =>
-                ["japan", "usa", "canada", "australia", "scotland", "ireland"].includes(
+                ["japan", "usa", "canada", "australia", "switzerland", "ireland"].includes(
                   country.slug,
                 ),
               ).map((country) => (

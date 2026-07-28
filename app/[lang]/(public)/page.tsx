@@ -5,7 +5,6 @@ import { HomeDojoFinder } from "@/components/public/home/HomeDojoFinder";
 import { HomeFeatureBar } from "@/components/public/home/HomeFeatureBar";
 import { HomeHero } from "@/components/public/home/HomeHero";
 import { HomeMemberCountries } from "@/components/public/home/HomeMemberCountries";
-import { HomeNewsEvents } from "@/components/public/home/HomeNewsEvents";
 import { HomeOrigins } from "@/components/public/home/HomeOrigins";
 import { HomePhilosophy } from "@/components/public/home/HomePhilosophy";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
@@ -39,9 +38,11 @@ export default async function HomePage({ params }: HomePageProps) {
         <div className="order-1 md:hidden lg:order-1 lg:block">
           <HomeOrigins lang={lang} dictionary={dictionary} />
         </div>
-        <div className="order-2 md:order-2 lg:order-2">
-          <HomeNewsEvents lang={lang} dictionary={dictionary} />
-        </div>
+        {/* Hidden 2026-07-27 per Ross — "News & Events / Latest Updates"
+            section, same request as the Featured/Upcoming Events section
+            above. If re-enabling, re-import HomeNewsEvents and confirm
+            with Ross/Manos first, since events-on-the-homepage is the
+            specific thing that caused the escalation today. */}
         <div className="order-3 md:order-1 lg:order-3">
           <HomeCTA lang={lang} dictionary={dictionary} />
         </div>

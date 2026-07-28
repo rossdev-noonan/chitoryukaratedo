@@ -22,6 +22,7 @@ export const ICKF_MEMBER_COUNTRIES: FeaturedCountry[] = [
   { slug: "ireland", name: "Ireland", flagSrc: "/images/flags/ireland.png" },
   { slug: "japan", name: "Japan", flagSrc: "/images/flags/japan.png" },
   { slug: "norway", name: "Norway", flagSrc: "/images/flags/norway.png" },
+  { slug: "scotland", name: "Scotland", flagSrc: "/images/flags/scotland.png" },
   { slug: "switzerland", name: "Switzerland", flagSrc: "/images/flags/switzerland.png" },
   { slug: "usa", name: "United States", flagSrc: "/images/flags/usa.png" },
 ];

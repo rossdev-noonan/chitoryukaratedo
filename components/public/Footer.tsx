@@ -24,7 +24,7 @@ export function Footer({ lang, dictionary }: FooterProps) {
 
   const resourceLinks = [
     { href: "/resources/downloads", label: dictionary.footer.downloads },
-    { href: "/resources", label: dictionary.footer.examinations },
+    { href: "/resources/examinations", label: dictionary.footer.examinations },
     { href: "/resources", label: dictionary.footer.technicalDocuments },
     { href: "/resources", label: dictionary.footer.rulesAndGuidelines },
   ];

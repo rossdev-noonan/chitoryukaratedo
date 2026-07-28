@@ -1,21 +1,28 @@
 import type { Metadata } from "next";
 
-import { PageHeader } from "@/components/public/PageHeader";
-import { PlaceholderNotice } from "@/components/public/PlaceholderNotice";
+import { DownloadsBrowser } from "@/components/public/DownloadsBrowser";
+import { GlobalCommunityCTA } from "@/components/public/GlobalCommunityCTA";
+import { getDownloadDocuments } from "@/lib/downloads";
+import type { Locale } from "@/lib/i18n/locales";
 
 export const metadata: Metadata = {
   title: "Downloads",
-  description: "Forms and documents for download.",
+  description:
+    "Grading syllabi, technical guidelines, membership forms, and official federation documents.",
 };
 
-export default function DownloadsPage() {
+interface DownloadsPageProps {
+  params: Promise<{ lang: Locale }>;
+}
+
+export default async function DownloadsPage({ params }: DownloadsPageProps) {
+  const [{ lang }, documents] = await Promise.all([params, getDownloadDocuments()]);
+
   return (
     <>
-      <PageHeader
-        title="Downloads"
-        description="Copy pending — this page is owned by Sanity and will be authored by the content team."
-      />
-      <PlaceholderNotice source="Sanity" />
+      <DownloadsBrowser lang={lang} documents={documents} />
+      <GlobalCommunityCTA lang={lang} />
+      <div className="h-16 xl:h-20" aria-hidden />
     </>
   );
 }

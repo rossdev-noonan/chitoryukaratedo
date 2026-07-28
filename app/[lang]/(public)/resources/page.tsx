@@ -14,6 +14,7 @@ const resourceLinks = [
   { href: "/resources/soke-cup-rules", label: "Soke Cup Rules" },
   { href: "/resources/bogu-kumite", label: "Bogu Kumite" },
   { href: "/resources/downloads", label: "Downloads" },
+  { href: "/resources/examinations", label: "Examinations" },
 ];
 
 interface ResourcesPageProps {

@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import type { EventsMonthOption, EventsUpcomingEvent } from "@/lib/events-content";
 import type { Locale } from "@/lib/i18n/locales";
 
-function EventCard({
+export function EventCard({
   month,
   day,
   title,

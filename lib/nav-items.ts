@@ -47,7 +47,7 @@ export function getPrimaryNavGroups(dictionary: Dictionary): NavEntry[] {
       label: dictionary.nav.resources,
       children: [
         { href: "/resources/downloads", label: dictionary.footer.downloads },
-        { href: "/resources", label: dictionary.footer.examinations },
+        { href: "/resources/examinations", label: dictionary.footer.examinations },
         { href: "/resources", label: dictionary.footer.technicalDocuments },
         { href: "/resources", label: dictionary.footer.rulesAndGuidelines },
       ],

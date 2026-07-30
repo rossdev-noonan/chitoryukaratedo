@@ -1,6 +1,7 @@
 export interface Dictionary {
   nav: {
     about: string;
+    aboutMenu: string; 
     history: string;
     leadership: string;
     dojoDirectory: string;

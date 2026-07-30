@@ -21,7 +21,7 @@ export function getPrimaryNavGroups(dictionary: Dictionary): NavEntry[] {
       type: "group",
       label: dictionary.nav.about,
       children: [
-        { href: "/about", label: dictionary.nav.about },
+        { href: "/about", label: dictionary.nav.aboutMenu },
         { href: "/history", label: dictionary.nav.history },
         { href: "/leadership", label: dictionary.nav.leadership },
       ],

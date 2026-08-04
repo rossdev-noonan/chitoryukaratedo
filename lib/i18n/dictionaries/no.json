@@ -31,7 +31,9 @@
     "copyright": "© {year} International Chito-Ryu Karate-Do Federation. Med enerett.",
     "privacy": "Personvern",
     "terms": "Vilkår",
-    "admin": "Admin"
+    "admin": "Admin",
+    "shop": "Butikk",
+    "dojoOwners": "Dojoeiere"
   },
   "home": {
     "heroTitleLine1": "Bevarer tradisjon.",

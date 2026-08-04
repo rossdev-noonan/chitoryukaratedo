@@ -31,7 +31,9 @@
     "copyright": "© {year} International Chito-Ryu Karate-Do Federation. Hak cipta terpelihara.",
     "privacy": "Dasar Privasi",
     "terms": "Terma",
-    "admin": "Pentadbir"
+    "admin": "Pentadbir",
+    "shop": "Kedai",
+    "dojoOwners": "Pemilik Dojo"
   },
   "home": {
     "heroTitleLine1": "Memelihara Tradisi.",

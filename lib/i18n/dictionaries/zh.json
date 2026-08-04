@@ -31,7 +31,9 @@
     "copyright": "© {year} 国际千唐流空手道联盟。版权所有。",
     "privacy": "隐私政策",
     "terms": "使用条款",
-    "admin": "管理员"
+    "admin": "管理员",
+    "shop": "商店",
+    "dojoOwners": "道场拥有者"
   },
   "home": {
     "heroTitleLine1": "传承传统，",

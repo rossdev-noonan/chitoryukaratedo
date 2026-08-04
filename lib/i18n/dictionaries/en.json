@@ -31,7 +31,9 @@
     "copyright": "© {year} International Chito-Ryu Karate-Do Federation. All rights reserved.",
     "privacy": "Privacy",
     "terms": "Terms",
-    "admin": "Admin"
+    "admin": "Admin",
+    "shop": "Shop",
+    "dojoOwners": "Dojo Owners"
   },
   "home": {
     "heroTitleLine1": "Preserving Tradition.",

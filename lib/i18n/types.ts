@@ -9,6 +9,8 @@ export interface Dictionary {
     news: string;
     events: string;
     resources: string;
+    shop: string,
+    dojoOwners: string,
     contact: string;
     community: string;
     newsEventsGroup: string;
@@ -30,6 +32,8 @@ export interface Dictionary {
     privacy: string;
     terms: string;
     admin: string;
+    shop: string,
+    dojoOwners: string,
   };
   home: {
     heroTitleLine1: string;

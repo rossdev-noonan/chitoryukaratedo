@@ -50,6 +50,8 @@ export function getPrimaryNavGroups(dictionary: Dictionary): NavEntry[] {
         { href: "/resources/examinations", label: dictionary.footer.examinations },
         { href: "/resources", label: dictionary.footer.technicalDocuments },
         { href: "/resources", label: dictionary.footer.rulesAndGuidelines },
+        { href: "/", label: dictionary.footer.shop },
+        { href: "/", label: dictionary.footer.dojoOwners },
       ],
     },
     { type: "link", href: "/contact", label: dictionary.nav.contact },
